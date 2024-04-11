@@ -1,0 +1,95 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!687078895 &4343727234628468602
+SpriteAtlas:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Game
+  serializedVersion: 2
+  m_EditorData:
+    serializedVersion: 2
+    textureSettings:
+      serializedVersion: 2
+      anisoLevel: 1
+      compressionQuality: 50
+      maxTextureSize: 2048
+      textureCompression: 0
+      filterMode: 1
+      generateMipMaps: 0
+      readable: 0
+      crunchedCompression: 0
+      sRGB: 1
+    platformSettings: []
+    packingSettings:
+      serializedVersion: 2
+      padding: 8
+      blockOffset: 1
+      allowAlphaSplitting: 0
+      enableRotation: 0
+      enableTightPacking: 0
+      enableAlphaDilation: 0
+    secondaryTextureSettings: {}
+    transparentPlaceholder: 0
+    variantMultiplier: 1
+    packables:
+    - {fileID: 102900000, guid: 14d19e1bdcf723f4684e7330df1a7963, type: 3}
+    bindAsDefault: 1
+    isAtlasV2: 0
+    cachedData: {fileID: 0}
+  m_MasterAtlas: {fileID: 0}
+  m_PackedSprites:
+  - {fileID: 21300000, guid: 6cc5ff00ca22e24478db58b9a4eecf87, type: 3}
+  - {fileID: 21300000, guid: b22aea40dd231e1408d40a70676db30f, type: 3}
+  - {fileID: 21300000, guid: f96393a184c24784fb03f94fff44f3f6, type: 3}
+  - {fileID: 21300000, guid: aa18c892dfcf928449ae25baa81f8442, type: 3}
+  - {fileID: 21300000, guid: c08891a23721f5d49aac017a4f9deb51, type: 3}
+  - {fileID: 21300000, guid: fd14edf2feea4dc4dac38a4541e8e256, type: 3}
+  - {fileID: 21300000, guid: 6d926c23a743f124196ad06a696dfead, type: 3}
+  - {fileID: 21300000, guid: 77ea0d2302756f946a4f0bb965b3fb35, type: 3}
+  - {fileID: 21300000, guid: a5a41133d9925bf48803cb43b149ed4f, type: 3}
+  - {fileID: 21300000, guid: 4b393883dae1e34429e12a3c6befe212, type: 3}
+  - {fileID: 21300000, guid: 63812af45f25a2a48bbf3349456d4878, type: 3}
+  - {fileID: 21300000, guid: 43a9641549c11af4c8378cfc03c3323b, type: 3}
+  - {fileID: 21300000, guid: a5b3cb15ad3da654596ee2b975361c2b, type: 3}
+  - {fileID: 21300000, guid: 9da55fc6e619eba438019a4d216ffd5b, type: 3}
+  - {fileID: 21300000, guid: a6e51797376b975498f121c4f48bff70, type: 3}
+  - {fileID: 21300000, guid: 85a5d1d9e84a17245920d74312ef9689, type: 3}
+  - {fileID: 21300000, guid: a3e243e966db59041b58c5f0750e94e4, type: 3}
+  - {fileID: 21300000, guid: 1a23d44ac05fed44596c0036dd54d868, type: 3}
+  - {fileID: 21300000, guid: 8719516b3f43711459db3bd587a46153, type: 3}
+  - {fileID: 21300000, guid: 022d929c7e601d5448158d4f8e26c4f6, type: 3}
+  - {fileID: 21300000, guid: 13c2739c7f8b9444d8eea80c953689d7, type: 3}
+  - {fileID: 21300000, guid: 91de57edffd13094b83346514a3f6b31, type: 3}
+  - {fileID: 21300000, guid: 2cd6075eae14cb84b971380ba4d9d5bf, type: 3}
+  - {fileID: 21300000, guid: 721cea9ee9f09d541a1e53a8394825a5, type: 3}
+  m_PackedSpriteNamesToIndex:
+  - Game_btn_return
+  - Game_Btnconfirm
+  - Game_text_score_max
+  - Game_BtnCancel
+  - Game_bubble
+  - Game_BtnSet
+  - Game_black_frame
+  - Game_text_stage_2
+  - Game_BtnRefresh
+  - Universal_text_score
+  - Game_upgrade_title_upgrade
+  - Game_ball_list_frame
+  - Game_relics_bubble
+  - Game_btn_restart
+  - Game_upgrade_title_complex
+  - Game_score_bar
+  - Game_text_stage_1
+  - Game_btn_buy
+  - Game_ball_seat_frame
+  - Game_text_score
+  - Game_btn_orange
+  - Game_score_bar_bg
+  - Game_ball_item
+  - Game_ball_seat_item
+  m_RenderDataMap: {}
+  m_Tag: Game
+  m_IsVariant: 0
+  m_IsPlaceholder: 0

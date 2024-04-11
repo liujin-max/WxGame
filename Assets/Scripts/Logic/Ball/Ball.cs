@@ -1,0 +1,268 @@
+using System.Collections;
+using System.Collections.Generic;
+using TMPro;
+using Unity.VisualScripting;
+using UnityEngine;
+
+namespace CB
+{
+    public class Ball : MonoBehaviour
+    {
+        protected Rigidbody2D c_rigidbody;
+        private SpriteRenderer c_sprite;
+        private Collider2D c_collision;
+
+
+        #region ==========  属性  ==========
+        protected _C.BALLTYPE m_Type;
+        public _C.BALLTYPE Type{ get {return m_Type;}}
+        public string Name { 
+            get {
+                var config = CONFIG.GetBallData(m_Type);
+                return config.Name ;
+            }
+        }
+
+        protected int m_Level = 1;
+        public int Level{ get {return m_Level;}}
+
+        protected bool m_GroundValid = true;   //触发正常回收
+        public bool IsGroundValid{ get {return m_GroundValid; }}
+
+        private bool m_DeadFlag = false;
+        public AttributeValue m_Demage = new AttributeValue(1);
+
+
+        private Vector3 m_LastPos;
+        private Vector2 m_LastVelocity;
+        public Vector2 LastVelocity{ get {return m_LastVelocity;}}
+
+        public int SortingOrder{set {c_sprite.sortingOrder = value; }}
+        //速度
+        public Vector2 Velocity
+        {
+            get {
+                return c_rigidbody.velocity; 
+            }
+
+            set { 
+                c_rigidbody.velocity = value; 
+            }
+        }
+
+        //准备就位
+        public bool IsIdle
+        {
+            get {return gameObject.layer == (int)_C.LAYER.BALLIDLE;}
+        }
+        
+        public bool IsRecycle
+        {
+            get {return gameObject.layer == (int)_C.LAYER.BALLRECYCLE;}
+        }
+
+        //滚动方向
+        public float RunningDirection
+        {
+            get {return transform.localPosition.x - m_LastPos.x;}
+        }
+
+        #endregion  ==========  属性  ==========
+
+
+
+        void Awake()
+        {
+            c_rigidbody     = this.GetComponent<Rigidbody2D>();
+            c_sprite        = transform.GetComponent<SpriteRenderer>();
+            c_collision     = transform.GetComponent<Collider2D>();
+            if (c_collision == null) {
+                Debug.LogError(this.m_Type);
+            }
+
+            m_LastPos       = transform.localPosition;
+            m_LastVelocity  = c_rigidbody.velocity;
+
+
+            this.SetState((int)_C.LAYER.BALLIDLE);
+        }
+
+        public virtual void Init(_C.BALLTYPE type)
+        {
+            m_Type = type;
+
+            this.UpgradeTo(1);
+        }
+
+        void LateUpdate()
+        {
+            m_LastPos       = transform.localPosition;
+            m_LastVelocity  = c_rigidbody.velocity;
+
+            //保险机制
+            if (m_LastPos.y <= -100) {
+                this.Dead();
+            }
+        }
+
+        public void SetState(int state)
+        {
+            gameObject.layer = state;
+        }
+
+        public int GetState()
+        {
+            return gameObject.layer;
+        }
+
+        public virtual void Recyle()
+        {
+            if (this.IsRecycle == true) return;
+
+            this.SetState((int)_C.LAYER.BALLRECYCLE);
+
+            GameFacade.Instance.EventManager.SendEvent(new GameEvent(EVENT.ONBALLRECYCLE, this));
+        }
+
+        public bool IsDead()
+        {
+            return m_DeadFlag;
+        }
+
+        public void Dead()
+        {
+            m_DeadFlag = true;
+        }
+
+        public virtual void UpgradeTo(int level)
+        {
+            m_Level     = level;
+            m_Demage.SetBase(level);
+        }
+
+        public void Show(bool flag)
+        {
+            gameObject.SetActive(flag);
+        }
+
+        public void Simulate(bool flag)
+        {
+            c_rigidbody.simulated = flag;
+        }
+
+        //发射
+        public virtual void Shoot(Vector3 pos)
+        {
+            //发射前取消小球和炮台的碰撞
+            Physics2D.IgnoreCollision(c_collision, GameFacade.Instance.Game.c_borad, true);
+
+            this.SetState((int)_C.LAYER.BALLACTING);
+
+            //放回原始位置
+            c_rigidbody.SetRotation(0);
+            c_rigidbody.transform.localPosition = _C.BALL_SHOOT_POS;
+            c_rigidbody.velocity = Vector2.zero;
+
+            Vector2 force = pos - _C.BALL_SHOOT_POS;
+            Vector2 normal= Vector3.Normalize(force);
+            Vector2 vec     = normal * 700;
+
+            c_rigidbody.AddForce(vec);
+
+            GameFacade.Instance.EventManager.SendEvent(new GameEvent(EVENT.ONBALLSHOOT, this));
+        }
+
+        //碰撞
+        public void Crash(Vector2 force)
+        {
+            this.SetState((int)_C.LAYER.BALLACTING);
+
+            c_rigidbody.velocity = force;
+
+            GameFacade.Instance.EventManager.SendEvent(new GameEvent(EVENT.ONBALLSHOOT, this));
+        }
+
+        protected bool OnHitGhost(Collision2D collision)
+        {
+            Ghost ghost = collision.gameObject.GetComponent<Ghost>();
+            if (ghost != null) {
+                ghost.OnHit(this);
+                ghost.OnShake();
+
+                if (ghost.IsDead() == true) {
+                    GameFacade.Instance.SoundManager.Load(SOUND.HITGHOST);
+                }
+                else {
+                    GameFacade.Instance.SoundManager.Load(SOUND.HIT);
+                }
+
+                return true;
+            }
+
+            return false;
+        }
+
+        protected bool OnHitObstable(Collision2D collision)
+        {
+            Obstacle obt = collision.gameObject.GetComponent<Obstacle>();
+            if (obt != null) {
+                GameFacade.Instance.EventManager.SendEvent(new GameEvent(EVENT.ONBALLHITBEFORE, this, obt, collision));
+
+                obt.OnHit(this, (int)m_Demage.ToNumber());
+                obt.OnShake();
+
+                if (obt.IsDead() == true) {
+                    GameFacade.Instance.SoundManager.Load(SOUND.DROP);
+                } else {
+                    GameFacade.Instance.SoundManager.Load(SOUND.HIT);
+                }
+
+                GameFacade.Instance.EventManager.SendEvent(new GameEvent(EVENT.ONBALLHITAFTER, this, obt, collision));
+
+                return true;
+            }
+            return false;
+        }
+
+        protected void CancelIgnoreCollision()
+        {
+            //碰撞后取消无视
+            Physics2D.IgnoreCollision(c_collision, GameFacade.Instance.Game.c_borad, false);
+        }
+
+
+        //碰撞逻辑
+        public virtual void OnCollisionEnter2D(Collision2D collision)
+        {
+            this.CancelIgnoreCollision();
+            this.OnHitGhost(collision);
+            this.OnHitObstable(collision);
+        }
+
+        public virtual void OnCollisionStay2D(Collision2D collision)
+        {
+            if (collision.gameObject.GetComponent<Ghost>() != null || collision.gameObject.GetComponent<Obstacle>() != null)
+            {
+                Vector2 direction = Quaternion.Euler(0, 0, RandomUtility.Random(0, 360)) * Vector2.right;
+                this.Crash(direction * 20);
+            }  
+        }
+
+        public virtual void OnCollisionExit2D(Collision2D collision)
+        {
+
+        }
+
+
+        public virtual string GetDescription()
+        {
+            return "平平无奇的弹珠";
+        }
+
+        public virtual void Dispose()
+        {
+            Destroy(gameObject);
+        }
+    }
+
+}
