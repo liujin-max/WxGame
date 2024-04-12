@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace CB
 {
-    //追踪 碰撞障碍物后奔向除碰撞体外 全场血量最高的障碍物
+    //穿透 有一定的概率穿透宝石，每穿透1个宝石，伤害提高#倍
     public class BallThrough : Ball
     {
         private int m_Count;    //可追踪次数
@@ -28,7 +28,7 @@ namespace CB
 
         public override string GetDescription()
         {
-            var str = string.Format("下<size=32><#43A600>{0}</color></size>次击中宝石后朝场上的<sprite=0>飞去", m_Count);
+            var str = string.Format("穿透宝石", m_Count);
 
             return str;
         }
@@ -42,29 +42,11 @@ namespace CB
             this.OnHitGhost(collision);
             bool flag = this.OnHitObstable(collision);
 
-            if (m_Current <= 0)
-            {
-                return;
-            }
+
 
             //碰撞的对象是宝石
             if (flag == true) {
-                if (GameFacade.Instance.Game.Ghosts.Count == 0) {
-                    return;
-                }
-
-                Ghost ghost = GameFacade.Instance.Game.Ghosts[0];
-                if (ghost != null) {
-                    this.Velocity = Vector2.zero;
-
-                    Vector2 force = ghost.transform.localPosition - transform.localPosition;
-                    Vector2 normal= Vector3.Normalize(force);
-                    Vector2 vec     = normal * 850;
-
-                    c_rigidbody.AddForce(vec);
-
-                    m_Current --;
-                }
+                // Physics2D.IgnoreCollision(c_collision, collision.collider, true);
                 
             }
         }

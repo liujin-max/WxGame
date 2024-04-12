@@ -12,6 +12,10 @@ namespace CB
     public class Obstacle : Box
     {
         private Rigidbody2D c_rigidbody;
+        protected Collider2D c_collision;
+        public Collider2D Collision{ get {return c_collision;}}
+
+
         public TextMeshPro c_CountText;
         private Transform c_Frame;
         private ImageGray m_ImageGray;
@@ -22,15 +26,24 @@ namespace CB
 
         private float m_HPShow = 0;
 
+
+        public AttributeValue m_Scale = new AttributeValue(0.7f, false);
+        private Tweener m_ScaleTweener;
+
         void Awake()
         {
             c_rigidbody = transform.GetComponent<Rigidbody2D>();
             c_Frame     = transform.Find("Frame").transform;
 
+            c_collision = transform.GetComponent<Collider2D>();
+            if (c_collision == null) {
+                Debug.LogError(this.Order);
+            }
+
             m_ImageGray = c_Frame.GetComponent<ImageGray>();
 
 
-
+            this.Show(true);
         }
 
         void Start()
@@ -50,6 +63,9 @@ namespace CB
             c_rigidbody.Sleep();
             c_CountText.gameObject.SetActive(true);
             m_ImageGray.TurnSpriteGray(false);
+
+            var scale = m_Scale.ToNumber();
+            transform.localScale = new Vector3(scale, scale, scale);
 
             Flush();
         }
@@ -77,6 +93,16 @@ namespace CB
             c_CountText.text = ((int)m_HPShow).ToString();
         }
 
+        public void Show(bool flag)
+        {
+            c_Frame.gameObject.SetActive(flag);
+        }
+
+        public bool IsShow()
+        {
+            return c_Frame.gameObject.activeSelf;
+        }
+
         public void ForceDead()
         {
             m_ForceDead = true;
@@ -101,6 +127,15 @@ namespace CB
             return m_ChangeRecords.Count >= 4;
         }
 
+        public void JudgeScale()
+        {
+            if (m_ScaleTweener != null) {
+                m_ScaleTweener.Kill();
+            }
+
+            m_ScaleTweener = transform.DOScale(m_Scale.ToNumber(), 0.2f);
+        }
+
 
         //碰撞
         public override void Crash(Vector2 force)
@@ -113,6 +148,7 @@ namespace CB
             m_HP -= demage;
 
             Flush();
+            Show(true);
 
             GameFacade.Instance.EventManager.SendEvent(new GameEvent(EVENT.ONOBSTACLEHIT, demage, ball));
         }
@@ -146,6 +182,7 @@ namespace CB
         public override void Dispose()
         {
             m_ChangeRecords.Clear();
+            m_Scale.Clear();
             
             gameObject.layer = (int)_C.LAYER.OBSTACLERECY;
 

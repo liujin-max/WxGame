@@ -29,19 +29,6 @@ namespace CB
         public GroundType GroundType;
 
 
-
-        // Start is called before the first frame update
-        void Start()
-        {
-            
-        }
-
-        // Update is called once per frame
-        void Update()
-        {
-            
-        }
-
         //只处理弹珠碰撞的情况
         void OnCollisionEnter2D(Collision2D collision)
         {

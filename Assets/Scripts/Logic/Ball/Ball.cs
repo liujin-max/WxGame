@@ -10,7 +10,8 @@ namespace CB
     {
         protected Rigidbody2D c_rigidbody;
         private SpriteRenderer c_sprite;
-        private Collider2D c_collision;
+        protected Collider2D c_collision;
+        public Collider2D Collision{ get {return c_collision;}}
 
 
         #region ==========  属性  ==========
@@ -31,7 +32,7 @@ namespace CB
 
         private bool m_DeadFlag = false;
         public AttributeValue m_Demage = new AttributeValue(1);
-
+        public AttributeValue m_Scale = new AttributeValue(1, false);
 
         private Vector3 m_LastPos;
         private Vector2 m_LastVelocity;
@@ -59,6 +60,11 @@ namespace CB
         public bool IsRecycle
         {
             get {return gameObject.layer == (int)_C.LAYER.BALLRECYCLE;}
+        }
+
+        public bool IsActing
+        {
+            get {return gameObject.layer == (int)_C.LAYER.BALLACTING;}
         }
 
         //滚动方向
@@ -180,6 +186,11 @@ namespace CB
             c_rigidbody.velocity = force;
 
             GameFacade.Instance.EventManager.SendEvent(new GameEvent(EVENT.ONBALLSHOOT, this));
+        }
+
+        public void AddForce(Vector2 force)
+        {
+            c_rigidbody.AddForce(force);
         }
 
         protected bool OnHitGhost(Collision2D collision)

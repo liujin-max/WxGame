@@ -69,6 +69,13 @@ namespace CB
         public void SimulateShoot(Vector3 target_pos)
         {
             GameFacade.Instance.Game.Pause();
+
+            GameFacade.Instance.Game.Obstacles.ForEach(obstacle => {
+                if (obstacle.IsShow() != true)
+                {
+                    Physics2D.IgnoreCollision(m_Ball.Collision, obstacle.Collision, true);
+                }
+            });
             
             m_Ball.gameObject.SetActive(true);
 
@@ -89,6 +96,10 @@ namespace CB
             foreach (var o in m_Aims) {
                 o.SetActive(false);
             }
+
+            GameFacade.Instance.Game.Obstacles.ForEach(obstacle => {
+                Physics2D.IgnoreCollision(m_Ball.Collision, obstacle.Collision, false);
+            });
         }
 
 

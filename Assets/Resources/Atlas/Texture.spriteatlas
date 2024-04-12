@@ -41,10 +41,12 @@ SpriteAtlas:
   m_MasterAtlas: {fileID: 0}
   m_PackedSprites:
   - {fileID: 21300000, guid: a6a4302086c23554aa4f7a506a1250ab, type: 3}
+  - {fileID: 21300000, guid: f4e27b60bed61dd4fa12d43248961806, type: 3}
   - {fileID: 21300000, guid: 14e762d0a8590ea498ad94389d86c1d5, type: 3}
   - {fileID: 21300000, guid: 7a3853e0a5b009740a5085bf8c324458, type: 3}
   - {fileID: 21300000, guid: 4d8dac8147f390a488272b635a9b9b42, type: 3}
   - {fileID: 21300000, guid: 654580d1843e2a04e941d4bce28e5b82, type: 3}
+  - {fileID: 21300000, guid: fd9c0702ddd53a742a8095ae246f7d50, type: 3}
   - {fileID: 21300000, guid: 96be59e33c0f03f4c9e214955b83b495, type: 3}
   - {fileID: 21300000, guid: 03aa1bd43977bc948ae866aaba9c9349, type: 3}
   - {fileID: 21300000, guid: 623dcc25e5c330c498426dc405d8aed5, type: 3}
@@ -61,6 +63,7 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 6f8debe86c474ea4b915a13da20e6e1b, type: 3}
   - {fileID: 21300000, guid: 3d28a3d93873c17459dd528c4290b8f0, type: 3}
   - {fileID: 21300000, guid: 6a51930a02f077748bc50f53a68112f7, type: 3}
+  - {fileID: 21300000, guid: f8567d6b33ff31b4d8a508f53a05c85e, type: 3}
   - {fileID: 21300000, guid: e471494cb92d9ee42baa1c7174492c71, type: 3}
   - {fileID: 21300000, guid: 5474d37cb96624448aa77b7107c3128f, type: 3}
   - {fileID: 21300000, guid: 468cebfc2b7db7140bd27586a6d4a34f, type: 3}
@@ -71,10 +74,12 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 8683dc7fa33643a45b6e3e0d76601558, type: 3}
   m_PackedSpriteNamesToIndex:
   - Universal_coin
+  - ball_focus
   - ball_fenlie
   - polygon3
   - ball_sanjiao
   - Glass
+  - ball_expand
   - ball_manli
   - polygon1
   - Hit
@@ -91,6 +96,7 @@ SpriteAtlas:
   - ball_boom
   - polygon4
   - ball_wave
+  - ball_scale
   - polygon5
   - fx_focus
   - ball_zhuizong

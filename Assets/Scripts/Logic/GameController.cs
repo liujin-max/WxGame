@@ -33,6 +33,7 @@ namespace CB
         internal GameWindow _GameUI;
 
         internal Simulator m_Simulator;
+        internal EnvironmentController m_Environment;
 
         //伤害统计工具 
         public Dictionary<_C.BALLTYPE, int> DemageRecords = new Dictionary<_C.BALLTYPE, int>();
@@ -86,9 +87,6 @@ namespace CB
                 if (m_Stage <= 10) {
                     rate = (int)Mathf.Ceil(m_Stage / 7.0f) * 5;
                 } 
-                // else if (m_Stage <= 10) {
-                //     rate = (int)Mathf.Ceil(m_Stage / 6.0f) * 5;
-                // } 
                 else {
                     rate = (int)Mathf.Ceil(m_Stage / 5.0f) * 4;
                 }
@@ -118,6 +116,7 @@ namespace CB
         void Awake()
         {
             m_Simulator = transform.GetComponent<Simulator>();
+            m_Environment = transform.GetComponent<EnvironmentController>();
 
             m_Aim_Opos  = c_takeAim.transform.localPosition;
 
@@ -616,7 +615,7 @@ namespace CB
 
         public void ShowBallBubble(Ball ball)
         {
-            var des     = string.Format("<#3297FF>{0}({1})：</color>{2}", ball.Name, ball.m_Demage.ToNumber(), ball.GetDescription());
+            var des     = string.Format("<#3297FF>{0}<#FF6631>({1})</color>：</color>{2}", ball.Name, ball.m_Demage.ToNumber(), ball.GetDescription());
             GameFacade.Instance.EventManager.SendEvent(new GameEvent(EVENT.UI_SHOWBUBBLE, true, des));
         }
 
@@ -1005,6 +1004,9 @@ namespace CB
 
             m_ShootBall = m_Queue[0];
 
+                        //
+            m_FSM.Owner.m_Environment.OnBegin(m_FSM.Owner.m_Stage);
+
             GameFacade.Instance.EventManager.AddHandler(EVENT.UI_SHOWBALLLIST,  OnReponseBallList);
         }
 
@@ -1103,6 +1105,8 @@ namespace CB
 
         public override void Exit()
         {
+            m_FSM.Owner.m_Environment.OnEnd(m_FSM.Owner.m_Stage);
+
             GameFacade.Instance.EventManager.DelHandler(EVENT.UI_SHOWBALLLIST,  OnReponseBallList);
 
 

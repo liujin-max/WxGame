@@ -90,6 +90,10 @@ public static class _C
         LING    = 15,
         REGEN   = 16,       //再生
         GROWTH  = 17,
+        EXPAND  = 18,
+        FOCUS   = 19,
+
+        SCALE  = 21,       //缩放弹珠
     }   
 
 
