@@ -430,7 +430,7 @@ namespace CB
         //生成Ghost
         public void PushGhost(Vector3 pos)
         {
-            var item    = Instantiate(Resources.Load<GameObject>("Prefab/Ghost/Ghost"), pos, Quaternion.identity, c_obtPivot);
+            var item    = Instantiate(Resources.Load<GameObject>("Prefab/Box/Ghost"), pos, Quaternion.identity, c_obtPivot);
             var script  = item.GetComponent<Ghost>();
             m_Ghosts.Add(script);
         }
@@ -726,7 +726,7 @@ namespace CB
 
             GameFacade.Instance.Game.DemageRecords.Clear();
 
-            m_FSM.Owner.BreechBall(m_FSM.Owner.PushBall(_C.BALL_ORIGIN_POS, _C.BALLTYPE.NORMAL));
+            m_FSM.Owner.BreechBall(m_FSM.Owner.PushBall(_C.BALL_ORIGIN_POS, _C.BALLTYPE.SANJIAO));
 
             // m_FSM.Owner.m_Army.PushRelics(109);
 

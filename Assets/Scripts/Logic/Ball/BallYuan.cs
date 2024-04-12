@@ -40,9 +40,11 @@ namespace CB
             this.OnHitObstable(collision);
 
             Obstacle obt = collision.transform.GetComponent<Obstacle>();
-            if (obt != null) {
+            if (obt != null && obt.HasShield() == false) {
                 if (obt.IsDead() == false && obt.Order != m_Order) {
                     if (RandomUtility.IsHit(m_Rate) == true) {
+                        GameFacade.Instance.EffectManager.Load(EFFECT.SMOKE, obt.transform.localPosition);
+                        
                         var copy = GameFacade.Instance.Game.PushObstacle(obt.transform.localPosition, obt.HP, m_Order);
                         copy.CopyChanges(obt);
                         copy.AddChange(m_Order);

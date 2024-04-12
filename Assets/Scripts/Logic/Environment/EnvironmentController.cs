@@ -13,14 +13,14 @@ namespace CB
 
         public void OnBegin(int stage_order)
         {
-            // if (stage_order % 2 != 0) {
-            //     return;
-            // }
+            if (stage_order % 5 != 0) {
+                return;
+            }
 
             //
             Debug.Log("开始：" + stage_order);
 
-            int rand = 1;
+            int rand = RandomUtility.Random(0, 4);
 
 
             switch (rand)
@@ -31,6 +31,14 @@ namespace CB
 
                 case 1:
                     m_Env = transform.AddComponent<Dark>();
+                    break;
+
+                case 2:
+                    m_Env = transform.AddComponent<Gravity>();
+                    break;
+
+                case 3:
+                    m_Env = transform.AddComponent<BBMachine>();
                     break;
                 
                 default:

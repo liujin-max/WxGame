@@ -11,10 +11,6 @@ namespace CB
     /// </summary>
     public class Dark : Environment
     {
-        private float m_windStrength = 2.5f;
-        private Vector2 m_Direction;
-        private GameObject m_Effect = null;
-
         public Dark()
         {
             Name = "黑暗";

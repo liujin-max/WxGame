@@ -37,14 +37,17 @@ public static class _C
         NULL = 2
     }
 
-
+    public static Vector2 DEFAULT_GRAVITY = new Vector2(0, -9.81f);
     public static int GLASSPRICE   = 3;    //碎片价格
 
 
     public static Vector3 VEC3INVALID       = new Vector3(-999, -999, -999);
     public static Vector3 BALL_ORIGIN_POS   = new Vector3(0, 6.9f, 0);  //待机位置
     public static Vector3 BALL_SHOOT_POS    = new Vector3(0, 6.6f, 0);  //发射位置
-    public static string REDCOLOR = "<#FF6631>";
+
+
+
+    public static string REDCOLOR   = "<#FF6631>";
     public static string GREENCOLOR = "<#45FF31>";
 
 

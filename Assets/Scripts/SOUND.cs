@@ -20,7 +20,8 @@ public static class SOUND
     public const string SHOOT       = "Prefab/Sound/Sound_shoot";
     public const string BREECH      = "Prefab/Sound/Sound_breech";
     public const string BUBBLE      = "Prefab/Sound/Sound_bubble";
-    
+    public const string HITSHIELD   = "Prefab/Sound/Sound_hitshield";
+
     
 
 }

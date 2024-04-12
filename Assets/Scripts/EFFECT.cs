@@ -12,7 +12,8 @@ public static class EFFECT
     public const string SCORE       = "Prefab/Effect/fx_bar_effect";
     public const string HITGROWTH   = "Prefab/Effect/fx_ball_growth";
     public const string SANDSOTRM   = "Prefab/Effect/fx_sandstorm";
-
+    public const string SMOKE       = "Prefab/Effect/fx_smoke";
+    public const string SHIELDBOOM  = "Prefab/Effect/fx_shield_boom";
 
     public const string RATENUMBER  = "Prefab/Effect/fx_flyRate";
 }

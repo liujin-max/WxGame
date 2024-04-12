@@ -37,6 +37,7 @@ namespace CB
         private Vector3 m_LastPos;
         private Vector2 m_LastVelocity;
         public Vector2 LastVelocity{ get {return m_LastVelocity;}}
+        public bool m_IsSimulate = false;
 
         public int SortingOrder{set {c_sprite.sortingOrder = value; }}
         //速度
@@ -220,7 +221,6 @@ namespace CB
                 GameFacade.Instance.EventManager.SendEvent(new GameEvent(EVENT.ONBALLHITBEFORE, this, obt, collision));
 
                 obt.OnHit(this, (int)m_Demage.ToNumber());
-                obt.OnShake();
 
                 if (obt.IsDead() == true) {
                     GameFacade.Instance.SoundManager.Load(SOUND.DROP);

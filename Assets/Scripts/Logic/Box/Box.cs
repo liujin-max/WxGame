@@ -22,6 +22,8 @@ namespace CB
         protected bool m_Shaking = false;
         protected bool m_Moving = false;
 
+        protected Shield m_Shield;
+
         public bool IsIdle { get {return m_Moving != true;}}
 
         public void Move(Vector3 offset)
@@ -34,6 +36,17 @@ namespace CB
             });
         }
 
+
+        void FixedUpdate()
+        {
+            if (m_Shield != null)
+            {
+                if (m_Shield.IsDead())
+                {
+                    this.RemoveShield();
+                }
+            }
+        }
 
         public virtual void OnCollisionEnter2D(Collision2D collision)
         {
@@ -73,6 +86,33 @@ namespace CB
         public virtual void OnShake()
         {
             
+        }
+
+        public virtual Shield AddShield(int hp)
+        {
+            if (m_Shield != null) {
+                m_Shield.m_HP = hp;
+                return m_Shield;
+            }
+
+            var item    = Instantiate(Resources.Load<GameObject>("Prefab/Box/Shield"), Vector3.zero, Quaternion.identity, transform);
+            m_Shield    = item.GetComponent<Shield>();
+            m_Shield.m_HP = hp;
+
+            return m_Shield;
+        }
+
+        public virtual void RemoveShield()
+        {
+            if (m_Shield != null) {
+                m_Shield.Dispose();
+            }
+            m_Shield = null;
+        }
+
+        public bool HasShield()
+        {
+            return m_Shield != null;
         }
 
         public virtual void Dispose()

@@ -49,7 +49,6 @@ namespace CB
                     Obstacle obt = obstacles[i];
                     if (Vector3.Distance(obt.transform.localPosition, collision_point) <= radius) {
                         obt.OnHit(this, (int)m_Demage.ToNumber());
-                        obt.OnShake();
                     }
                 }
 

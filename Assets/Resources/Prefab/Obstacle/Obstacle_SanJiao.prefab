@@ -200,7 +200,7 @@ Transform:
   m_GameObject: {fileID: 7164490282767074638}
   m_LocalRotation: {x: 0, y: 0, z: -0.37711352, w: 0.9261671}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.7, y: 0.7, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 4659452974986217355}
@@ -232,13 +232,13 @@ PolygonCollider2D:
   m_AutoTiling: 0
   m_Points:
     m_Paths:
-    - - {x: 0.16025609, y: 0.55211735}
-      - {x: 0.6674523, y: -0.2921536}
-      - {x: 0.6817699, y: -0.5842446}
-      - {x: -0.64731425, y: -0.5905562}
-      - {x: -0.6544329, y: -0.33350813}
-      - {x: -0.11829169, y: 0.553331}
-      - {x: 0.0196163, y: 0.6457793}
+    - - {x: 0.097993076, y: 0.39646006}
+      - {x: 0.48585182, y: -0.26621032}
+      - {x: 0.47422653, y: -0.41302097}
+      - {x: -0.42939395, y: -0.40895563}
+      - {x: -0.4572667, y: -0.27124512}
+      - {x: -0.087160185, y: 0.3769194}
+      - {x: 0.024804885, y: 0.427859}
 --- !u!114 &8118423309337124860
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -301,7 +301,7 @@ Transform:
   m_GameObject: {fileID: 7548181451254985824}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.7, y: 0.7, z: 0.7}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 750481184492480314}

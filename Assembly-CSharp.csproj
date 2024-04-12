@@ -167,12 +167,14 @@
     <Compile Include="Assets\Scripts\Effect\Shine.cs" />
     <Compile Include="Assets\Scripts\UI\GhostWindow.cs" />
     <Compile Include="Assets\DOTween\Modules\DOTweenModuleUnityVersion.cs" />
-    <Compile Include="Assets\Scripts\Logic\Box\BoxShake.cs" />
     <Compile Include="Assets\Scripts\Logic\Relics.cs" />
     <Compile Include="Assets\Scripts\Logic\Environment\Wind.cs" />
     <Compile Include="Assets\Scripts\Logic\Environment\EnvironmentController.cs" />
     <Compile Include="Assets\Scripts\UI\EnvironmentWindow.cs" />
     <Compile Include="Assets\Scripts\Logic\Environment\Dark.cs" />
+    <Compile Include="Assets\Scripts\Logic\Environment\Gravity.cs" />
+    <Compile Include="Assets\Scripts\Logic\Box\Shield.cs" />
+    <Compile Include="Assets\Scripts\Logic\Environment\BBMachine.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Resources\Shader\SpriteGray.shader" />

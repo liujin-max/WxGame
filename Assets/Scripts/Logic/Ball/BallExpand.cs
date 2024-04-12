@@ -47,7 +47,7 @@ namespace CB
             this.OnHitObstable(collision);
 
             Obstacle obt = collision.transform.GetComponent<Obstacle>();
-            if (obt != null) {
+            if (obt != null && obt.HasShield() == false) {
                 if (obt.Order == 2) {
                     m_Count++;
                 } else {

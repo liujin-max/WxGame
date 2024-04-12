@@ -13,6 +13,13 @@ namespace CB
         public Vector3 m_collision_point2;
         public Vector3 m_collision_vec2;
 
+
+
+        public BallSimulator()
+        {
+            m_IsSimulate = true;
+        }
+
         public override void Shoot(Vector3 pos)
         {
             base.Shoot(pos);

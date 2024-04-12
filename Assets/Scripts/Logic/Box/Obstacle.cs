@@ -27,7 +27,7 @@ namespace CB
         private float m_HPShow = 0;
 
 
-        public AttributeValue m_Scale = new AttributeValue(0.7f, false);
+        public AttributeValue m_Scale = new AttributeValue(1f, false);
         private Tweener m_ScaleTweener;
 
         void Awake()
@@ -145,10 +145,16 @@ namespace CB
 
         public override void OnHit(Ball ball, int demage = 1)
         {
+            if (m_Shield != null) {
+                m_Shield.OnHit(ball, demage);
+                return;
+            }
+
             m_HP -= demage;
 
             Flush();
             Show(true);
+            OnShake();
 
             GameFacade.Instance.EventManager.SendEvent(new GameEvent(EVENT.ONOBSTACLEHIT, demage, ball));
         }
@@ -183,6 +189,8 @@ namespace CB
         {
             m_ChangeRecords.Clear();
             m_Scale.Clear();
+
+            this.RemoveShield();
             
             gameObject.layer = (int)_C.LAYER.OBSTACLERECY;
 

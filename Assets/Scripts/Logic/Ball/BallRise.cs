@@ -39,7 +39,7 @@ namespace CB
             this.OnHitObstable(collision);
 
             Obstacle obt = collision.transform.GetComponent<Obstacle>();
-            if (obt != null) {
+            if (obt != null && obt.HasShield() == false) {
                 if (obt.HP <= m_Need) {
                     if (RandomUtility.IsHit(m_Rate) == true) {
                         obt.OnHit(this, obt.HP);
