@@ -268,7 +268,7 @@ namespace CB
                 seat.gameObject.SetActive(false);
             }
 
-            var balls = GameFacade.Instance.Game.GetBalls();
+            var balls = GameFacade.Instance.Game.Balls;
             for (int i = 0; i < GameFacade.Instance.Game.SeatCount.ToNumber(); i++)
             {
                 var item = new_seat_item(i);
@@ -310,8 +310,8 @@ namespace CB
                 seat.gameObject.SetActive(false);
             }
 
-            var relicses = GameFacade.Instance.Game.m_Army.GetRelicses();
-            for (int i = 0; i < GameFacade.Instance.Game.m_Army.SeatCount.ToNumber(); i++)
+            var relicses = GameFacade.Instance.Game.Army.GetRelicses();
+            for (int i = 0; i < GameFacade.Instance.Game.Army.SeatCount.ToNumber(); i++)
             {
                 var item = new_relics_item(i);
 

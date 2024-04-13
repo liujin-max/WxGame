@@ -51,16 +51,6 @@ public class GameSetWindow : MonoBehaviour
 
         c_MusicSlider.value = GameFacade.Instance.DataManager.MusicVolume;
         c_SoundSlider.value = GameFacade.Instance.DataManager.SoundVolume;
-
-        // StringBuilder sb = new StringBuilder();
-
-        // foreach (var item in GameFacade.Instance.Game.DemageRecords)
-        // {
-        //     var config = CONFIG.GetBallData(item.Key);
-        //     sb.Append("\n" + config.Name + " => " + item.Value);
-        // }
-
-        // c_DemageInput.text = sb.ToString();
     }
 
 

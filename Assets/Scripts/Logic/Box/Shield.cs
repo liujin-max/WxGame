@@ -28,7 +28,7 @@ namespace CB
             
             m_Shaking = true;
 
-            m_Bubble.transform.DOShakeRotation(0.25f, 30f, vibrato: 15, randomness: 50).OnComplete(()=>{
+            m_Bubble.transform.DOShakeRotation(0.25f, 20f, vibrato: 15, randomness: 50).OnComplete(()=>{
                 m_Shaking = false;
             });
         }
@@ -46,8 +46,6 @@ namespace CB
             GameFacade.Instance.SoundManager.Load(SOUND.HITSHIELD);
     
         }
-
-
 
         public override void Dispose()
         {

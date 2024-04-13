@@ -20,12 +20,12 @@ namespace CB
 
         public override void Execute()
         {
-            GameFacade.Instance.Game.m_Simulator.FocusCount = 2;
+            GameFacade.Instance.Game.Simulator.FocusCount = 2;
         }
 
         public override void Cancel()
         {
-            GameFacade.Instance.Game.m_Simulator.FocusCount = 1;
+            GameFacade.Instance.Game.Simulator.FocusCount = 1;
         }
     }
 
@@ -109,7 +109,7 @@ namespace CB
 
         public override void Execute()
         {
-            GameFacade.Instance.Game.m_Balls.ForEach(b => {
+            GameFacade.Instance.Game.Balls.ForEach(b => {
                 if (b.Type != _C.BALLTYPE.NORMAL && b.Type != _C.BALLTYPE.SMALL) {
                     b.m_Demage.PutADD(this, GameFacade.Instance.Game.Glass * 0.5f);
                 }
@@ -118,14 +118,14 @@ namespace CB
 
         public override void Cancel()
         {
-            GameFacade.Instance.Game.m_Balls.ForEach(b => {
+            GameFacade.Instance.Game.Balls.ForEach(b => {
                 b.m_Demage.Pop(this);
             });
         }
 
         public override void OnGlassUpdate(int count)
         {
-            GameFacade.Instance.Game.m_Balls.ForEach(b => {
+            GameFacade.Instance.Game.Balls.ForEach(b => {
                 if (b.Type != _C.BALLTYPE.NORMAL && b.Type != _C.BALLTYPE.SMALL) {
                     b.m_Demage.PutADD(this, GameFacade.Instance.Game.Glass);
                 }
@@ -279,14 +279,14 @@ namespace CB
 
         public override void Execute()
         {
-            GameFacade.Instance.Game.m_Balls.ForEach(b => {
+            GameFacade.Instance.Game.Balls.ForEach(b => {
                 b.m_Demage.PutADD(this, 1);
             });
         }
 
         public override void Cancel()
         {
-            GameFacade.Instance.Game.m_Balls.ForEach(b => {
+            GameFacade.Instance.Game.Balls.ForEach(b => {
                 b.m_Demage.Pop(this);
             });
         }
@@ -371,7 +371,7 @@ namespace CB
 
         public override void Execute()
         {
-            GameFacade.Instance.Game.m_Balls.ForEach(b => {
+            GameFacade.Instance.Game.Balls.ForEach(b => {
                 if (b.Type == _C.BALLTYPE.NORMAL) {
                     b.m_Demage.PutADD(this, GameFacade.Instance.Game.Glass);
                 }
@@ -380,14 +380,14 @@ namespace CB
 
         public override void Cancel()
         {
-            GameFacade.Instance.Game.m_Balls.ForEach(b => {
+            GameFacade.Instance.Game.Balls.ForEach(b => {
                 b.m_Demage.Pop(this);
             });
         }
 
         public override void OnGlassUpdate(int count)
         {
-            GameFacade.Instance.Game.m_Balls.ForEach(b => {
+            GameFacade.Instance.Game.Balls.ForEach(b => {
                 if (b.Type == _C.BALLTYPE.NORMAL) {
                     b.m_Demage.PutADD(this, GameFacade.Instance.Game.Glass);
                 }
@@ -424,12 +424,12 @@ namespace CB
         {
             GameFacade.Instance.Game.SeatCount.Pop(this);
 
-            if (GameFacade.Instance.Game.m_Balls.Count > GameFacade.Instance.Game.SeatCount.ToNumber())
+            if (GameFacade.Instance.Game.Balls.Count > GameFacade.Instance.Game.SeatCount.ToNumber())
             {
-                var ball = GameFacade.Instance.Game.m_Balls[GameFacade.Instance.Game.m_Balls.Count - 1];
+                var ball = GameFacade.Instance.Game.Balls[GameFacade.Instance.Game.Balls.Count - 1];
 
                 ball.Dispose();
-                GameFacade.Instance.Game.m_Balls.Remove(ball);
+                GameFacade.Instance.Game.Balls.Remove(ball);
 
                 GameFacade.Instance.EventManager.SendEvent(new GameEvent(EVENT.UI_FLUSHBALLS));
             }
@@ -441,7 +441,7 @@ namespace CB
     {
         private int Rate{
             get {
-                var count = GameFacade.Instance.Game.m_Balls.Count;
+                var count = GameFacade.Instance.Game.Balls.Count;
 
                 return Math.Max((int)(GameFacade.Instance.Game.SeatCount.ToNumber() + 1 - count), 1);
             }
@@ -466,21 +466,21 @@ namespace CB
 
         public override void Execute()
         {
-            GameFacade.Instance.Game.m_Balls.ForEach(b => {
+            GameFacade.Instance.Game.Balls.ForEach(b => {
                 b.m_Demage.PutAUL(this, Rate - 1);
             });
         }
 
         public override void Cancel()
         {
-            GameFacade.Instance.Game.m_Balls.ForEach(b => {
+            GameFacade.Instance.Game.Balls.ForEach(b => {
                 b.m_Demage.Pop(this);
             });
         }
 
         public override void OnPushBall(Ball ball)
         {
-            GameFacade.Instance.Game.m_Balls.ForEach(b => {
+            GameFacade.Instance.Game.Balls.ForEach(b => {
                 b.m_Demage.PutAUL(this, Rate - 1);
             });
         }
@@ -511,28 +511,28 @@ namespace CB
 
         public override void Execute()
         {
-            GameFacade.Instance.Game.m_Balls.ForEach(b => {
+            GameFacade.Instance.Game.Balls.ForEach(b => {
                 b.m_Demage.PutADD(this, Count);
             });
         }
 
         public override void Cancel()
         {
-            GameFacade.Instance.Game.m_Balls.ForEach(b => {
+            GameFacade.Instance.Game.Balls.ForEach(b => {
                 b.m_Demage.Pop(this);
             });
         }
 
         public override void OnPushBall(Ball ball)
         {
-            GameFacade.Instance.Game.m_Balls.ForEach(b => {
+            GameFacade.Instance.Game.Balls.ForEach(b => {
                 b.m_Demage.PutADD(this, Count);
             });
         }
 
         public override void OnCoinUpdate(int coin)
         {
-            GameFacade.Instance.Game.m_Balls.ForEach(b => {
+            GameFacade.Instance.Game.Balls.ForEach(b => {
                 b.m_Demage.PutADD(this, Count);
             });
         }

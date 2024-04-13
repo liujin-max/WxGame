@@ -32,19 +32,23 @@ namespace CB
         public Collider2D c_borad;
         internal GameWindow _GameUI;
 
-        internal Simulator m_Simulator;
-        internal EnvironmentController m_Environment;
+        private Simulator m_Simulator;
+        public Simulator Simulator {get { return m_Simulator;}}
 
-        //伤害统计工具 
-        public Dictionary<_C.BALLTYPE, int> DemageRecords = new Dictionary<_C.BALLTYPE, int>();
+        private EnvironmentController m_Environment;
+        public EnvironmentController Environment {get { return m_Environment;}}
 
+        private Army m_Army = new Army();
+        public Army Army {get { return m_Army;}}
+
+ 
         private Tweener t_Aim_Tweener;
         private Vector3 m_Aim_Opos;
 
 
         #region ======= ======= ======= ======= 
         private FSM<GameController> m_FSM;
-        [SerializeField] private int FSM_State;
+
 
 
         internal bool m_StartFlag = false;
@@ -98,15 +102,21 @@ namespace CB
 
 
         
-        internal List<Ball> m_Balls = new List<Ball>();   //球
-        internal List<Ball> m_BallSmalls = new List<Ball>();
-        internal List<Obstacle> m_Obstacles = new List<Obstacle>();
-        internal List<Ghost> m_Ghosts = new List<Ghost>();
+        private List<Ball> m_Balls = new List<Ball>();   //球
+        public List<Ball> Balls { get { return m_Balls;}}
 
-        public List<Obstacle> Obstacles { get {return m_Obstacles;}}
+        private List<Ball> m_BallSmalls = new List<Ball>();
+        public List<Ball> SmallBalls { get { return m_BallSmalls;}}
+
+        private List<Obstacle> m_Obstacles = new List<Obstacle>();
+        public List<Obstacle> Obstacles{ get { return m_Obstacles;}}
+
+        private List<Ghost> m_Ghosts = new List<Ghost>();
         public List<Ghost> Ghosts { get {return m_Ghosts;}}
+
         public AttributeValue SeatCount = new AttributeValue(5);     //可携带的高阶球数量上限
-        public Army m_Army = new Army();
+
+        
 
 
 
@@ -172,9 +182,22 @@ namespace CB
             GameFacade.Instance.EventManager.SendEvent(new GameEvent(EVENT.ONCOINUPDATE, m_Coin));
         }
 
-        public List<Ball> GetBalls()
+        public List<Ball> ActingBalls()
         {
-            return m_Balls;
+            List<Ball> balls = new List<Ball>();
+
+            m_Balls.ForEach(ball => {
+                if (ball.IsActing) {
+                    balls.Add(ball);
+                }
+            });
+
+            m_BallSmalls.ForEach(ball => {
+                balls.Add(ball);
+            });
+
+
+            return balls;
         }
 
         public Ball GetBall(_C.BALLTYPE type)
@@ -202,7 +225,6 @@ namespace CB
     
         void LateUpdate()
         {
-            FSM_State = (int)m_FSM.CurrentState.ID;
             m_FSM.Update();
 
             //清理小球
@@ -525,20 +547,6 @@ namespace CB
             m_Hit = 0;
         }
 
-        public void InsertDamageRecord(_C.BALLTYPE type , int demage)
-        {
-            
-            int value;
-            if (DemageRecords.TryGetValue(type, out value) == true)
-            {
-                DemageRecords[type] = value + demage;
-            }
-            else
-            {
-                DemageRecords.Add(type, demage);
-            }
-        }
-
         //生成3个升级选项，不能重复
         public List<ComplextEvent> GenerateEvents()
         {
@@ -547,11 +555,10 @@ namespace CB
 
             Dictionary<object, int> keyValuePairs = new Dictionary<object, int>();
 
-            List<Ball> balls = this.GetBalls();
             //如果槽位满了，则只从当前已有的弹珠中随机
-            if (balls.Count >= SeatCount.ToNumber())
+            if (m_Balls.Count >= SeatCount.ToNumber())
             {
-                foreach (var ball in balls) {
+                foreach (var ball in m_Balls) {
                     var c = CONFIG.GetBallData(ball.Type);
                     keyValuePairs.Add(c, c.Weight);
                 }
@@ -660,11 +667,6 @@ namespace CB
             m_Score+= value;
             m_Hit  += 1;
 
-            //伤害记录
-            Ball ball = (Ball)gameEvent.GetParam(1);
-            this.InsertDamageRecord(ball.Type == _C.BALLTYPE.SMALL ? _C.BALLTYPE.SPLIT : ball.Type, value);
-
-
             GameFacade.Instance.EventManager.SendEvent(new GameEvent(EVENT.UI_FLUSHSCORE, m_Score, false));
             GameFacade.Instance.EventManager.SendEvent(new GameEvent(EVENT.UI_FLUSHHIT, m_Hit));
         }
@@ -714,7 +716,7 @@ namespace CB
         public override void Enter()
         {   
             m_FSM.Owner.m_StartFlag = true;
-            m_FSM.Owner.m_Balls.Clear();
+            m_FSM.Owner.Balls.Clear();
 
             m_FSM.Owner._GameUI = GameFacade.Instance.UIManager.LoadWindow("Prefab/UI/GameWindow", GameFacade.Instance.UIManager.BOTTOM).GetComponent<GameWindow>();
 
@@ -724,9 +726,7 @@ namespace CB
         
             GameFacade.Instance.Game.Resume();
 
-            GameFacade.Instance.Game.DemageRecords.Clear();
-
-            m_FSM.Owner.BreechBall(m_FSM.Owner.PushBall(_C.BALL_ORIGIN_POS, _C.BALLTYPE.SANJIAO));
+            m_FSM.Owner.BreechBall(m_FSM.Owner.PushBall(_C.BALL_ORIGIN_POS, _C.BALLTYPE.NORMAL));
 
             // m_FSM.Owner.m_Army.PushRelics(109);
 
@@ -814,6 +814,13 @@ namespace CB
                 hp_now += hp;
             }
 
+            // for (int i = 0; i < 2; i++)
+            // {
+            //     int hp = (int)Mathf.Ceil(RandomUtility.Random(hp_avg * 250, hp_avg * 450) / 100.0f);
+            //     temp_list.Add(hp);
+            //     hp_now += hp;
+            // }
+
             //至少有一个碎片
             if (count == 0) {
                 temp_list.Add(-1);
@@ -857,9 +864,9 @@ namespace CB
 
             //重置弹珠
             //只显示下一颗待发射的弹珠
-            for (int i = 0; i < m_FSM.Owner.m_Balls.Count; i++)
+            for (int i = 0; i < m_FSM.Owner.Balls.Count; i++)
             {
-                var ball = m_FSM.Owner.m_Balls[i];
+                var ball = m_FSM.Owner.Balls[i];
                 ball.Show(i == 0);
                 m_FSM.Owner.BreechBall(ball);
             }
@@ -949,7 +956,7 @@ namespace CB
             if (m_IsPressDown != true) return;
 
             m_IsPressDown = false;
-            m_FSM.Owner.m_Simulator.SimulateEnd();
+            m_FSM.Owner.Simulator.SimulateEnd();
             GameFacade.Instance.EventManager.SendEvent(new GameEvent(EVENT.UI_SHOWBUBBLE, false));
 
             m_FSM.Owner.AimStop();
@@ -997,7 +1004,7 @@ namespace CB
 
             m_Orders.Clear();
             m_Queue.Clear();
-            foreach (var ball in m_FSM.Owner.m_Balls) {
+            foreach (var ball in m_FSM.Owner.Balls) {
                 ball.SetState((int)_C.LAYER.BALLREADY);
                 m_Queue.Add(ball);
             }
@@ -1005,7 +1012,7 @@ namespace CB
             m_ShootBall = m_Queue[0];
 
                         //
-            m_FSM.Owner.m_Environment.OnBegin(m_FSM.Owner.m_Stage);
+            m_FSM.Owner.Environment.OnBegin(m_FSM.Owner.m_Stage);
 
             GameFacade.Instance.EventManager.AddHandler(EVENT.UI_SHOWBALLLIST,  OnReponseBallList);
         }
@@ -1039,7 +1046,7 @@ namespace CB
 
                 if (this.IsTouchCancel() == true) {
                     m_FSM.Owner.AimStop();
-                    m_FSM.Owner.m_Simulator.SimulateEnd();
+                    m_FSM.Owner.Simulator.SimulateEnd();
 
                     
                     GameFacade.Instance.EventManager.SendEvent(new GameEvent(EVENT.UI_SHOWBUBBLE, true, "\n     <#0CA90D>取消发射</color>"));
@@ -1048,7 +1055,7 @@ namespace CB
                     m_FSM.Owner.AimStart();
                     m_FSM.Owner.FocusAim(m_FSM.Owner.FingerPos);
 
-                    m_FSM.Owner.m_Simulator.SimulateShoot(m_FSM.Owner.FingerPos);
+                    m_FSM.Owner.Simulator.SimulateShoot(m_FSM.Owner.FingerPos);
 
                     GameFacade.Instance.Game.ShowBallBubble(m_ShootBall);
                 }
@@ -1062,7 +1069,7 @@ namespace CB
             }
 
             //场上清空后，不管还有没有剩余弹珠和积分够不够，直接胜利
-            if (m_FSM.Owner.m_Ghosts.Count == 0 && m_FSM.Owner.m_Obstacles.Count == 0)
+            if (m_FSM.Owner.Ghosts.Count == 0 && m_FSM.Owner.Obstacles.Count == 0)
             {
                 m_IsFinished = true;
                 ReceiveReward();
@@ -1085,12 +1092,12 @@ namespace CB
                     Camera.main.GetComponent<CameraUtility>().DoShake();
 
                     //清理障碍物
-                    foreach (var obt in m_FSM.Owner.m_Obstacles) {
+                    foreach (var obt in m_FSM.Owner.Obstacles) {
                         obt.Dead();
                     }
 
                     //清理Ghost
-                    foreach (var ghost in m_FSM.Owner.m_Ghosts) {
+                    foreach (var ghost in m_FSM.Owner.Ghosts) {
                         ghost.Dead();
                     }
 
@@ -1105,13 +1112,13 @@ namespace CB
 
         public override void Exit()
         {
-            m_FSM.Owner.m_Environment.OnEnd(m_FSM.Owner.m_Stage);
+            m_FSM.Owner.Environment.OnEnd(m_FSM.Owner.m_Stage);
 
             GameFacade.Instance.EventManager.DelHandler(EVENT.UI_SHOWBALLLIST,  OnReponseBallList);
 
 
             List<Ball> others = new List<Ball>();
-            foreach (var ball in m_FSM.Owner.m_Balls)
+            foreach (var ball in m_FSM.Owner.Balls)
             {
                 if (m_Orders.Contains(ball) != true)
                 {
@@ -1119,9 +1126,9 @@ namespace CB
                 }
             }
 
-            m_FSM.Owner.m_Balls.Clear();
-            m_FSM.Owner.m_Balls.AddRange(m_Orders);
-            m_FSM.Owner.m_Balls.AddRange(others);
+            m_FSM.Owner.Balls.Clear();
+            m_FSM.Owner.Balls.AddRange(m_Orders);
+            m_FSM.Owner.Balls.AddRange(others);
 
             GameFacade.Instance.EventManager.SendEvent(new GameEvent(EVENT.UI_FLUSHBALLS));
         }
@@ -1230,7 +1237,7 @@ namespace CB
 
             Dictionary<object, int> keyValuePairs = new Dictionary<object, int>();
             foreach (RelicsData r in CONFIG.GetRelicsDatas())  {
-                if (r.Weight > 0 && m_FSM.Owner.m_Army.GetRelics(r.ID) == null) {
+                if (r.Weight > 0 && m_FSM.Owner.Army.GetRelics(r.ID) == null) {
                     keyValuePairs.Add(r, r.Weight);
                 }
             }

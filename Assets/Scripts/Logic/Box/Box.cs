@@ -21,19 +21,21 @@ namespace CB
 
         protected bool m_Shaking = false;
         protected bool m_Moving = false;
+        protected Vector3 m_ToPos;
 
         protected Shield m_Shield;
 
-        public bool IsIdle { get {return m_Moving != true;}}
 
-        public void Move(Vector3 offset)
+        public void Move(Vector3 to_pos)
         {
             if (this.IsDead()) return;
 
             m_Moving = true;
-            transform.DOLocalMove(transform.localPosition + offset, 0.5f).OnComplete(()=>{
-                m_Moving = false;
-            });
+            m_ToPos = to_pos;
+
+            // transform.DOLocalMove(transform.localPosition + offset, 0.5f).OnComplete(()=>{
+            //     m_Moving = false;
+            // });
         }
 
 
@@ -45,6 +47,21 @@ namespace CB
                 {
                     this.RemoveShield();
                 }
+            }
+
+            if (m_Moving == true)
+            {
+                transform.localPosition = Vector3.MoveTowards(transform.localPosition, m_ToPos, 2f * Time.deltaTime);
+
+                if (Vector3.Distance(transform.localPosition, m_ToPos) <= 0.05f) {
+                    m_Moving = false;
+                }
+
+                Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, _C.OBSTACLE_OFFSET * 0.8f);
+                if (colliders.Length > 1) {
+                    m_Moving = false;
+                }
+
             }
         }
 

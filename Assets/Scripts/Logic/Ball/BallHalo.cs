@@ -37,7 +37,7 @@ namespace CB
             base.Shoot(pos);
 
             m_Halos.Clear();
-            foreach (var ball in GameFacade.Instance.Game.m_Balls) {
+            foreach (var ball in GameFacade.Instance.Game.Balls) {
                 if (ball.GetState() == (int)_C.LAYER.BALLACTING && ball != this) {
                     ball.m_Demage.PutADD(this, m_Power);
                     m_Halos.Add(ball);

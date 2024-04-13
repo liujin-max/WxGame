@@ -55,12 +55,8 @@ namespace CB
         
         void FixedUpdate()
         {
-            var balls = GameFacade.Instance.Game.m_Balls;
-
-            balls.ForEach(b => {
-                if (b.IsActing == true) {
-                    b.AddForce(m_Direction);
-                }
+            GameFacade.Instance.Game.ActingBalls().ForEach(b => {
+                b.AddForce(m_Direction);
             });
         }
     }

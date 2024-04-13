@@ -82,7 +82,7 @@ public class ShopWindow : MonoBehaviour
         c_BtnSell.onClick.AddListener(()=> {
             GameFacade.Instance.SoundManager.Load(SOUND.CLICK);
 
-            GameFacade.Instance.Game.m_Army.RemoveRelics(m_SelectItem.m_Relics);
+            GameFacade.Instance.Game.Army.RemoveRelics(m_SelectItem.m_Relics);
 
             InitOurs();
         });
@@ -120,7 +120,7 @@ public class ShopWindow : MonoBehaviour
             item.gameObject.SetActive(false);
         }
 
-        var relicses = GameFacade.Instance.Game.m_Army.GetRelicses();
+        var relicses = GameFacade.Instance.Game.Army.GetRelicses();
         for (int i = 0; i < relicses.Count; i++)
         {
             var relics      = relicses[i];

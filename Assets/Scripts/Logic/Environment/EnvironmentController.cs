@@ -20,7 +20,7 @@ namespace CB
             //
             Debug.Log("开始：" + stage_order);
 
-            int rand = RandomUtility.Random(0, 4);
+            int rand = RandomUtility.Random(0, 5);
 
 
             switch (rand)
@@ -39,6 +39,10 @@ namespace CB
 
                 case 3:
                     m_Env = transform.AddComponent<BBMachine>();
+                    break;
+
+                case 4:
+                    m_Env = transform.AddComponent<EarthQuake>();
                     break;
                 
                 default:
