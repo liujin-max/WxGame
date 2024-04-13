@@ -86,10 +86,11 @@ public class GhostItem : MonoBehaviour
             m_Ball    = obj.GetComponent<Ball>();
             m_Ball.Init(m_Event.Type);
             m_Ball.Simulate(false);
-            var b = GameFacade.Instance.Game.GetBall(m_Event.Type);
-            if (b == null) {
+            
+            if (m_Event.EventType == _C.COMPLEXTEVEMT.NEW) {
                 m_Ball.UpgradeTo(1);
             } else {
+                var b = GameFacade.Instance.Game.GetBall(m_Event.Type);
                 m_Ball.UpgradeTo(b.Level + 1);
             }
 

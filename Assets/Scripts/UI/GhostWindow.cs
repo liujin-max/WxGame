@@ -44,7 +44,11 @@ public class GhostWindow : MonoBehaviour
         c_BtnCancel.onClick.AddListener(()=> {
             GameFacade.Instance.SoundManager.Load(SOUND.CLICK);
 
-            GameFacade.Instance.Game.DOTransist(_C.FSMSTATE.GAME_IDLE);
+            if (GameFacade.Instance.Game.Balls.Count > 0) {
+                GameFacade.Instance.Game.DOTransist(_C.FSMSTATE.GAME_IDLE);
+            } else {
+               GameFacade.Instance.Game.DOTransist(_C.FSMSTATE.GAME_END);
+            }
         });
 
         c_BtnRefresh.onClick.AddListener(()=>{

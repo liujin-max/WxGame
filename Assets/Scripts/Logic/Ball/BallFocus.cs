@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace CB
 {
-    //追踪 碰撞障碍物后奔向除碰撞体外 全场血量最高的障碍物
+    //追踪
     public class BallFocus : Ball
     {
         private int m_Count;    //可追踪次数
@@ -28,7 +28,7 @@ namespace CB
 
         public override string GetDescription()
         {
-            var str = string.Format("下<size=32><#43A600>{0}</color></size>次击中宝石后朝场上的<sprite=0>飞去", m_Count);
+            var str = "击中宝石后朝场上的<sprite=0>飞去";
 
             return str;
         }
@@ -42,10 +42,10 @@ namespace CB
             this.OnHitGhost(collision);
             bool flag = this.OnHitObstable(collision);
 
-            if (m_Current <= 0)
-            {
-                return;
-            }
+            // if (m_Current <= 0)
+            // {
+            //     return;
+            // }
 
             //碰撞的对象是宝石
             if (flag == true) {
@@ -63,7 +63,7 @@ namespace CB
 
                     c_rigidbody.AddForce(vec);
 
-                    m_Current --;
+                    // m_Current --;
                 }
                 
             }

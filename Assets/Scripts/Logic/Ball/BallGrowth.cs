@@ -20,13 +20,13 @@ namespace CB
         {
             base.UpgradeTo(level);
 
-            m_Pow = 0.3f + level * 0.05f;
+            m_Pow = 1; //0.3f + level * 0.05f;
         }
 
 
         public override string GetDescription()
         {
-            var str = string.Format("每击落一颗宝石，伤害永久增加<size=32><#43A600>{0}</color></size>点", m_Pow);
+            var str = string.Format("每击落一颗宝石，伤害增加<size=32><#43A600>{0}</color></size>点", m_Pow);
 
             return str;
         }

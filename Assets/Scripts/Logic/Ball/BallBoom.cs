@@ -17,7 +17,7 @@ namespace CB
         {
             base.UpgradeTo(level);
 
-            m_Radius = 150 + (m_Level - 1) * 15;
+            m_Radius = 180 + (m_Level - 1) * 15;
         }
 
         public override string GetDescription()

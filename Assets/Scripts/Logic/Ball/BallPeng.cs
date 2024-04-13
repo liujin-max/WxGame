@@ -7,7 +7,7 @@ using UnityEngine;
 namespace CB
 {
     /// <summary>
-    /// 碰碰弹珠 每击落一颗弹珠，伤害永久增加#
+    /// 碰碰弹珠 每击落一颗弹珠，伤害增加#
     /// </summary>
     /// 
     public class BallPeng : Ball
@@ -20,15 +20,13 @@ namespace CB
         {
             base.UpgradeTo(level);
 
-            m_Pow = 0.3f + level * 0.05f;
-
-            m_Demage.SetBase(1);
+            m_Pow = 1; //0.3f + level * 0.05f;
         }
 
 
         public override string GetDescription()
         {
-            var str = string.Format("伤害不随等级成长。每击落一枚 <sprite=0>，伤害永久增加<size=32><#43A600>{0}</color></size>点", m_Pow);
+            var str = string.Format("每击落一枚 <sprite=0>，伤害增加<size=32><#43A600>{0}</color></size>点", m_Pow);
 
             return str;
         }
