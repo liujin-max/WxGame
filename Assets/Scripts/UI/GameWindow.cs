@@ -24,6 +24,7 @@ namespace CB
         [SerializeField] private TextMeshProUGUI c_scoreTarget;
         [SerializeField] private Image c_scoreBar;
         private float m_Tscore;
+        private float m_Mscore;
         private float m_Cscore;
 
         [SerializeField] private TextMeshProUGUI c_countText;
@@ -155,7 +156,7 @@ namespace CB
                     if (m_Cscore <= m_Tscore) m_Cscore = m_Tscore;
                 }
                 
-                c_scoreBar.fillAmount   = m_Cscore / GameFacade.Instance.Game.TargetScore;
+                c_scoreBar.fillAmount   = m_Cscore / m_Mscore;
             }
         }
 
@@ -241,7 +242,8 @@ namespace CB
         private void OnReponseFlushScore(GameEvent gameEvent)
         {
             int score   = (int)gameEvent.GetParam(0);
-            int max     = GameFacade.Instance.Game.TargetScore;
+            int max     = (int)gameEvent.GetParam(1);
+            m_Mscore    = max;
 
             if(m_Tscore < max && score >= max)  {
                 GameFacade.Instance.EffectManager.Load(EFFECT.SCORE, Vector3.zero, c_EffectPivot);
@@ -251,7 +253,7 @@ namespace CB
             c_scoreTarget.text  = max.ToString();
 
             m_Tscore    = score;
-            if ((bool)gameEvent.GetParam(1) == true) {
+            if ((bool)gameEvent.GetParam(2) == true) {
                 m_Cscore    = score;
                 c_scoreBar.fillAmount   = score / max;
             } 

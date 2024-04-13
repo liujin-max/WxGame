@@ -208,6 +208,8 @@ namespace CB
                     GameFacade.Instance.SoundManager.Load(SOUND.HIT);
                 }
 
+                GameFacade.Instance.EventManager.SendEvent(new GameEvent(EVENT.ONBALLHITGLASS, this, ghost, collision));
+
                 return true;
             }
 

@@ -11,7 +11,7 @@ namespace CB
     {
         private Environment m_Env = null;
 
-        public void OnBegin(int stage_order)
+        public void OnInit(int stage_order)
         {
             if (stage_order % 5 != 0) {
                 return;
@@ -20,7 +20,7 @@ namespace CB
             //
             Debug.Log("开始：" + stage_order);
 
-            int rand = RandomUtility.Random(0, 5);
+            int rand = RandomUtility.Random(0, 6);
 
 
             switch (rand)
@@ -44,12 +44,18 @@ namespace CB
                 case 4:
                     m_Env = transform.AddComponent<EarthQuake>();
                     break;
+
+                case 5:
+                    m_Env = transform.AddComponent<Blizard>();
+                    break;
                 
                 default:
                     break;
             }
-            
+        }
 
+        public void OnBegin()
+        {
             if (m_Env == null) return;
 
             m_Env.OnEnter();
@@ -59,10 +65,8 @@ namespace CB
         }
 
 
-        public void OnEnd(int stage_order)
+        public void OnEnd()
         {
-            Debug.Log("结束：" + stage_order);
-
             if (m_Env != null) {
                 m_Env.OnLeave();
 

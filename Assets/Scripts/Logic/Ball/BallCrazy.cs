@@ -11,24 +11,11 @@ namespace CB
     /// 
     public class BallCrazy : Ball
     {
-        private int m_Rate;
-    
-
-
-        public override void Shoot(Vector3 pos)
-        {
-            base.Shoot(pos);
-        }
-
-        public override void UpgradeTo(int level)
-        {
-            base.UpgradeTo(level);
-            m_Rate = 30 + 5 * m_Level;
-        }
+        private int m_Rate = 65;
 
         public override string GetDescription()
         {
-            var str = string.Format("击中宝石后有<size=32><#43A600>{0}%</color></size>概率朝随机方向反弹", m_Rate);
+            var str = string.Format("击中宝石后朝随机方向反弹");
 
             return str;
         }

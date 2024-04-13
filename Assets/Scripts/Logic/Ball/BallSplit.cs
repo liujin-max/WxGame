@@ -7,14 +7,7 @@ namespace CB
 {
     public class BallSplit : Ball
     {
-        private float m_Count = 2;
-
-        public override void UpgradeTo(int level)
-        {
-            base.UpgradeTo(level);
-
-            m_Count = 3 + m_Level - 1;
-        }
+        private float m_Count = 4;
 
         public override string GetDescription()
         {
@@ -46,7 +39,7 @@ namespace CB
                     {
                         var ball = GameFacade.Instance.Game.PushBall(collision_point, _C.BALLTYPE.SMALL);
 
-                        Vector2 direction = Quaternion.Euler(0, 0, 360 / m_Count * i) * Vector2.right;
+                        Vector2 direction = Quaternion.Euler(0, 0, RandomUtility.Random(0, 360)) * Vector2.right;
                         ball.Crash(direction * 25);
                     }
                 }

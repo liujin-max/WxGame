@@ -28,6 +28,7 @@ namespace CB
             GameFacade.Instance.EventManager.AddHandler(EVENT.ONDRAWINGOBSTACLE,OnReponseDrawingObstacles);
             GameFacade.Instance.EventManager.AddHandler(EVENT.ONGLASSUPDATE,    OnReponseGlassUpdate);
             GameFacade.Instance.EventManager.AddHandler(EVENT.ONCOINUPDATE,     OnReponseCoinUpdate);
+            GameFacade.Instance.EventManager.AddHandler(EVENT.ONBALLHITGLASS,   OnReponseHitGlass);
         }
 
         public void Dispose()
@@ -41,6 +42,7 @@ namespace CB
             GameFacade.Instance.EventManager.DelHandler(EVENT.ONDRAWINGOBSTACLE,OnReponseDrawingObstacles);
             GameFacade.Instance.EventManager.DelHandler(EVENT.ONGLASSUPDATE,    OnReponseGlassUpdate);
             GameFacade.Instance.EventManager.DelHandler(EVENT.ONCOINUPDATE,     OnReponseCoinUpdate);
+            GameFacade.Instance.EventManager.DelHandler(EVENT.ONBALLHITGLASS,   OnReponseHitGlass);
         }
 
         public Relics PushRelics(int id)
@@ -169,6 +171,16 @@ namespace CB
             m_Relicses.ForEach(relics => {
                 relics.GetEffects().ForEach(e => {
                     e.OnCoinUpdate((int)gameEvent.GetParam(0));
+                });
+            });
+        }
+
+        //击中碎片后
+        void OnReponseHitGlass(GameEvent gameEvent)
+        {
+            m_Relicses.ForEach(relics => {
+                relics.GetEffects().ForEach(e => {
+                    e.OnHitGlass((Ball)gameEvent.GetParam(0), (Ghost)gameEvent.GetParam(1), (Collision2D)gameEvent.GetParam(2));
                 });
             });
         }

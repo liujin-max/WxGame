@@ -250,7 +250,7 @@ namespace CB
 
         public override string GetDescription()
         {
-            return "升级弹珠花费的<sprite=0>数量有50%的概率-1。";
+            return "合成弹珠花费的<sprite=0>数量有50%的概率-1。";
         }
 
         public override void OnComplextInit(ComplextEvent evt, BallData config)
@@ -304,13 +304,24 @@ namespace CB
         public BEffect_DRAWBALL() {}
         public override string GetDescription()
         {
-            return "场上额外产生一枚<sprite=0>。";
+            return "击中<sprite=0>时有概率额外获得一枚。";
         }
 
-        public override void OnDrawingObstacles(List<int> lists)
+        public override void OnHitGlass(Ball ball, Ghost g, Collision2D collision)
         {
-            lists.Add(-1);
+            if (RandomUtility.IsHit(75) == true)
+            {
+                GameFacade.Instance.Game.Glass += 1;
+
+                GameFacade.Instance.EffectManager.Load(EFFECT.FLYGLASS, ball.transform.localPosition);
+            }
         }
+
+
+        // public override void OnDrawingObstacles(List<int> lists)
+        // {
+        //     lists.Add(-1);
+        // }
     }
 
     //之后的第#次碰撞，弹珠造成的伤害提高4倍
@@ -666,6 +677,11 @@ namespace CB
         }
 
         public virtual void OnCoinUpdate(int count)
+        {
+
+        }
+
+        public virtual void OnHitGlass(Ball ball, Ghost g, Collision2D collision)
         {
 
         }

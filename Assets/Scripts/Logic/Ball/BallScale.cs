@@ -9,19 +9,11 @@ namespace CB
     //缩放弹珠 被击中的宝石概率会缩放
     public class BallScale : Ball
     {
-        private int m_Rate;
-
-        
-        public override void UpgradeTo(int level)
-        {
-            base.UpgradeTo(level);
-
-            m_Rate = 33 + 2 * level;
-        }
+        private int m_Rate = 35;
 
         public override string GetDescription()
         {
-            var str = string.Format("<size=32><#43A600>{0}%</color></size>的概率使被击中的宝石放大或缩小。", m_Rate);
+            var str = string.Format("有一定概率使被击中的宝石放大或缩小。");
 
             return str;
         }

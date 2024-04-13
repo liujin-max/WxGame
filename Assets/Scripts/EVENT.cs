@@ -28,5 +28,6 @@ public static class EVENT
     public static string ONDRAWINGOBSTACLE  = "OnDRAWINGOBSTACLE";  //生成宝石时    
     public static string ONGLASSUPDATE      = "ONGLASSUPDATE";      //碎片变化时
     public static string ONCOINUPDATE       = "ONCOINUPDATE";       //金币变化时
+    public static string ONBALLHITGLASS     = "ONBALLHITGLASS";     
 
 }

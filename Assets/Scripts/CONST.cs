@@ -60,7 +60,7 @@ public static class _C
     public static float BOARD_BOTTOM  = -8f;
 
     public static float OBSTACLE_ORIGIN_Y   = -7;
-    public static float OBSTACLE_OFFSET     = 1.6f;
+    public static float OBSTACLE_OFFSET     = 1.5f;
 
 
 
@@ -96,7 +96,10 @@ public static class _C
         EXPAND  = 18,
         FOCUS   = 19,
 
-        SCALE  = 21,       //缩放弹珠
+        SCALE   = 21,       //缩放弹珠
+        SPEED   = 22,
+        REFLEX  = 23,
+        BLACKHOLE = 24,     //黑洞弹珠
     }   
 
 

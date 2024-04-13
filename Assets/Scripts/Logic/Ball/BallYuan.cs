@@ -27,7 +27,7 @@ namespace CB
 
         public override string GetDescription()
         {
-            var str = string.Format("击中宝石后有<size=32><#43A600>{0}%</color></size>的概率将当前宝石转换成<sprite=4>", m_Rate);
+            var str = string.Format("击中宝石后有概率将当前宝石转换成<sprite=4>");
 
             return str;
         }

@@ -70,6 +70,14 @@ namespace CB
             Flush();
         }
 
+        public void SetHP(int value)
+        {
+            m_HP    = value;
+            m_HPShow= value;
+
+            Flush();
+        }
+
         void LateUpdate()
         {
             c_CountText.transform.eulerAngles = Vector3.zero;
@@ -106,7 +114,13 @@ namespace CB
         public void ForceDead()
         {
             m_ForceDead = true;
+
             this.Dead();
+        }
+
+        public void ForceInValid()
+        {
+            gameObject.layer = (int)_C.LAYER.OBSTACLERECY;
         }
 
         public void CopyChanges(Obstacle obt)

@@ -11,18 +11,11 @@ namespace CB
     /// </summary>
     public class BallBoom : Ball
     {
-        private float m_Radius;
-
-        public override void UpgradeTo(int level)
-        {
-            base.UpgradeTo(level);
-
-            m_Radius = 180 + (m_Level - 1) * 15;
-        }
+        private float m_Radius = 180;
 
         public override string GetDescription()
         {
-            var str = string.Format("击中宝石时造成<size=32><#43A600>{0}</color></size>码的范围伤害。", m_Radius);
+            var str = string.Format("击中宝石时造成范围伤害。");
 
             return str;
         }
