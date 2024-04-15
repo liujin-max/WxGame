@@ -157,8 +157,8 @@ MonoBehaviour:
       m_HorizontalBearingY: 58
       m_HorizontalAdvance: 74
     m_GlyphRect:
-      m_X: 601
-      m_Y: 68
+      m_X: 603
+      m_Y: 66
       m_Width: 66
       m_Height: 72
     m_Scale: 1
