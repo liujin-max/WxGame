@@ -65,6 +65,7 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 6f8debe86c474ea4b915a13da20e6e1b, type: 3}
   - {fileID: 21300000, guid: 3d28a3d93873c17459dd528c4290b8f0, type: 3}
   - {fileID: 21300000, guid: 6a51930a02f077748bc50f53a68112f7, type: 3}
+  - {fileID: 21300000, guid: 8e435f6a5cafc704a97e156405d5f58b, type: 3}
   - {fileID: 21300000, guid: f8567d6b33ff31b4d8a508f53a05c85e, type: 3}
   - {fileID: 21300000, guid: e471494cb92d9ee42baa1c7174492c71, type: 3}
   - {fileID: 21300000, guid: 5474d37cb96624448aa77b7107c3128f, type: 3}
@@ -101,6 +102,7 @@ SpriteAtlas:
   - ball_boom
   - polygon4
   - ball_wave
+  - ball_mass
   - ball_scale
   - polygon5
   - fx_focus

@@ -165,6 +165,16 @@ namespace CB
             c_rigidbody.simulated = flag;
         }
 
+        //准备
+        public virtual void Breech()
+        {
+            this.SetState((int)_C.LAYER.BALLIDLE);
+            this.Velocity = Vector2.zero;
+            transform.localPosition = _C.BALL_ORIGIN_POS;
+            
+            c_rigidbody.bodyType = RigidbodyType2D.Kinematic;
+        }
+
         //发射
         public virtual void Shoot(Vector3 pos)
         {
@@ -172,6 +182,7 @@ namespace CB
             Physics2D.IgnoreCollision(c_collision, GameFacade.Instance.Game.c_borad, true);
 
             this.SetState((int)_C.LAYER.BALLACTING);
+            c_rigidbody.bodyType = RigidbodyType2D.Dynamic;
 
             //放回原始位置
             c_rigidbody.SetRotation(0);

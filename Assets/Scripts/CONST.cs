@@ -106,6 +106,7 @@ public static class _C
         SPEED   = 22,
         REFLEX  = 23,
         BLACKHOLE = 24,     //黑洞弹珠
+        MASS    = 25,
     }   
 
 

@@ -364,9 +364,7 @@ namespace CB
         {
             GameFacade.Instance.SoundManager.Load(SOUND.BREECH);
 
-            ball.Velocity = Vector2.zero;
-            ball.transform.localPosition = _C.BALL_ORIGIN_POS;
-            ball.SetState((int)_C.LAYER.BALLIDLE);
+            ball.Breech();
         }
 
         //合成球
@@ -760,6 +758,7 @@ namespace CB
         
             GameFacade.Instance.Game.Resume();
 
+            m_FSM.Owner.BreechBall(m_FSM.Owner.PushBall(_C.BALL_ORIGIN_POS, _C.BALLTYPE.MASS));
             m_FSM.Owner.BreechBall(m_FSM.Owner.PushBall(_C.BALL_ORIGIN_POS, _C.BALLTYPE.NORMAL));
 
             // m_FSM.Owner.Army.PushRelics(116);
