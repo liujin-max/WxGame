@@ -3,7 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.U2D;
 
@@ -56,16 +55,16 @@ namespace CB
             m_ForceDead = false;
             m_HPShow    = hp;
 
-            gameObject.layer = (int)_C.LAYER.DEFAULT;
             c_rigidbody.Sleep();
             c_CountText.gameObject.SetActive(true);
             m_ImageGray.TurnSpriteGray(false);
 
-            var scale = m_Scale.ToNumber();
-            transform.localScale = new Vector3(scale, scale, scale);
+            c_Frame.GetComponent<SpriteRenderer>().DOFade(1, 0f);
+            c_CountText.DOFade(1, 0f);
 
             Flush();
 
+            this.SetValid(true);
             this.Show(true);
         }
 
@@ -130,9 +129,32 @@ namespace CB
             this.Dead();
         }
 
-        public void ForceInValid()
+        public void SetValid(bool flag)
         {
-            gameObject.layer = (int)_C.LAYER.OBSTACLERECY;
+            if (flag) {
+                gameObject.layer = (int)_C.LAYER.DEFAULT;
+            } else {
+                gameObject.layer = (int)_C.LAYER.OBTINVALID;
+            }
+        }
+
+        public bool IsValid()
+        {
+            return gameObject.layer == (int)_C.LAYER.DEFAULT;
+        }
+
+        public void Shine()
+        {
+            this.SetValid(false);
+
+            var frame_spr = c_Frame.GetComponent<SpriteRenderer>();
+
+            Sequence sequence = DOTween.Sequence();
+            sequence.Append(frame_spr.DOFade(0, 0.8f));
+            sequence.Join(c_CountText.DOFade(0, 0.8f));
+            sequence.Append(frame_spr.DOFade(1, 0.8f).OnComplete(()=>{ this.SetValid(true);}));
+            sequence.Join(c_CountText.DOFade(1, 0.8f));
+            sequence.Play();
         }
 
         public void CopyChanges(Obstacle obt)
@@ -218,7 +240,7 @@ namespace CB
 
             this.RemoveShield();
             
-            gameObject.layer = (int)_C.LAYER.OBSTACLERECY;
+            gameObject.layer = (int)_C.LAYER.OBTINVALID;
 
             c_CountText.gameObject.SetActive(false);
             m_ImageGray.TurnSpriteGray(true);

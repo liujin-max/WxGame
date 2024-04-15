@@ -25,6 +25,8 @@ namespace CB
 
         public override void OnEnter()
         {
+            base.OnEnter();
+            
             GameFacade.Instance.Game.Obstacles.ForEach(obstacle =>{
                 if (RandomUtility.IsHit(30) == true) {
                     obstacle.AddShield(5);

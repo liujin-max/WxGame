@@ -39,7 +39,7 @@ namespace CB
                 //对范围内的障碍物造成伤害
                 var obstacles   = GameFacade.Instance.Game.Obstacles;
                 for (int i = 0; i < obstacles.Count; i++) {
-                    Obstacle obt = obstacles[i];
+                    Obstacle obt = obstacles[i]; 
                     if (Vector3.Distance(obt.transform.localPosition, collision_point) <= radius) {
                         obt.OnHit(this, (int)m_Demage.ToNumber());
                     }

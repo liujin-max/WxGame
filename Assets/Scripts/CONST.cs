@@ -13,7 +13,7 @@ public static class _C
         BALLACTING  = 7,    //运动中
         BALLRECYCLE = 8,     //回收
 
-        OBSTACLERECY = 9,    //障碍物回收
+        OBTINVALID = 9,    //宝石无效
 
         BALLREADY   = 13,    //代发射
     }

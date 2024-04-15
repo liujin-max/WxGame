@@ -21,7 +21,7 @@ namespace CB
             //
             Debug.Log("开始：" + stage_order);
 
-            int rand = RandomUtility.Random(0, 8);
+            int rand = RandomUtility.Random(0, 10);
 
 
             switch (rand)
@@ -57,6 +57,14 @@ namespace CB
                 case 7:
                     m_Env = transform.AddComponent<Scaler>();
                     break;
+
+                case 8:
+                    m_Env = transform.AddComponent<Fall>();
+                    break;
+
+                case 9:
+                    m_Env = transform.AddComponent<FadeShine>();
+                    break;
                 
                 default:
                     m_Env = transform.AddComponent<Wind>();
@@ -90,10 +98,11 @@ namespace CB
     public class Environment : MonoBehaviour
     {
         public string Name = "";
+        protected bool m_IsEnter = false;
 
         public virtual void OnEnter()
         {
-
+            m_IsEnter = true;
         }
 
         public virtual void OnLeave()

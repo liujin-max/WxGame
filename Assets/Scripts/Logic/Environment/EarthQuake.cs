@@ -27,6 +27,8 @@ namespace CB
 
         public override void OnEnter()
         {
+            base.OnEnter();
+            
             m_CDTimer.Reset(RandomUtility.Random(100, 500) / 100.0f);
         }
 

@@ -34,16 +34,6 @@ namespace CB
             return "进入岩石层，场上不再生成<sprite=0>。";
         }
 
-        public override void OnEnter()
-        {
-
-        }
-
-        public override void OnLeave()
-        {
-
-        }
-
         void OnReponseAfterDrawObstacles(GameEvent gameEvent)
         {
             List<int> lists = (List<int>)gameEvent.GetParam(0);

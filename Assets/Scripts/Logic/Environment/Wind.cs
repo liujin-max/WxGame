@@ -27,7 +27,8 @@ namespace CB
 
         public override void OnEnter()
         {
-            //刮风特效
+            base.OnEnter();
+
 
             float angle = 0; // 角度值
 

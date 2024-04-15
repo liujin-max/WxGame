@@ -17,7 +17,7 @@ public class BlackHole : Box
             if (Vector3.Distance(o_pos, obstacle.transform.localPosition) <= m_Radius)
             {
                 //使宝石无效
-                obstacle.ForceInValid();
+                obstacle.SetValid(false);
 
                 // 将对象移向黑洞
                 obstacle.transform.DOLocalMove(o_pos, 1f).SetEase(Ease.InOutQuad);

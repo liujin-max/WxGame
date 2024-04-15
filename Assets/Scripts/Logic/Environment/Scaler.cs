@@ -26,15 +26,13 @@ namespace CB
 
         public override void OnEnter()
         {
+            base.OnEnter();
+
             GameFacade.Instance.Game.Obstacles.ForEach(obstacle => {
                 obstacle.m_Scale.PutAUL(this, -0.15f);
                 obstacle.JudgeScale();
             });
         }
 
-        public override void OnLeave()
-        {
-
-        }
     }
 }

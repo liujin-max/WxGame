@@ -36,14 +36,11 @@ namespace CB
 
         public override void OnEnter()
         {
+            base.OnEnter();
+
             GameFacade.Instance.Game.Obstacles.ForEach(obstacle =>{
                 obstacle.SetHP((int)(obstacle.HP * 1.5f));
             });
-        }
-
-        public override void OnLeave()
-        {
-
         }
 
         void OnReponseDrawingObstacles(GameEvent gameEvent)
