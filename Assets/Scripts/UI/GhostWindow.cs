@@ -35,6 +35,9 @@ public class GhostWindow : MonoBehaviour
             if (flag == true) {
                 GameFacade.Instance.SoundManager.Load(SOUND.COST);
 
+                GameFacade.Instance.EffectManager.LoadUIEffect(EFFECT.BUBBLEBREAK, m_SelectGhost.transform.position);
+                
+
                 List<ComplextEvent> events = GameFacade.Instance.Game.GenerateEvents();
                 if (events != null) {
                     this.Init(events);

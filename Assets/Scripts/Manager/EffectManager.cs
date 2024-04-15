@@ -18,6 +18,12 @@ public class EffectManager : MonoBehaviour
     }
 
 
+    public void LoadUIEffect(string path, Vector3 world_pos)
+    {
+        var e = GameFacade.Instance.EffectManager.Load(path, world_pos, GameFacade.Instance.UIManager.EFFECT.gameObject);
+        e.transform.position = world_pos;
+    }
+
     public void FlyRate(Vector3 pos,  float value)
     {
         var e = GameFacade.Instance.EffectManager.Load(EFFECT.RATENUMBER, pos * 100, GameFacade.Instance.UIManager.EFFECT.gameObject);

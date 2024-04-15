@@ -6,7 +6,7 @@ public static class EFFECT
 {
     public const string BOOM        = "Prefab/Effect/fx_boom";
     public const string COMPLEX     = "Prefab/Effect/fx_complex";
-    public const string COMPLEXT     = "Prefab/Effect/fx_complext";
+    public const string COMPLEXT    = "Prefab/Effect/fx_complext";
     public const string ROUND       = "Prefab/Effect/fx_round_start";
     public const string FLYCOIN     = "Prefab/Effect/fx_flycoin";
     public const string FLYGLASS    = "Prefab/Effect/fx_flyglass";
@@ -15,6 +15,7 @@ public static class EFFECT
     public const string SANDSOTRM   = "Prefab/Effect/fx_sandstorm";
     public const string SMOKE       = "Prefab/Effect/fx_smoke";
     public const string SHIELDBOOM  = "Prefab/Effect/fx_shield_boom";
+    public const string BUBBLEBREAK = "Prefab/Effect/fx_bubble_break";
 
     public const string RATENUMBER  = "Prefab/Effect/fx_flyRate";
 }
