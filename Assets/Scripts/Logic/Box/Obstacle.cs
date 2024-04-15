@@ -41,9 +41,6 @@ namespace CB
             }
 
             m_ImageGray = c_Frame.GetComponent<ImageGray>();
-
-
-            this.Show(true);
         }
 
         void Start()
@@ -68,6 +65,8 @@ namespace CB
             transform.localScale = new Vector3(scale, scale, scale);
 
             Flush();
+
+            this.Show(true);
         }
 
         public override void DoScale()

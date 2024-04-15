@@ -763,6 +763,8 @@ namespace CB
             GameFacade.Instance.Game.Resume();
 
             m_FSM.Owner.BreechBall(m_FSM.Owner.PushBall(_C.BALL_ORIGIN_POS, _C.BALLTYPE.NORMAL));
+            // m_FSM.Owner.BreechBall(m_FSM.Owner.PushBall(_C.BALL_ORIGIN_POS, _C.BALLTYPE.SPLIT));
+            // m_FSM.Owner.BreechBall(m_FSM.Owner.PushBall(_C.BALL_ORIGIN_POS, _C.BALLTYPE.SPLIT));
 
             // m_FSM.Owner.Army.PushRelics(116);
 
@@ -950,7 +952,6 @@ namespace CB
     {
         private List<Ball> m_Queue = new List<Ball>();
         private Ball m_ShootBall = null;
-        private List<Ball> m_Orders = new List<Ball>(); //记录弹珠的发射顺序
 
         private bool m_IsPressDown = false;
         private bool m_IsFinished = false;
@@ -1011,7 +1012,6 @@ namespace CB
                 var ball = m_ShootBall;
                 m_Queue.Remove(ball);
                 GameFacade.Instance.Game.ShootBall(ball, m_FSM.Owner.FingerPos);
-                m_Orders.Add(ball);
             }
 
             //显示下一颗待发射的弹珠
@@ -1044,10 +1044,9 @@ namespace CB
             m_IsFinished = false;
             m_DelayTimer.Reset();
 
-            m_Orders.Clear();
             m_Queue.Clear();
             foreach (var ball in m_FSM.Owner.Balls) {
-                ball.SetState((int)_C.LAYER.BALLREADY);
+                // ball.SetState((int)_C.LAYER.BALLREADY);
                 m_Queue.Add(ball);
             }
 
@@ -1208,8 +1207,28 @@ namespace CB
                 GameFacade.Instance.Game.ShowBallBubble(m_ShootBall);
 
                 GameFacade.Instance.Game.Pause();
-            } else {
+            } else {              
+                var insert_index = 0;
+                for (int i = 0; i < m_FSM.Owner.Balls.Count; i++) {
+                    var b = m_FSM.Owner.Balls[i];
+                    if (b.IsActing != true) {
+                        insert_index = i;
+                        break;
+                    }
+                }
+                m_FSM.Owner.Balls.Remove(m_ShootBall);
+                m_FSM.Owner.Balls.Insert(insert_index, m_ShootBall);
+
+                m_Queue.Clear();
+                foreach (var ball in m_FSM.Owner.Balls) {
+                    if (ball.IsIdle) {
+                        m_Queue.Add(ball);
+                    }
+                }
+
                 GameFacade.Instance.Game.Resume();
+
+                GameFacade.Instance.EventManager.SendEvent(new GameEvent(EVENT.UI_FLUSHBALLS));
             }
         }
     }
