@@ -15,7 +15,7 @@ namespace CB
 
         public override string GetDescription()
         {
-            var str = string.Format("击中宝石时造成范围伤害。");
+            var str = string.Format("击中宝石时发生爆炸，造成范围伤害。");
 
             return str;
         }

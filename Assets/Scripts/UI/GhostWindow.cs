@@ -75,9 +75,9 @@ public class GhostWindow : MonoBehaviour
         c_Tip.text = string.Format("消耗 <sprite=0>（拥有{0}个）合成弹珠", GameFacade.Instance.Game.Glass);
 
         if (GameFacade.Instance.Game.m_Coin >= GameFacade.Instance.Game.RefreshCoin) {
-            c_BtnRefresh.transform.Find("Text").GetComponent<TextMeshProUGUI>().text = GameFacade.Instance.Game.RefreshCoin + "<size=34><sprite=1>";
+            c_BtnRefresh.transform.Find("Text").GetComponent<TextMeshProUGUI>().text = "刷新：" + GameFacade.Instance.Game.RefreshCoin + " <size=34><sprite=1>";
         } else {
-            c_BtnRefresh.transform.Find("Text").GetComponent<TextMeshProUGUI>().text = _C.REDCOLOR + GameFacade.Instance.Game.RefreshCoin + "<size=34><sprite=1>";
+            c_BtnRefresh.transform.Find("Text").GetComponent<TextMeshProUGUI>().text = "刷新：" + _C.REDCOLOR + GameFacade.Instance.Game.RefreshCoin + " <size=34><sprite=1>";
         }
         
     }
@@ -119,13 +119,8 @@ public class GhostWindow : MonoBehaviour
         {
             var evt = events[i];
             GhostItem item = new_ghost_item(i);
+            item.transform.localPosition = new Vector3((i - ((events.Count - 1) / 2.0f)) * 290, 0, 0);
             item.Init(evt);
-
-            item.transform.localPosition = new Vector3(0, -6, 0);
-            item.transform.DOLocalMove(new Vector3((i - ((events.Count - 1) / 2.0f)) * 290, 0, 0), 0.5f);
-
-            item.transform.localScale = Vector3.zero;
-            item.transform.DOScale(Vector3.one, 0.4f);
 
             item.Touch.onClick.RemoveAllListeners();
             item.Touch.onClick.AddListener(()=>{

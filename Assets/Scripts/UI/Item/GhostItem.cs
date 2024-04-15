@@ -18,6 +18,7 @@ public class GhostItem : MonoBehaviour
 
 
     public Button Touch;
+    [SerializeField] GameObject c_Bubble;
     [SerializeField] GameObject c_Light;
     [SerializeField] private RawImage c_Icon;
     [SerializeField] private TextMeshProUGUI c_Cost;
@@ -93,10 +94,22 @@ public class GhostItem : MonoBehaviour
         }
             
 
-
+        DoScale();
     }
 
+    void DoScale()
+    {
+        GameFacade.Instance.SoundManager.Load(SOUND.BUBBLE);
+        
+        c_Bubble.transform.localScale = Vector3.zero;
 
+        Sequence sequence = DOTween.Sequence();
+
+        sequence.Append(c_Bubble.transform.DOScale(Vector3.one, 0.2f).SetEase(Ease.InBounce));
+        sequence.Append(c_Bubble.transform.DOShakeScale(0.25f, 0.4f, vibrato: 15, randomness: 50));
+
+        sequence.Play();
+    }
 
 
     public void Select(bool flag)
