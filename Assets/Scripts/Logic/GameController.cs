@@ -57,8 +57,8 @@ namespace CB
         public int Stage {get {return m_Stage;}}
 
         internal int m_Hit = 0;     //每轮的击打次数
-        internal int m_Coin = 5;    //本局获得的金币
-        internal int m_Glass = 5;   //获得的玻璃碎片
+        internal int m_Coin = 0;    //本局获得的金币
+        internal int m_Glass = 0;   //获得的玻璃碎片
         public int Glass
         {
             get { return m_Glass; }
@@ -748,6 +748,9 @@ namespace CB
             m_FSM.Owner.Balls.Clear();
 
             m_FSM.Owner.Army.Awake();
+
+            m_FSM.Owner.m_Coin = _C.DEFAULT_COIN;
+            m_FSM.Owner.m_Glass= _C.DEFAULT_GLASS;
 
             m_FSM.Owner._GameUI = GameFacade.Instance.UIManager.LoadWindow("Prefab/UI/GameWindow", GameFacade.Instance.UIManager.BOTTOM).GetComponent<GameWindow>();
 

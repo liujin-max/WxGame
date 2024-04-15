@@ -261,7 +261,8 @@ namespace CB
 
         private void OnReponseFlushCount(GameEvent gameEvent)
         {
-            c_countText.text = GameFacade.Instance.Game.Glass.ToString();
+            // c_countText.text = GameFacade.Instance.Game.Glass.ToString();
+            c_countText.GetComponent<NumberTransition>().SetValue(GameFacade.Instance.Game.Glass);
         }
 
         private void OnReponseFlushBalls(GameEvent gameEvent)
@@ -310,7 +311,8 @@ namespace CB
 
         void OnReponseFlushCoin(GameEvent gameEvent)
         {
-            c_coinText.text = gameEvent.GetParam(0).ToString();
+            // c_coinText.text = gameEvent.GetParam(0).ToString();
+            c_coinText.GetComponent<NumberTransition>().SetValue((int)gameEvent.GetParam(0));
         }
 
         void OnReponseFlushRelics(GameEvent gameEvent)

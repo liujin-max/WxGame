@@ -37,8 +37,14 @@ public static class _C
         NULL = 2
     }
 
-    public static Vector2 DEFAULT_GRAVITY = new Vector2(0, -9.81f);
+  
     public static int GLASSPRICE   = 2;    //碎片价格
+    public static int DEFAULT_COIN = 5;
+    public static int DEFAULT_GLASS= 5;
+
+
+
+    public static Vector2 DEFAULT_GRAVITY = new Vector2(0, -9.81f);
 
 
     public static Vector3 VEC3INVALID       = new Vector3(-999, -999, -999);
