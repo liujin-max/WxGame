@@ -14,7 +14,7 @@ public class GhostWindow : MonoBehaviour
     [SerializeField] private Button c_BtnCancel;
     [SerializeField] private Button c_BtnRefresh;
     [SerializeField] private GameObject c_ButtonPivot;
-
+    [SerializeField] private GameObject c_DescriptionPivot;
     [SerializeField] private TextMeshProUGUI c_Tip;
 
     private GhostItem m_SelectGhost = null;
@@ -24,9 +24,9 @@ public class GhostWindow : MonoBehaviour
 
     void Start()
     {
+        c_DescriptionPivot.SetActive(false);
         c_ButtonPivot.SetActive(false);
         c_BtnRefresh.gameObject.SetActive(false);
-
         c_BtnSelect.gameObject.SetActive(false);
 
         c_BtnSelect.onClick.AddListener(()=> {
@@ -72,7 +72,7 @@ public class GhostWindow : MonoBehaviour
 
     void FlushUI()
     {
-        c_Tip.text = string.Format("消耗<sprite=0>(拥有{0}个)，合成或升级一颗高阶弹珠", GameFacade.Instance.Game.Glass);
+        c_Tip.text = string.Format("消耗 <sprite=0>（拥有{0}个）合成弹珠", GameFacade.Instance.Game.Glass);
 
         if (GameFacade.Instance.Game.m_Coin >= GameFacade.Instance.Game.RefreshCoin) {
             c_BtnRefresh.transform.Find("Text").GetComponent<TextMeshProUGUI>().text = GameFacade.Instance.Game.RefreshCoin + "<size=34><sprite=1>";
@@ -110,10 +110,11 @@ public class GhostWindow : MonoBehaviour
             item.gameObject.SetActive(false);
         }
 
+        c_DescriptionPivot.SetActive(false);
+
 
         int count = events.Count;
 
-        // Vector2[] positions = new Vector2[] {new Vector2(-360, 0), new Vector2(0, 0), new Vector2(360, 0)};
         for (int i = 0; i < events.Count; i++)
         {
             var evt = events[i];
@@ -121,14 +122,14 @@ public class GhostWindow : MonoBehaviour
             item.Init(evt);
 
             item.transform.localPosition = new Vector3(0, -6, 0);
-            item.transform.DOLocalMove(new Vector3((i - ((events.Count - 1) / 2.0f)) * 360, 0, 0), 0.5f);
+            item.transform.DOLocalMove(new Vector3((i - ((events.Count - 1) / 2.0f)) * 290, 0, 0), 0.5f);
 
             item.transform.localScale = Vector3.zero;
             item.transform.DOScale(Vector3.one, 0.4f);
 
-            item.GetComponent<Button>().onClick.RemoveAllListeners();
-            item.GetComponent<Button>().onClick.AddListener(()=>{
-                GameFacade.Instance.SoundManager.Load(SOUND.CLICK);
+            item.Touch.onClick.RemoveAllListeners();
+            item.Touch.onClick.AddListener(()=>{
+                GameFacade.Instance.SoundManager.Load(SOUND.BUBBLE);
                 
                 if (m_SelectGhost != null) {
                     m_SelectGhost.Select(false);
@@ -138,7 +139,29 @@ public class GhostWindow : MonoBehaviour
                 m_SelectGhost.Select(true);
 
                 c_BtnSelect.gameObject.SetActive(true);
+
+                this.ShowDescription(evt);
             });
+        }
+    }
+
+    void ShowDescription(ComplextEvent evt)
+    {
+        c_DescriptionPivot.SetActive(true);
+        c_DescriptionPivot.transform.position = m_SelectGhost.transform.position + new Vector3(0, 2.5f, 0);
+
+
+        var des_text = c_DescriptionPivot.transform.Find("Text").GetComponent<ShakeText>();
+
+
+        if (evt.EventType == _C.COMPLEXTEVEMT.GLASS)
+        {
+            des_text.SetText("<#3297FF>碎片：</color>合成弹珠需要的材料");
+        }
+        else
+        {
+            var ball = m_SelectGhost.Ball;
+            des_text.SetText(string.Format("<#3297FF>{0}<#FF6631>({1})</color>：</color>{2}", ball.Name, ball.m_Demage.ToNumber(), ball.GetDescription()));
         }
     }
 

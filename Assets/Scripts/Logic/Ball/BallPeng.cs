@@ -26,7 +26,7 @@ namespace CB
 
         public override string GetDescription()
         {
-            var str = string.Format("每击落一枚 <sprite=0>，伤害增加<size=32><#43A600>{0}</color></size>点", m_Pow);
+            var str = string.Format("每击落一枚<sprite=0>，伤害增加<size=32><#43A600>{0}</color></size>点", m_Pow);
 
             return str;
         }

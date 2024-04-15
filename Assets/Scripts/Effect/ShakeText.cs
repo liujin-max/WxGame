@@ -38,11 +38,18 @@ public class ShakeText : MonoBehaviour
         m_text.ForceMeshUpdate();
 
         GetRawVertex();
+
+        StopAllCoroutines();
         StartCoroutine(DoShake());
     }
 
     private void GetRawVertex()
     {
+        if (m_rawVertex != null) {
+            Array.Clear(m_rawVertex, 0, m_rawVertex.Length);
+        }
+        
+
         if(m_text.textInfo.characterCount > 0)
         {
             TMP_CharacterInfo charInfo = m_text.textInfo.characterInfo[0];
@@ -119,17 +126,6 @@ public class ShakeText : MonoBehaviour
             m_text.UpdateVertexData();
             yield return new WaitForSeconds(shakeSpeed);
         }
-    }
-
-    /// 获取基地址的
-    /// </summary>
-    /// <param name="o"></param>
-    /// <returns></returns>
-    public int GetMemory(object o)
-    {
-        GCHandle h = GCHandle.Alloc(o, GCHandleType.WeakTrackResurrection);
-        IntPtr addr = GCHandle.ToIntPtr(h);
-        return int.Parse(addr.ToString());
     }
 
     /// <summary>

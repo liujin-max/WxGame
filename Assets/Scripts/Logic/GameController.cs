@@ -833,7 +833,7 @@ namespace CB
             List<int> temp_list = new List<int>();
 
 
-            int random_count = RandomUtility.Random(24, 28);
+            int random_count = RandomUtility.Random(23, 27);
             int hp_now  = 0;
             int hp_avg  = (int)Mathf.Ceil(hp_need / (random_count * 1.0f));  //平均一颗宝石的血量
             int count   = 0;

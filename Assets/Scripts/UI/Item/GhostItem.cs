@@ -12,16 +12,13 @@ public class GhostItem : MonoBehaviour
     public ComplextEvent m_Event;
     // public BallData m_Config;
     private Ball m_Ball;
+    public Ball Ball {get {return m_Ball;}}
 
-    private Sequence m_Sequence;
+    private Tweener m_Tweener;
 
 
-
+    public Button Touch;
     [SerializeField] GameObject c_Light;
-    [SerializeField] private RawImage c_Title;
-    [SerializeField] private TextMeshProUGUI c_Name;
-    [SerializeField] private TextMeshProUGUI c_Level;
-    [SerializeField] private TextMeshProUGUI c_Description;
     [SerializeField] private RawImage c_Icon;
     [SerializeField] private TextMeshProUGUI c_Cost;
 
@@ -42,22 +39,10 @@ public class GhostItem : MonoBehaviour
             Destroy(m_Ball.gameObject);
         }
 
-            if (evt.EventType == _C.COMPLEXTEVEMT.UPGRADE) {
-            c_Title.texture = Resources.Load<Texture2D>("UI/Game/Game_upgrade_title_upgrade");
-        } else {
-            c_Title.texture = Resources.Load<Texture2D>("UI/Game/Game_upgrade_title_complex");
-        }
-        c_Title.SetNativeSize();
-
-
 
         if (m_Event.EventType == _C.COMPLEXTEVEMT.GLASS)
         {
             c_Icon.texture = Resources.Load<Texture2D>("UI/Texture/Glass");
-
-            c_Name.text     = "碎片";
-            c_Level.text    = "";
-            c_Description.text = "合成弹珠的材料";
 
             StringBuilder sb = new StringBuilder();
             
@@ -94,12 +79,6 @@ public class GhostItem : MonoBehaviour
                 m_Ball.UpgradeTo(b.Level + 1);
             }
 
-
-
-            c_Name.text     = m_Ball.Name;
-            c_Level.text    = evt.EventType == _C.COMPLEXTEVEMT.NEW ? "新!!" : ("Lv." + m_Ball.Level);
-            c_Description.text = m_Ball.GetDescription();
-
             StringBuilder sb = new StringBuilder();
 
             if (GameFacade.Instance.Game.Glass < config.Cost.ToNumber()) {
@@ -122,34 +101,20 @@ public class GhostItem : MonoBehaviour
 
     public void Select(bool flag)
     {
-        if (m_Sequence != null) {
-            m_Sequence.Kill();
-            m_Sequence = null;
+        if (m_Tweener != null) {
+            m_Tweener.Kill();
+            m_Tweener = null;
         }
         
-
         c_Light.SetActive(flag);
 
-        m_Sequence = DOTween.Sequence();
-        
         if (flag == true) {
-            transform.SetAsLastSibling();
-
-            var origin_pos = transform.localPosition;
-
-            // 按顺序添加Tween动作
-            m_Sequence.Append(transform.DOShakePosition(0.2f, new Vector3(10, 3f, 0) , vibrato: 25, randomness: 50, fadeOut: true).OnComplete(()=>{
-                transform.localPosition = origin_pos;
-            }));
-            m_Sequence.Append(transform.DOScale(1.2f, 0.2f).SetEase(Ease.OutBack));
-            
-
+            Touch.transform.localScale = Vector3.one;
+            // 创建抖动和缩放效果
+            m_Tweener = Touch.transform.DOShakeScale(0.3f, 0.5f, vibrato: 15, randomness: 50, fadeOut: true);
         } else {
-            m_Sequence.Append(transform.DOScale(Vector3.one, 0.1f));
+            m_Tweener = Touch.transform.DOScale(Vector3.one, 0.1f);
         }
-
-        // 启动Sequence
-        m_Sequence.Play();
     }
 
 
