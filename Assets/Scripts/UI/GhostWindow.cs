@@ -20,14 +20,15 @@ public class GhostWindow : MonoBehaviour
     private GhostItem m_SelectGhost = null;
     private List<GhostItem> m_GhostItems = new List<GhostItem>();
 
-    private CDTimer m_CDTimer = new CDTimer(0.5f);
+    private CDTimer m_CDTimer = new CDTimer(0.6f);
 
     void Start()
     {
         c_DescriptionPivot.SetActive(false);
-        c_ButtonPivot.SetActive(false);
+
         c_BtnRefresh.gameObject.SetActive(false);
         c_BtnSelect.gameObject.SetActive(false);
+        c_BtnCancel.gameObject.SetActive(false);
 
         c_BtnSelect.onClick.AddListener(()=> {
             var flag = GameFacade.Instance.Game.ComplextBall(m_SelectGhost.m_Event);
@@ -75,9 +76,9 @@ public class GhostWindow : MonoBehaviour
         c_Tip.text = string.Format("消耗 <sprite=0>（拥有{0}个）合成弹珠", GameFacade.Instance.Game.Glass);
 
         if (GameFacade.Instance.Game.m_Coin >= GameFacade.Instance.Game.RefreshCoin) {
-            c_BtnRefresh.transform.Find("Text").GetComponent<TextMeshProUGUI>().text = "刷新：" + GameFacade.Instance.Game.RefreshCoin + " <size=34><sprite=1>";
+            c_BtnRefresh.transform.Find("Text").GetComponent<TextMeshProUGUI>().text = GameFacade.Instance.Game.RefreshCoin + " <sprite=1>";
         } else {
-            c_BtnRefresh.transform.Find("Text").GetComponent<TextMeshProUGUI>().text = "刷新：" + _C.REDCOLOR + GameFacade.Instance.Game.RefreshCoin + " <size=34><sprite=1>";
+            c_BtnRefresh.transform.Find("Text").GetComponent<TextMeshProUGUI>().text = _C.REDCOLOR + GameFacade.Instance.Game.RefreshCoin + " <sprite=1>";
         }
         
     }
@@ -168,8 +169,8 @@ public class GhostWindow : MonoBehaviour
         if (m_CDTimer.IsFinished() == true)  {
             m_CDTimer = null;
 
-            c_ButtonPivot.SetActive(true);
             c_BtnRefresh.gameObject.SetActive(true);
+            c_BtnCancel.gameObject.SetActive(true);
         }
     }
 }
