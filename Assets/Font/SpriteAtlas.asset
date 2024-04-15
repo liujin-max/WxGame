@@ -121,13 +121,13 @@ MonoBehaviour:
   m_SpriteGlyphTable:
   - m_Index: 0
     m_Metrics:
-      m_Width: 31
-      m_Height: 32
-      m_HorizontalBearingX: 0
+      m_Width: 33
+      m_Height: 33
+      m_HorizontalBearingX: 3
       m_HorizontalBearingY: 25
       m_HorizontalAdvance: 36
     m_GlyphRect:
-      m_X: 66
+      m_X: 68
       m_Y: 108
       m_Width: 31
       m_Height: 32
@@ -187,7 +187,7 @@ MonoBehaviour:
       m_HorizontalBearingY: 100
       m_HorizontalAdvance: 150
     m_GlyphRect:
-      m_X: 357
+      m_X: 358
       m_Y: 16
       m_Width: 124
       m_Height: 124
@@ -213,11 +213,11 @@ MonoBehaviour:
     m_Metrics:
       m_Width: 120
       m_Height: 140
-      m_HorizontalBearingX: 0
-      m_HorizontalBearingY: 100
+      m_HorizontalBearingX: 5
+      m_HorizontalBearingY: 110
       m_HorizontalAdvance: 150
     m_GlyphRect:
-      m_X: 481
+      m_X: 482
       m_Y: 0
       m_Width: 120
       m_Height: 140

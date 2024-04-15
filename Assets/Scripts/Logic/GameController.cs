@@ -342,8 +342,7 @@ namespace CB
         public Ball PushBall(Vector3 pos, _C.BALLTYPE type)
         {
             var config  = CONFIG.GetBallData(type);
-            GameObject prefab = Resources.Load<GameObject>(config.Ball);
-            var obj     = Instantiate(prefab, pos, Quaternion.identity, c_ballPivot);
+            var obj     = Instantiate(Resources.Load<GameObject>(config.Ball), pos, Quaternion.identity, c_ballPivot);
             var ball    = obj.GetComponent<Ball>();
             ball.Init(type);
 
@@ -351,8 +350,8 @@ namespace CB
                 m_BallSmalls.Add(ball);
             }  else {
                 m_Balls.Add(ball);
-
-                GameFacade.Instance.EventManager.SendEvent(new GameEvent(EVENT.UI_FLUSHBALLS));
+                
+                GameFacade.Instance.EventManager.SendEvent(new GameEvent(EVENT.UI_FLUSHBALLS, ball));
             }
 
             GameFacade.Instance.EventManager.SendEvent(new GameEvent(EVENT.ONBALLPUSH, ball));
@@ -417,10 +416,6 @@ namespace CB
                     ball = GameFacade.Instance.Game.PushBall(_C.BALL_ORIGIN_POS, evt.Type);
                     GameFacade.Instance.Game.BreechBall(ball);
                 }
-
-                GameFacade.Instance.EventManager.SendEvent(new GameEvent(EVENT.UI_FLUSHBALLS));
-
-                GameFacade.Instance.EffectManager.Load(EFFECT.COMPLEX, _C.BALL_ORIGIN_POS);
             }
 
             return true;
@@ -763,8 +758,6 @@ namespace CB
             GameFacade.Instance.Game.Resume();
 
             m_FSM.Owner.BreechBall(m_FSM.Owner.PushBall(_C.BALL_ORIGIN_POS, _C.BALLTYPE.NORMAL));
-            // m_FSM.Owner.BreechBall(m_FSM.Owner.PushBall(_C.BALL_ORIGIN_POS, _C.BALLTYPE.SPLIT));
-            // m_FSM.Owner.BreechBall(m_FSM.Owner.PushBall(_C.BALL_ORIGIN_POS, _C.BALLTYPE.SPLIT));
 
             // m_FSM.Owner.Army.PushRelics(116);
 
@@ -1154,23 +1147,9 @@ namespace CB
         {
             m_FSM.Owner.Environment.OnEnd();
 
-            GameFacade.Instance.EventManager.DelHandler(EVENT.UI_SHOWBALLLIST,  OnReponseBallList);
-
-
-            // List<Ball> others = new List<Ball>();
-            // foreach (var ball in m_FSM.Owner.Balls)
-            // {
-            //     if (m_Orders.Contains(ball) != true)
-            //     {
-            //         others.Add(ball);
-            //     }
-            // }
-
-            // m_FSM.Owner.Balls.Clear();
-            // m_FSM.Owner.Balls.AddRange(m_Orders);
-            // m_FSM.Owner.Balls.AddRange(others);
-
             GameFacade.Instance.EventManager.SendEvent(new GameEvent(EVENT.UI_FLUSHBALLS));
+
+            GameFacade.Instance.EventManager.DelHandler(EVENT.UI_SHOWBALLLIST,  OnReponseBallList);
         }
 
 

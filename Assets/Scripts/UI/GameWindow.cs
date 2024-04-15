@@ -270,13 +270,20 @@ namespace CB
                 seat.gameObject.SetActive(false);
             }
 
+            var add_ball = gameEvent.GetParam(0);
+
             var balls = GameFacade.Instance.Game.Balls;
             for (int i = 0; i < GameFacade.Instance.Game.SeatCount.ToNumber(); i++)
             {
                 var item = new_seat_item(i);
 
                 if(balls.Count > i) {
-                    item.Init((int)balls[i].Type);
+                    var ball = balls[i];
+                    item.Init((int)ball.Type);
+
+                    if (add_ball != null && (Ball)add_ball == ball) {
+                        item.DoScale();
+                    }
                 } else {
                     item.Init(-1);
                 }

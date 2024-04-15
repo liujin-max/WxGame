@@ -111,6 +111,7 @@ public class GhostWindow : MonoBehaviour
             item.gameObject.SetActive(false);
         }
 
+        c_BtnSelect.gameObject.SetActive(false);
         c_DescriptionPivot.SetActive(false);
 
 
