@@ -72,10 +72,12 @@
     <Compile Include="Assets\Scripts\Logic\Ball\BallSplit.cs" />
     <Compile Include="Assets\Scripts\Logic\Ball\BallStrong.cs" />
     <Compile Include="Assets\Scripts\Effect\BezierCurveAnimation.cs" />
+    <Compile Include="Assets\Scripts\Logic\Environment\Scaler.cs" />
     <Compile Include="Assets\Scripts\UI\Item\RelicsSeatItem.cs" />
     <Compile Include="Assets\Scripts\Logic\Ball\BallManLi.cs" />
     <Compile Include="Assets\Scripts\Effect\Floating.cs" />
     <Compile Include="Assets\Scripts\Logic\Army.cs" />
+    <Compile Include="Assets\Scripts\Logic\Ball\BallSpeed.cs" />
     <Compile Include="Assets\Scripts\UI\Item\BallItem.cs" />
     <Compile Include="Assets\Scripts\Manager\SoundManager.cs" />
     <Compile Include="Assets\Scripts\Logic\Environment\Gravity.cs" />
@@ -91,14 +93,17 @@
     <Compile Include="Assets\Scripts\Logic\Ball\BallSanjiao.cs" />
     <Compile Include="Assets\Scripts\Effect\FlyGlass.cs" />
     <Compile Include="Assets\Scripts\UI\Item\BallSeatItem.cs" />
+    <Compile Include="Assets\Scripts\Effect\Rotate.cs" />
     <Compile Include="Assets\AllIn1SpriteShader\Scripts\AllIn1Shader.cs" />
     <Compile Include="Assets\Scripts\Logic\Simulator.cs" />
     <Compile Include="Assets\Scripts\Logic\Box\Shield.cs" />
     <Compile Include="Assets\Scripts\Struct\CDTimer.cs" />
+    <Compile Include="Assets\Scripts\Logic\Environment\EarthQuake.cs" />
     <Compile Include="Assets\Scripts\Logic\Environment\Wind.cs" />
     <Compile Include="Assets\Scripts\Logic\Box\Box.cs" />
     <Compile Include="Assets\Scripts\Manager\OBJManager.cs" />
     <Compile Include="Assets\Scripts\EVENT.cs" />
+    <Compile Include="Assets\Scripts\Logic\Environment\Blizard.cs" />
     <Compile Include="Assets\Scripts\Manager\SceneManager.cs" />
     <Compile Include="Assets\Scripts\Logic\Ball\BallBoom.cs" />
     <Compile Include="Assets\Scripts\Logic\Ball\BallCrazy.cs" />
@@ -113,7 +118,9 @@
     <Compile Include="Assets\Scripts\Logic\Ground.cs" />
     <Compile Include="Assets\Scripts\Effect\RateNumber.cs" />
     <Compile Include="Assets\Scripts\Logic\Ball\BallLing.cs" />
+    <Compile Include="Assets\Scripts\Logic\Wall.cs" />
     <Compile Include="Assets\Scripts\SOUND.cs" />
+    <Compile Include="Assets\Scripts\Logic\Ball\BallReflex.cs" />
     <Compile Include="Assets\Scripts\Effect\ButtonScale.cs" />
     <Compile Include="Assets\Scripts\Logic\GameController.cs" />
     <Compile Include="Assets\Scripts\Effect\ImageGray.cs" />
@@ -140,11 +147,13 @@
     <Compile Include="Assets\Scripts\Logic\Box\Obstacle.cs" />
     <Compile Include="Assets\Scripts\Utility\TextureImporterSettings.cs" />
     <Compile Include="Assets\Scripts\Manager\EffectManager.cs" />
+    <Compile Include="Assets\Scripts\Logic\Box\BlackHole.cs" />
     <Compile Include="Assets\Scripts\Struct\AttributeValue.cs" />
     <Compile Include="Assets\Scripts\GameFacade.cs" />
     <Compile Include="Assets\DOTween\Modules\DOTweenModuleAudio.cs" />
     <Compile Include="Assets\Scripts\Logic\Ball\BallExpand.cs" />
     <Compile Include="Assets\Scripts\Struct\Pair.cs" />
+    <Compile Include="Assets\Scripts\Logic\Environment\Rock.cs" />
     <Compile Include="Assets\Scripts\Utility\ScaleUtility.cs" />
     <Compile Include="Assets\Scripts\Logic\Environment\Dark.cs" />
     <Compile Include="Assets\DOTween\Modules\DOTweenModuleUI.cs" />
@@ -153,6 +162,7 @@
     <Compile Include="Assets\AllIn1SpriteShader\Scripts\AllIn1ShaderWindow.cs" />
     <Compile Include="Assets\Scripts\Utility\BGM.cs" />
     <Compile Include="Assets\DOTween\Modules\DOTweenModuleEPOOutline.cs" />
+    <Compile Include="Assets\Scripts\Logic\Ball\BallBlackHole.cs" />
     <Compile Include="Assets\Scripts\Utility\Sound.cs" />
     <Compile Include="Assets\Scripts\Utility\RandomUtility.cs" />
     <Compile Include="Assets\Scripts\UI\Item\GhostItem.cs" />
@@ -175,13 +185,6 @@
     <Compile Include="Assets\Scripts\UI\GhostWindow.cs" />
     <Compile Include="Assets\DOTween\Modules\DOTweenModuleUnityVersion.cs" />
     <Compile Include="Assets\Scripts\Logic\Relics.cs" />
-    <Compile Include="Assets\Scripts\Logic\Environment\EarthQuake.cs" />
-    <Compile Include="Assets\Scripts\Logic\Environment\Blizard.cs" />
-    <Compile Include="Assets\Scripts\Logic\Ball\BallSpeed.cs" />
-    <Compile Include="Assets\Scripts\Logic\Ball\BallReflex.cs" />
-    <Compile Include="Assets\Scripts\Logic\Wall.cs" />
-    <Compile Include="Assets\Scripts\Logic\Ball\BallBlackHole.cs" />
-    <Compile Include="Assets\Scripts\Logic\Box\BlackHole.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Resources\Shader\SpriteGray.shader" />

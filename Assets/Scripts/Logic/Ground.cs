@@ -52,14 +52,22 @@ namespace CB
             switch (GroundType)
             {
                 case GroundType.Ground:
-                    ball.Dead();
-                    // ball.Recyle();
 
-                    // if (ball.RunningDirection < 0) {
-                    //     ball.Velocity = new Vector2(-10, 0);
-                    // } else {
-                    //     ball.Velocity = new Vector2(10, 0);
-                    // }
+                    if (ball.IsActing) {
+                        ball.HP -= 1;
+
+                        if (ball.IsDead() == false) {
+                            ball.Recyle();
+                        }
+                    }
+                    
+
+                    if (ball.RunningDirection < 0) {
+                        ball.Velocity = new Vector2(-10, 0);
+                    } else {
+                        ball.Velocity = new Vector2(10, 0);
+                    }
+                    
                     
                     break;
 

@@ -40,6 +40,7 @@ namespace CB
                 if (obt.IsDead() == false && obt.Order != m_Order) {
                     if (RandomUtility.IsHit(m_Rate) == true) {
                         GameFacade.Instance.EffectManager.Load(EFFECT.SMOKE, obt.transform.localPosition);
+                        GameFacade.Instance.SoundManager.Load(SOUND.EXCHANGE);
                         
                         var copy = GameFacade.Instance.Game.PushObstacle(obt.transform.localPosition, obt.HP, m_Order);
                         copy.CopyChanges(obt);

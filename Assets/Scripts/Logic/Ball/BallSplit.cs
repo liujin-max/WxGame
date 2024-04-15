@@ -32,8 +32,9 @@ namespace CB
 
                 if (RandomUtility.IsHit(60) == true)
                 {
-                    Vector3 collision_point = transform.localPosition; //collision.contacts[0].point;
+                    GameFacade.Instance.SoundManager.Load(SOUND.SPLIT);
 
+                    Vector3 collision_point = transform.localPosition; //collision.contacts[0].point;
                     //分裂出#个小球
                     for (int i = 0; i < m_Count; i++)
                     {

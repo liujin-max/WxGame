@@ -130,9 +130,6 @@ namespace CB
             };
 
             m_FSM = new FSM<GameController>(this,  array);
-
-            m_Army.Awake();
-
         }
 
         public void Enter()
@@ -188,6 +185,10 @@ namespace CB
         {
             foreach (var ball in m_Balls) {
                 if (ball.IsActing == true) {
+                    return false;
+                }
+
+                if (ball.IsRecycle == true) {
                     return false;
                 }
             }
@@ -400,17 +401,18 @@ namespace CB
                     return false;
                 }
 
-                GameFacade.Instance.Game.PushGlass(-cost_need);
-
                 if (evt.EventType == _C.COMPLEXTEVEMT.UPGRADE) {
+                    GameFacade.Instance.Game.PushGlass(-cost_need);
+
                     ball = this.GetBall(evt.Type);
                     ball.UpgradeTo(ball.Level + 1);
                 } else {
-                    if (m_Balls.Count >= this.SeatCount.ToNumber())
-                    {
+                    if (m_Balls.Count >= this.SeatCount.ToNumber()) {
                         GameFacade.Instance.FlyTip("弹珠已满");
                         return false;
                     }
+
+                    GameFacade.Instance.Game.PushGlass(-cost_need);
 
                     ball = GameFacade.Instance.Game.PushBall(_C.BALL_ORIGIN_POS, evt.Type);
                     GameFacade.Instance.Game.BreechBall(ball);
@@ -420,13 +422,6 @@ namespace CB
 
                 GameFacade.Instance.EffectManager.Load(EFFECT.COMPLEX, _C.BALL_ORIGIN_POS);
             }
-
-            
-
-
-
-    
-            
 
             return true;
         }
@@ -472,11 +467,13 @@ namespace CB
         }
 
         //生成Ghost
-        public void PushGhost(Vector3 pos)
+        public Ghost PushGhost(Vector3 pos)
         {
             var item    = Instantiate(Resources.Load<GameObject>("Prefab/Box/Ghost"), pos, Quaternion.identity, c_obtPivot);
             var script  = item.GetComponent<Ghost>();
             m_Ghosts.Add(script);
+
+            return script;
         }
 
         //获得碎片
@@ -582,7 +579,7 @@ namespace CB
             m_Hit = 0;
         }
 
-        //生成3个升级选项，不能重复
+        //生成3个选项
         public List<ComplextEvent> GenerateEvents()
         {
             List<ComplextEvent> events = new List<ComplextEvent>();
@@ -615,7 +612,7 @@ namespace CB
                 BallData config     = (BallData)RandomUtility.PickByWeight(keyValuePairs);
                 ComplextEvent et    = new ComplextEvent(); 
 
-                if (RandomUtility.IsHit(20) == true && is_glass_sell == false)    //10%的概率卖碎片
+                if (RandomUtility.IsHit(15) == true && is_glass_sell == false)    //10%的概率卖碎片
                 {
                     is_glass_sell   = true;
                     et.EventType = _C.COMPLEXTEVEMT.GLASS;
@@ -755,6 +752,8 @@ namespace CB
             m_FSM.Owner.m_StartFlag = true;
             m_FSM.Owner.Balls.Clear();
 
+            m_FSM.Owner.Army.Awake();
+
             m_FSM.Owner._GameUI = GameFacade.Instance.UIManager.LoadWindow("Prefab/UI/GameWindow", GameFacade.Instance.UIManager.BOTTOM).GetComponent<GameWindow>();
 
             GameFacade.Instance.EventManager.SendEvent(new GameEvent(EVENT.UI_FLUSHCOUNT));
@@ -763,9 +762,9 @@ namespace CB
         
             GameFacade.Instance.Game.Resume();
 
-            m_FSM.Owner.BreechBall(m_FSM.Owner.PushBall(_C.BALL_ORIGIN_POS, _C.BALLTYPE.BLACKHOLE));
             m_FSM.Owner.BreechBall(m_FSM.Owner.PushBall(_C.BALL_ORIGIN_POS, _C.BALLTYPE.NORMAL));
-            // m_FSM.Owner.Army.PushRelics(108);
+
+            // m_FSM.Owner.Army.PushRelics(116);
 
 
             m_FSM.Transist(_C.FSMSTATE.GAME_IDLE);
@@ -858,6 +857,8 @@ namespace CB
                 hp_now += hp;
             }
 
+            GameFacade.Instance.EventManager.SendEvent(new GameEvent(EVENT.ONAFTERDRAWOBT, temp_list));
+
 
             int numberOfPoints  = temp_list.Count; //25; 
             
@@ -920,6 +921,7 @@ namespace CB
                 DrawObstables();
 
                 if (m_FSM.Owner.Stage == 1 && GameFacade.Instance.DataManager.GetIntByKey(DataManager.KEY_GUIDE) == 0) {
+                // if (m_FSM.Owner.Stage == 1) {
                     _GuideUI = GameFacade.Instance.UIManager.LoadWindow("Prefab/UI/GuideWindow", GameFacade.Instance.UIManager.MAJOR).GetComponent<GuideWindow>();
                 } else {
                     m_FSM.Transist(_C.FSMSTATE.GAME_PLAY);
@@ -1051,7 +1053,6 @@ namespace CB
 
             m_ShootBall = m_Queue[0];
 
-                        //
             m_FSM.Owner.Environment.OnBegin();
 
             GameFacade.Instance.EventManager.AddHandler(EVENT.UI_SHOWBALLLIST,  OnReponseBallList);

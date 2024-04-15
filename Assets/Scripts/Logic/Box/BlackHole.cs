@@ -27,6 +27,11 @@ public class BlackHole : Box
                 });
             }
         });
+
+        var spr_transform = transform.Find("Sprite").transform;
+        spr_transform.DOLocalRotate(new Vector3(0, 0, -360), 0.8f, RotateMode.FastBeyond360).SetEase(Ease.Linear).SetLoops(-1);
+        spr_transform.DOScale(Vector3.zero, 2);
+
     }
 
     void Update()

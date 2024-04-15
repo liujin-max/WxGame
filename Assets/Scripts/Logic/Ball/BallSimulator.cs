@@ -17,7 +17,7 @@ namespace CB
 
         public BallSimulator()
         {
-            m_IsSimulate = true;
+            IsSimulate = true;
         }
 
         public override void Shoot(Vector3 pos)

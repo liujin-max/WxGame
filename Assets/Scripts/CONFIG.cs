@@ -60,7 +60,7 @@ public static class CONFIG
             config.Name     = data[1].ToString();
             config.Weight   = Convert.ToInt16(data[2]);
             config.Effect   = data[3].ToString();
-            config.Price    = Convert.ToInt16(data[6]);
+            config.Price    = Convert.ToInt16(data[5]);
 
             // Debug.Log(config.Name + ": " + config.Price);
             

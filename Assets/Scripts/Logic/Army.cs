@@ -33,6 +33,14 @@ namespace CB
 
         public void Dispose()
         {
+            m_Relicses.ForEach(r => {
+                r.Unload();
+            });
+            m_Relicses.Clear();
+            m_RelicsDic.Clear();
+            SeatCount.Clear();
+
+
             GameFacade.Instance.EventManager.DelHandler(EVENT.ONPLAYEND,        OnReponsePlayEnd);
             GameFacade.Instance.EventManager.DelHandler(EVENT.ONBALLSHOOT,      OnReponseBallShoot);
             GameFacade.Instance.EventManager.DelHandler(EVENT.ONBALLHITBEFORE,  OnReponseHitBefore);
@@ -105,7 +113,7 @@ namespace CB
         {
             m_Relicses.ForEach(relics => {
                 relics.GetEffects().ForEach(e => {
-                    e.OnBallShoot((Ball)gameEvent.GetParam(0));
+                    e.OnBallShoot((Ball)gameEvent.GetParam(0), (bool)gameEvent.GetParam(1));
                 });
             });
         }

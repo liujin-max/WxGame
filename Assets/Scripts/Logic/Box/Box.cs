@@ -66,7 +66,7 @@ namespace CB
 
         }
 
-        public void DoScale()
+        public virtual void DoScale()
         {
             var origin_sclae = transform.localScale;
             transform.localScale = Vector3.zero;

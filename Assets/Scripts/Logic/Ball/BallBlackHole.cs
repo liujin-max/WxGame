@@ -12,7 +12,7 @@ namespace CB
     {
         public override string GetDescription()
         {
-            return "击中宝石后形成黑洞，吸附并销毁周围的宝石";
+            return "击中宝石后有低概率形成黑洞，吸附并销毁周围的宝石";
         }
 
 
@@ -23,10 +23,13 @@ namespace CB
             var obt = collision.transform.GetComponent<Obstacle>();
             if (obt != null)
             {
-                this.Dead();
+                if (RandomUtility.IsHit(10))
+                {
+                    this.Dead();
                 
-                //创建漩涡
-                GameFacade.Instance.Game.PushElement("Prefab/Box/BlackHole", obt.transform.localPosition);
+                    //创建漩涡
+                    GameFacade.Instance.Game.PushElement("Prefab/Box/BlackHole", obt.transform.localPosition);
+                }
             }
         }
     }

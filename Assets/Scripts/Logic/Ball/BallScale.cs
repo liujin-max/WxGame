@@ -33,8 +33,8 @@ namespace CB
             if (flag == true) {
                 if (RandomUtility.IsHit(m_Rate) == true)
                 {
-                    float offset = 0.1f;
-                    if (RandomUtility.IsHit(45) == true)
+                    float offset = 0.15f;
+                    if (RandomUtility.IsHit(40) == true)
                     {
                         offset = -0.1f;
                     }

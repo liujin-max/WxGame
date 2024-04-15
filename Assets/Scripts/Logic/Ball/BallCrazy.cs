@@ -31,7 +31,7 @@ namespace CB
             if (flag1 || flag2) {
                 if (RandomUtility.IsHit(m_Rate) == true) {
                     Vector2 direction = Quaternion.Euler(0, 0, RandomUtility.Random(0, 360)) * Vector2.right;
-                    this.Crash(direction * 10);
+                    this.Crash(direction * Velocity.magnitude);
                 }
             }
         }

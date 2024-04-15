@@ -70,6 +70,19 @@ namespace CB
             Flush();
         }
 
+        public override void DoScale()
+        {
+            if (m_ScaleTweener != null) {
+                m_ScaleTweener.Kill();
+            }
+
+            var origin_sclae = m_Scale.ToNumber();
+            transform.localScale = Vector3.zero;
+            m_ScaleTweener = transform.DOScale(origin_sclae * 1.3f , 0.2f).OnComplete(()=> {
+                transform.DOScale(origin_sclae, 0.1f);
+            });
+        }
+
         public void SetHP(int value)
         {
             m_HP    = value;

@@ -37,7 +37,7 @@ namespace CB
         public override void OnHit(Ball ball, int demage = 1)
         {
             if (this.IsDead() == true) return;
-            if (ball.m_IsSimulate == true) return;
+            if (ball.IsSimulate == true) return;
 
             m_HP -= 1;
 

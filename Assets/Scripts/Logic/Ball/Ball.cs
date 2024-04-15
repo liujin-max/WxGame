@@ -24,6 +24,14 @@ namespace CB
             }
         }
 
+
+        protected int m_HP = 1;
+        public int HP 
+        { 
+            get {return m_HP;}
+            set {m_HP = value;}
+        }
+
         protected int m_Level = 1;
         public int Level{ get {return m_Level;}}
 
@@ -37,7 +45,7 @@ namespace CB
         private Vector3 m_LastPos;
         private Vector2 m_LastVelocity;
         public Vector2 LastVelocity{ get {return m_LastVelocity;}}
-        public bool m_IsSimulate = false;
+        public bool IsSimulate = false;
 
         public int SortingOrder{set {c_sprite.sortingOrder = value; }}
         //速度
@@ -133,7 +141,7 @@ namespace CB
 
         public bool IsDead()
         {
-            return m_DeadFlag;
+            return m_DeadFlag || m_HP <= 0;
         }
 
         public void Dead()
@@ -176,7 +184,7 @@ namespace CB
 
             c_rigidbody.AddForce(vec);
 
-            GameFacade.Instance.EventManager.SendEvent(new GameEvent(EVENT.ONBALLSHOOT, this));
+            GameFacade.Instance.EventManager.SendEvent(new GameEvent(EVENT.ONBALLSHOOT, this, true));
         }
 
         //碰撞
@@ -186,7 +194,7 @@ namespace CB
 
             c_rigidbody.velocity = force;
 
-            GameFacade.Instance.EventManager.SendEvent(new GameEvent(EVENT.ONBALLSHOOT, this));
+            GameFacade.Instance.EventManager.SendEvent(new GameEvent(EVENT.ONBALLSHOOT, this, false));
         }
 
         public void AddForce(Vector2 force)

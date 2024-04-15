@@ -30,6 +30,7 @@ namespace CB
             foreach (var id in str_list)
             {
                 var e = BEffect.Create(Convert.ToInt16(id));
+                e.Belong = this;
                 m_Effects.Add(e);
             }
         }

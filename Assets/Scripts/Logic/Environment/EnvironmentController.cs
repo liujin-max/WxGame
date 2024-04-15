@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 
 
@@ -20,7 +21,7 @@ namespace CB
             //
             Debug.Log("开始：" + stage_order);
 
-            int rand = RandomUtility.Random(0, 6);
+            int rand = RandomUtility.Random(0, 8);
 
 
             switch (rand)
@@ -48,8 +49,17 @@ namespace CB
                 case 5:
                     m_Env = transform.AddComponent<Blizard>();
                     break;
+
+                case 6:
+                    m_Env = transform.AddComponent<Rock>();
+                    break;
+
+                case 7:
+                    m_Env = transform.AddComponent<Scaler>();
+                    break;
                 
                 default:
+                    m_Env = transform.AddComponent<Wind>();
                     break;
             }
         }
