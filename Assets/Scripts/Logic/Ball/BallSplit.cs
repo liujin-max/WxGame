@@ -21,7 +21,7 @@ namespace CB
         {
             this.CancelIgnoreCollision();
             
-            this.OnHitGhost(collision);
+            this.OnHitBox(collision);
             this.OnHitObstable(collision);
 
             //碰撞的对象是障碍物

@@ -22,6 +22,6 @@ ID,Name,HP,Weight,Icon,Ball,Description
 20,震荡弹珠,3,0,,,弹珠在发射过程中可以收集能量体，积攒能量后释放强力攻击
 21,缩放弹珠,2,32,UI/Texture/ball_scale,Prefab/Ball/BallScale,被击中的宝石会缩小
 22,高速弹珠,3,26,UI/Texture/ball_speed,Prefab/Ball/BallSpeed,发射后，弹珠的速度会随时间推移而增加
-23,反射弹珠,1,32,UI/Texture/ball_reflex,Prefab/Ball/BallReflex,触碰墙壁时总能朝高处反弹
+23,反射弹珠,2,0,UI/Texture/ball_reflex,Prefab/Ball/BallReflex,触碰墙壁时弹力加倍
 24,黑洞弹珠,2,27,UI/Texture/ball_blackhole,Prefab/Ball/BallBlackHole,撞击宝石后形成黑洞，吸附并销毁周围的宝石
 25,重力弹珠,2,30,UI/Texture/ball_mass,Prefab/Ball/BallMass,重量比其他弹珠更大，但弹力也更大

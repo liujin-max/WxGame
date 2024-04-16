@@ -32,7 +32,7 @@ namespace CB
         {
             if (collision.transform.GetComponent<Wall>() != null)
             {
-                this.Velocity = new Vector2(Velocity.x, Math.Abs(Velocity.y)) * 1.5f;
+                this.Velocity = new Vector2(Velocity.x, Math.Abs(Velocity.y));
             }
         }
     }

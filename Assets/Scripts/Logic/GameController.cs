@@ -86,8 +86,8 @@ namespace CB
         private List<Obstacle> m_Obstacles = new List<Obstacle>();
         public List<Obstacle> Obstacles{ get { return m_Obstacles;}}
 
-        private List<Ghost> m_Ghosts = new List<Ghost>();
-        public List<Ghost> Ghosts { get {return m_Ghosts;}}
+        private List<Box> m_Boxs = new List<Box>();
+        public List<Box> Boxs { get {return m_Boxs;}}
 
         private List<Box> m_Elements = new List<Box>();
         public List<Box> Elements { get {return m_Elements;}}
@@ -280,16 +280,16 @@ namespace CB
 
 
             //清理Ghost
-            List<Ghost> _RemoveGhosts = new List<Ghost>();
-            foreach (var ghost in m_Ghosts) {
-                if (ghost.IsDead() == true) {
-                    _RemoveGhosts.Add(ghost);
+            List<Box> _RemoveBoxs = new List<Box>();
+            foreach (var g in m_Boxs) {
+                if (g.IsDead() == true) {
+                    _RemoveBoxs.Add(g);
                 } 
             }
 
-            foreach (var item in _RemoveGhosts)
+            foreach (var item in _RemoveBoxs)
             {
-                m_Ghosts.Remove(item);
+                m_Boxs.Remove(item);
                 item.Dispose();
             }
 
@@ -464,7 +464,16 @@ namespace CB
         {
             var item    = Instantiate(Resources.Load<GameObject>("Prefab/Box/Ghost"), pos, Quaternion.identity, c_obtPivot);
             var script  = item.GetComponent<Ghost>();
-            m_Ghosts.Add(script);
+            m_Boxs.Add(script);
+
+            return script;
+        }
+
+        public Bomb PushBomb(Vector3 pos)
+        {
+            var item    = Instantiate(Resources.Load<GameObject>("Prefab/Box/Bomb"), pos, Quaternion.identity, c_obtPivot);
+            var script  = item.GetComponent<Bomb>();
+            m_Boxs.Add(script);
 
             return script;
         }
@@ -518,10 +527,10 @@ namespace CB
             m_Obstacles.Clear();
 
             //清理Ghost
-            foreach (var ghost in m_Ghosts) {
+            foreach (var ghost in m_Boxs) {
                 ghost.Dispose();
             }
-            m_Ghosts.Clear();
+            m_Boxs.Clear();
 
             //清理Elements
             foreach (var e in m_Elements) {
@@ -758,10 +767,10 @@ namespace CB
         
             GameFacade.Instance.Game.Resume();
 
-            m_FSM.Owner.BreechBall(m_FSM.Owner.PushBall(_C.BALL_ORIGIN_POS, _C.BALLTYPE.MASS));
             m_FSM.Owner.BreechBall(m_FSM.Owner.PushBall(_C.BALL_ORIGIN_POS, _C.BALLTYPE.NORMAL));
+            // m_FSM.Owner.BreechBall(m_FSM.Owner.PushBall(_C.BALL_ORIGIN_POS, _C.BALLTYPE.NORMAL));
 
-            // m_FSM.Owner.Army.PushRelics(116);
+            // m_FSM.Owner.Army.PushRelics(112);
 
 
             m_FSM.Transist(_C.FSMSTATE.GAME_IDLE);
@@ -836,9 +845,17 @@ namespace CB
             int count   = 0;
 
             //至少有3个碎片
-            temp_list.Add(-1);
-            temp_list.Add(-1);
-            temp_list.Add(-1);
+            temp_list.Add((int)_C.BOXTYPE.GHOST);
+            temp_list.Add((int)_C.BOXTYPE.GHOST);
+            temp_list.Add((int)_C.BOXTYPE.GHOST);
+            
+            if (RandomUtility.IsHit(100))
+            {
+                temp_list.Add((int)_C.BOXTYPE.BOMB);
+                temp_list.Add((int)_C.BOXTYPE.BOMB);
+                temp_list.Add((int)_C.BOXTYPE.BOMB);
+                temp_list.Add((int)_C.BOXTYPE.BOMB);
+            }
 
             GameFacade.Instance.EventManager.SendEvent(new GameEvent(EVENT.ONDRAWINGOBSTACLE, temp_list));
 
@@ -846,7 +863,7 @@ namespace CB
             {
                 if (RandomUtility.IsHit(15) && count < 3) { //7% 最多3个
                     count++;
-                    temp_list.Add(-1);
+                    temp_list.Add((int)_C.BOXTYPE.GHOST);
                 }
 
                 int hp = (int)Mathf.Ceil(RandomUtility.Random(hp_avg * 250, hp_avg * 450) / 100.0f);
@@ -867,8 +884,10 @@ namespace CB
                 Vector2 point = randomPoints[i];
 
                 int hp = temp_list[i];
-                if (hp == -1) {
+                if (hp == (int)_C.BOXTYPE.GHOST) {
                     m_FSM.Owner.PushGhost(point);
+                } else if (hp == (int)_C.BOXTYPE.BOMB) {
+                    m_FSM.Owner.PushBomb(point);
                 } else {
                     var obt = m_FSM.Owner.PushObstacle(point, hp);
                     obt.DoScale();
@@ -1041,7 +1060,6 @@ namespace CB
 
             m_Queue.Clear();
             foreach (var ball in m_FSM.Owner.Balls) {
-                // ball.SetState((int)_C.LAYER.BALLREADY);
                 m_Queue.Add(ball);
             }
 
@@ -1087,10 +1105,9 @@ namespace CB
                     GameFacade.Instance.EventManager.SendEvent(new GameEvent(EVENT.UI_SHOWBUBBLE, true, "\n     <#0CA90D>取消发射</color>"));
 
                 } else {
-                    m_FSM.Owner.AimStart();
                     m_FSM.Owner.FocusAim(m_FSM.Owner.FingerPos);
 
-                    m_FSM.Owner.Simulator.SimulateShoot(m_FSM.Owner.FingerPos);
+                    m_FSM.Owner.Simulator.SimulateShoot(m_ShootBall, m_FSM.Owner.FingerPos);
 
                     GameFacade.Instance.Game.ShowBallBubble(m_ShootBall);
                 }
@@ -1104,7 +1121,7 @@ namespace CB
             }
 
             //场上清空后，不管还有没有剩余弹珠和积分够不够，直接胜利
-            if (m_FSM.Owner.Ghosts.Count == 0 && m_FSM.Owner.Obstacles.Count == 0)
+            if (m_FSM.Owner.Boxs.Count == 0 && m_FSM.Owner.Obstacles.Count == 0)
             {
                 m_IsFinished = true;
                 ReceiveReward();
@@ -1132,7 +1149,7 @@ namespace CB
                     }
 
                     //清理Ghost
-                    foreach (var ghost in m_FSM.Owner.Ghosts) {
+                    foreach (var ghost in m_FSM.Owner.Boxs) {
                         ghost.Dead();
                     }
 

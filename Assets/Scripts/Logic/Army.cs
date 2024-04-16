@@ -188,7 +188,7 @@ namespace CB
         {
             m_Relicses.ForEach(relics => {
                 relics.GetEffects().ForEach(e => {
-                    e.OnHitGlass((Ball)gameEvent.GetParam(0), (Ghost)gameEvent.GetParam(1), (Collision2D)gameEvent.GetParam(2));
+                    e.OnHitGlass((Ball)gameEvent.GetParam(0), (Box)gameEvent.GetParam(1), (Collision2D)gameEvent.GetParam(2));
                 });
             });
         }

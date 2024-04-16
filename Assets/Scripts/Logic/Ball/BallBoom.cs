@@ -24,10 +24,10 @@ namespace CB
         public override void OnCollisionEnter2D(Collision2D collision)
         {
             this.CancelIgnoreCollision();
-            this.OnHitGhost(collision);
+            this.OnHitBox(collision);
 
             //
-            if (collision.gameObject.GetComponent<Obstacle>() != null || collision.gameObject.GetComponent<Ghost>() != null) {
+            if (collision.gameObject.GetComponent<Obstacle>() != null || collision.gameObject.GetComponent<Box>() != null) {
                 if (collision.contacts.Length <= 0){
                     return;
                 }
@@ -45,15 +45,14 @@ namespace CB
                     }
                 }
 
-                //对ghost同样造成伤害
-                var ghosts   = GameFacade.Instance.Game.Ghosts;
+                //对box同样造成伤害
+                var ghosts   = GameFacade.Instance.Game.Boxs;
                 for (int i = 0; i < ghosts.Count; i++) {
-                    Ghost ghost = ghosts[i];
+                    Box ghost = ghosts[i];
                     if (Vector3.Distance(ghost.transform.localPosition, collision_point) <= radius && ghost.gameObject != collision.gameObject) {
-                        ghost.OnHit(this, (int)m_Demage.ToNumber());
+                        ghost.OnHit(this);
                         ghost.OnShake();
                     }
-
                 }
 
 

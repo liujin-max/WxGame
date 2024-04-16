@@ -36,7 +36,7 @@ namespace CB
                 }
             });
 
-            GameFacade.Instance.Game.Ghosts.ForEach(g =>{
+            GameFacade.Instance.Game.Boxs.ForEach(g =>{
                 g.transform.localPosition += new Vector3(0, -1 * Time.deltaTime, 0);
 
                 if (g.transform.localPosition.y <= (_C.BOARD_BOTTOM - 1)) {

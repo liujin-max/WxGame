@@ -82,6 +82,7 @@
     <Compile Include="Assets\Scripts\Manager\SoundManager.cs" />
     <Compile Include="Assets\Scripts\Logic\Environment\Gravity.cs" />
     <Compile Include="Assets\Scripts\UI\EnvironmentWindow.cs" />
+    <Compile Include="Assets\Scripts\Logic\Ball\BallMass.cs" />
     <Compile Include="Assets\Scripts\Effect\ShakeText.cs" />
     <Compile Include="Assets\Scripts\Logic\Ball\BallThrough.cs" />
     <Compile Include="Assets\DOTween\Modules\DOTweenModulePhysics2D.cs" />
@@ -103,6 +104,7 @@
     <Compile Include="Assets\Scripts\Logic\Box\Box.cs" />
     <Compile Include="Assets\Scripts\Manager\OBJManager.cs" />
     <Compile Include="Assets\Scripts\EVENT.cs" />
+    <Compile Include="Assets\Scripts\Logic\Environment\FadeShine.cs" />
     <Compile Include="Assets\Scripts\Logic\Environment\Blizard.cs" />
     <Compile Include="Assets\Scripts\Manager\SceneManager.cs" />
     <Compile Include="Assets\Scripts\Logic\Ball\BallBoom.cs" />
@@ -130,6 +132,7 @@
     <Compile Include="Assets\Scripts\Utility\CameraUtility.cs" />
     <Compile Include="Assets\AllIn1SpriteShader\Demo\Scripts\DemoRandomColorSwap.cs" />
     <Compile Include="Assets\Scripts\CONST.cs" />
+    <Compile Include="Assets\Scripts\Utility\NumberTransition.cs" />
     <Compile Include="Assets\Scripts\UI\GuideWindow.cs" />
     <Compile Include="Assets\Scripts\Effect\RoundText.cs" />
     <Compile Include="Assets\Scripts\Logic\Ball\Ball.cs" />
@@ -171,6 +174,7 @@
     <Compile Include="Assets\Scripts\UI\GameSetWindow.cs" />
     <Compile Include="Assets\Scripts\Logic\Ball\BallSmall.cs" />
     <Compile Include="Assets\Scripts\FSM\State.cs" />
+    <Compile Include="Assets\Scripts\Logic\Environment\Fall.cs" />
     <Compile Include="Assets\Scripts\Logic\Ball\BallGrowth.cs" />
     <Compile Include="Assets\Scripts\Logic\Ball\BallYuan.cs" />
     <Compile Include="Assets\Scripts\Manager\DataManager.cs" />
@@ -185,10 +189,7 @@
     <Compile Include="Assets\Scripts\UI\GhostWindow.cs" />
     <Compile Include="Assets\DOTween\Modules\DOTweenModuleUnityVersion.cs" />
     <Compile Include="Assets\Scripts\Logic\Relics.cs" />
-    <Compile Include="Assets\Scripts\Logic\Environment\Fall.cs" />
-    <Compile Include="Assets\Scripts\Logic\Environment\FadeShine.cs" />
-    <Compile Include="Assets\Scripts\Utility\NumberTransition.cs" />
-    <Compile Include="Assets\Scripts\Logic\Ball\BallMass.cs" />
+    <Compile Include="Assets\Scripts\Logic\Box\Bomb.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Resources\Shader\SpriteGray.shader" />

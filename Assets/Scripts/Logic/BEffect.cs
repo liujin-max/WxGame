@@ -15,7 +15,7 @@ namespace CB
 
         public override string GetDescription()
         {
-            return "瞄准线可以显示反弹的路线。";
+            return "瞄准线可以显示初次反弹的轨迹。";
         }
 
         public override void Execute()
@@ -317,8 +317,10 @@ namespace CB
             return "击中<sprite=0>时有概率额外获得一枚。";
         }
 
-        public override void OnHitGlass(Ball ball, Ghost g, Collision2D collision)
+        public override void OnHitGlass(Ball ball, Box g, Collision2D collision)
         {
+            if (g.GetComponent<Ghost>() == null) return;
+
             if (RandomUtility.IsHit(40) == true)
             {
                 GameFacade.Instance.Game.Glass += 1;
@@ -503,6 +505,14 @@ namespace CB
                 b.m_Demage.PutAUL(this, Rate - 1);
             });
         }
+
+        public override void OnBallShoot(Ball ball, bool is_real_shoot)
+        {
+            GameFacade.Instance.Game.Balls.ForEach(b => {
+                b.m_Demage.PutAUL(this, Rate - 1);
+            });
+        }
+
     }
 
     //每拥有50金币，弹珠的伤害提高1点(当前：2)
@@ -716,7 +726,7 @@ namespace CB
 
         }
 
-        public virtual void OnHitGlass(Ball ball, Ghost g, Collision2D collision)
+        public virtual void OnHitGlass(Ball ball, Box g, Collision2D collision)
         {
 
         }

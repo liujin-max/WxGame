@@ -109,7 +109,11 @@ public static class _C
         MASS    = 25,
     }   
 
-
+    public enum BOXTYPE
+    {
+        GHOST   = -1,
+        BOMB    = -2   
+    }
 
     public enum COMPLEXTEVEMT
     {

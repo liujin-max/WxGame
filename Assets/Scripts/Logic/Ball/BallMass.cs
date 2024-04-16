@@ -13,7 +13,7 @@ namespace CB
     {
         public override string GetDescription()
         {
-            var str = string.Format("重量比其他弹珠更大，但弹力也更大。");
+            var str = string.Format("重量比其他弹珠更大，弹力也更大。");
 
             return str;
         }

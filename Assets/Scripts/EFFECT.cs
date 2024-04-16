@@ -16,6 +16,7 @@ public static class EFFECT
     public const string SMOKE       = "Prefab/Effect/fx_smoke";
     public const string SHIELDBOOM  = "Prefab/Effect/fx_shield_boom";
     public const string BUBBLEBREAK = "Prefab/Effect/fx_bubble_break";
+    public const string BOMBBOOM    = "Prefab/Effect/fx_bomb_boom";
 
     public const string RATENUMBER  = "Prefab/Effect/fx_flyRate";
 }

@@ -25,9 +25,10 @@ namespace CB
 
             // //创建对应的ball
             if (this.IsDead() == true) {
-                GameFacade.Instance.Game.PushGlass(1);
-
+                GameFacade.Instance.SoundManager.Load(SOUND.HITGHOST);
                 GameFacade.Instance.EffectManager.Load(EFFECT.FLYGLASS, transform.localPosition);
+
+                GameFacade.Instance.Game.PushGlass(1);   
             }
         }
     }

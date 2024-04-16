@@ -14,7 +14,6 @@ namespace CB
     {
         private SpriteRenderer m_Bubble;
 
-
         void Awake()
         {
             m_Bubble = transform.Find("Sprite").GetComponent<SpriteRenderer>();
@@ -37,7 +36,7 @@ namespace CB
         public override void OnHit(Ball ball, int demage = 1)
         {
             if (this.IsDead() == true) return;
-            if (ball.IsSimulate == true) return;
+            if (ball != null && ball.IsSimulate == true) return;
 
             m_HP -= 1;
 
