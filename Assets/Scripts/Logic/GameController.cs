@@ -67,7 +67,7 @@ namespace CB
 
         internal int m_RefreshTimes;
 
-        public int RefreshCoin { get {return 3 + m_RefreshTimes;} }
+        public int RefreshCoin { get {return 2 + m_RefreshTimes;} }
 
         private Vector3 m_FingerPos;
         public Vector3 FingerPos 
@@ -75,31 +75,6 @@ namespace CB
             get { return m_FingerPos;}
             set { m_FingerPos = value;}
         }
-
-
-        public int TargetScore 
-        {
-            //当前阶段的目标分数 
-            get {
-                int count = 0;
-                for (int i = 1; i <= m_Stage; i++) {
-                    count += i;
-                }
-
-                int rate = 0;
-                
-                if (m_Stage <= 10) {
-                    rate = (int)Mathf.Ceil(m_Stage / 7.0f) * 5;
-                } 
-                else {
-                    rate = (int)Mathf.Ceil(m_Stage / 5.0f) * 4;
-                }
-                
-
-                return rate * count;
-            }
-        }
-
 
         
         private List<Ball> m_Balls = new List<Ball>();   //球
@@ -111,10 +86,13 @@ namespace CB
         private List<Obstacle> m_Obstacles = new List<Obstacle>();
         public List<Obstacle> Obstacles{ get { return m_Obstacles;}}
 
-        private List<Ghost> m_Ghosts = new List<Ghost>();
-        public List<Ghost> Ghosts { get {return m_Ghosts;}}
+        private List<Box> m_Boxs = new List<Box>();
+        public List<Box> Boxs { get {return m_Boxs;}}
 
-        public AttributeValue SeatCount = new AttributeValue(5);     //可携带的高阶球数量上限
+        private List<Box> m_Elements = new List<Box>();
+        public List<Box> Elements { get {return m_Elements;}}
+
+        public AttributeValue SeatCount = new AttributeValue(5);     //可携带的弹珠数量上限
 
         
 
@@ -152,16 +130,6 @@ namespace CB
             };
 
             m_FSM = new FSM<GameController>(this,  array);
-
-            m_Army.Awake();
-
-
-            //测试代码
-            // for (int i = 1; i < 35; i++)
-            // {
-            //     m_Stage = i;
-            //     Debug.Log("Stage：" + i + " : " + TargetScore);
-            // }
         }
 
         public void Enter()
@@ -212,14 +180,52 @@ namespace CB
             return null;
         }
 
-        public bool IsBallsIdle()
+        //场上没有发射中的弹珠，也没有正在运作的Element
+        public bool IsSceneIdle()
         {
-            foreach (var ball in m_FSM.Owner.m_Balls) {
-                if (ball.IsIdle == false) {
+            foreach (var ball in m_Balls) {
+                if (ball.IsActing == true) {
+                    return false;
+                }
+
+                if (ball.IsRecycle == true) {
                     return false;
                 }
             }
+
+            if (m_Elements.Count > 0) {
+                return false;
+            }
+
             return true;
+        }
+
+        public int GetTargetScore(int stage = -1)
+        {
+            if (stage == -1) stage = m_Stage;
+
+            int count = 0;
+            for (int i = 1; i <= stage; i++) {
+                count += i;
+            }
+
+            return count * 5;
+                // int rate = 0;
+                
+                // if (m_Stage <= 10) {
+                //     rate = (int)Mathf.Ceil(m_Stage / 7.0f) * 5;
+                // } 
+                // else {
+                //     rate = (int)Mathf.Ceil(m_Stage / 5.0f) * 4;
+                // }
+                
+
+                // return rate * count;
+        }
+
+        public bool IsScoreReach()
+        {
+            return m_Score >= GetTargetScore();
         }
 
     
@@ -274,21 +280,33 @@ namespace CB
 
 
             //清理Ghost
-            List<Ghost> _RemoveGhosts = new List<Ghost>();
-            foreach (var ghost in m_Ghosts) {
-                if (ghost.IsDead() == true) {
-                    _RemoveGhosts.Add(ghost);
+            List<Box> _RemoveBoxs = new List<Box>();
+            foreach (var g in m_Boxs) {
+                if (g.IsDead() == true) {
+                    _RemoveBoxs.Add(g);
                 } 
             }
 
-            foreach (var item in _RemoveGhosts)
+            foreach (var item in _RemoveBoxs)
             {
-                m_Ghosts.Remove(item);
+                m_Boxs.Remove(item);
                 item.Dispose();
             }
 
 
+            //清理Elements
+            List<Box> _RemoveElements = new List<Box>();
+            foreach (var e in m_Elements) {
+                if (e.IsDead() == true) {
+                    _RemoveElements.Add(e);
+                } 
+            }
 
+            foreach (var e in _RemoveElements)
+            {
+                m_Elements.Remove(e);
+                e.Dispose();
+            }
         }
         
         public void FocusAim(Vector3 world_pos)
@@ -324,8 +342,7 @@ namespace CB
         public Ball PushBall(Vector3 pos, _C.BALLTYPE type)
         {
             var config  = CONFIG.GetBallData(type);
-            GameObject prefab = Resources.Load<GameObject>(config.Ball);
-            var obj     = Instantiate(prefab, pos, Quaternion.identity, c_ballPivot);
+            var obj     = Instantiate(Resources.Load<GameObject>(config.Ball), pos, Quaternion.identity, c_ballPivot);
             var ball    = obj.GetComponent<Ball>();
             ball.Init(type);
 
@@ -333,8 +350,8 @@ namespace CB
                 m_BallSmalls.Add(ball);
             }  else {
                 m_Balls.Add(ball);
-
-                GameFacade.Instance.EventManager.SendEvent(new GameEvent(EVENT.UI_FLUSHBALLS));
+                
+                GameFacade.Instance.EventManager.SendEvent(new GameEvent(EVENT.UI_FLUSHBALLS, ball));
             }
 
             GameFacade.Instance.EventManager.SendEvent(new GameEvent(EVENT.ONBALLPUSH, ball));
@@ -347,9 +364,7 @@ namespace CB
         {
             GameFacade.Instance.SoundManager.Load(SOUND.BREECH);
 
-            ball.Velocity = Vector2.zero;
-            ball.transform.localPosition = _C.BALL_ORIGIN_POS;
-            ball.SetState((int)_C.LAYER.BALLIDLE);
+            ball.Breech();
         }
 
         //合成球
@@ -372,7 +387,6 @@ namespace CB
             }
             else
             {
-                // BallData config = CONFIG.GetBallData(evt.Type);
                 var config  = evt.BallConfig;
 
 
@@ -384,27 +398,23 @@ namespace CB
                     return false;
                 }
 
-                GameFacade.Instance.Game.PushGlass(-cost_need);
-
                 if (evt.EventType == _C.COMPLEXTEVEMT.UPGRADE) {
+                    GameFacade.Instance.Game.PushGlass(-cost_need);
+
                     ball = this.GetBall(evt.Type);
                     ball.UpgradeTo(ball.Level + 1);
                 } else {
+                    if (m_Balls.Count >= this.SeatCount.ToNumber()) {
+                        GameFacade.Instance.FlyTip("弹珠已满");
+                        return false;
+                    }
+
+                    GameFacade.Instance.Game.PushGlass(-cost_need);
+
                     ball = GameFacade.Instance.Game.PushBall(_C.BALL_ORIGIN_POS, evt.Type);
                     GameFacade.Instance.Game.BreechBall(ball);
                 }
-
-                GameFacade.Instance.EventManager.SendEvent(new GameEvent(EVENT.UI_FLUSHBALLS));
-
-                GameFacade.Instance.EffectManager.Load(EFFECT.COMPLEX, _C.BALL_ORIGIN_POS);
             }
-
-            
-
-
-
-    
-            
 
             return true;
         }
@@ -450,11 +460,22 @@ namespace CB
         }
 
         //生成Ghost
-        public void PushGhost(Vector3 pos)
+        public Ghost PushGhost(Vector3 pos)
         {
             var item    = Instantiate(Resources.Load<GameObject>("Prefab/Box/Ghost"), pos, Quaternion.identity, c_obtPivot);
             var script  = item.GetComponent<Ghost>();
-            m_Ghosts.Add(script);
+            m_Boxs.Add(script);
+
+            return script;
+        }
+
+        public Bomb PushBomb(Vector3 pos)
+        {
+            var item    = Instantiate(Resources.Load<GameObject>("Prefab/Box/Bomb"), pos, Quaternion.identity, c_obtPivot);
+            var script  = item.GetComponent<Bomb>();
+            m_Boxs.Add(script);
+
+            return script;
         }
 
         //获得碎片
@@ -467,6 +488,12 @@ namespace CB
 
         }
 
+        public void PushElement(string path, Vector3 pos)
+        {
+            var item    = Instantiate(Resources.Load<GameObject>(path), pos, Quaternion.identity, c_obtPivot);
+            var script  = item.GetComponent<Box>();
+            m_Elements.Add(script);
+        }
 
         //重启战场
         public void Restart()
@@ -500,10 +527,17 @@ namespace CB
             m_Obstacles.Clear();
 
             //清理Ghost
-            foreach (var ghost in m_Ghosts) {
+            foreach (var ghost in m_Boxs) {
                 ghost.Dispose();
             }
-            m_Ghosts.Clear();
+            m_Boxs.Clear();
+
+            //清理Elements
+            foreach (var e in m_Elements) {
+                e.Dispose();
+            }
+            m_Elements.Clear();
+
 
             m_Army.Dispose();
 
@@ -547,7 +581,7 @@ namespace CB
             m_Hit = 0;
         }
 
-        //生成3个升级选项，不能重复
+        //生成3个选项
         public List<ComplextEvent> GenerateEvents()
         {
             List<ComplextEvent> events = new List<ComplextEvent>();
@@ -556,21 +590,23 @@ namespace CB
             Dictionary<object, int> keyValuePairs = new Dictionary<object, int>();
 
             //如果槽位满了，则只从当前已有的弹珠中随机
-            if (m_Balls.Count >= SeatCount.ToNumber())
-            {
-                foreach (var ball in m_Balls) {
-                    var c = CONFIG.GetBallData(ball.Type);
+            // if (m_Balls.Count >= SeatCount.ToNumber())
+            // {
+            //     foreach (var ball in m_Balls) {
+            //         var c = CONFIG.GetBallData(ball.Type);
+            //         keyValuePairs.Add(c, c.Weight);
+            //     }
+            // }
+            // else 
+            // {
+
+            //允许重复
+            foreach (BallData c in CONFIG.GetBallDatas())  {
+                if (c.Weight > 0) {
                     keyValuePairs.Add(c, c.Weight);
                 }
             }
-            else 
-            {
-                foreach (BallData c in CONFIG.GetBallDatas())  {
-                    if (c.Weight > 0) {
-                        keyValuePairs.Add(c, c.Weight);
-                    }
-                }
-            }
+            // }
 
             bool is_glass_sell = false;
             for (int i = 0; i < count; i++)
@@ -578,22 +614,22 @@ namespace CB
                 BallData config     = (BallData)RandomUtility.PickByWeight(keyValuePairs);
                 ComplextEvent et    = new ComplextEvent(); 
 
-                if (RandomUtility.IsHit(10) == true && is_glass_sell == false)    //10%的概率卖碎片
+                if (RandomUtility.IsHit(15) == true && is_glass_sell == false)    //10%的概率卖碎片
                 {
                     is_glass_sell   = true;
-
                     et.EventType = _C.COMPLEXTEVEMT.GLASS;
                 }
                 else
                 {
                     et.Type = config.Type;
+                    et.EventType = _C.COMPLEXTEVEMT.NEW;
 
-                    var ball = m_FSM.Owner.GetBall(config.Type);
-                    if (ball != null ) {
-                        et.EventType = _C.COMPLEXTEVEMT.UPGRADE;
-                    } else {
-                        et.EventType = _C.COMPLEXTEVEMT.NEW;
-                    }
+                    // var ball = m_FSM.Owner.GetBall(config.Type);
+                    // if (ball != null ) {
+                    //     et.EventType = _C.COMPLEXTEVEMT.UPGRADE;
+                    // } else {
+                        // et.EventType = _C.COMPLEXTEVEMT.NEW;
+                    // }
 
                     keyValuePairs.Remove(config);
                 }
@@ -667,7 +703,7 @@ namespace CB
             m_Score+= value;
             m_Hit  += 1;
 
-            GameFacade.Instance.EventManager.SendEvent(new GameEvent(EVENT.UI_FLUSHSCORE, m_Score, false));
+            GameFacade.Instance.EventManager.SendEvent(new GameEvent(EVENT.UI_FLUSHSCORE, m_Score, GetTargetScore(), false));
             GameFacade.Instance.EventManager.SendEvent(new GameEvent(EVENT.UI_FLUSHHIT, m_Hit));
         }
 
@@ -718,6 +754,11 @@ namespace CB
             m_FSM.Owner.m_StartFlag = true;
             m_FSM.Owner.Balls.Clear();
 
+            m_FSM.Owner.Army.Awake();
+
+            m_FSM.Owner.m_Coin = _C.DEFAULT_COIN;
+            m_FSM.Owner.m_Glass= _C.DEFAULT_GLASS;
+
             m_FSM.Owner._GameUI = GameFacade.Instance.UIManager.LoadWindow("Prefab/UI/GameWindow", GameFacade.Instance.UIManager.BOTTOM).GetComponent<GameWindow>();
 
             GameFacade.Instance.EventManager.SendEvent(new GameEvent(EVENT.UI_FLUSHCOUNT));
@@ -727,8 +768,9 @@ namespace CB
             GameFacade.Instance.Game.Resume();
 
             m_FSM.Owner.BreechBall(m_FSM.Owner.PushBall(_C.BALL_ORIGIN_POS, _C.BALLTYPE.NORMAL));
+            // m_FSM.Owner.BreechBall(m_FSM.Owner.PushBall(_C.BALL_ORIGIN_POS, _C.BALLTYPE.NORMAL));
 
-            // m_FSM.Owner.m_Army.PushRelics(109);
+            // m_FSM.Owner.Army.PushRelics(112);
 
 
             m_FSM.Transist(_C.FSMSTATE.GAME_IDLE);
@@ -792,21 +834,36 @@ namespace CB
 
 
             //生成的宝石血量总和 至少要大于目标分数的1.3倍
-            int hp_need = (int)Math.Floor(m_FSM.Owner.TargetScore * 1.0f);      //目标分数
+            int hp_need = (int)Math.Floor(m_FSM.Owner.GetTargetScore() * 1.0f);      //目标分数
 
             List<int> temp_list = new List<int>();
 
 
-            int random_count = RandomUtility.Random(24, 28);
+            int random_count = RandomUtility.Random(23, 27);
             int hp_now  = 0;
             int hp_avg  = (int)Mathf.Ceil(hp_need / (random_count * 1.0f));  //平均一颗宝石的血量
             int count   = 0;
 
+            //至少有3个碎片
+            temp_list.Add((int)_C.BOXTYPE.GHOST);
+            temp_list.Add((int)_C.BOXTYPE.GHOST);
+            temp_list.Add((int)_C.BOXTYPE.GHOST);
+            
+            if (RandomUtility.IsHit(100))
+            {
+                temp_list.Add((int)_C.BOXTYPE.BOMB);
+                temp_list.Add((int)_C.BOXTYPE.BOMB);
+                temp_list.Add((int)_C.BOXTYPE.BOMB);
+                temp_list.Add((int)_C.BOXTYPE.BOMB);
+            }
+
+            GameFacade.Instance.EventManager.SendEvent(new GameEvent(EVENT.ONDRAWINGOBSTACLE, temp_list));
+
             for (int i = 0; i < random_count; i++)
             {
-                if (RandomUtility.IsHit(10) && count < 5) { //7% 最多3个
+                if (RandomUtility.IsHit(15) && count < 3) { //7% 最多3个
                     count++;
-                    temp_list.Add(-1);
+                    temp_list.Add((int)_C.BOXTYPE.GHOST);
                 }
 
                 int hp = (int)Mathf.Ceil(RandomUtility.Random(hp_avg * 250, hp_avg * 450) / 100.0f);
@@ -814,19 +871,7 @@ namespace CB
                 hp_now += hp;
             }
 
-            // for (int i = 0; i < 2; i++)
-            // {
-            //     int hp = (int)Mathf.Ceil(RandomUtility.Random(hp_avg * 250, hp_avg * 450) / 100.0f);
-            //     temp_list.Add(hp);
-            //     hp_now += hp;
-            // }
-
-            //至少有一个碎片
-            if (count == 0) {
-                temp_list.Add(-1);
-            }
-
-            GameFacade.Instance.EventManager.SendEvent(new GameEvent(EVENT.ONDRAWINGOBSTACLE, temp_list));
+            GameFacade.Instance.EventManager.SendEvent(new GameEvent(EVENT.ONAFTERDRAWOBT, temp_list));
 
 
             int numberOfPoints  = temp_list.Count; //25; 
@@ -839,8 +884,10 @@ namespace CB
                 Vector2 point = randomPoints[i];
 
                 int hp = temp_list[i];
-                if (hp == -1) {
+                if (hp == (int)_C.BOXTYPE.GHOST) {
                     m_FSM.Owner.PushGhost(point);
+                } else if (hp == (int)_C.BOXTYPE.BOMB) {
+                    m_FSM.Owner.PushBomb(point);
                 } else {
                     var obt = m_FSM.Owner.PushObstacle(point, hp);
                     obt.DoScale();
@@ -859,7 +906,10 @@ namespace CB
             m_FSM.Owner.m_Score = 0;
             m_FSM.Owner.m_Stage += 1;
 
-            GameFacade.Instance.EventManager.SendEvent(new GameEvent(EVENT.UI_FLUSHSCORE, m_FSM.Owner.m_Score, true));
+            //
+            m_FSM.Owner.Environment.OnInit(m_FSM.Owner.m_Stage);
+
+            GameFacade.Instance.EventManager.SendEvent(new GameEvent(EVENT.UI_FLUSHSCORE, m_FSM.Owner.m_Score, m_FSM.Owner.GetTargetScore(), true));
 
 
             //重置弹珠
@@ -887,6 +937,7 @@ namespace CB
                 DrawObstables();
 
                 if (m_FSM.Owner.Stage == 1 && GameFacade.Instance.DataManager.GetIntByKey(DataManager.KEY_GUIDE) == 0) {
+                // if (m_FSM.Owner.Stage == 1) {
                     _GuideUI = GameFacade.Instance.UIManager.LoadWindow("Prefab/UI/GuideWindow", GameFacade.Instance.UIManager.MAJOR).GetComponent<GuideWindow>();
                 } else {
                     m_FSM.Transist(_C.FSMSTATE.GAME_PLAY);
@@ -915,7 +966,6 @@ namespace CB
     {
         private List<Ball> m_Queue = new List<Ball>();
         private Ball m_ShootBall = null;
-        private List<Ball> m_Orders = new List<Ball>(); //记录弹珠的发射顺序
 
         private bool m_IsPressDown = false;
         private bool m_IsFinished = false;
@@ -945,6 +995,11 @@ namespace CB
                 return;
             }
 
+            //分数达标了
+            if (GameFacade.Instance.Game.IsScoreReach()) {
+                return;
+            }
+
 
             m_IsPressDown = true;
 
@@ -971,7 +1026,6 @@ namespace CB
                 var ball = m_ShootBall;
                 m_Queue.Remove(ball);
                 GameFacade.Instance.Game.ShootBall(ball, m_FSM.Owner.FingerPos);
-                m_Orders.Add(ball);
             }
 
             //显示下一颗待发射的弹珠
@@ -989,7 +1043,9 @@ namespace CB
             int coin = Mathf.Clamp((int)Mathf.Floor(m_FSM.Owner.m_Score / 20.0f), min, max);
             GameFacade.Instance.Game.UpdateCoin(coin);
 
-            GameFacade.Instance.EventManager.SendEvent(new GameEvent(EVENT.UI_FLUSHSCORE, 0, false));
+  
+
+            GameFacade.Instance.EventManager.SendEvent(new GameEvent(EVENT.UI_FLUSHSCORE, 0, m_FSM.Owner.GetTargetScore(m_FSM.Owner.m_Stage + 1),false));
             GameFacade.Instance.EventManager.SendEvent(new GameEvent(EVENT.UI_FLYCOIN, coin));
         }
 
@@ -1002,17 +1058,14 @@ namespace CB
             m_IsFinished = false;
             m_DelayTimer.Reset();
 
-            m_Orders.Clear();
             m_Queue.Clear();
             foreach (var ball in m_FSM.Owner.Balls) {
-                ball.SetState((int)_C.LAYER.BALLREADY);
                 m_Queue.Add(ball);
             }
 
             m_ShootBall = m_Queue[0];
 
-                        //
-            m_FSM.Owner.Environment.OnBegin(m_FSM.Owner.m_Stage);
+            m_FSM.Owner.Environment.OnBegin();
 
             GameFacade.Instance.EventManager.AddHandler(EVENT.UI_SHOWBALLLIST,  OnReponseBallList);
         }
@@ -1052,10 +1105,9 @@ namespace CB
                     GameFacade.Instance.EventManager.SendEvent(new GameEvent(EVENT.UI_SHOWBUBBLE, true, "\n     <#0CA90D>取消发射</color>"));
 
                 } else {
-                    m_FSM.Owner.AimStart();
                     m_FSM.Owner.FocusAim(m_FSM.Owner.FingerPos);
 
-                    m_FSM.Owner.Simulator.SimulateShoot(m_FSM.Owner.FingerPos);
+                    m_FSM.Owner.Simulator.SimulateShoot(m_ShootBall, m_FSM.Owner.FingerPos);
 
                     GameFacade.Instance.Game.ShowBallBubble(m_ShootBall);
                 }
@@ -1069,7 +1121,7 @@ namespace CB
             }
 
             //场上清空后，不管还有没有剩余弹珠和积分够不够，直接胜利
-            if (m_FSM.Owner.Ghosts.Count == 0 && m_FSM.Owner.Obstacles.Count == 0)
+            if (m_FSM.Owner.Boxs.Count == 0 && m_FSM.Owner.Obstacles.Count == 0)
             {
                 m_IsFinished = true;
                 ReceiveReward();
@@ -1077,13 +1129,13 @@ namespace CB
                 GameFacade.Instance.EventManager.SendEvent(new GameEvent(EVENT.ONPLAYEND));
             }
 
-            //全部发射完了，并且场上没有正在运动的弹珠了，则进入下一个阶段
-            if (m_Queue.Count == 0 && m_FSM.Owner.IsBallsIdle() == true)
+
+            if (m_FSM.Owner.IsSceneIdle() == true)
             {
-                //判断胜利失败
-                //积分结算
-                if (m_FSM.Owner.m_Score >= m_FSM.Owner.TargetScore)
-                {
+                //分数达成 并且场上没有正在运动的弹珠了，则进入下一个阶段
+                if (GameFacade.Instance.Game.IsScoreReach() == true) {
+                    //判断胜利失败
+                    //积分结算
                     m_IsFinished = true;
                     ReceiveReward();
 
@@ -1097,40 +1149,26 @@ namespace CB
                     }
 
                     //清理Ghost
-                    foreach (var ghost in m_FSM.Owner.Ghosts) {
+                    foreach (var ghost in m_FSM.Owner.Boxs) {
                         ghost.Dead();
                     }
 
-                } else {
-                    m_FSM.Transist(_C.FSMSTATE.GAME_END);
+                    
+                } else  {
+                    if (m_Queue.Count == 0) {
+                        m_FSM.Transist(_C.FSMSTATE.GAME_END);
+                    }
                 }
-
-                
-                return;
             }
         }
 
         public override void Exit()
         {
-            m_FSM.Owner.Environment.OnEnd(m_FSM.Owner.m_Stage);
-
-            GameFacade.Instance.EventManager.DelHandler(EVENT.UI_SHOWBALLLIST,  OnReponseBallList);
-
-
-            List<Ball> others = new List<Ball>();
-            foreach (var ball in m_FSM.Owner.Balls)
-            {
-                if (m_Orders.Contains(ball) != true)
-                {
-                    others.Add(ball);
-                }
-            }
-
-            m_FSM.Owner.Balls.Clear();
-            m_FSM.Owner.Balls.AddRange(m_Orders);
-            m_FSM.Owner.Balls.AddRange(others);
+            m_FSM.Owner.Environment.OnEnd();
 
             GameFacade.Instance.EventManager.SendEvent(new GameEvent(EVENT.UI_FLUSHBALLS));
+
+            GameFacade.Instance.EventManager.DelHandler(EVENT.UI_SHOWBALLLIST,  OnReponseBallList);
         }
 
 
@@ -1167,8 +1205,28 @@ namespace CB
                 GameFacade.Instance.Game.ShowBallBubble(m_ShootBall);
 
                 GameFacade.Instance.Game.Pause();
-            } else {
+            } else {              
+                var insert_index = 0;
+                for (int i = 0; i < m_FSM.Owner.Balls.Count; i++) {
+                    var b = m_FSM.Owner.Balls[i];
+                    if (b.IsActing != true) {
+                        insert_index = i;
+                        break;
+                    }
+                }
+                m_FSM.Owner.Balls.Remove(m_ShootBall);
+                m_FSM.Owner.Balls.Insert(insert_index, m_ShootBall);
+
+                m_Queue.Clear();
+                foreach (var ball in m_FSM.Owner.Balls) {
+                    if (ball.IsIdle) {
+                        m_Queue.Add(ball);
+                    }
+                }
+
                 GameFacade.Instance.Game.Resume();
+
+                GameFacade.Instance.EventManager.SendEvent(new GameEvent(EVENT.UI_FLUSHBALLS));
             }
         }
     }

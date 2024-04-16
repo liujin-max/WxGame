@@ -11,18 +11,11 @@ namespace CB
     /// </summary>
     public class BallBoom : Ball
     {
-        private float m_Radius;
-
-        public override void UpgradeTo(int level)
-        {
-            base.UpgradeTo(level);
-
-            m_Radius = 150 + (m_Level - 1) * 15;
-        }
+        private float m_Radius = 180;
 
         public override string GetDescription()
         {
-            var str = string.Format("击中宝石时造成<size=32><#43A600>{0}</color></size>码的范围伤害。", m_Radius);
+            var str = string.Format("击中宝石时发生爆炸，造成范围伤害。");
 
             return str;
         }
@@ -31,10 +24,10 @@ namespace CB
         public override void OnCollisionEnter2D(Collision2D collision)
         {
             this.CancelIgnoreCollision();
-            this.OnHitGhost(collision);
+            this.OnHitBox(collision);
 
             //
-            if (collision.gameObject.GetComponent<Obstacle>() != null || collision.gameObject.GetComponent<Ghost>() != null) {
+            if (collision.gameObject.GetComponent<Obstacle>() != null || collision.gameObject.GetComponent<Box>() != null) {
                 if (collision.contacts.Length <= 0){
                     return;
                 }
@@ -46,21 +39,20 @@ namespace CB
                 //对范围内的障碍物造成伤害
                 var obstacles   = GameFacade.Instance.Game.Obstacles;
                 for (int i = 0; i < obstacles.Count; i++) {
-                    Obstacle obt = obstacles[i];
+                    Obstacle obt = obstacles[i]; 
                     if (Vector3.Distance(obt.transform.localPosition, collision_point) <= radius) {
                         obt.OnHit(this, (int)m_Demage.ToNumber());
                     }
                 }
 
-                //对ghost同样造成伤害
-                var ghosts   = GameFacade.Instance.Game.Ghosts;
+                //对box同样造成伤害
+                var ghosts   = GameFacade.Instance.Game.Boxs;
                 for (int i = 0; i < ghosts.Count; i++) {
-                    Ghost ghost = ghosts[i];
+                    Box ghost = ghosts[i];
                     if (Vector3.Distance(ghost.transform.localPosition, collision_point) <= radius && ghost.gameObject != collision.gameObject) {
-                        ghost.OnHit(this, (int)m_Demage.ToNumber());
+                        ghost.OnHit(this);
                         ghost.OnShake();
                     }
-
                 }
 
 

@@ -7,9 +7,9 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: UIMask
+  m_Name: UIMask_Switch
   m_Shader: {fileID: 4800000, guid: 69b4077b1b7f8d44bad4316fa520d736, type: 3}
-  m_ShaderKeywords: _ROUNDMODE_ROUND
+  m_ShaderKeywords: _ROUNDMODE_ELLIPSE
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
@@ -72,9 +72,9 @@ Material:
     - _Mode: 0
     - _OcclusionStrength: 1
     - _Parallax: 0.02
-    - _Radius: 162
+    - _Radius: 250
     - _ReduceTime: 1
-    - _RoundMode: 0
+    - _RoundMode: 1
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
     - _SrcBlend: 1
@@ -85,13 +85,13 @@ Material:
     - _StencilReadMask: 255
     - _StencilWriteMask: 255
     - _TotalTime: 1
-    - _TransitionRange: 37.4
+    - _TransitionRange: 35
     - _UVSec: 0
     - _UseUIAlphaClip: 0
-    - _Width: 450
+    - _Width: 350
     - _ZWrite: 1
     m_Colors:
-    - _Center: {r: 0, g: 650, b: 0, a: 0}
+    - _Center: {r: 0, g: 750, b: 0, a: 0}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
   m_BuildTextureStacks: []

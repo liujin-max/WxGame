@@ -15,7 +15,7 @@ namespace CB
 
         public override string GetDescription()
         {
-            return "瞄准线可以显示反弹的路线。";
+            return "瞄准线可以显示初次反弹的轨迹。";
         }
 
         public override void Execute()
@@ -44,8 +44,10 @@ namespace CB
         }
 
 
-        public override void OnBallShoot(Ball ball)
+        public override void OnBallShoot(Ball ball, bool is_real_shoot)
         {
+            if (ball.IsSimulate == true) return;
+
             m_Records[ball] = new object[] {null, 0};
         }
 
@@ -80,6 +82,8 @@ namespace CB
                     ball.m_Demage.PutAUL(this, (int)objs[1]);
 
                     GameFacade.Instance.EffectManager.FlyRate(collision.contacts[0].point, (int)objs[1]);
+
+                    GameFacade.Instance.EventManager.SendEvent(new GameEvent(EVENT.UI_TRIGGERRELICS, Belong));
                 }
                 
             }
@@ -220,6 +224,8 @@ namespace CB
 
             if (count > 0) {
                 GameFacade.Instance.Game.UpdateCoin(count);
+
+                GameFacade.Instance.EventManager.SendEvent(new GameEvent(EVENT.UI_TRIGGERRELICS, Belong));
             }
         }
     }
@@ -239,6 +245,8 @@ namespace CB
             if (obt.Order == 0)
             {
                 ball.Velocity = ball.Velocity.normalized * (ball.Velocity.magnitude + 3);
+
+                GameFacade.Instance.EventManager.SendEvent(new GameEvent(EVENT.UI_TRIGGERRELICS, Belong));
             }
         }
     }
@@ -250,7 +258,7 @@ namespace CB
 
         public override string GetDescription()
         {
-            return "升级弹珠花费的<sprite=0>数量有50%的概率-1。";
+            return "合成弹珠花费的<sprite=0>数量有概率-1。";
         }
 
         public override void OnComplextInit(ComplextEvent evt, BallData config)
@@ -259,6 +267,8 @@ namespace CB
                 if (RandomUtility.IsHit(50) == true) {
                     if (config.Cost.ToNumber() > 1) {
                         config.Cost.PutADD(this, -1);
+
+                        GameFacade.Instance.EventManager.SendEvent(new GameEvent(EVENT.UI_TRIGGERRELICS, Belong));
                     }
                 }
             }
@@ -304,12 +314,21 @@ namespace CB
         public BEffect_DRAWBALL() {}
         public override string GetDescription()
         {
-            return "场上额外产生一枚<sprite=0>。";
+            return "击中<sprite=0>时有概率额外获得一枚。";
         }
 
-        public override void OnDrawingObstacles(List<int> lists)
+        public override void OnHitGlass(Ball ball, Box g, Collision2D collision)
         {
-            lists.Add(-1);
+            if (g.GetComponent<Ghost>() == null) return;
+
+            if (RandomUtility.IsHit(40) == true)
+            {
+                GameFacade.Instance.Game.Glass += 1;
+
+                GameFacade.Instance.EffectManager.Load(EFFECT.FLYGLASS, ball.transform.localPosition);
+
+                GameFacade.Instance.EventManager.SendEvent(new GameEvent(EVENT.UI_TRIGGERRELICS, Belong));
+            }
         }
     }
 
@@ -340,6 +359,8 @@ namespace CB
                 ball.m_Demage.PutAUL(this, 3);
 
                 GameFacade.Instance.EffectManager.FlyRate(collision.contacts[0].point, 4);
+
+                GameFacade.Instance.EventManager.SendEvent(new GameEvent(EVENT.UI_TRIGGERRELICS, Belong));
             }
         }
 
@@ -484,6 +505,14 @@ namespace CB
                 b.m_Demage.PutAUL(this, Rate - 1);
             });
         }
+
+        public override void OnBallShoot(Ball ball, bool is_real_shoot)
+        {
+            GameFacade.Instance.Game.Balls.ForEach(b => {
+                b.m_Demage.PutAUL(this, Rate - 1);
+            });
+        }
+
     }
 
     //每拥有50金币，弹珠的伤害提高1点(当前：2)
@@ -540,7 +569,29 @@ namespace CB
 
 
 
+     //发射的弹珠有小概率会被再次回收。
+    public class BEffect_REPEAT : BEffect
+    {
+        public BEffect_REPEAT() {}
 
+        public override string GetDescription()
+        {
+            return string.Format("发射的弹珠有小概率会被再次回收。");
+        }
+
+        public override void OnBallShoot(Ball ball, bool is_real_shoot)
+        {
+            if (ball.IsSimulate == true) return;
+            if (is_real_shoot == false) return;
+
+            if (RandomUtility.IsHit(15) == true)
+            {
+                ball.HP += 1;
+
+                GameFacade.Instance.EventManager.SendEvent(new GameEvent(EVENT.UI_TRIGGERRELICS, Belong));
+            }
+        }
+    }
 
 
 
@@ -553,6 +604,7 @@ namespace CB
     public class BEffect
     {
         public int ID;
+        public Relics Belong;
 
         public static BEffect Create(int id)
         {
@@ -599,6 +651,10 @@ namespace CB
 
                 case 1013:
                     return new BEffect_WALLET();
+
+
+                case 1016:
+                    return new BEffect_REPEAT();
                 
                 default:
                     return null;
@@ -630,7 +686,7 @@ namespace CB
 
         }
 
-        public virtual void OnBallShoot(Ball ball)
+        public virtual void OnBallShoot(Ball ball, bool is_real_shoot)
         {
 
         }
@@ -666,6 +722,11 @@ namespace CB
         }
 
         public virtual void OnCoinUpdate(int count)
+        {
+
+        }
+
+        public virtual void OnHitGlass(Ball ball, Box g, Collision2D collision)
         {
 
         }

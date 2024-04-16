@@ -32,10 +32,6 @@ namespace CB
 
             m_Moving = true;
             m_ToPos = to_pos;
-
-            // transform.DOLocalMove(transform.localPosition + offset, 0.5f).OnComplete(()=>{
-            //     m_Moving = false;
-            // });
         }
 
 
@@ -70,7 +66,7 @@ namespace CB
 
         }
 
-        public void DoScale()
+        public virtual void DoScale()
         {
             var origin_sclae = transform.localScale;
             transform.localScale = Vector3.zero;

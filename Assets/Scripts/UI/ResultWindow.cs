@@ -13,7 +13,6 @@ namespace CB
         [SerializeField] private Button BtnRestart;
 
         [SerializeField] private TextMeshProUGUI ScoreText;
-        [SerializeField] private TextMeshProUGUI CoinText;
 
         // Start is called before the first frame update
         void Start()
@@ -31,7 +30,6 @@ namespace CB
         public void Init(int stage, int coin)
         {
             ScoreText.text  = stage.ToString() + "层";
-            CoinText.text   = coin.ToString() + " <sprite=1>";
 
             GameFacade.Instance.SoundManager.Load(SOUND.RESULT);
         }

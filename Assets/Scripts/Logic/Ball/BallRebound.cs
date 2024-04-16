@@ -41,7 +41,7 @@ namespace CB
         public override void OnCollisionEnter2D(Collision2D collision)
         {
             this.CancelIgnoreCollision();
-            this.OnHitGhost(collision);
+            this.OnHitBox(collision);
             this.OnHitObstable(collision);
 
             Ground ground = collision.transform.GetComponent<Ground>();

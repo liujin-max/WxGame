@@ -12,21 +12,11 @@ namespace CB
     /// 
     public class BallRegen : Ball
     {
-        private int m_Rate;
-
-
-        public override void UpgradeTo(int level)
-        {
-            base.UpgradeTo(level);
-
-            m_Rate = 45 + 5 * m_Level;
-        }
-
-
+        private int m_Rate = 50;
 
         public override string GetDescription()
         {
-            var str = string.Format("击落宝石后有<size=32><#43A600>{0}%</color></size>的概率在原地留下一颗新的宝石", m_Rate);
+            var str = string.Format("击落宝石后有概率在原地留下一颗新的宝石", m_Rate);
 
             return str;
         }
@@ -35,7 +25,7 @@ namespace CB
         public override void OnCollisionEnter2D(Collision2D collision)
         {
             this.CancelIgnoreCollision();
-            this.OnHitGhost(collision);
+            this.OnHitBox(collision);
             this.OnHitObstable(collision);
 
             Obstacle obt = collision.transform.GetComponent<Obstacle>();

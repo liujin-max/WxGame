@@ -13,7 +13,7 @@ public static class _C
         BALLACTING  = 7,    //运动中
         BALLRECYCLE = 8,     //回收
 
-        OBSTACLERECY = 9,    //障碍物回收
+        OBTINVALID = 9,    //宝石无效
 
         BALLREADY   = 13,    //代发射
     }
@@ -37,8 +37,14 @@ public static class _C
         NULL = 2
     }
 
+  
+    public static int GLASSPRICE   = 2;    //碎片价格
+    public static int DEFAULT_COIN = 5;
+    public static int DEFAULT_GLASS= 5;
+
+
+
     public static Vector2 DEFAULT_GRAVITY = new Vector2(0, -9.81f);
-    public static int GLASSPRICE   = 3;    //碎片价格
 
 
     public static Vector3 VEC3INVALID       = new Vector3(-999, -999, -999);
@@ -60,7 +66,7 @@ public static class _C
     public static float BOARD_BOTTOM  = -8f;
 
     public static float OBSTACLE_ORIGIN_Y   = -7;
-    public static float OBSTACLE_OFFSET     = 1.6f;
+    public static float OBSTACLE_OFFSET     = 1.5f;
 
 
 
@@ -96,10 +102,18 @@ public static class _C
         EXPAND  = 18,
         FOCUS   = 19,
 
-        SCALE  = 21,       //缩放弹珠
+        SCALE   = 21,       //缩放弹珠
+        SPEED   = 22,
+        REFLEX  = 23,
+        BLACKHOLE = 24,     //黑洞弹珠
+        MASS    = 25,
     }   
 
-
+    public enum BOXTYPE
+    {
+        GHOST   = -1,
+        BOMB    = -2   
+    }
 
     public enum COMPLEXTEVEMT
     {

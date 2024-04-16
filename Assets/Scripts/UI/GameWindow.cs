@@ -24,6 +24,7 @@ namespace CB
         [SerializeField] private TextMeshProUGUI c_scoreTarget;
         [SerializeField] private Image c_scoreBar;
         private float m_Tscore;
+        private float m_Mscore;
         private float m_Cscore;
 
         [SerializeField] private TextMeshProUGUI c_countText;
@@ -155,7 +156,7 @@ namespace CB
                     if (m_Cscore <= m_Tscore) m_Cscore = m_Tscore;
                 }
                 
-                c_scoreBar.fillAmount   = m_Cscore / GameFacade.Instance.Game.TargetScore;
+                c_scoreBar.fillAmount   = m_Cscore / m_Mscore;
             }
         }
 
@@ -241,7 +242,8 @@ namespace CB
         private void OnReponseFlushScore(GameEvent gameEvent)
         {
             int score   = (int)gameEvent.GetParam(0);
-            int max     = GameFacade.Instance.Game.TargetScore;
+            int max     = (int)gameEvent.GetParam(1);
+            m_Mscore    = max;
 
             if(m_Tscore < max && score >= max)  {
                 GameFacade.Instance.EffectManager.Load(EFFECT.SCORE, Vector3.zero, c_EffectPivot);
@@ -251,7 +253,7 @@ namespace CB
             c_scoreTarget.text  = max.ToString();
 
             m_Tscore    = score;
-            if ((bool)gameEvent.GetParam(1) == true) {
+            if ((bool)gameEvent.GetParam(2) == true) {
                 m_Cscore    = score;
                 c_scoreBar.fillAmount   = score / max;
             } 
@@ -259,7 +261,8 @@ namespace CB
 
         private void OnReponseFlushCount(GameEvent gameEvent)
         {
-            c_countText.text = GameFacade.Instance.Game.Glass.ToString();
+            // c_countText.text = GameFacade.Instance.Game.Glass.ToString();
+            c_countText.GetComponent<NumberTransition>().SetValue(GameFacade.Instance.Game.Glass);
         }
 
         private void OnReponseFlushBalls(GameEvent gameEvent)
@@ -268,13 +271,20 @@ namespace CB
                 seat.gameObject.SetActive(false);
             }
 
+            var add_ball = gameEvent.GetParam(0);
+
             var balls = GameFacade.Instance.Game.Balls;
             for (int i = 0; i < GameFacade.Instance.Game.SeatCount.ToNumber(); i++)
             {
                 var item = new_seat_item(i);
 
                 if(balls.Count > i) {
-                    item.Init((int)balls[i].Type);
+                    var ball = balls[i];
+                    item.Init((int)ball.Type);
+
+                    if (add_ball != null && (Ball)add_ball == ball) {
+                        item.DoScale();
+                    }
                 } else {
                     item.Init(-1);
                 }
@@ -301,7 +311,8 @@ namespace CB
 
         void OnReponseFlushCoin(GameEvent gameEvent)
         {
-            c_coinText.text = gameEvent.GetParam(0).ToString();
+            // c_coinText.text = gameEvent.GetParam(0).ToString();
+            c_coinText.GetComponent<NumberTransition>().SetValue((int)gameEvent.GetParam(0));
         }
 
         void OnReponseFlushRelics(GameEvent gameEvent)

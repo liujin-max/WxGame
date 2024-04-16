@@ -46,16 +46,17 @@ SpriteAtlas:
   - {fileID: 21300000, guid: aa18c892dfcf928449ae25baa81f8442, type: 3}
   - {fileID: 21300000, guid: c08891a23721f5d49aac017a4f9deb51, type: 3}
   - {fileID: 21300000, guid: fd14edf2feea4dc4dac38a4541e8e256, type: 3}
+  - {fileID: 21300000, guid: c57e1523c153abb4988948eb40115524, type: 3}
   - {fileID: 21300000, guid: 6d926c23a743f124196ad06a696dfead, type: 3}
   - {fileID: 21300000, guid: 77ea0d2302756f946a4f0bb965b3fb35, type: 3}
   - {fileID: 21300000, guid: a5a41133d9925bf48803cb43b149ed4f, type: 3}
   - {fileID: 21300000, guid: 4b393883dae1e34429e12a3c6befe212, type: 3}
-  - {fileID: 21300000, guid: 4ab73cb4f3d35204aa98d2e8f521876f, type: 3}
   - {fileID: 21300000, guid: 63812af45f25a2a48bbf3349456d4878, type: 3}
   - {fileID: 21300000, guid: 43a9641549c11af4c8378cfc03c3323b, type: 3}
   - {fileID: 21300000, guid: a5b3cb15ad3da654596ee2b975361c2b, type: 3}
   - {fileID: 21300000, guid: 9da55fc6e619eba438019a4d216ffd5b, type: 3}
   - {fileID: 21300000, guid: a6e51797376b975498f121c4f48bff70, type: 3}
+  - {fileID: 21300000, guid: 187164397907e274cb6f493d846d65c4, type: 3}
   - {fileID: 21300000, guid: 85a5d1d9e84a17245920d74312ef9689, type: 3}
   - {fileID: 21300000, guid: a3e243e966db59041b58c5f0750e94e4, type: 3}
   - {fileID: 21300000, guid: 1a23d44ac05fed44596c0036dd54d868, type: 3}
@@ -63,7 +64,6 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 022d929c7e601d5448158d4f8e26c4f6, type: 3}
   - {fileID: 21300000, guid: 13c2739c7f8b9444d8eea80c953689d7, type: 3}
   - {fileID: 21300000, guid: 91de57edffd13094b83346514a3f6b31, type: 3}
-  - {fileID: 21300000, guid: 2cd6075eae14cb84b971380ba4d9d5bf, type: 3}
   - {fileID: 21300000, guid: 721cea9ee9f09d541a1e53a8394825a5, type: 3}
   m_PackedSpriteNamesToIndex:
   - Game_btn_return
@@ -72,16 +72,17 @@ SpriteAtlas:
   - Game_BtnCancel
   - Game_bubble
   - Game_BtnSet
+  - Game_Btnskip
   - Game_black_frame
   - Game_text_stage_2
   - Game_BtnRefresh
   - Universal_text_score
-  - Game_shield
   - Game_upgrade_title_upgrade
   - Game_ball_list_frame
   - Game_relics_bubble
   - Game_btn_restart
   - Game_upgrade_title_complex
+  - Game_btn_select
   - Game_score_bar
   - Game_text_stage_1
   - Game_btn_buy
@@ -89,7 +90,6 @@ SpriteAtlas:
   - Game_text_score
   - Game_btn_orange
   - Game_score_bar_bg
-  - Game_ball_item
   - Game_ball_seat_item
   m_RenderDataMap: {}
   m_Tag: Game

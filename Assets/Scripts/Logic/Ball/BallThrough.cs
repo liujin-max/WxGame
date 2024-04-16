@@ -39,7 +39,7 @@ namespace CB
         {
             this.CancelIgnoreCollision();
             
-            this.OnHitGhost(collision);
+            this.OnHitBox(collision);
             bool flag = this.OnHitObstable(collision);
 
 

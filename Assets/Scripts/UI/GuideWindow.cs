@@ -7,7 +7,7 @@ using UnityEngine.UI;
 public class GuideWindow : MonoBehaviour
 {
     [SerializeField] Button c_GuideScore;
-    // [SerializeField] Button c_GuideCancel;
+    [SerializeField] Button c_GuideBall;
     [SerializeField] Button c_GuideSwitch;
 
     private HashSet<Button> m_Guides = new HashSet<Button>();
@@ -16,7 +16,7 @@ public class GuideWindow : MonoBehaviour
     void Awake()
     {
         c_GuideScore.gameObject.SetActive(false);
-        // c_GuideCancel.gameObject.SetActive(false);
+        c_GuideBall.gameObject.SetActive(false);
         c_GuideSwitch.gameObject.SetActive(false);
 
 
@@ -26,10 +26,10 @@ public class GuideWindow : MonoBehaviour
             m_Guides.Add(c_GuideScore);
         });
 
-        // c_GuideCancel.onClick.AddListener(()=>{
-        //     c_GuideCancel.gameObject.SetActive(false);
-        //     m_Guides.Add(c_GuideCancel);
-        // });
+        c_GuideBall.onClick.AddListener(()=>{
+            c_GuideBall.gameObject.SetActive(false);
+            m_Guides.Add(c_GuideBall);
+        });
 
         c_GuideSwitch.onClick.AddListener(()=>{
             c_GuideSwitch.gameObject.SetActive(false);
@@ -45,11 +45,11 @@ public class GuideWindow : MonoBehaviour
             return;
         }
 
-        // if (m_Guides.Contains(c_GuideCancel) == false)
-        // {
-        //     c_GuideCancel.gameObject.SetActive(true);
-        //     return;
-        // }
+        if (m_Guides.Contains(c_GuideBall) == false)
+        {
+            c_GuideBall.gameObject.SetActive(true);
+            return;
+        }
 
         if (m_Guides.Contains(c_GuideSwitch) == false)
         {

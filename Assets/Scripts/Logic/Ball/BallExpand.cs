@@ -12,23 +12,11 @@ namespace CB
     /// 
     public class BallExpand : Ball
     {
-        private float m_Rate;
-        private float m_Add = 0.1f;
-        private int m_Count;
-
-
-        public override void UpgradeTo(int level)
-        {
-            base.UpgradeTo(level);
-
-            m_Rate = Math.Min(2f, 1.3f + 0.1f * (level - 1));
-        }
-
-
+        private float m_Rate = 0.3f;
 
         public override string GetDescription()
         {
-            var str = string.Format("击中<sprite=5>后体积膨胀{0}倍(最大<size=32><#43A600>{1}</color></size>倍)，击中其他宝石则缩小(最小为原始大小)", m_Add, m_Rate);
+            var str = string.Format("击中<sprite=5>后体积膨胀，击中其他宝石则恢复原状");
 
             return str;
         }
@@ -43,28 +31,23 @@ namespace CB
         public override void OnCollisionEnter2D(Collision2D collision)
         {
             this.CancelIgnoreCollision();
-            this.OnHitGhost(collision);
+            this.OnHitBox(collision);
             this.OnHitObstable(collision);
 
             Obstacle obt = collision.transform.GetComponent<Obstacle>();
             if (obt != null && obt.HasShield() == false) {
                 if (obt.Order == 2) {
-                    m_Count++;
+                    m_Scale.PutADD(this, m_Rate);
                 } else {
-                    m_Count = (int)MathF.Max(0, m_Count - 1);
+                    m_Scale.Pop(this);
                 }
-
-                float add_value = m_Count * m_Add;
-                add_value   = Math.Min(add_value, m_Rate - 1.0f);
-                m_Scale.PutADD(this, add_value);
+                
                 FlushScale();
             }
 
             var ground = collision.transform.GetComponent<Ground>();
             if (ground != null && ground.GroundType == GroundType.Ground)
             {
-                m_Count = 0;
-
                 m_Scale.Pop(this);
                 FlushScale();
             }

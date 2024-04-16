@@ -292,6 +292,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4708434479785203055}
   - component: {fileID: 4708434479785203048}
+  - component: {fileID: 3508225783168771469}
   m_Layer: 0
   m_Name: Left
   m_TagString: Untagged
@@ -340,6 +341,18 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.3, y: 14.6}
   m_EdgeRadius: 0
+--- !u!114 &3508225783168771469
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4708434479785203054}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cc5ae485928e5174cba9f589e60c5149, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &4708434479892423758
 GameObject:
   m_ObjectHideFlags: 0
@@ -350,6 +363,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4708434479892423759}
   - component: {fileID: 4708434479892423752}
+  - component: {fileID: 6768358033993784477}
   m_Layer: 0
   m_Name: Right
   m_TagString: Untagged
@@ -398,6 +412,18 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.3, y: 14.6}
   m_EdgeRadius: 0
+--- !u!114 &6768358033993784477
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4708434479892423758}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cc5ae485928e5174cba9f589e60c5149, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &4708434480044191433
 GameObject:
   m_ObjectHideFlags: 0
@@ -648,7 +674,7 @@ PolygonCollider2D:
   m_GameObject: {fileID: 4708434480872005835}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: f56ee698f5fe9f0408559d9715d37b79, type: 2}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
@@ -1043,7 +1069,6 @@ MonoBehaviour:
   c_obtPivot: {fileID: 4708434480996469396}
   c_takeAim: {fileID: 4708434480145612408}
   c_borad: {fileID: 8031686853519078621}
-  FSM_State: 0
 --- !u!114 &8484571401062151027
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -23,6 +23,8 @@ namespace CB
 
         public override void OnEnter()
         {
+            base.OnEnter();
+            
             GameFacade.Instance.Game.Obstacles.ForEach(obstacle =>{
                 obstacle.Show(false);
             });

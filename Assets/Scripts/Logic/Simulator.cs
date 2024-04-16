@@ -18,6 +18,8 @@ namespace CB
         private List<GameObject> m_Aims = new List<GameObject>();
 
 
+        private bool m_IsStart = false;
+
         public int FocusCount = 1;
 
         void Start()
@@ -66,9 +68,11 @@ namespace CB
             return obj;
         }
 
-        public void SimulateShoot(Vector3 target_pos)
+        public void SimulateStart(Ball shootBall)
         {
-            GameFacade.Instance.Game.Pause();
+            if (m_IsStart == true) return;
+
+            m_IsStart = true;
 
             GameFacade.Instance.Game.Obstacles.ForEach(obstacle => {
                 if (obstacle.IsShow() != true)
@@ -77,6 +81,16 @@ namespace CB
                 }
             });
             
+            
+            m_Ball.Copy(shootBall);
+        }
+
+        public void SimulateShoot(Ball shootBall, Vector3 target_pos)
+        {
+            SimulateStart(shootBall);
+
+            GameFacade.Instance.Game.Pause();
+
             m_Ball.gameObject.SetActive(true);
 
             m_Ball.Shoot(target_pos);
@@ -85,6 +99,8 @@ namespace CB
         
         public void SimulateEnd()
         {
+            m_IsStart = false;
+
             GameFacade.Instance.Game.Resume();
 
             m_Ball.gameObject.SetActive(false);

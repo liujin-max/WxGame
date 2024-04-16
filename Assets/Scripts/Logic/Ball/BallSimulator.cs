@@ -17,7 +17,16 @@ namespace CB
 
         public BallSimulator()
         {
-            m_IsSimulate = true;
+            IsSimulate = true;
+        }
+
+
+        //将目标球的弹力材质和重力复制给自身
+        public void Copy(Ball ball)
+        {
+            // 获取目标物体上的Physics Material
+            Rigidbody.mass = ball.Rigidbody.mass;
+            Rigidbody.sharedMaterial = ball.Rigidbody.sharedMaterial;
         }
 
         public override void Shoot(Vector3 pos)

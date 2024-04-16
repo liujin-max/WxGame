@@ -8,8 +8,11 @@ namespace CB
 {
     public class Ball : MonoBehaviour
     {
-        protected Rigidbody2D c_rigidbody;
         private SpriteRenderer c_sprite;
+
+        protected Rigidbody2D c_rigidbody;
+        public Rigidbody2D Rigidbody{ get {return c_rigidbody;}}
+
         protected Collider2D c_collision;
         public Collider2D Collision{ get {return c_collision;}}
 
@@ -22,6 +25,14 @@ namespace CB
                 var config = CONFIG.GetBallData(m_Type);
                 return config.Name ;
             }
+        }
+
+
+        protected int m_HP = 1;
+        public int HP 
+        { 
+            get {return m_HP;}
+            set {m_HP = value;}
         }
 
         protected int m_Level = 1;
@@ -37,7 +48,7 @@ namespace CB
         private Vector3 m_LastPos;
         private Vector2 m_LastVelocity;
         public Vector2 LastVelocity{ get {return m_LastVelocity;}}
-        public bool m_IsSimulate = false;
+        public bool IsSimulate = false;
 
         public int SortingOrder{set {c_sprite.sortingOrder = value; }}
         //速度
@@ -133,7 +144,7 @@ namespace CB
 
         public bool IsDead()
         {
-            return m_DeadFlag;
+            return m_DeadFlag || m_HP <= 0;
         }
 
         public void Dead()
@@ -157,6 +168,16 @@ namespace CB
             c_rigidbody.simulated = flag;
         }
 
+        //准备
+        public virtual void Breech()
+        {
+            this.SetState((int)_C.LAYER.BALLIDLE);
+            this.Velocity = Vector2.zero;
+            transform.localPosition = _C.BALL_ORIGIN_POS;
+            
+            c_rigidbody.bodyType = RigidbodyType2D.Kinematic;
+        }
+
         //发射
         public virtual void Shoot(Vector3 pos)
         {
@@ -164,6 +185,7 @@ namespace CB
             Physics2D.IgnoreCollision(c_collision, GameFacade.Instance.Game.c_borad, true);
 
             this.SetState((int)_C.LAYER.BALLACTING);
+            c_rigidbody.bodyType = RigidbodyType2D.Dynamic;
 
             //放回原始位置
             c_rigidbody.SetRotation(0);
@@ -176,7 +198,7 @@ namespace CB
 
             c_rigidbody.AddForce(vec);
 
-            GameFacade.Instance.EventManager.SendEvent(new GameEvent(EVENT.ONBALLSHOOT, this));
+            GameFacade.Instance.EventManager.SendEvent(new GameEvent(EVENT.ONBALLSHOOT, this, true));
         }
 
         //碰撞
@@ -186,7 +208,7 @@ namespace CB
 
             c_rigidbody.velocity = force;
 
-            GameFacade.Instance.EventManager.SendEvent(new GameEvent(EVENT.ONBALLSHOOT, this));
+            GameFacade.Instance.EventManager.SendEvent(new GameEvent(EVENT.ONBALLSHOOT, this, false));
         }
 
         public void AddForce(Vector2 force)
@@ -194,19 +216,16 @@ namespace CB
             c_rigidbody.AddForce(force);
         }
 
-        protected bool OnHitGhost(Collision2D collision)
+        protected bool OnHitBox(Collision2D collision)
         {
-            Ghost ghost = collision.gameObject.GetComponent<Ghost>();
-            if (ghost != null) {
-                ghost.OnHit(this);
-                ghost.OnShake();
+            Box box = collision.gameObject.GetComponent<Box>();
+            if (box != null) {
+                GameFacade.Instance.SoundManager.Load(SOUND.HIT);
 
-                if (ghost.IsDead() == true) {
-                    GameFacade.Instance.SoundManager.Load(SOUND.HITGHOST);
-                }
-                else {
-                    GameFacade.Instance.SoundManager.Load(SOUND.HIT);
-                }
+                box.OnHit(this);
+                box.OnShake();
+
+                GameFacade.Instance.EventManager.SendEvent(new GameEvent(EVENT.ONBALLHITGLASS, this, box, collision));
 
                 return true;
             }
@@ -246,13 +265,13 @@ namespace CB
         public virtual void OnCollisionEnter2D(Collision2D collision)
         {
             this.CancelIgnoreCollision();
-            this.OnHitGhost(collision);
+            this.OnHitBox(collision);
             this.OnHitObstable(collision);
         }
 
         public virtual void OnCollisionStay2D(Collision2D collision)
         {
-            if (collision.gameObject.GetComponent<Ghost>() != null || collision.gameObject.GetComponent<Obstacle>() != null)
+            if (collision.gameObject.GetComponent<Box>() != null || collision.gameObject.GetComponent<Obstacle>() != null)
             {
                 Vector2 direction = Quaternion.Euler(0, 0, RandomUtility.Random(0, 360)) * Vector2.right;
                 this.Crash(direction * 20);
@@ -274,6 +293,7 @@ namespace CB
         {
             Destroy(gameObject);
         }
+
     }
 
 }

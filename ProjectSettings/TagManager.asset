@@ -14,7 +14,7 @@ TagManager:
   - BallIdle
   - BallActing
   - BallRecycling
-  - ObstacleRecy
+  - ObstacleInvalid
   - Board
   - Ground
   - PaoTai

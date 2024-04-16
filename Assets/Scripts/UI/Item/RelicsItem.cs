@@ -56,6 +56,27 @@ public class RelicsItem : MonoBehaviour
         } else {
             Touch.transform.DOScale(Vector3.one, 0.1f);
         }
+
+        // m_Sequence = DOTween.Sequence();
+        
+        // if (flag == true) {
+        //     transform.SetAsLastSibling();
+
+        //     var origin_pos = transform.localPosition;
+
+        //     // 按顺序添加Tween动作
+        //     m_Sequence.Append(transform.DOShakePosition(0.2f, new Vector3(10, 3f, 0) , vibrato: 25, randomness: 50, fadeOut: true).OnComplete(()=>{
+        //         transform.localPosition = origin_pos;
+        //     }));
+        //     m_Sequence.Append(transform.DOScale(1.2f, 0.2f).SetEase(Ease.OutBack));
+            
+
+        // } else {
+        //     m_Sequence.Append(transform.DOScale(Vector3.one, 0.1f));
+        // }
+
+        // // 启动Sequence
+        // m_Sequence.Play();
     }
 
     public void ShowCost(bool flag)

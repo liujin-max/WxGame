@@ -13,6 +13,7 @@ public static class EVENT
 
 
     public static string UI_SHOWBALLLIST    = "UI_SHOWBALLLIST";
+    public static string UI_TRIGGERRELICS   = "UI_TRIGGERRELICS";
 
 
     public static string ONOBSTACLEHIT      = "ONOBSTACLEHIT";
@@ -25,8 +26,10 @@ public static class EVENT
     public static string ONBALLHITAFTER     = "ONBALLHITAFTER";     //击中宝石后
     public static string ONPLAYEND          = "ONPLAYEND";          //结算时   
     public static string ONCOMPLEXINIT      = "ONCOMPLEXINIT";      //生成合成列表时  
-    public static string ONDRAWINGOBSTACLE  = "OnDRAWINGOBSTACLE";  //生成宝石时    
+    public static string ONDRAWINGOBSTACLE  = "OnDRAWINGOBSTACLE";  //生成宝石时 
+    public static string ONAFTERDRAWOBT     = "ONAFTERDRAWOBT";     //生成宝石后
     public static string ONGLASSUPDATE      = "ONGLASSUPDATE";      //碎片变化时
     public static string ONCOINUPDATE       = "ONCOINUPDATE";       //金币变化时
+    public static string ONBALLHITGLASS     = "ONBALLHITGLASS";     
 
 }

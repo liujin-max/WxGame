@@ -7,14 +7,7 @@ namespace CB
 {
     public class BallSplit : Ball
     {
-        private float m_Count = 2;
-
-        public override void UpgradeTo(int level)
-        {
-            base.UpgradeTo(level);
-
-            m_Count = 3 + m_Level - 1;
-        }
+        private float m_Count = 4;
 
         public override string GetDescription()
         {
@@ -28,7 +21,7 @@ namespace CB
         {
             this.CancelIgnoreCollision();
             
-            this.OnHitGhost(collision);
+            this.OnHitBox(collision);
             this.OnHitObstable(collision);
 
             //碰撞的对象是障碍物
@@ -39,14 +32,15 @@ namespace CB
 
                 if (RandomUtility.IsHit(60) == true)
                 {
-                    Vector3 collision_point = transform.localPosition; //collision.contacts[0].point;
+                    GameFacade.Instance.SoundManager.Load(SOUND.SPLIT);
 
+                    Vector3 collision_point = transform.localPosition; //collision.contacts[0].point;
                     //分裂出#个小球
                     for (int i = 0; i < m_Count; i++)
                     {
                         var ball = GameFacade.Instance.Game.PushBall(collision_point, _C.BALLTYPE.SMALL);
 
-                        Vector2 direction = Quaternion.Euler(0, 0, 360 / m_Count * i) * Vector2.right;
+                        Vector2 direction = Quaternion.Euler(0, 0, RandomUtility.Random(0, 360)) * Vector2.right;
                         ball.Crash(direction * 25);
                     }
                 }
