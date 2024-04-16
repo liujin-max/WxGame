@@ -28,7 +28,9 @@ namespace CB
             GameFacade.Instance.EventManager.AddHandler(EVENT.ONDRAWINGOBSTACLE,OnReponseDrawingObstacles);
             GameFacade.Instance.EventManager.AddHandler(EVENT.ONGLASSUPDATE,    OnReponseGlassUpdate);
             GameFacade.Instance.EventManager.AddHandler(EVENT.ONCOINUPDATE,     OnReponseCoinUpdate);
-            GameFacade.Instance.EventManager.AddHandler(EVENT.ONBALLHITGLASS,   OnReponseHitGlass);
+            GameFacade.Instance.EventManager.AddHandler(EVENT.ONBALLHITBOX,     OnReponseHitBox);
+            GameFacade.Instance.EventManager.AddHandler(EVENT.ONENTERCOLLISION, OnReponseEnterCollision);
+            
         }
 
         public void Dispose()
@@ -50,7 +52,8 @@ namespace CB
             GameFacade.Instance.EventManager.DelHandler(EVENT.ONDRAWINGOBSTACLE,OnReponseDrawingObstacles);
             GameFacade.Instance.EventManager.DelHandler(EVENT.ONGLASSUPDATE,    OnReponseGlassUpdate);
             GameFacade.Instance.EventManager.DelHandler(EVENT.ONCOINUPDATE,     OnReponseCoinUpdate);
-            GameFacade.Instance.EventManager.DelHandler(EVENT.ONBALLHITGLASS,   OnReponseHitGlass);
+            GameFacade.Instance.EventManager.DelHandler(EVENT.ONBALLHITBOX,     OnReponseHitBox);
+            GameFacade.Instance.EventManager.DelHandler(EVENT.ONENTERCOLLISION, OnReponseEnterCollision);
         }
 
         public Relics PushRelics(int id)
@@ -184,11 +187,21 @@ namespace CB
         }
 
         //击中碎片后
-        void OnReponseHitGlass(GameEvent gameEvent)
+        void OnReponseHitBox(GameEvent gameEvent)
         {
             m_Relicses.ForEach(relics => {
                 relics.GetEffects().ForEach(e => {
-                    e.OnHitGlass((Ball)gameEvent.GetParam(0), (Box)gameEvent.GetParam(1), (Collision2D)gameEvent.GetParam(2));
+                    e.OnHitBox((Ball)gameEvent.GetParam(0), (Box)gameEvent.GetParam(1), (Collision2D)gameEvent.GetParam(2));
+                });
+            });
+        }
+
+        //碰撞物体
+        void OnReponseEnterCollision(GameEvent gameEvent)
+        {
+            m_Relicses.ForEach(relics => {
+                relics.GetEffects().ForEach(e => {
+                    e.OnEnterCollision((Ball)gameEvent.GetParam(0), (Collision2D)gameEvent.GetParam(1));
                 });
             });
         }

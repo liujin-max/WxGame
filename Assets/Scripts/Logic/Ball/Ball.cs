@@ -216,8 +216,11 @@ namespace CB
             c_rigidbody.AddForce(force);
         }
 
-        protected bool OnHitBox(Collision2D collision)
+        protected bool OnHitElement(Collision2D collision)
         {
+            //排除宝石
+            if (collision.gameObject.GetComponent<Obstacle>() != null) return false;
+
             Box box = collision.gameObject.GetComponent<Box>();
             if (box != null) {
                 GameFacade.Instance.SoundManager.Load(SOUND.HIT);
@@ -225,7 +228,7 @@ namespace CB
                 box.OnHit(this);
                 box.OnShake();
 
-                GameFacade.Instance.EventManager.SendEvent(new GameEvent(EVENT.ONBALLHITGLASS, this, box, collision));
+                GameFacade.Instance.EventManager.SendEvent(new GameEvent(EVENT.ONBALLHITBOX, this, box, collision));
 
                 return true;
             }
@@ -237,16 +240,13 @@ namespace CB
         {
             Obstacle obt = collision.gameObject.GetComponent<Obstacle>();
             if (obt != null) {
+                GameFacade.Instance.SoundManager.Load(SOUND.HIT);
+
                 GameFacade.Instance.EventManager.SendEvent(new GameEvent(EVENT.ONBALLHITBEFORE, this, obt, collision));
 
                 obt.OnHit(this, (int)m_Demage.ToNumber());
 
-                if (obt.IsDead() == true) {
-                    GameFacade.Instance.SoundManager.Load(SOUND.DROP);
-                } else {
-                    GameFacade.Instance.SoundManager.Load(SOUND.HIT);
-                }
-
+                
                 GameFacade.Instance.EventManager.SendEvent(new GameEvent(EVENT.ONBALLHITAFTER, this, obt, collision));
 
                 return true;
@@ -254,18 +254,20 @@ namespace CB
             return false;
         }
 
-        protected void CancelIgnoreCollision()
+        protected virtual void TriggerEnter(Collision2D collision)
         {
             //碰撞后取消无视
             Physics2D.IgnoreCollision(c_collision, GameFacade.Instance.Game.c_borad, false);
+
+            GameFacade.Instance.EventManager.SendEvent(new GameEvent(EVENT.ONENTERCOLLISION, this, collision));
         }
 
 
         //碰撞逻辑
         public virtual void OnCollisionEnter2D(Collision2D collision)
         {
-            this.CancelIgnoreCollision();
-            this.OnHitBox(collision);
+            this.TriggerEnter(collision);
+            this.OnHitElement(collision);
             this.OnHitObstable(collision);
         }
 

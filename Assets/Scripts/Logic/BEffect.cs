@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using CB;
+using Unity.Mathematics;
 using UnityEngine;
 
 
@@ -308,18 +309,20 @@ namespace CB
     }
 
 
-    //场上会额外生成一枚碎片
+    //击落碎片时有概率额外获得一枚
     public class BEffect_DRAWBALL : BEffect
     {
         public BEffect_DRAWBALL() {}
         public override string GetDescription()
         {
-            return "击中<sprite=0>时有概率额外获得一枚。";
+            return "击落<sprite=0>时有概率额外获得一枚。";
         }
 
-        public override void OnHitGlass(Ball ball, Box g, Collision2D collision)
+        public override void OnHitBox(Ball ball, Box g, Collision2D collision)
         {
-            if (g.GetComponent<Ghost>() == null) return;
+            var ghost = g.GetComponent<Ghost>();
+            if (ghost == null) return;
+            if (ghost.IsDead() == false) return;
 
             if (RandomUtility.IsHit(40) == true)
             {
@@ -508,6 +511,9 @@ namespace CB
 
         public override void OnBallShoot(Ball ball, bool is_real_shoot)
         {
+            if (ball.IsSimulate == true) return;
+            if (is_real_shoot == false) return;
+
             GameFacade.Instance.Game.Balls.ForEach(b => {
                 b.m_Demage.PutAUL(this, Rate - 1);
             });
@@ -567,9 +573,53 @@ namespace CB
         }
     }
 
+    //击中#次菱形宝石后，下一次弹珠撞击造成双倍伤害
+    public class BEffect_ZHUSHE : BEffect
+    {
+        private const int m_CountMax  = 5;
+        private int m_Count;
+
+        public BEffect_ZHUSHE() 
+        {
+            m_Count = m_CountMax;
+        }
+
+        public override string GetDescription()
+        {
+            return string.Format("每击中<sprite=5>#次，下一次弹珠撞击造成双倍伤害", m_CountMax);
+        }
+
+        public override string ShowString()
+        {
+            return m_Count.ToString();
+        }
+
+        public override void OnHitBefore(Ball ball, Obstacle obt, Collision2D collision)
+        {
+            if (obt.Order == 2) {
+                m_Count--;
+                if (m_Count == 0) {
+                    GameFacade.Instance.EffectManager.FlyRate(collision.contacts[0].point, 2);
+
+                    GameFacade.Instance.EventManager.SendEvent(new GameEvent(EVENT.UI_TRIGGERRELICS, Belong));
+                }
+            }
+        }
+
+        public override void OnHitAfter(Ball ball, Obstacle obt, Collision2D collision)
+        {
+            if (m_Count == 0) {
+                m_Count = m_CountMax;
+
+                ball.m_Demage.Pop(this);
+            }
+        }
+
+        
+    }
 
 
-     //发射的弹珠有小概率会被再次回收。
+    //发射的弹珠有小概率会被再次回收。
     public class BEffect_REPEAT : BEffect
     {
         public BEffect_REPEAT() {}
@@ -594,8 +644,151 @@ namespace CB
     }
 
 
+    //弹珠可能发生暴击，造成的伤害X2
+    public class BEffect_CRIT : BEffect
+    {
+        public BEffect_CRIT() {}
+
+        public override string GetDescription()
+        {
+            return string.Format("弹珠可能发生暴击，造成双倍伤害。");
+        }
+
+        public override void OnHitBefore(Ball ball, Obstacle obt, Collision2D collision)
+        {
+            if (RandomUtility.IsHit(65) == true) {
+                ball.m_Demage.PutMUL(this, 2);
+                //需要特效
+                GameFacade.Instance.EffectManager.FlyRate(collision.contacts[0].point, 2);
+
+                GameFacade.Instance.EventManager.SendEvent(new GameEvent(EVENT.UI_TRIGGERRELICS, Belong));
+            }  
+        }
+
+        public override void OnHitAfter(Ball ball, Obstacle obt, Collision2D collision)
+        {
+            ball.m_Demage.Pop(this);
+        }
+    }
+
+    //撞击墙面也可以获得分数
+    public class BEffect_WALLSCORE : BEffect
+    {
+        public BEffect_WALLSCORE() {}
+
+        public override string GetDescription()
+        {
+            return string.Format("撞击墙壁也可以获得分数。");
+        }
+
+        public override void OnEnterCollision(Ball ball, Collision2D collision)
+        {
+            if (ball.IsSimulate == true) return;
+
+            if (collision.transform.GetComponent<Wall>() != null)
+            {
+                //需要特效
+                // ball.Velocity = new Vector2(ball.Velocity.x, Math.Abs(ball.Velocity.y));
+                GameFacade.Instance.Game.UpdateScore(1);
+
+                GameFacade.Instance.EventManager.SendEvent(new GameEvent(EVENT.UI_TRIGGERRELICS, Belong));
+            }
+        }
+    }
+
+    //每击落#枚碎片时可产生一颗炸弹
+    public class BEffect_PIECEBOMB : BEffect
+    {
+        private const int m_CountMax = 2;
+        private int m_Count;
+
+        public BEffect_PIECEBOMB() 
+        {
+            m_Count = 0;
+        }
+
+        public override string GetDescription()
+        {
+            return string.Format("每击落{0}枚<sprite=0>在原地留下一颗炸弹。", m_CountMax);
+        }
+
+        public override string ShowString()
+        {
+            return m_Count.ToString();
+        }
+
+        public override void OnHitBox(Ball ball, Box g, Collision2D collision)
+        {
+            var ghost = g.GetComponent<Ghost>();
+            if (ghost == null) return;
+            if (ghost.IsDead() == false) return;
+
+            m_Count++;
+            if (m_Count >= m_CountMax)
+            {
+                m_Count = 0;
+
+                GameFacade.Instance.Game.PushBomb(collision.transform.localPosition);
+
+                GameFacade.Instance.EventManager.SendEvent(new GameEvent(EVENT.UI_TRIGGERRELICS, Belong));
+            }
+        }
+    }
 
 
+
+
+    //撞击墙壁时总能朝高处反弹
+    public class BEffect_WALLREFLEX : BEffect
+    {
+        public BEffect_WALLREFLEX() {}
+
+        public override string GetDescription()
+        {
+            return string.Format("撞击墙壁时总能朝高处反弹。");
+        }
+
+        public override void OnEnterCollision(Ball ball, Collision2D collision)
+        {
+            // if (ball.IsSimulate == true) return;
+
+            if (collision.transform.GetComponent<Wall>() != null)
+            {
+                // ball.Velocity = new Vector2(ball.Velocity.x, Math.Abs(ball.Velocity.y));
+                ball.Velocity = new Vector2((ball.Velocity.x / Math.Abs(ball.Velocity.x)) * Math.Abs(ball.Velocity.y), Math.Abs(ball.Velocity.x));
+
+                if (ball.IsSimulate != true) {
+                    GameFacade.Instance.EventManager.SendEvent(new GameEvent(EVENT.UI_TRIGGERRELICS, Belong));
+                }
+            }
+        }
+    }
+
+
+    //撞击墙壁时反弹的更远
+    public class BEffect_WALLFORCE : BEffect
+    {
+        public BEffect_WALLFORCE() {}
+
+        public override string GetDescription()
+        {
+            return string.Format("撞击墙壁时反弹的更远。");
+        }
+
+        public override void OnEnterCollision(Ball ball, Collision2D collision)
+        {
+            // if (ball.IsSimulate == true) return;
+
+            if (collision.transform.GetComponent<Wall>() != null)
+            {
+                ball.Velocity *= 1.1f;
+
+                if (ball.IsSimulate != true) {
+                    GameFacade.Instance.EventManager.SendEvent(new GameEvent(EVENT.UI_TRIGGERRELICS, Belong));
+                }
+            }
+        }
+    }
 
 
 
@@ -652,9 +845,27 @@ namespace CB
                 case 1013:
                     return new BEffect_WALLET();
 
+                case 1014:
+                    return new BEffect_ZHUSHE();
+
 
                 case 1016:
                     return new BEffect_REPEAT();
+
+                case 1017:
+                    return new BEffect_CRIT();
+
+                case 1018:
+                    return new BEffect_WALLSCORE();
+
+                case 1019:
+                    return new BEffect_PIECEBOMB();
+
+                case 1022:
+                    return new BEffect_WALLREFLEX();
+
+                case 1023:
+                    return new BEffect_WALLFORCE();
                 
                 default:
                     return null;
@@ -726,7 +937,12 @@ namespace CB
 
         }
 
-        public virtual void OnHitGlass(Ball ball, Box g, Collision2D collision)
+        public virtual void OnHitBox(Ball ball, Box g, Collision2D collision)
+        {
+
+        }
+
+        public virtual void OnEnterCollision(Ball ball, Collision2D collision)
         {
 
         }

@@ -9,10 +9,10 @@ namespace CB
 {
     public class Bomb : Box
     {
-        private int m_Demage = 1;
+        private int m_Demage = 5;
         public Bomb()
         {
-            m_HP    = 1;
+            m_HP    = 5;
         }
 
         void Start()

@@ -40,14 +40,30 @@ SpriteAtlas:
     cachedData: {fileID: 0}
   m_MasterAtlas: {fileID: 0}
   m_PackedSprites:
+  - {fileID: 21300000, guid: 77937f9192eaac941b3d876cd744b14d, type: 3}
   - {fileID: 21300000, guid: 0fe0fea1a566c2948ab773b9a54b5f56, type: 3}
+  - {fileID: 21300000, guid: b2e940d3ba73e7144ad44c59bbfec422, type: 3}
+  - {fileID: 21300000, guid: b714d2f313f536448b5df55c788fc784, type: 3}
+  - {fileID: 21300000, guid: ab6de9e6098741a489481de37b6ffbdd, type: 3}
+  - {fileID: 21300000, guid: cd7d77586534fd9428ab449c691db08d, type: 3}
   - {fileID: 21300000, guid: 06ef2e299d9566c49b38fe784ddf2268, type: 3}
+  - {fileID: 21300000, guid: 718586ba6ff4b9141b36126fa5a2e746, type: 3}
+  - {fileID: 21300000, guid: 2fc01b6bceb05fd4cbcca061fbdaeb08, type: 3}
   - {fileID: 21300000, guid: 6494228b981ba6f42be8d7d792b1f018, type: 3}
+  - {fileID: 21300000, guid: e23a558b79c93254ca63a4e1a225461c, type: 3}
   - {fileID: 21300000, guid: 626d8dce185a1d143984cd6a84bed49a, type: 3}
   m_PackedSpriteNamesToIndex:
+  - 118
   - 105
+  - 110
+  - 121
+  - 107
+  - 103
   - 106
+  - 122
+  - 100
   - 101
+  - 102
   - 104
   m_RenderDataMap: {}
   m_Tag: Relics

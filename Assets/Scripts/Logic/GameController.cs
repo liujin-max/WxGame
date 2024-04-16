@@ -150,6 +150,13 @@ namespace CB
             GameFacade.Instance.EventManager.SendEvent(new GameEvent(EVENT.ONCOINUPDATE, m_Coin));
         }
 
+        public void UpdateScore(int value)
+        {
+            m_Score+= value;
+            
+            GameFacade.Instance.EventManager.SendEvent(new GameEvent(EVENT.UI_FLUSHSCORE, m_Score, GetTargetScore(), false));
+        }
+
         public List<Ball> ActingBalls()
         {
             List<Ball> balls = new List<Ball>();
@@ -700,10 +707,9 @@ namespace CB
         public void OnReponseObstacleHit(GameEvent gameEvent)
         {
             int value = (int)gameEvent.GetParam(0);
-            m_Score+= value;
+            this.UpdateScore(value);
+            
             m_Hit  += 1;
-
-            GameFacade.Instance.EventManager.SendEvent(new GameEvent(EVENT.UI_FLUSHSCORE, m_Score, GetTargetScore(), false));
             GameFacade.Instance.EventManager.SendEvent(new GameEvent(EVENT.UI_FLUSHHIT, m_Hit));
         }
 
@@ -770,8 +776,7 @@ namespace CB
             m_FSM.Owner.BreechBall(m_FSM.Owner.PushBall(_C.BALL_ORIGIN_POS, _C.BALLTYPE.NORMAL));
             // m_FSM.Owner.BreechBall(m_FSM.Owner.PushBall(_C.BALL_ORIGIN_POS, _C.BALLTYPE.NORMAL));
 
-            // m_FSM.Owner.Army.PushRelics(112);
-
+            // m_FSM.Owner.Army.PushRelics(119);
 
             m_FSM.Transist(_C.FSMSTATE.GAME_IDLE);
         }
@@ -849,11 +854,9 @@ namespace CB
             temp_list.Add((int)_C.BOXTYPE.GHOST);
             temp_list.Add((int)_C.BOXTYPE.GHOST);
             
-            if (RandomUtility.IsHit(100))
+            //概率有炸弹
+            if (RandomUtility.IsHit(33))
             {
-                temp_list.Add((int)_C.BOXTYPE.BOMB);
-                temp_list.Add((int)_C.BOXTYPE.BOMB);
-                temp_list.Add((int)_C.BOXTYPE.BOMB);
                 temp_list.Add((int)_C.BOXTYPE.BOMB);
             }
 

@@ -39,7 +39,7 @@ namespace CB
 
         public override void OnCollisionEnter2D(Collision2D collision)
         {
-            this.CancelIgnoreCollision();
+            this.TriggerEnter(collision);
             
             //记录第一次碰撞点
             if (m_collision_point1 == _C.VEC3INVALID) {

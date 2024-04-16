@@ -204,6 +204,10 @@ namespace CB
             Show(true);
             OnShake();
 
+            if (this.IsDead() == true) {
+                GameFacade.Instance.SoundManager.Load(SOUND.DROP);
+            }
+
             GameFacade.Instance.EventManager.SendEvent(new GameEvent(EVENT.ONOBSTACLEHIT, demage, ball));
         }
 

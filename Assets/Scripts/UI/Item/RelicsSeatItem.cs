@@ -6,6 +6,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
+
 public class RelicsSeatItem : MonoBehaviour
 {
     public Relics m_Relics;
@@ -62,6 +63,8 @@ public class RelicsSeatItem : MonoBehaviour
         obj.transform.localPosition = Vector3.zero;
 
         Image imageComponent = obj.AddComponent<Image>();
+        imageComponent.sprite = c_Icon.sprite;
+        imageComponent.SetNativeSize();
         
         Sequence seq = DOTween.Sequence();
         seq.Join(imageComponent.transform.DOScale(1.5f, 0.4f));

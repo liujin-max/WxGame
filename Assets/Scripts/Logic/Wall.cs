@@ -2,17 +2,21 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Wall : MonoBehaviour
+
+namespace CB
 {
-    // Start is called before the first frame update
-    void Start()
+    public enum WallType
     {
-        
+        Normal,
+        Top
     }
 
-    // Update is called once per frame
-    void Update()
+
+
+    public class Wall : MonoBehaviour
     {
-        
+        [EnumMultiAttribute]
+        public WallType WallType;
     }
 }
+

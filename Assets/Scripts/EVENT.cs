@@ -30,6 +30,7 @@ public static class EVENT
     public static string ONAFTERDRAWOBT     = "ONAFTERDRAWOBT";     //生成宝石后
     public static string ONGLASSUPDATE      = "ONGLASSUPDATE";      //碎片变化时
     public static string ONCOINUPDATE       = "ONCOINUPDATE";       //金币变化时
-    public static string ONBALLHITGLASS     = "ONBALLHITGLASS";     
+    public static string ONBALLHITBOX       = "ONBALLHITBOX";    
+    public static string ONENTERCOLLISION   = "ONENTERCOLLISION";   //碰撞物体时
 
 }

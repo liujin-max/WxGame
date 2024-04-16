@@ -37,9 +37,9 @@ namespace CB
         //碰撞逻辑
         public override void OnCollisionEnter2D(Collision2D collision)
         {
-            this.CancelIgnoreCollision();
+            this.TriggerEnter(collision);
             
-            this.OnHitBox(collision);
+            this.OnHitElement(collision);
             bool flag = this.OnHitObstable(collision);
 
 
