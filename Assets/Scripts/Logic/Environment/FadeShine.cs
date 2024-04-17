@@ -12,7 +12,7 @@ namespace CB
     /// </summary>
     public class FadeShine : Environment
     {
-        private CDTimer m_CDTimer = new CDTimer(0.3f);
+        private CDTimer m_CDTimer = new CDTimer(0.4f);
         public FadeShine()
         {
             Name = "闪烁";

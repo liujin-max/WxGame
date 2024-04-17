@@ -9,7 +9,6 @@ namespace CB
 {
     public class Bomb : Box
     {
-        private int m_Demage = 5;
         public Bomb()
         {
             m_HP    = 3;
@@ -36,16 +35,19 @@ namespace CB
             var radius = 2.5f;
             Vector3 collision_point = transform.localPosition;
 
+            //伤害随层数成长
+            int demage = (int)(GameFacade.Instance.Game.Stage * 1.5f);
+
             GameFacade.Instance.Game.Obstacles.ForEach(obt => {
                 if (Vector3.Distance(obt.transform.localPosition, collision_point) <= radius) {
-                    obt.OnHit(null, m_Demage);
+                    obt.OnHit(null, demage);
                 }
             });
 
             //对box同样造成伤害
             GameFacade.Instance.Game.Boxs.ForEach(b => {
                 if (Vector3.Distance(b.transform.localPosition, collision_point) <= radius && b.gameObject != gameObject) {
-                    b.OnHit(null, m_Demage);
+                    b.OnHit(null, demage);
                     b.OnShake();
                 }
             });

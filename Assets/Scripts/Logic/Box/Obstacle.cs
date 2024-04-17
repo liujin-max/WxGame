@@ -149,10 +149,10 @@ namespace CB
             var frame_spr = c_Frame.GetComponent<SpriteRenderer>();
 
             Sequence sequence = DOTween.Sequence();
-            sequence.Append(frame_spr.DOFade(0, 0.8f));
-            sequence.Join(c_CountText.DOFade(0, 0.8f));
-            sequence.Append(frame_spr.DOFade(1, 0.8f).OnComplete(()=>{ this.SetValid(true);}));
-            sequence.Join(c_CountText.DOFade(1, 0.8f));
+            sequence.Append(frame_spr.DOFade(0, 0.7f));
+            sequence.Join(c_CountText.DOFade(0, 0.7f));
+            sequence.Append(frame_spr.DOFade(1, 0.7f).OnComplete(()=>{ this.SetValid(true);}));
+            sequence.Join(c_CountText.DOFade(1, 0.7f));
             sequence.Play();
         }
 
