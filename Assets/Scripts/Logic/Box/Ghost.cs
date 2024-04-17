@@ -22,14 +22,16 @@ namespace CB
             if (this.IsDead() == true) return;
             
             m_HP -= demage;
+        }
 
-            // //创建对应的ball
-            if (this.IsDead() == true) {
-                GameFacade.Instance.SoundManager.Load(SOUND.HITGHOST);
-                GameFacade.Instance.EffectManager.Load(EFFECT.FLYGLASS, transform.localPosition);
+        public override void DoDead()
+        {
+            GameFacade.Instance.SoundManager.Load(SOUND.HITGHOST);
+            GameFacade.Instance.EffectManager.Load(EFFECT.FLYGLASS, transform.localPosition);
 
-                GameFacade.Instance.Game.PushGlass(1);   
-            }
+            GameFacade.Instance.Game.PushGlass(1);   
+
+            Destroy(gameObject);
         }
     }
 }

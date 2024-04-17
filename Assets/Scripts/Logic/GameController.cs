@@ -299,10 +299,10 @@ namespace CB
                 } 
             }
 
-            foreach (var item in _RemoveBoxs)
-            {
+            //死亡时可能有特殊效果，所以走DoDead逻辑
+            foreach (var item in _RemoveBoxs) {
                 m_Boxs.Remove(item);
-                item.Dispose();
+                item.DoDead();
             }
 
 
@@ -314,10 +314,10 @@ namespace CB
                 } 
             }
 
-            foreach (var e in _RemoveElements)
-            {
+            //死亡时可能有特殊效果，所以走DoDead逻辑
+            foreach (var e in _RemoveElements) {
                 m_Elements.Remove(e);
-                e.Dispose();
+                e.DoDead();
             }
         }
         
@@ -670,7 +670,7 @@ namespace CB
 
         public void ShowBallBubble(Ball ball)
         {
-            var des     = string.Format("<#3297FF>{0}<#FF6631>({1})</color>：</color>{2}", ball.Name, ball.m_Demage.ToNumber(), ball.GetDescription());
+            var des     = string.Format("<#3297FF>{0}<#FF6631>({1})</color>：</color>{2}", ball.Name, ball.Demage.ToNumber(), ball.GetDescription());
             GameFacade.Instance.EventManager.SendEvent(new GameEvent(EVENT.UI_SHOWBUBBLE, true, des));
         }
 
@@ -781,7 +781,7 @@ namespace CB
             m_FSM.Owner.BreechBall(m_FSM.Owner.PushBall(_C.BALL_ORIGIN_POS, _C.BALLTYPE.NORMAL));
             // m_FSM.Owner.BreechBall(m_FSM.Owner.PushBall(_C.BALL_ORIGIN_POS, _C.BALLTYPE.NORMAL));
 
-            // m_FSM.Owner.Army.PushRelics(119);
+            m_FSM.Owner.Army.PushRelics(120);
 
             m_FSM.Transist(_C.FSMSTATE.GAME_IDLE);
         }
@@ -1153,13 +1153,15 @@ namespace CB
 
                     //清理障碍物
                     foreach (var obt in m_FSM.Owner.Obstacles) {
-                        obt.Dead();
+                        obt.Dispose();
                     }
+                    m_FSM.Owner.Obstacles.Clear();
 
                     //清理Ghost
                     foreach (var ghost in m_FSM.Owner.Boxs) {
-                        ghost.Dead();
+                        ghost.Dispose();
                     }
+                    m_FSM.Owner.Boxs.Clear();
 
                     
                 } else  {

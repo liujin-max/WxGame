@@ -128,6 +128,11 @@ namespace CB
             return m_Shield != null;
         }
 
+        public virtual void DoDead()
+        {
+            Destroy(gameObject);
+        }
+
         public virtual void Dispose()
         {
             Destroy(gameObject);

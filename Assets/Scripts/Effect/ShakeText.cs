@@ -10,18 +10,23 @@ public class ShakeText : MonoBehaviour
     /// <summary>
     /// 速度（时间间隔）
     /// </summary>
-    public float shakeSpeed = 0.05f;
+    public float shakeSpeed = 0.4f;
 
     /// <summary>
     /// 幅度
     /// </summary>
     public float shakeAmount = 1f;
+    public bool IsAuto = false;
 
     private Vector3[] m_rawVertex;
 
     private void Awake()
     {
         m_text = this.GetComponent<TextMeshProUGUI>();
+
+        if (IsAuto == true) {
+            Shake();
+        }
     }
 
     public void Clear()
@@ -34,7 +39,11 @@ public class ShakeText : MonoBehaviour
         if (m_text.text.Equals(text)) return ;
 
         m_text.text = text;
+        Shake();
+    }
 
+    public void Shake()
+    {
         m_text.ForceMeshUpdate();
 
         GetRawVertex();

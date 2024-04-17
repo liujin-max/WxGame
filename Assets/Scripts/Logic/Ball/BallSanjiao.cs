@@ -42,12 +42,7 @@ namespace CB
                         GameFacade.Instance.EffectManager.Load(EFFECT.SMOKE, obt.transform.localPosition);
                         GameFacade.Instance.SoundManager.Load(SOUND.EXCHANGE);
                         
-                        var copy = GameFacade.Instance.Game.PushObstacle(obt.transform.localPosition, obt.HP, m_Order);
-                        copy.CopyChanges(obt);
-                        copy.AddChange(m_Order);
-                        if (copy.IsChangeFull() == true) {
-                            copy.OnHit(this, copy.HP);
-                        }
+                        GameFacade.Instance.Game.PushObstacle(obt.transform.localPosition, obt.HP, m_Order);
 
                         obt.ForceDead();
                     }

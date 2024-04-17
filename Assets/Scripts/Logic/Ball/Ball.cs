@@ -42,13 +42,16 @@ namespace CB
         public bool IsGroundValid{ get {return m_GroundValid; }}
 
         private bool m_DeadFlag = false;
-        public AttributeValue m_Demage = new AttributeValue(1);
+        public AttributeValue Demage = new AttributeValue(1);
         public AttributeValue m_Scale = new AttributeValue(1, false);
 
         private Vector3 m_LastPos;
         private Vector2 m_LastVelocity;
         public Vector2 LastVelocity{ get {return m_LastVelocity;}}
         public bool IsSimulate = false;
+
+        private float m_FlyTime = 0;
+        public float FlyTime { get {return m_FlyTime;}}
 
         public int SortingOrder{set {c_sprite.sortingOrder = value; }}
         //速度
@@ -112,6 +115,14 @@ namespace CB
             this.UpgradeTo(1);
         }
 
+        void Update()
+        {
+            if (this.IsActing)
+            {
+                m_FlyTime += Time.deltaTime;
+            }
+        }
+
         void LateUpdate()
         {
             m_LastPos       = transform.localPosition;
@@ -155,7 +166,7 @@ namespace CB
         public virtual void UpgradeTo(int level)
         {
             m_Level     = level;
-            m_Demage.SetBase(level);
+            Demage.SetBase(level);
         }
 
         public void Show(bool flag)
@@ -191,6 +202,8 @@ namespace CB
             c_rigidbody.SetRotation(0);
             c_rigidbody.transform.localPosition = _C.BALL_SHOOT_POS;
             c_rigidbody.velocity = Vector2.zero;
+
+            m_FlyTime = 0;
 
             Vector2 force = pos - _C.BALL_SHOOT_POS;
             Vector2 normal= Vector3.Normalize(force);
@@ -244,7 +257,7 @@ namespace CB
 
                 GameFacade.Instance.EventManager.SendEvent(new GameEvent(EVENT.ONBALLHITBEFORE, this, obt, collision));
 
-                obt.OnHit(this, (int)m_Demage.ToNumber());
+                obt.OnHit(this, (int)Demage.ToNumber());
 
                 
                 GameFacade.Instance.EventManager.SendEvent(new GameEvent(EVENT.ONBALLHITAFTER, this, obt, collision));

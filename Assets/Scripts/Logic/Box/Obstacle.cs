@@ -21,7 +21,6 @@ namespace CB
 
         public int Order;
         private bool m_ForceDead = false;
-        private HashSet<int> m_ChangeRecords = new HashSet<int>();  //宝石转换记录
 
         private float m_HPShow = 0;
 
@@ -157,24 +156,6 @@ namespace CB
             sequence.Play();
         }
 
-        public void CopyChanges(Obstacle obt)
-        {
-            foreach (var order in obt.m_ChangeRecords) {
-                m_ChangeRecords.Add(order);
-            }
-        }
-
-        public void AddChange(int order) {
-            if (m_ChangeRecords.Contains(order) != true) {
-                m_ChangeRecords.Add(order);
-            }
-        }
-
-        public bool IsChangeFull()
-        {
-            return m_ChangeRecords.Count >= 4;
-        }
-
         public void JudgeScale()
         {
             if (m_ScaleTweener != null) {
@@ -239,7 +220,6 @@ namespace CB
 
         public override void Dispose()
         {
-            m_ChangeRecords.Clear();
             m_Scale.Clear();
 
             this.RemoveShield();

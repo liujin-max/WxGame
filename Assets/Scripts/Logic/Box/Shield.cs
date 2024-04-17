@@ -46,11 +46,11 @@ namespace CB
     
         }
 
-        public override void Dispose()
+        public override void DoDead()
         {
-            GameFacade.Instance.EffectManager.Load(EFFECT.SHIELDBOOM, transform.parent.transform.localPosition);
+            base.DoDead();
 
-            Destroy(gameObject);
+            GameFacade.Instance.EffectManager.Load(EFFECT.SHIELDBOOM, transform.parent.transform.localPosition);
         }
     }
 }

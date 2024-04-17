@@ -37,7 +37,7 @@ namespace CB
             m_Halos.Clear();
             foreach (var ball in GameFacade.Instance.Game.Balls) {
                 if (ball.GetState() == (int)_C.LAYER.BALLACTING && ball != this) {
-                    ball.m_Demage.PutADD(this, m_Power);
+                    ball.Demage.PutADD(this, m_Power);
                     m_Halos.Add(ball);
                 }
             }
@@ -48,7 +48,7 @@ namespace CB
             base.Recyle();
 
             foreach (var ball in m_Halos) {
-                ball.m_Demage.Pop(this);
+                ball.Demage.Pop(this);
             }
             m_Halos.Clear();
         }
@@ -66,7 +66,7 @@ namespace CB
 
             var ball = (Ball)gameEvent.GetParam(0);
             if (ball != this) {
-                ball.m_Demage.PutADD(this, m_Power);
+                ball.Demage.PutADD(this, m_Power);
                 m_Halos.Add(ball);
             }
         }
@@ -78,7 +78,7 @@ namespace CB
             var ball = (Ball)gameEvent.GetParam(0);
             if (m_Halos.Contains(ball) == true) {
                 m_Halos.Remove(ball);
-                ball.m_Demage.Pop(this);
+                ball.Demage.Pop(this);
             }
         }
 

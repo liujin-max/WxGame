@@ -326,15 +326,10 @@ namespace CB
             }
 
             var relicses = GameFacade.Instance.Game.Army.GetRelicses();
-            for (int i = 0; i < GameFacade.Instance.Game.Army.SeatCount.ToNumber(); i++)
+            for (int i = 0; i < relicses.Count; i++)
             {
                 var item = new_relics_item(i);
-
-                if(relicses.Count > i) {
-                    item.Init(relicses[i]);
-                } else {
-                    item.Init();
-                }
+                item.Init(relicses[i]);
             }
         }
 

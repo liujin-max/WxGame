@@ -168,7 +168,7 @@ public class GhostWindow : MonoBehaviour
         else
         {
             var ball = m_SelectGhost.Ball;
-            des_text.SetText(string.Format("<#3297FF>{0}<#FF6631>({1})</color>：</color>{2}", ball.Name, ball.m_Demage.ToNumber(), ball.GetDescription()));
+            des_text.SetText(string.Format("<#3297FF>{0}<#FF6631>({1})</color>：</color>{2}", ball.Name, ball.Demage.ToNumber(), ball.GetDescription()));
         }
     }
 

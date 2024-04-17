@@ -24,21 +24,21 @@ namespace CB
 
 
             m_Power = 4 + m_Level * 2;
-            m_Demage.SetBase(m_Power);
+            Demage.SetBase(m_Power);
         }
 
         public override void Shoot(Vector3 pos)
         {
             base.Shoot(pos);
 
-            m_Demage.Clear();
+            Demage.Clear();
             m_Count = 0;
         }
 
 
         public override string GetDescription()
         {
-            var str = string.Format("初始拥有<size=32><#43A600>{0}</color></size>点伤害，每次击中宝石后伤害降低1点", m_Demage.ToNumber());
+            var str = string.Format("初始拥有<size=32><#43A600>{0}</color></size>点伤害，每次击中宝石后伤害降低1点", Demage.ToNumber());
             
             return str;
         }
@@ -52,9 +52,9 @@ namespace CB
 
             Obstacle obt = collision.transform.GetComponent<Obstacle>();
             if (obt != null) {
-                if (m_Demage.ToNumber() > 1) {
+                if (Demage.ToNumber() > 1) {
                     m_Count ++;
-                    m_Demage.PutADD(this, -m_Count);
+                    Demage.PutADD(this, -m_Count);
                 }
             }
         }

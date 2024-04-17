@@ -45,7 +45,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d11b1e481f288934380911bc2f2b0339, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Time: 0.5
+  m_Time: 0.35
   m_IsLoop: 0
 --- !u!1 &3784070332507827591
 GameObject:

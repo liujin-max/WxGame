@@ -14,7 +14,7 @@ namespace CB
         private Dictionary<int, Relics> m_RelicsDic = new Dictionary<int, Relics>();
 
 
-        public AttributeValue SeatCount = new AttributeValue(3);
+        public AttributeValue SeatCount = new AttributeValue(99);
 
 
         public void Awake()

@@ -80,7 +80,7 @@ namespace CB
                 objs[0] = obt;
 
                 if((int)objs[1] > 0) {
-                    ball.m_Demage.PutAUL(this, (int)objs[1]);
+                    ball.Demage.PutAUL(this, (int)objs[1]);
 
                     GameFacade.Instance.EffectManager.FlyRate(collision.contacts[0].point, (int)objs[1]);
 
@@ -92,7 +92,7 @@ namespace CB
 
         public override void OnHitAfter(Ball ball, Obstacle obt, Collision2D collision)
         {
-            ball.m_Demage.Pop(this);
+            ball.Demage.Pop(this);
         }
     }
 
@@ -116,7 +116,7 @@ namespace CB
         {
             GameFacade.Instance.Game.Balls.ForEach(b => {
                 if (b.Type != _C.BALLTYPE.NORMAL && b.Type != _C.BALLTYPE.SMALL) {
-                    b.m_Demage.PutADD(this, GameFacade.Instance.Game.Glass * 0.5f);
+                    b.Demage.PutADD(this, GameFacade.Instance.Game.Glass * 0.5f);
                 }
             });
         }
@@ -124,7 +124,7 @@ namespace CB
         public override void Cancel()
         {
             GameFacade.Instance.Game.Balls.ForEach(b => {
-                b.m_Demage.Pop(this);
+                b.Demage.Pop(this);
             });
         }
 
@@ -132,7 +132,7 @@ namespace CB
         {
             GameFacade.Instance.Game.Balls.ForEach(b => {
                 if (b.Type != _C.BALLTYPE.NORMAL && b.Type != _C.BALLTYPE.SMALL) {
-                    b.m_Demage.PutADD(this, GameFacade.Instance.Game.Glass);
+                    b.Demage.PutADD(this, GameFacade.Instance.Game.Glass);
                 }
             });
         }
@@ -141,7 +141,7 @@ namespace CB
         {
             if (ball.Type == _C.BALLTYPE.NORMAL || ball.Type == _C.BALLTYPE.SMALL) return;
 
-            ball.m_Demage.PutADD(this, GameFacade.Instance.Game.Glass);
+            ball.Demage.PutADD(this, GameFacade.Instance.Game.Glass);
         }
     }
 
@@ -178,13 +178,13 @@ namespace CB
             });
 
             if (count > 0) {
-                ball.m_Demage.PutAUL(this, count * 0.2f);
+                ball.Demage.PutAUL(this, count * 0.2f);
             }
         }
 
         public override void OnHitAfter(Ball ball, Obstacle obt, Collision2D collision)
         {
-            ball.m_Demage.Pop(this);
+            ball.Demage.Pop(this);
         }
     }
 
@@ -291,20 +291,20 @@ namespace CB
         public override void Execute()
         {
             GameFacade.Instance.Game.Balls.ForEach(b => {
-                b.m_Demage.PutADD(this, 1);
+                b.Demage.PutADD(this, 1);
             });
         }
 
         public override void Cancel()
         {
             GameFacade.Instance.Game.Balls.ForEach(b => {
-                b.m_Demage.Pop(this);
+                b.Demage.Pop(this);
             });
         }
 
         public override void OnPushBall(Ball ball)
         {
-            ball.m_Demage.PutADD(this, 1);
+            ball.Demage.PutADD(this, 1);
         }
     }
 
@@ -359,7 +359,7 @@ namespace CB
         {
             m_Count--;
             if (m_Count == 0) {
-                ball.m_Demage.PutAUL(this, 3);
+                ball.Demage.PutAUL(this, 3);
 
                 GameFacade.Instance.EffectManager.FlyRate(collision.contacts[0].point, 4);
 
@@ -370,7 +370,7 @@ namespace CB
         public override void OnHitAfter(Ball ball, Obstacle obt, Collision2D collision)
         {
             if (m_Count == 0) {
-                ball.m_Demage.Pop(this);
+                ball.Demage.Pop(this);
 
                 m_Count = m_CountMax;
             }
@@ -397,7 +397,7 @@ namespace CB
         {
             GameFacade.Instance.Game.Balls.ForEach(b => {
                 if (b.Type == _C.BALLTYPE.NORMAL) {
-                    b.m_Demage.PutADD(this, GameFacade.Instance.Game.Glass);
+                    b.Demage.PutADD(this, GameFacade.Instance.Game.Glass);
                 }
             });
         }
@@ -405,7 +405,7 @@ namespace CB
         public override void Cancel()
         {
             GameFacade.Instance.Game.Balls.ForEach(b => {
-                b.m_Demage.Pop(this);
+                b.Demage.Pop(this);
             });
         }
 
@@ -413,7 +413,7 @@ namespace CB
         {
             GameFacade.Instance.Game.Balls.ForEach(b => {
                 if (b.Type == _C.BALLTYPE.NORMAL) {
-                    b.m_Demage.PutADD(this, GameFacade.Instance.Game.Glass);
+                    b.Demage.PutADD(this, GameFacade.Instance.Game.Glass);
                 }
             });
         }
@@ -422,7 +422,7 @@ namespace CB
         {
             if (ball.Type != _C.BALLTYPE.NORMAL) return;
 
-            ball.m_Demage.PutADD(this, GameFacade.Instance.Game.Glass);
+            ball.Demage.PutADD(this, GameFacade.Instance.Game.Glass);
         }
     }
 
@@ -491,21 +491,21 @@ namespace CB
         public override void Execute()
         {
             GameFacade.Instance.Game.Balls.ForEach(b => {
-                b.m_Demage.PutAUL(this, Rate - 1);
+                b.Demage.PutAUL(this, Rate - 1);
             });
         }
 
         public override void Cancel()
         {
             GameFacade.Instance.Game.Balls.ForEach(b => {
-                b.m_Demage.Pop(this);
+                b.Demage.Pop(this);
             });
         }
 
         public override void OnPushBall(Ball ball)
         {
             GameFacade.Instance.Game.Balls.ForEach(b => {
-                b.m_Demage.PutAUL(this, Rate - 1);
+                b.Demage.PutAUL(this, Rate - 1);
             });
         }
 
@@ -515,7 +515,7 @@ namespace CB
             if (is_real_shoot == false) return;
 
             GameFacade.Instance.Game.Balls.ForEach(b => {
-                b.m_Demage.PutAUL(this, Rate - 1);
+                b.Demage.PutAUL(this, Rate - 1);
             });
         }
 
@@ -547,28 +547,28 @@ namespace CB
         public override void Execute()
         {
             GameFacade.Instance.Game.Balls.ForEach(b => {
-                b.m_Demage.PutADD(this, Count);
+                b.Demage.PutADD(this, Count);
             });
         }
 
         public override void Cancel()
         {
             GameFacade.Instance.Game.Balls.ForEach(b => {
-                b.m_Demage.Pop(this);
+                b.Demage.Pop(this);
             });
         }
 
         public override void OnPushBall(Ball ball)
         {
             GameFacade.Instance.Game.Balls.ForEach(b => {
-                b.m_Demage.PutADD(this, Count);
+                b.Demage.PutADD(this, Count);
             });
         }
 
         public override void OnCoinUpdate(int coin)
         {
             GameFacade.Instance.Game.Balls.ForEach(b => {
-                b.m_Demage.PutADD(this, Count);
+                b.Demage.PutADD(this, Count);
             });
         }
     }
@@ -611,7 +611,7 @@ namespace CB
             if (m_Count == 0) {
                 m_Count = m_CountMax;
 
-                ball.m_Demage.Pop(this);
+                ball.Demage.Pop(this);
             }
         }
 
@@ -657,7 +657,7 @@ namespace CB
         public override void OnHitBefore(Ball ball, Obstacle obt, Collision2D collision)
         {
             if (RandomUtility.IsHit(65) == true) {
-                ball.m_Demage.PutMUL(this, 2);
+                ball.Demage.PutMUL(this, 2);
                 //需要特效
                 GameFacade.Instance.EffectManager.FlyRate(collision.contacts[0].point, 2);
 
@@ -667,7 +667,7 @@ namespace CB
 
         public override void OnHitAfter(Ball ball, Obstacle obt, Collision2D collision)
         {
-            ball.m_Demage.Pop(this);
+            ball.Demage.Pop(this);
         }
     }
 
@@ -736,6 +736,60 @@ namespace CB
     }
 
 
+    //炸弹的血量-1
+    public class BEffect_BOMBHP : BEffect
+    {
+        public override string GetDescription()
+        {
+            return string.Format("击中炸弹时有概率直接引爆。");
+        }
+
+        public override void OnHitBox(Ball ball, Box g, Collision2D collision)
+        {
+            var bomb = g.GetComponent<Bomb>();
+            if (bomb != null) {
+                if (RandomUtility.IsHit(50) == true) {
+                    GameFacade.Instance.EventManager.SendEvent(new GameEvent(EVENT.UI_TRIGGERRELICS, Belong));
+
+                    bomb.Dead();
+                }
+            }
+        }
+    }
+
+    //弹珠每击中宝石#次立即获得1点积分
+    public class BEffect_HITSCORE : BEffect
+    {
+        private const int m_CountMax = 15;
+        private int m_Count;
+
+        public BEffect_HITSCORE() 
+        {
+            m_Count = m_CountMax;
+        }
+
+        public override string GetDescription()
+        {
+            return string.Format("弹珠每击中宝石{0}次，获得1点分数。", m_CountMax);
+        }
+
+        public override string ShowString()
+        {
+            return m_Count.ToString();
+        }
+
+        public override void OnHitAfter(Ball ball, Obstacle obt, Collision2D collision)
+        {
+            m_Count--;
+            if (m_Count == 0) {
+                m_Count = m_CountMax;
+
+                GameFacade.Instance.Game.UpdateScore(1);
+
+                GameFacade.Instance.EventManager.SendEvent(new GameEvent(EVENT.UI_TRIGGERRELICS, Belong));
+            }
+        }
+    }
 
 
     //撞击墙壁时总能朝高处反弹
@@ -789,6 +843,39 @@ namespace CB
             }
         }
     }
+
+    //弹珠飞行时间越长，造成的伤害越高
+    //每飞行5秒，伤害提高1
+    public class BEffect_FLY : BEffect
+    {
+        private HashSet<Ball> m_Balls = new HashSet<Ball>();
+
+        public BEffect_FLY() {}
+
+        public override string GetDescription()
+        {
+            return string.Format("弹珠飞行时间越长，造成的伤害越高。");
+        }
+
+        public override void OnHitBefore(Ball ball, Obstacle obt, Collision2D collision)
+        {
+            var value = (int)(ball.FlyTime / 5.0f);
+            if (value > 0) {
+                ball.Demage.PutADD(this, value);
+
+                GameFacade.Instance.EventManager.SendEvent(new GameEvent(EVENT.UI_TRIGGERRELICS, Belong));
+            }
+        }
+
+        public override void OnHitAfter(Ball ball, Obstacle obt, Collision2D collision)
+        {
+            ball.Demage.Pop(this);
+        }
+    }
+
+
+
+
 
 
 
@@ -861,11 +948,20 @@ namespace CB
                 case 1019:
                     return new BEffect_PIECEBOMB();
 
+                case 1020:
+                    return new BEffect_BOMBHP();
+
+                case 1021:
+                    return new BEffect_HITSCORE();
+
                 case 1022:
                     return new BEffect_WALLREFLEX();
 
                 case 1023:
                     return new BEffect_WALLFORCE();
+
+                case 1024:
+                    return new BEffect_FLY();
                 
                 default:
                     return null;

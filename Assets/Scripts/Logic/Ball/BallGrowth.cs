@@ -43,7 +43,7 @@ namespace CB
                 if (obt.IsDead() == true) {
                     m_Add += m_Pow;
 
-                    m_Demage.PutADD(this, (int)m_Add);
+                    Demage.PutADD(this, (int)m_Add);
 
                     GameFacade.Instance.EffectManager.Load(EFFECT.HITGROWTH, transform.localPosition);
                 }

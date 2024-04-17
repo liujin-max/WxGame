@@ -30,7 +30,7 @@ public class BallSeatItem : MonoBehaviour
         c_Icon.transform.localScale = Vector3.zero;
 
         Sequence sequence = DOTween.Sequence();
-        sequence.AppendInterval(0.5f);
+        sequence.AppendInterval(0.35f);
         sequence.AppendCallback(()=>{
             GameFacade.Instance.EffectManager.Load(EFFECT.COMPLEX, new Vector3(0, 50f, 0), gameObject);
         });
