@@ -385,7 +385,7 @@ namespace CB
         
         public override string GetDescription()
         {
-            return "每拥有一枚<sprite=0>,<sprite=1>的伤害增加1点。";
+            return "每拥有一枚<sprite=0>,<sprite=6>的伤害增加1点。";
         }
 
         public override string ShowString()
@@ -699,7 +699,7 @@ namespace CB
     //每击落#枚碎片时可产生一颗炸弹
     public class BEffect_PIECEBOMB : BEffect
     {
-        private const int m_CountMax = 2;
+        private const int m_CountMax = 5;
         private int m_Count;
 
         public BEffect_PIECEBOMB() 

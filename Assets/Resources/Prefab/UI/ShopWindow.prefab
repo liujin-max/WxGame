@@ -1405,7 +1405,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\u573A\u4E0A\u6BCF\u9897\u65B9\u5F62\u5B9D\u77F3\u4F7F\u5F39\u73E0\u7684\u5F39\u529B\u63D0\u9AD81<sprite=2>"
+  m_text: "\u573A\u4E0A\u6BCF\u9897\u65B9\u5F62\u5B9D\u77F3\u4F7F\u5F39\u73E0\u7684\u5F39\u529B\u63D0\u9AD81<sprite=6>21"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 32c80d060003e7948a473f15dd09db7a, type: 2}
   m_sharedMaterial: {fileID: 2100000, guid: af9a12627dbbf504d8ff999d22fc5ce0, type: 2}

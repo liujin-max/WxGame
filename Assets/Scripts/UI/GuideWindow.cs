@@ -35,7 +35,9 @@ public class GuideWindow : MonoBehaviour
             c_GuideSwitch.gameObject.SetActive(false);
             m_Guides.Add(c_GuideSwitch);
         });
+
     }
+
 
     void Update()
     {
@@ -48,12 +50,23 @@ public class GuideWindow : MonoBehaviour
         if (m_Guides.Contains(c_GuideBall) == false)
         {
             c_GuideBall.gameObject.SetActive(true);
+
+                    //适配遮罩高度
+            var seat_pivot = GameFacade.Instance.Game.GameUI.GetSeatPivot();
+            var pos = new Vector3(seat_pivot.transform.position.x * 100, seat_pivot.transform.position.y * 100 + 5, 0);
+            c_GuideBall.transform.GetComponent<UIMaskUtility>().SetCenter(pos);
+
             return;
         }
 
         if (m_Guides.Contains(c_GuideSwitch) == false)
         {
             c_GuideSwitch.gameObject.SetActive(true);
+            
+            var seat_pivot = GameFacade.Instance.Game.GameUI.GetSeatPivot();
+            var pos = new Vector3(seat_pivot.transform.position.x * 100, seat_pivot.transform.position.y * 100 + 5, 0);
+            c_GuideSwitch.transform.GetComponent<UIMaskUtility>().SetCenter(pos);
+
             return;
         }
 

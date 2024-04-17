@@ -97,6 +97,7 @@
     <Compile Include="Assets\Scripts\Effect\Rotate.cs" />
     <Compile Include="Assets\AllIn1SpriteShader\Scripts\AllIn1Shader.cs" />
     <Compile Include="Assets\Scripts\Logic\Simulator.cs" />
+    <Compile Include="Assets\Scripts\Logic\Box\Bomb.cs" />
     <Compile Include="Assets\Scripts\Logic\Box\Shield.cs" />
     <Compile Include="Assets\Scripts\Struct\CDTimer.cs" />
     <Compile Include="Assets\Scripts\Logic\Environment\EarthQuake.cs" />
@@ -189,7 +190,7 @@
     <Compile Include="Assets\Scripts\UI\GhostWindow.cs" />
     <Compile Include="Assets\DOTween\Modules\DOTweenModuleUnityVersion.cs" />
     <Compile Include="Assets\Scripts\Logic\Relics.cs" />
-    <Compile Include="Assets\Scripts\Logic\Box\Bomb.cs" />
+    <Compile Include="Assets\Scripts\Utility\UIMaskUtility.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Resources\Shader\SpriteGray.shader" />

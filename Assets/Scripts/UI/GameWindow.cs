@@ -160,6 +160,10 @@ namespace CB
             }
         }
 
+        public GameObject GetSeatPivot()
+        {
+            return c_SeatPivot;
+        }
 
         public void ShowBallList(bool flag, List<Ball> balls, Action<int> callback)
         {

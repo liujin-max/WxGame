@@ -9,6 +9,7 @@ using DG.Tweening;
 // using UnityEngine.UIElements;
 public class GhostWindow : MonoBehaviour
 {
+    [SerializeField] private GameObject c_Mask;
     [SerializeField] private Transform c_Pivot;
     [SerializeField] private Button c_BtnSelect;
     [SerializeField] private Button c_BtnCancel;
@@ -21,6 +22,24 @@ public class GhostWindow : MonoBehaviour
     private List<GhostItem> m_GhostItems = new List<GhostItem>();
 
     private CDTimer m_CDTimer = new CDTimer(0.6f);
+
+
+    GhostItem new_ghost_item(int order)
+    {
+        GhostItem item = null;
+        if (m_GhostItems.Count > order){
+            item = m_GhostItems[order];
+        } else {
+            GameObject obj = GameFacade.Instance.UIManager.LoadItem("Prefab/UI/Item/GhostItem", c_Pivot);
+            item = obj.GetComponent<GhostItem>();
+            item.transform.localScale = new Vector3(1.3f, 1.3f, 1.3f);
+            m_GhostItems.Add(item);
+        }
+
+        item.gameObject.SetActive(true);
+
+        return item;
+    }
 
     void Start()
     {
@@ -66,6 +85,10 @@ public class GhostWindow : MonoBehaviour
         });
 
 
+        //适配遮罩高度
+        var seat_pivot = GameFacade.Instance.Game.GameUI.GetSeatPivot();
+        var pos = new Vector3(seat_pivot.transform.position.x * 100, seat_pivot.transform.position.y * 100 + 5, 0);
+        c_Mask.GetComponent<UIMaskUtility>().SetCenter(pos);
     }
 
     public void Init(List<ComplextEvent> events)
@@ -86,22 +109,6 @@ public class GhostWindow : MonoBehaviour
         
     }
 
-    GhostItem new_ghost_item(int order)
-    {
-        GhostItem item = null;
-        if (m_GhostItems.Count > order){
-            item = m_GhostItems[order];
-        } else {
-            GameObject obj = GameFacade.Instance.UIManager.LoadItem("Prefab/UI/Item/GhostItem", c_Pivot);
-            item = obj.GetComponent<GhostItem>();
-
-            m_GhostItems.Add(item);
-        }
-
-        item.gameObject.SetActive(true);
-
-        return item;
-    }
 
     public void InitEvents(List<ComplextEvent> events)
     {
@@ -124,7 +131,7 @@ public class GhostWindow : MonoBehaviour
         {
             var evt = events[i];
             GhostItem item = new_ghost_item(i);
-            item.transform.localPosition = new Vector3((i - ((events.Count - 1) / 2.0f)) * 290, 0, 0);
+            item.transform.localPosition = new Vector3((i - ((events.Count - 1) / 2.0f)) * 300, 0, 0);
             item.Init(evt);
 
             item.Touch.onClick.RemoveAllListeners();

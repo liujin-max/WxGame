@@ -23,7 +23,7 @@ namespace CB
             var obt = collision.transform.GetComponent<Obstacle>();
             if (obt != null)
             {
-                if (RandomUtility.IsHit(10))
+                if (RandomUtility.IsHit(15))
                 {
                     this.Dead();
                 

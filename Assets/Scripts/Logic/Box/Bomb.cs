@@ -12,7 +12,7 @@ namespace CB
         private int m_Demage = 5;
         public Bomb()
         {
-            m_HP    = 5;
+            m_HP    = 3;
         }
 
         void Start()

@@ -30,7 +30,12 @@ namespace CB
         public Transform c_obtPivot;
         public GameObject c_takeAim;
         public Collider2D c_borad;
-        internal GameWindow _GameUI;
+        private GameWindow _GameUI;
+        public GameWindow GameUI
+        {
+            get { return _GameUI; }
+            set { _GameUI = value; }
+        }
 
         private Simulator m_Simulator;
         public Simulator Simulator {get { return m_Simulator;}}
@@ -765,7 +770,7 @@ namespace CB
             m_FSM.Owner.m_Coin = _C.DEFAULT_COIN;
             m_FSM.Owner.m_Glass= _C.DEFAULT_GLASS;
 
-            m_FSM.Owner._GameUI = GameFacade.Instance.UIManager.LoadWindow("Prefab/UI/GameWindow", GameFacade.Instance.UIManager.BOTTOM).GetComponent<GameWindow>();
+            m_FSM.Owner.GameUI = GameFacade.Instance.UIManager.LoadWindow("Prefab/UI/GameWindow", GameFacade.Instance.UIManager.BOTTOM).GetComponent<GameWindow>();
 
             GameFacade.Instance.EventManager.SendEvent(new GameEvent(EVENT.UI_FLUSHCOUNT));
             GameFacade.Instance.EventManager.SendEvent(new GameEvent(EVENT.UI_FLUSHCOIN, m_FSM.Owner.m_Coin));
@@ -939,8 +944,8 @@ namespace CB
                 //生成宝石
                 DrawObstables();
 
-                if (m_FSM.Owner.Stage == 1 && GameFacade.Instance.DataManager.GetIntByKey(DataManager.KEY_GUIDE) == 0) {
-                // if (m_FSM.Owner.Stage == 1) {
+                // if (m_FSM.Owner.Stage == 1 && GameFacade.Instance.DataManager.GetIntByKey(DataManager.KEY_GUIDE) == 0) {
+                if (m_FSM.Owner.Stage == 1) {
                     _GuideUI = GameFacade.Instance.UIManager.LoadWindow("Prefab/UI/GuideWindow", GameFacade.Instance.UIManager.MAJOR).GetComponent<GuideWindow>();
                 } else {
                     m_FSM.Transist(_C.FSMSTATE.GAME_PLAY);
@@ -1184,7 +1189,7 @@ namespace CB
             bool flag = (bool)gameEvent.GetParam(0);
 
 
-            m_FSM.Owner._GameUI.ShowBallList(flag, m_Queue, (int order)=> {
+            m_FSM.Owner.GameUI.ShowBallList(flag, m_Queue, (int order)=> {
                 if (order >= m_Queue.Count) return;
 
                 var ball = m_Queue[order];

@@ -15,7 +15,6 @@ public class UIFitter : MonoBehaviour
         #if UNITY_EDITOR
 
         #else
-        
             // WX.InitSDK((int code) => {
                 RectTransform rectTransform = GetComponent<RectTransform>();
 
