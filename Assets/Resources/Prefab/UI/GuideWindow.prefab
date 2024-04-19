@@ -935,6 +935,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6975017935194729567}
   - component: {fileID: 4387177011014108933}
+  - component: {fileID: 236425698446718797}
   m_Layer: 5
   m_Name: GuideWindow
   m_TagString: Untagged
@@ -978,6 +979,18 @@ MonoBehaviour:
   c_GuideScore: {fileID: 2312584478841597494}
   c_GuideBall: {fileID: 2614763612332223725}
   c_GuideSwitch: {fileID: 4692768339444835808}
+--- !u!114 &236425698446718797
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5604917736774036180}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a8925cd925436284faa71ed257bf9db1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6095523971974190331
 GameObject:
   m_ObjectHideFlags: 0

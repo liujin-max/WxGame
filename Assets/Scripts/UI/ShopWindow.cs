@@ -69,13 +69,7 @@ public class ShopWindow : MonoBehaviour
 
             if (GameFacade.Instance.Game.BuyRelics(m_SelectItem.m_Relics) != null)
             {
-                GameFacade.Instance.SoundManager.Load(SOUND.COST);
-
-                m_Relicses.Remove(m_SelectItem.m_Relics);
-                this.Init(m_Relicses);
-
-
-                // GameFacade.Instance.Game.DOTransist(_C.FSMSTATE.GAME_COMPLEX);
+                GameFacade.Instance.Game.DOTransist(_C.FSMSTATE.GAME_COMPLEX);
             }
         });
 
@@ -100,7 +94,7 @@ public class ShopWindow : MonoBehaviour
     {
         m_Relicses = relicses;
 
-        InitOurs();
+        // InitOurs();
         InitRelicses(relicses);
     }
 

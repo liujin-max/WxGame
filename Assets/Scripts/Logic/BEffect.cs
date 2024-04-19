@@ -586,7 +586,7 @@ namespace CB
 
         public override string GetDescription()
         {
-            return string.Format("每击中<sprite=5>#次，下一次弹珠撞击造成双倍伤害", m_CountMax);
+            return string.Format("每击中<sprite=5>{0}次，下一次弹珠撞击造成双倍伤害", m_CountMax);
         }
 
         public override string ShowString()
@@ -634,7 +634,7 @@ namespace CB
             if (ball.IsSimulate == true) return;
             if (is_real_shoot == false) return;
 
-            if (RandomUtility.IsHit(15) == true)
+            if (RandomUtility.IsHit(100) == true)
             {
                 ball.HP += 1;
 

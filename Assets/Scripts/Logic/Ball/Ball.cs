@@ -174,6 +174,11 @@ namespace CB
             gameObject.SetActive(flag);
         }
 
+        public bool IsShow()
+        {
+            return gameObject.activeSelf;
+        }
+
         public void Simulate(bool flag)
         {
             c_rigidbody.simulated = flag;

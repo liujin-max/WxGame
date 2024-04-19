@@ -1089,7 +1089,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6413737754504998954}
   - component: {fileID: 5573356554087791419}
-  - component: {fileID: 1370203075521654744}
+  - component: {fileID: 359825462194201713}
   m_Layer: 5
   m_Name: GameWindow
   m_TagString: Untagged
@@ -1145,7 +1145,7 @@ MonoBehaviour:
   c_BallContent: {fileID: 6698311713971296579}
   c_SeatPivot: {fileID: 5807370060600300778}
   c_RelicsPivot: {fileID: 7068453162037846075}
---- !u!114 &1370203075521654744
+--- !u!114 &359825462194201713
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

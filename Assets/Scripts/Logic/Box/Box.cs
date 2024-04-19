@@ -118,7 +118,7 @@ namespace CB
         public virtual void RemoveShield()
         {
             if (m_Shield != null) {
-                m_Shield.Dispose();
+                m_Shield.DoDead();
             }
             m_Shield = null;
         }

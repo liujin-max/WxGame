@@ -89,7 +89,7 @@ namespace CB
                     case GroundType.Board:
                     if (ball.IsRecycle == true) {
                         ball.Show(false);
-                        GameFacade.Instance.Game.BreechBall(ball);
+                        // GameFacade.Instance.Game.BreechBall(ball);
                     }
                     break;
                 default:

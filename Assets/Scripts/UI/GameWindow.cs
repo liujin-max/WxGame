@@ -278,6 +278,11 @@ namespace CB
             var add_ball = gameEvent.GetParam(0);
 
             var balls = GameFacade.Instance.Game.Balls;
+            if (GameFacade.Instance.Game.IsPlaying() ) {
+                balls = GameFacade.Instance.Game.ShootQueue;
+            }
+
+
             for (int i = 0; i < GameFacade.Instance.Game.SeatCount.ToNumber(); i++)
             {
                 var item = new_seat_item(i);

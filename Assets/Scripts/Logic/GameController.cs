@@ -85,6 +85,9 @@ namespace CB
         private List<Ball> m_Balls = new List<Ball>();   //球
         public List<Ball> Balls { get { return m_Balls;}}
 
+        public List<Ball> ShootQueue = new List<Ball>();
+        public Ball CurrentBall = null;
+
         private List<Ball> m_BallSmalls = new List<Ball>();
         public List<Ball> SmallBalls { get { return m_BallSmalls;}}
 
@@ -147,6 +150,11 @@ namespace CB
             m_FSM.Transist(state);   
         }
 
+        public bool IsPlaying()
+        {
+            return m_FSM.CurrentState.ID == _C.FSMSTATE.GAME_PLAY;
+        }
+
         public void UpdateCoin(int value)
         {
             m_Coin += value;
@@ -200,7 +208,7 @@ namespace CB
                     return false;
                 }
 
-                if (ball.IsRecycle == true) {
+                if (ball.IsRecycle == true && ball.IsShow() == true) {
                     return false;
                 }
             }
@@ -222,17 +230,6 @@ namespace CB
             }
 
             return count * 5;
-                // int rate = 0;
-                
-                // if (m_Stage <= 10) {
-                //     rate = (int)Mathf.Ceil(m_Stage / 7.0f) * 5;
-                // } 
-                // else {
-                //     rate = (int)Mathf.Ceil(m_Stage / 5.0f) * 4;
-                // }
-                
-
-                // return rate * count;
         }
 
         public bool IsScoreReach()
@@ -687,6 +684,8 @@ namespace CB
                 return null;
             }
 
+            GameFacade.Instance.SoundManager.Load(SOUND.COST);
+
             this.UpdateCoin(-relics.Price);
 
             Relics new_relics = m_Army.PushRelics(relics.ID);
@@ -779,9 +778,10 @@ namespace CB
             GameFacade.Instance.Game.Resume();
 
             m_FSM.Owner.BreechBall(m_FSM.Owner.PushBall(_C.BALL_ORIGIN_POS, _C.BALLTYPE.NORMAL));
-            // m_FSM.Owner.BreechBall(m_FSM.Owner.PushBall(_C.BALL_ORIGIN_POS, _C.BALLTYPE.NORMAL));
+            m_FSM.Owner.BreechBall(m_FSM.Owner.PushBall(_C.BALL_ORIGIN_POS, _C.BALLTYPE.BOOM));
+            m_FSM.Owner.BreechBall(m_FSM.Owner.PushBall(_C.BALL_ORIGIN_POS, _C.BALLTYPE.SPLIT));
 
-            m_FSM.Owner.Army.PushRelics(120);
+            m_FSM.Owner.Army.PushRelics(116);
 
             m_FSM.Transist(_C.FSMSTATE.GAME_IDLE);
         }
@@ -925,8 +925,8 @@ namespace CB
             for (int i = 0; i < m_FSM.Owner.Balls.Count; i++)
             {
                 var ball = m_FSM.Owner.Balls[i];
-                ball.Show(i == 0);
                 m_FSM.Owner.BreechBall(ball);
+                ball.Show(i == 0);
             }
 
 
@@ -944,8 +944,8 @@ namespace CB
                 //生成宝石
                 DrawObstables();
 
-                // if (m_FSM.Owner.Stage == 1 && GameFacade.Instance.DataManager.GetIntByKey(DataManager.KEY_GUIDE) == 0) {
-                if (m_FSM.Owner.Stage == 1) {
+                if (m_FSM.Owner.Stage == 1 && GameFacade.Instance.DataManager.GetIntByKey(DataManager.KEY_GUIDE) == 0) {
+                // if (m_FSM.Owner.Stage == 1) {
                     _GuideUI = GameFacade.Instance.UIManager.LoadWindow("Prefab/UI/GuideWindow", GameFacade.Instance.UIManager.MAJOR).GetComponent<GuideWindow>();
                 } else {
                     m_FSM.Transist(_C.FSMSTATE.GAME_PLAY);
@@ -972,8 +972,6 @@ namespace CB
 
     internal class State_PLAY<T> : State<GameController>
     {
-        private List<Ball> m_Queue = new List<Ball>();
-        private Ball m_ShootBall = null;
 
         private bool m_IsPressDown = false;
         private bool m_IsFinished = false;
@@ -994,7 +992,7 @@ namespace CB
             }
 
             //弹珠都打完了
-            if (m_Queue.Count == 0) {
+            if (m_FSM.Owner.ShootQueue.Count == 0) {
                 return;
             }
 
@@ -1030,17 +1028,19 @@ namespace CB
             }
 
 
-            if (m_ShootBall != null) {
-                var ball = m_ShootBall;
-                m_Queue.Remove(ball);
+            if (m_FSM.Owner.CurrentBall != null) {
+                var ball = m_FSM.Owner.CurrentBall;
+                m_FSM.Owner.ShootQueue.Remove(ball);
                 GameFacade.Instance.Game.ShootBall(ball, m_FSM.Owner.FingerPos);
             }
 
             //显示下一颗待发射的弹珠
-            if (m_Queue.Count > 0) {
-                m_ShootBall = m_Queue[0];
-                m_ShootBall.Show(true);
+            if (m_FSM.Owner.ShootQueue.Count > 0) {
+                m_FSM.Owner.CurrentBall = m_FSM.Owner.ShootQueue[0];
+                m_FSM.Owner.CurrentBall.Show(true);
             }
+
+            GameFacade.Instance.EventManager.SendEvent(new GameEvent(EVENT.UI_FLUSHBALLS));
         }
 
         void ReceiveReward()
@@ -1066,16 +1066,18 @@ namespace CB
             m_IsFinished = false;
             m_DelayTimer.Reset();
 
-            m_Queue.Clear();
+            m_FSM.Owner.ShootQueue.Clear();
             foreach (var ball in m_FSM.Owner.Balls) {
-                m_Queue.Add(ball);
+                m_FSM.Owner.ShootQueue.Add(ball);
             }
 
-            m_ShootBall = m_Queue[0];
+            m_FSM.Owner.CurrentBall = m_FSM.Owner.ShootQueue[0];
 
             m_FSM.Owner.Environment.OnBegin();
 
             GameFacade.Instance.EventManager.AddHandler(EVENT.UI_SHOWBALLLIST,  OnReponseBallList);
+            
+            GameFacade.Instance.EventManager.SendEvent(new GameEvent(EVENT.UI_FLUSHBALLS));
         }
 
         public override void Update()
@@ -1115,9 +1117,9 @@ namespace CB
                 } else {
                     m_FSM.Owner.FocusAim(m_FSM.Owner.FingerPos);
 
-                    m_FSM.Owner.Simulator.SimulateShoot(m_ShootBall, m_FSM.Owner.FingerPos);
+                    m_FSM.Owner.Simulator.SimulateShoot(m_FSM.Owner.CurrentBall, m_FSM.Owner.FingerPos);
 
-                    GameFacade.Instance.Game.ShowBallBubble(m_ShootBall);
+                    GameFacade.Instance.Game.ShowBallBubble(m_FSM.Owner.CurrentBall);
                 }
 
                 
@@ -1165,7 +1167,7 @@ namespace CB
 
                     
                 } else  {
-                    if (m_Queue.Count == 0) {
+                    if (m_FSM.Owner.ShootQueue.Count == 0) {
                         m_FSM.Transist(_C.FSMSTATE.GAME_END);
                     }
                 }
@@ -1185,34 +1187,34 @@ namespace CB
         //负责展示球列表
         void OnReponseBallList(GameEvent gameEvent)
         {
-            if (m_Queue.Count == 0) return;
+            if (m_FSM.Owner.ShootQueue.Count == 0) return;
 
 
             bool flag = (bool)gameEvent.GetParam(0);
 
 
-            m_FSM.Owner.GameUI.ShowBallList(flag, m_Queue, (int order)=> {
-                if (order >= m_Queue.Count) return;
+            m_FSM.Owner.GameUI.ShowBallList(flag, m_FSM.Owner.ShootQueue, (int order)=> {
+                if (order >= m_FSM.Owner.ShootQueue.Count) return;
 
-                var ball = m_Queue[order];
+                var ball = m_FSM.Owner.ShootQueue[order];
 
-                if (m_ShootBall != null) {
-                    m_ShootBall.Show(false);
+                if (m_FSM.Owner.CurrentBall != null) {
+                    m_FSM.Owner.CurrentBall.Show(false);
                 }
-                m_ShootBall = ball;
-                m_ShootBall.Show(true);
+                m_FSM.Owner.CurrentBall = ball;
+                m_FSM.Owner.CurrentBall.Show(true);
 
-                GameFacade.Instance.Game.ShowBallBubble(m_ShootBall);
+                GameFacade.Instance.Game.ShowBallBubble(m_FSM.Owner.CurrentBall);
             });
 
             if (flag == true) {
-                if (m_ShootBall != null) {
-                    m_ShootBall.Show(false);
+                if (m_FSM.Owner.CurrentBall != null) {
+                    m_FSM.Owner.CurrentBall.Show(false);
                 }
-                m_ShootBall = m_Queue[0];
-                m_ShootBall.Show(true);
+                m_FSM.Owner.CurrentBall = m_FSM.Owner.ShootQueue[0];
+                m_FSM.Owner.CurrentBall.Show(true);
 
-                GameFacade.Instance.Game.ShowBallBubble(m_ShootBall);
+                GameFacade.Instance.Game.ShowBallBubble(m_FSM.Owner.CurrentBall);
 
                 GameFacade.Instance.Game.Pause();
             } else {              
@@ -1224,13 +1226,13 @@ namespace CB
                         break;
                     }
                 }
-                m_FSM.Owner.Balls.Remove(m_ShootBall);
-                m_FSM.Owner.Balls.Insert(insert_index, m_ShootBall);
+                m_FSM.Owner.Balls.Remove(m_FSM.Owner.CurrentBall);
+                m_FSM.Owner.Balls.Insert(insert_index, m_FSM.Owner.CurrentBall);
 
-                m_Queue.Clear();
+                m_FSM.Owner.ShootQueue.Clear();
                 foreach (var ball in m_FSM.Owner.Balls) {
                     if (ball.IsIdle) {
-                        m_Queue.Add(ball);
+                        m_FSM.Owner.ShootQueue.Add(ball);
                     }
                 }
 
@@ -1269,8 +1271,9 @@ namespace CB
         {
             m_FSM.Owner.m_RefreshTimes = 0;
 
-            List<ComplextEvent> events = GameFacade.Instance.Game.GenerateEvents();
+            GameFacade.Instance.EventManager.SendEvent(new GameEvent(EVENT.UI_FLUSHBALLS));
 
+            List<ComplextEvent> events = GameFacade.Instance.Game.GenerateEvents();
 
             m_GhostUI  = GameFacade.Instance.UIManager.LoadWindow("Prefab/UI/GhostWindow", GameFacade.Instance.UIManager.BOARD).GetComponent<GhostWindow>();
             m_GhostUI.Init(events);
@@ -1329,6 +1332,8 @@ namespace CB
 
         public override void Enter()
         {
+            GameFacade.Instance.EventManager.SendEvent(new GameEvent(EVENT.UI_FLUSHBALLS));
+            
             List<Relics> datas = this.GenerateRelicses();
 
             m_ShopUI  = GameFacade.Instance.UIManager.LoadWindow("Prefab/UI/ShopWindow", GameFacade.Instance.UIManager.BOARD).GetComponent<ShopWindow>();
