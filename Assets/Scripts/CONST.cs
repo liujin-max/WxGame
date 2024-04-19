@@ -101,7 +101,7 @@ public static class _C
         GROWTH  = 17,
         EXPAND  = 18,
         FOCUS   = 19,
-
+        WAVE    = 20,
         SCALE   = 21,       //缩放弹珠
         SPEED   = 22,
         REFLEX  = 23,

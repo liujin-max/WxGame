@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,10 +8,11 @@ public class Effect : MonoBehaviour
     public float m_Time = 0;
     public bool m_IsLoop = false;
 
-    // Start is called before the first frame update
-    void Start()
+    private Action m_Callback;
+
+    public void SetCallback(Action action)
     {
-        
+        m_Callback = action;
     }
 
     // Update is called once per frame
@@ -22,6 +24,10 @@ public class Effect : MonoBehaviour
 
         if (m_Time <= 0)
         {
+            if (m_Callback != null) {
+                m_Callback.Invoke();
+            }
+
             Destroy(gameObject);
         }
     }

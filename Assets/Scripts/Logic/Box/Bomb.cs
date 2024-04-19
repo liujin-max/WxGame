@@ -33,24 +33,10 @@ namespace CB
 
             //对范围内的障碍物造成伤害
             var radius = 2.5f;
-            Vector3 collision_point = transform.localPosition;
-
             //伤害随层数成长
             int demage = (int)(GameFacade.Instance.Game.Stage * 1.5f);
 
-            GameFacade.Instance.Game.Obstacles.ForEach(obt => {
-                if (Vector3.Distance(obt.transform.localPosition, collision_point) <= radius) {
-                    obt.OnHit(null, demage);
-                }
-            });
-
-            //对box同样造成伤害
-            GameFacade.Instance.Game.Boxs.ForEach(b => {
-                if (Vector3.Distance(b.transform.localPosition, collision_point) <= radius && b.gameObject != gameObject) {
-                    b.OnHit(null, demage);
-                    b.OnShake();
-                }
-            });
+            GameFacade.Instance.Game.Boom(transform.localPosition, radius, demage);
         }
 
         public override void DoDead()

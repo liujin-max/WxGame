@@ -598,24 +598,13 @@ namespace CB
 
             Dictionary<object, int> keyValuePairs = new Dictionary<object, int>();
 
-            //如果槽位满了，则只从当前已有的弹珠中随机
-            // if (m_Balls.Count >= SeatCount.ToNumber())
-            // {
-            //     foreach (var ball in m_Balls) {
-            //         var c = CONFIG.GetBallData(ball.Type);
-            //         keyValuePairs.Add(c, c.Weight);
-            //     }
-            // }
-            // else 
-            // {
-
             //允许重复
             foreach (BallData c in CONFIG.GetBallDatas())  {
                 if (c.Weight > 0) {
                     keyValuePairs.Add(c, c.Weight);
                 }
             }
-            // }
+
 
             bool is_glass_sell = false;
             for (int i = 0; i < count; i++)
@@ -632,13 +621,6 @@ namespace CB
                 {
                     et.Type = config.Type;
                     et.EventType = _C.COMPLEXTEVEMT.NEW;
-
-                    // var ball = m_FSM.Owner.GetBall(config.Type);
-                    // if (ball != null ) {
-                    //     et.EventType = _C.COMPLEXTEVEMT.UPGRADE;
-                    // } else {
-                        // et.EventType = _C.COMPLEXTEVEMT.NEW;
-                    // }
 
                     keyValuePairs.Remove(config);
                 }
@@ -691,6 +673,24 @@ namespace CB
             Relics new_relics = m_Army.PushRelics(relics.ID);
 
             return new_relics;
+        }
+
+        //范围伤害
+        public void Boom(Vector3 center_pos, float radius, int demage)
+        {
+            GameFacade.Instance.Game.Obstacles.ForEach(obt => {
+                if (Vector3.Distance(obt.transform.localPosition, center_pos) <= radius) {
+                    obt.OnHit(null, demage);
+                }
+            });
+
+            //对box同样造成伤害
+            GameFacade.Instance.Game.Boxs.ForEach(b => {
+                if (Vector3.Distance(b.transform.localPosition, center_pos) <= radius) {
+                    b.OnHit(null, demage);
+                    b.OnShake();
+                }
+            });
         }
 
         public void Dispose()
@@ -777,11 +777,11 @@ namespace CB
         
             GameFacade.Instance.Game.Resume();
 
-            m_FSM.Owner.BreechBall(m_FSM.Owner.PushBall(_C.BALL_ORIGIN_POS, _C.BALLTYPE.NORMAL));
-            m_FSM.Owner.BreechBall(m_FSM.Owner.PushBall(_C.BALL_ORIGIN_POS, _C.BALLTYPE.BOOM));
-            m_FSM.Owner.BreechBall(m_FSM.Owner.PushBall(_C.BALL_ORIGIN_POS, _C.BALLTYPE.SPLIT));
+            m_FSM.Owner.BreechBall(m_FSM.Owner.PushBall(_C.BALL_ORIGIN_POS, _C.BALLTYPE.WAVE));
+            // m_FSM.Owner.BreechBall(m_FSM.Owner.PushBall(_C.BALL_ORIGIN_POS, _C.BALLTYPE.BOOM));
+            // m_FSM.Owner.BreechBall(m_FSM.Owner.PushBall(_C.BALL_ORIGIN_POS, _C.BALLTYPE.SPLIT));
 
-            m_FSM.Owner.Army.PushRelics(116);
+            // m_FSM.Owner.Army.PushRelics(116);
 
             m_FSM.Transist(_C.FSMSTATE.GAME_IDLE);
         }
@@ -1333,7 +1333,7 @@ namespace CB
         public override void Enter()
         {
             GameFacade.Instance.EventManager.SendEvent(new GameEvent(EVENT.UI_FLUSHBALLS));
-            
+
             List<Relics> datas = this.GenerateRelicses();
 
             m_ShopUI  = GameFacade.Instance.UIManager.LoadWindow("Prefab/UI/ShopWindow", GameFacade.Instance.UIManager.BOARD).GetComponent<ShopWindow>();

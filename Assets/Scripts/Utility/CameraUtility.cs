@@ -47,6 +47,6 @@ public class CameraUtility : MonoBehaviour
 
     public void DoShake()
     {
-        transform.DOShakePosition(0.5f, 0.35f, 12, 90);
+        transform.DOShakePosition(0.5f, 0.35f, 12, 60);
     }
 }

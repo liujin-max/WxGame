@@ -634,7 +634,7 @@ namespace CB
             if (ball.IsSimulate == true) return;
             if (is_real_shoot == false) return;
 
-            if (RandomUtility.IsHit(100) == true)
+            if (RandomUtility.IsHit(15) == true)
             {
                 ball.HP += 1;
 
