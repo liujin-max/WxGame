@@ -10,10 +10,15 @@ namespace CB
     public class Bomb : Box
     {
         private SpriteRenderer m_Sprite;
+        public AttributeValue Demage;
+        public AttributeValue Radius = new AttributeValue(2.5f);
 
         public Bomb()
         {
             m_HP    = 3;
+
+            //伤害随层数成长
+            Demage  = new AttributeValue((int)(GameFacade.Instance.Game.Stage * 1.5f));
         }
 
         void Awake()
@@ -54,11 +59,9 @@ namespace CB
             GameFacade.Instance.EffectManager.Load(EFFECT.BOMBBOOM, transform.localPosition);
 
             //对范围内的障碍物造成伤害
-            var radius = 2.5f;
-            //伤害随层数成长
-            int demage = (int)(GameFacade.Instance.Game.Stage * 1.5f);
+            GameFacade.Instance.EventManager.SendEvent(new GameEvent(EVENT.ONBOMBBEFORE, this));
 
-            GameFacade.Instance.Game.Boom(transform.localPosition, radius, demage);
+            GameFacade.Instance.Game.Boom(transform.localPosition, Radius.ToNumber(), (int)Demage.ToNumber());
         }
 
         public override void DoDead()

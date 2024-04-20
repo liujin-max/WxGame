@@ -875,7 +875,22 @@ namespace CB
     }
 
 
+    //TNT
+    public class BEffect_TNT : BEffect
+    {
+        public override string GetDescription()
+        {
+            return string.Format("炸弹有概率造成双倍伤害。");
+        }
 
+        public override void OnBombBefore(Bomb bomb)
+        {
+            if (RandomUtility.IsHit(55) == true)
+            {
+                bomb.Demage.PutAUL(this, 1);
+            }
+        }
+    }
 
 
 
@@ -963,6 +978,9 @@ namespace CB
 
                 case 1024:
                     return new BEffect_FLY();
+
+                case 1025:
+                    return new BEffect_TNT();
                 
                 default:
                     return null;
@@ -1040,6 +1058,11 @@ namespace CB
         }
 
         public virtual void OnEnterCollision(Ball ball, Collision2D collision)
+        {
+
+        }
+
+        public virtual void OnBombBefore(Bomb bomb)
         {
 
         }

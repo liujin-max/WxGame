@@ -32,5 +32,6 @@ public static class EVENT
     public static string ONCOINUPDATE       = "ONCOINUPDATE";       //金币变化时
     public static string ONBALLHITBOX       = "ONBALLHITBOX";    
     public static string ONENTERCOLLISION   = "ONENTERCOLLISION";   //碰撞物体时
+    public static string ONBOMBBEFORE       = "ONBOMBBEFORE";       //炸弹爆炸前
 
 }

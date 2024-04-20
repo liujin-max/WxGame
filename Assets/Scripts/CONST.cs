@@ -29,12 +29,15 @@ public static class _C
         GAME_END        = 5
     }
 
-    //
-    public enum RESULT
+    public enum SPRITEATLAS
     {
-        LOSE = 0,
-        WIN = 1,
-        NULL = 2
+        GLASS   = 0,
+        COIN    = 1,
+        FANG    = 2,
+        SANJIAO = 3,
+        YUAN    = 4,
+        LING    = 5,
+        BALL    = 6,
     }
 
   
