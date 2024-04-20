@@ -238,7 +238,7 @@ namespace CB
 
         public override string GetDescription()
         {
-            return "每次击中<sprite=2>，弹珠的弹力临时提高。";
+            return "<sprite=2>的弹力变大。";
         }
 
         public override void OnHitAfter(Ball ball, Obstacle obt, Collision2D collision)
@@ -678,7 +678,7 @@ namespace CB
 
         public override string GetDescription()
         {
-            return string.Format("撞击墙壁也可以获得分数。");
+            return string.Format("弹珠撞击墙壁也可以获得分数。");
         }
 
         public override void OnEnterCollision(Ball ball, Collision2D collision)
@@ -799,7 +799,7 @@ namespace CB
 
         public override string GetDescription()
         {
-            return string.Format("撞击墙壁时总能朝高处反弹。");
+            return string.Format("弹珠撞击墙壁时总能朝高处反弹。");
         }
 
         public override void OnEnterCollision(Ball ball, Collision2D collision)
@@ -826,7 +826,7 @@ namespace CB
 
         public override string GetDescription()
         {
-            return string.Format("撞击墙壁时反弹的更远。");
+            return string.Format("弹珠撞击墙壁时反弹的更远。");
         }
 
         public override void OnEnterCollision(Ball ball, Collision2D collision)
@@ -835,7 +835,8 @@ namespace CB
 
             if (collision.transform.GetComponent<Wall>() != null)
             {
-                ball.Velocity *= 1.1f;
+                var length = Math.Max(1, ball.Velocity.magnitude);
+                ball.Velocity = ball.Velocity.normalized * length * 1.1f;
 
                 if (ball.IsSimulate != true) {
                     GameFacade.Instance.EventManager.SendEvent(new GameEvent(EVENT.UI_TRIGGERRELICS, Belong));

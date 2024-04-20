@@ -7,7 +7,7 @@ using UnityEngine;
 namespace CB
 {
     /// <summary>
-    /// 再生弹珠 击落宝石后有概率在原地产出一个新的宝石
+    /// 再生弹珠
     /// </summary>
     /// 
     public class BallRegen : Ball
@@ -16,7 +16,7 @@ namespace CB
 
         public override string GetDescription()
         {
-            var str = string.Format("击落宝石后有概率在原地留下一颗新的宝石", m_Rate);
+            var str = string.Format("击中宝石时有概率使宝石恢复血量");
 
             return str;
         }
@@ -26,18 +26,21 @@ namespace CB
         {
             this.TriggerEnter(collision);
             this.OnHitElement(collision);
-            this.OnHitObstable(collision);
-
+   
             Obstacle obt = collision.transform.GetComponent<Obstacle>();
             if (obt != null) {
-                if (obt.IsDead() == true) {
-                    if (RandomUtility.IsHit(m_Rate) == true) {
-                        int turn    = GameFacade.Instance.Game.Stage;
-                        int hp      = (int)Mathf.Ceil(RandomUtility.Random(turn * 60, turn * 140) / 100.0f);
+                if (RandomUtility.IsHit(25)) {
+                    var value = (int)this.Demage.ToNumber();
+                    //治疗特效
+                    GameFacade.Instance.EffectManager.Load(EFFECT.HEALONCE, Vector3.zero, obt.gameObject);
 
-                        var new_obt = GameFacade.Instance.Game.PushObstacle(obt.transform.localPosition, hp);
-                        new_obt.DoScale();
-                    }
+                    obt.SetHP(obt.HP + value);
+                    obt.OnShake();
+
+                    GameFacade.Instance.EventManager.SendEvent(new GameEvent(EVENT.ONOBSTACLEHIT, value, this));
+
+                } else {
+                    this.OnHitObstable(collision);
                 }
             }
         }

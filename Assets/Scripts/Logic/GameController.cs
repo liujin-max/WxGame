@@ -635,7 +635,7 @@ namespace CB
         {
             int cost = RefreshCoin;
             if (m_Coin < cost) {
-                GameFacade.Instance.FlyTip("<sprite=0> 金币不足");
+                GameFacade.Instance.FlyTip("<sprite=1> 金币不足");
                 return null;
             }
 
@@ -777,7 +777,7 @@ namespace CB
         
             GameFacade.Instance.Game.Resume();
 
-            m_FSM.Owner.BreechBall(m_FSM.Owner.PushBall(_C.BALL_ORIGIN_POS, _C.BALLTYPE.NORMAL));
+            m_FSM.Owner.BreechBall(m_FSM.Owner.PushBall(_C.BALL_ORIGIN_POS, _C.BALLTYPE.REGEN));
             // m_FSM.Owner.BreechBall(m_FSM.Owner.PushBall(_C.BALL_ORIGIN_POS, _C.BALLTYPE.BOOM));
             // m_FSM.Owner.BreechBall(m_FSM.Owner.PushBall(_C.BALL_ORIGIN_POS, _C.BALLTYPE.SPLIT));
 
