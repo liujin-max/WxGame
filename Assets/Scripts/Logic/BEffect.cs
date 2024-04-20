@@ -41,7 +41,7 @@ namespace CB
 
         public override string GetDescription()
         {
-            return "每当弹珠连续击中相同类型的宝石时,伤害提高1倍。";
+            return "每当弹珠连续击中相同类型的宝石时，伤害提高1倍。(连续击中同一颗宝石时，不纳入计算)";
         }
 
 
@@ -82,7 +82,7 @@ namespace CB
                 if((int)objs[1] > 0) {
                     ball.Demage.PutAUL(this, (int)objs[1]);
 
-                    GameFacade.Instance.EffectManager.FlyRate(collision.contacts[0].point, (int)objs[1]);
+                    GameFacade.Instance.EffectManager.FlyRate(collision.contacts[0].point, (int)objs[1] + 1);
 
                     GameFacade.Instance.EventManager.SendEvent(new GameEvent(EVENT.UI_TRIGGERRELICS, Belong));
                 }
@@ -656,7 +656,7 @@ namespace CB
 
         public override void OnHitBefore(Ball ball, Obstacle obt, Collision2D collision)
         {
-            if (RandomUtility.IsHit(65) == true) {
+            if (RandomUtility.IsHit(20) == true) {
                 ball.Demage.PutMUL(this, 2);
                 //需要特效
                 GameFacade.Instance.EffectManager.FlyRate(collision.contacts[0].point, 2);

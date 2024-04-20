@@ -11,14 +11,17 @@ public class RelicsSeatItem : MonoBehaviour
 {
     public Relics m_Relics;
 
-    private Sequence m_Sequence;
-
     [SerializeField] private Image c_Icon;
     [SerializeField] private TextMeshProUGUI c_Value;
 
     void Awake()
     {
         GameFacade.Instance.EventManager.AddHandler(EVENT.UI_TRIGGERRELICS,    OnRelicsTrigger);
+
+        c_Icon.GetComponent<Button>().onClick.AddListener(()=>{
+            var window = GameFacade.Instance.UIManager.LoadWindow("Prefab/UI/RelicsDetailWindow", GameFacade.Instance.UIManager.BOARD).GetComponent<RelicsDetailWindow>();
+            window.Init(m_Relics);
+        });
     }
 
     void OnDestroy()

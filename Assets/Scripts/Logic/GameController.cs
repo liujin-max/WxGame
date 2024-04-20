@@ -777,11 +777,11 @@ namespace CB
         
             GameFacade.Instance.Game.Resume();
 
-            m_FSM.Owner.BreechBall(m_FSM.Owner.PushBall(_C.BALL_ORIGIN_POS, _C.BALLTYPE.BLACKHOLE));
+            m_FSM.Owner.BreechBall(m_FSM.Owner.PushBall(_C.BALL_ORIGIN_POS, _C.BALLTYPE.NORMAL));
             // m_FSM.Owner.BreechBall(m_FSM.Owner.PushBall(_C.BALL_ORIGIN_POS, _C.BALLTYPE.BOOM));
             // m_FSM.Owner.BreechBall(m_FSM.Owner.PushBall(_C.BALL_ORIGIN_POS, _C.BALLTYPE.SPLIT));
 
-            // m_FSM.Owner.Army.PushRelics(116);
+            m_FSM.Owner.Army.PushRelics(112);
 
             m_FSM.Transist(_C.FSMSTATE.GAME_IDLE);
         }
@@ -1047,8 +1047,8 @@ namespace CB
         {
             //金币跟积分挂钩，最少也给1块钱
             int min = RandomUtility.Random(1, 4);
-            int max = RandomUtility.Random(20, 26);
-            int coin = Mathf.Clamp((int)Mathf.Floor(m_FSM.Owner.m_Score / 20.0f), min, max);
+            int max = RandomUtility.Random(17, 24);
+            int coin = Mathf.Clamp((int)Mathf.Floor(m_FSM.Owner.GetTargetScore() / 20.0f), min, max);
             GameFacade.Instance.Game.UpdateCoin(coin);
 
   
