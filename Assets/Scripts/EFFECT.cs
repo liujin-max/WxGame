@@ -19,6 +19,7 @@ public static class EFFECT
     public const string BOMBBOOM    = "Prefab/Effect/fx_bomb_boom";
     public const string ENCHANT     = "Prefab/Effect/fx_enchant";
     public const string NOVA        = "Prefab/Effect/fx_wave_nova";
+    public const string BLACKHOLEBOOM = "Prefab/Effect/fx_blackhole_boom";
 
     public const string RATENUMBER  = "Prefab/Effect/fx_flyRate";
 }

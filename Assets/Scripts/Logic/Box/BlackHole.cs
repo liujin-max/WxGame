@@ -7,7 +7,7 @@ using UnityEngine;
 public class BlackHole : Box
 {
     private float m_Radius = 2f;
-    private CDTimer m_LifeTimer = new CDTimer(1.5f);
+    private CDTimer m_LifeTimer = new CDTimer(1f);
 
     void Start () 
     {
@@ -27,11 +27,6 @@ public class BlackHole : Box
                 });
             }
         });
-
-        var spr_transform = transform.Find("Sprite").transform;
-        spr_transform.DOLocalRotate(new Vector3(0, 0, -360), 0.8f, RotateMode.FastBeyond360).SetEase(Ease.Linear).SetLoops(-1);
-        spr_transform.DOScale(Vector3.zero, 2);
-
     }
 
     void Update()
@@ -39,6 +34,7 @@ public class BlackHole : Box
         m_LifeTimer.Update(Time.deltaTime);
         if (m_LifeTimer.IsFinished() == true)
         {
+            GameFacade.Instance.EffectManager.Load(EFFECT.BLACKHOLEBOOM, transform.localPosition);
             this.Dead();
         }
     }

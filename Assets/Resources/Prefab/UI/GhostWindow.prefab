@@ -396,7 +396,7 @@ MonoBehaviour:
   m_text: 5 <size=34><sprite=1>
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 32c80d060003e7948a473f15dd09db7a, type: 2}
-  m_sharedMaterial: {fileID: 2100000, guid: 6fac54d239bb31c4b84306856c8b6c7c, type: 2}
+  m_sharedMaterial: {fileID: 2100000, guid: a2e27ee2ec09fba429e231e80fac3d4c, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
