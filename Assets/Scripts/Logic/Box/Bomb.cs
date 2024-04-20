@@ -9,9 +9,16 @@ namespace CB
 {
     public class Bomb : Box
     {
+        private SpriteRenderer m_Sprite;
+
         public Bomb()
         {
             m_HP    = 3;
+        }
+
+        void Awake()
+        {
+            m_Sprite = transform.Find("Sprite").GetComponent<SpriteRenderer>();
         }
 
         void Start()
@@ -19,11 +26,26 @@ namespace CB
             DoScale();
         }
 
+        public override void OnShake()
+        {
+            if (m_Shaking == true) {
+                return;
+            }
+            
+            m_Shaking = true;
+
+            m_Sprite.transform.DOShakeRotation(0.25f, 20f, vibrato: 15, randomness: 50).OnComplete(()=>{
+                m_Shaking = false;
+            });
+        }
+
         public override void OnHit(Ball ball,  int demage = 1)
         {
             if (this.IsDead() == true) return;
             
             m_HP -= demage;
+
+            OnShake();
         }
 
         public void Boom()

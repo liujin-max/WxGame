@@ -12,11 +12,11 @@ namespace CB
     /// </summary>
     public class Shield : Box
     {
-        private SpriteRenderer m_Bubble;
+        private SpriteRenderer m_Sprite;
 
         void Awake()
         {
-            m_Bubble = transform.Find("Sprite").GetComponent<SpriteRenderer>();
+            m_Sprite = transform.Find("Sprite").GetComponent<SpriteRenderer>();
         }
 
         public override void OnShake()
@@ -27,7 +27,7 @@ namespace CB
             
             m_Shaking = true;
 
-            m_Bubble.transform.DOShakeRotation(0.25f, 20f, vibrato: 15, randomness: 50).OnComplete(()=>{
+            m_Sprite.transform.DOShakeRotation(0.25f, 20f, vibrato: 15, randomness: 50).OnComplete(()=>{
                 m_Shaking = false;
             });
         }

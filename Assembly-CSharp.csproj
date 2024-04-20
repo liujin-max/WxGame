@@ -88,6 +88,7 @@
     <Compile Include="Assets\DOTween\Modules\DOTweenModulePhysics2D.cs" />
     <Compile Include="Assets\Scripts\Manager\UIManager.cs" />
     <Compile Include="Assets\Scripts\Logic\Ball\BallRegen.cs" />
+    <Compile Include="Assets\Scripts\Logic\Ball\BallWave.cs" />
     <Compile Include="Assets\Scripts\Logic\Ball\BallScale.cs" />
     <Compile Include="Assets\Scripts\UI\LoadingWindow.cs" />
     <Compile Include="Assets\AllIn1SpriteShader\Demo\Scripts\All1ShaderDemoController.cs" />
@@ -191,7 +192,6 @@
     <Compile Include="Assets\Scripts\UI\GhostWindow.cs" />
     <Compile Include="Assets\DOTween\Modules\DOTweenModuleUnityVersion.cs" />
     <Compile Include="Assets\Scripts\Logic\Relics.cs" />
-    <Compile Include="Assets\Scripts\Logic\Ball\BallWave.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Resources\Shader\SpriteGray.shader" />
