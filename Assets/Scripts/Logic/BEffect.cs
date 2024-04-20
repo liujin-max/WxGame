@@ -104,7 +104,7 @@ namespace CB
         
         public override string GetDescription()
         {
-            return "每拥有2枚<sprite=0>,高阶弹珠的伤害增加1点。";
+            return string.Format("每拥有2枚<sprite={0}>,高阶弹珠的伤害增加1点。", (int)_C.SPRITEATLAS.GLASS);
         }
 
         public override string ShowString()
@@ -153,7 +153,7 @@ namespace CB
 
         public override string GetDescription()
         {
-            return "场上每存在一颗<sprite=3>,所有弹珠的伤害提高0.2倍。";
+            return string.Format("场上每存在一颗<sprite={0}>,所有弹珠的伤害提高0.2倍。", (int)_C.SPRITEATLAS.SANJIAO);
         }
 
         public override string ShowString()
@@ -196,7 +196,7 @@ namespace CB
 
         public override string GetDescription()
         {
-            return "结算时,场上每颗<sprite=4>转化成1枚<sprite=1>。";
+            return string.Format("结算时，场上每颗<sprite={0}>转化成1枚<sprite={1}>。", (int)_C.SPRITEATLAS.YUAN, (int)_C.SPRITEATLAS.COIN);
         }
 
         public override string ShowString()
@@ -238,7 +238,7 @@ namespace CB
 
         public override string GetDescription()
         {
-            return "<sprite=2>的弹力变大。";
+            return string.Format("<sprite={0}>的弹力变大。", (int)_C.SPRITEATLAS.FANG);
         }
 
         public override void OnHitAfter(Ball ball, Obstacle obt, Collision2D collision)
@@ -385,7 +385,7 @@ namespace CB
         
         public override string GetDescription()
         {
-            return "每拥有一枚<sprite=0>,<sprite=6>的伤害增加1点。";
+            return string.Format("每拥有一枚<sprite={0}>,<sprite={1}>的伤害增加1点。", (int)_C.SPRITEATLAS.GLASS, (int)_C.SPRITEATLAS.BALL);
         }
 
         public override string ShowString()
@@ -709,7 +709,7 @@ namespace CB
 
         public override string GetDescription()
         {
-            return string.Format("每击落{0}枚<sprite=0>在原地留下一颗炸弹。", m_CountMax);
+            return string.Format("每击落{0}枚<sprite={1}>在原地留下一颗<sprite={2}>。", m_CountMax, (int)_C.SPRITEATLAS.GLASS, (int)_C.SPRITEATLAS.BOMB);
         }
 
         public override string ShowString()
@@ -741,7 +741,7 @@ namespace CB
     {
         public override string GetDescription()
         {
-            return string.Format("击中炸弹时有概率直接引爆。");
+            return string.Format("击中<sprite={0}>时有概率直接引爆。", (int)_C.SPRITEATLAS.BOMB);
         }
 
         public override void OnHitBox(Ball ball, Box g, Collision2D collision)
@@ -880,7 +880,7 @@ namespace CB
     {
         public override string GetDescription()
         {
-            return string.Format("炸弹有概率造成双倍伤害。");
+            return string.Format(" <sprite={0}>有概率造成双倍伤害。", (int)_C.SPRITEATLAS.BOMB);
         }
 
         public override void OnBombBefore(Bomb bomb)
@@ -888,10 +888,27 @@ namespace CB
             if (RandomUtility.IsHit(55) == true)
             {
                 bomb.Demage.PutAUL(this, 1);
+
+                GameFacade.Instance.EventManager.SendEvent(new GameEvent(EVENT.UI_TRIGGERRELICS, Belong));
             }
         }
     }
 
+    //
+    public class BEffect_BOMBRANGE : BEffect
+    {
+        public override string GetDescription()
+        {
+            return string.Format(" <sprite={0}>的爆炸范围提高20%。", (int)_C.SPRITEATLAS.BOMB);
+        }
+
+        public override void OnBombBefore(Bomb bomb)
+        {
+            bomb.Radius.PutAUL(this, 0.2f);
+
+            GameFacade.Instance.EventManager.SendEvent(new GameEvent(EVENT.UI_TRIGGERRELICS, Belong));
+        }
+    }
 
 
 
@@ -981,6 +998,9 @@ namespace CB
 
                 case 1025:
                     return new BEffect_TNT();
+
+                case 1026:
+                    return new BEffect_BOMBRANGE();
                 
                 default:
                     return null;

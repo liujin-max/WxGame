@@ -78,7 +78,7 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 113ae43f8e9f1ec43a61a847f30d89cb, type: 3}
   - {fileID: 21300000, guid: 8683dc7fa33643a45b6e3e0d76601558, type: 3}
   m_PackedSpriteNamesToIndex:
-  - Universal_coin
+  - coin
   - ball_focus
   - ball_fenlie
   - polygon3

@@ -29,7 +29,7 @@ namespace CB
    
             Obstacle obt = collision.transform.GetComponent<Obstacle>();
             if (obt != null) {
-                if (RandomUtility.IsHit(25)) {
+                if (RandomUtility.IsHit(30)) {
                     var value = (int)this.Demage.ToNumber();
                     //治疗特效
                     GameFacade.Instance.EffectManager.Load(EFFECT.HEALONCE, Vector3.zero, obt.gameObject);

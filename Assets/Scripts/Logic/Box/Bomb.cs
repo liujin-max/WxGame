@@ -55,13 +55,17 @@ namespace CB
 
         public void Boom()
         {
-            //产生爆炸
-            GameFacade.Instance.EffectManager.Load(EFFECT.BOMBBOOM, transform.localPosition);
-
-            //对范围内的障碍物造成伤害
             GameFacade.Instance.EventManager.SendEvent(new GameEvent(EVENT.ONBOMBBEFORE, this));
 
-            GameFacade.Instance.Game.Boom(transform.localPosition, Radius.ToNumber(), (int)Demage.ToNumber());
+            //产生爆炸
+            float radius = Radius.ToNumber();
+
+            var scale = radius / Radius.GetBase();
+            var obj = GameFacade.Instance.EffectManager.Load(EFFECT.BOMBBOOM, transform.localPosition);
+            obj.transform.localScale = new Vector3(scale, scale, scale);
+
+            //对范围内的障碍物造成伤害
+            GameFacade.Instance.Game.Boom(transform.localPosition, radius, (int)Demage.ToNumber());
         }
 
         public override void DoDead()

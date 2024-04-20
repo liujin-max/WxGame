@@ -44,7 +44,7 @@ TextureImporter:
   compressionQuality: 50
   spriteMode: 2
   spriteExtrude: 1
-  spriteMeshType: 1
+  spriteMeshType: 0
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
   spritePixelsToUnits: 100
@@ -144,12 +144,12 @@ TextureImporter:
       name: Glass
       rect:
         serializedVersion: 2
-        x: 66
-        y: 108
-        width: 31
-        height: 32
-      alignment: 9
-      pivot: {x: 0.516129, y: 0.5}
+        x: 408
+        y: 74
+        width: 66
+        height: 66
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -165,7 +165,7 @@ TextureImporter:
       name: polygon1
       rect:
         serializedVersion: 2
-        x: 97
+        x: 544
         y: 12
         width: 124
         height: 128
@@ -186,7 +186,7 @@ TextureImporter:
       name: polygon3
       rect:
         serializedVersion: 2
-        x: 221
+        x: 680
         y: 16
         width: 136
         height: 124
@@ -207,7 +207,7 @@ TextureImporter:
       name: polygon4
       rect:
         serializedVersion: 2
-        x: 357
+        x: 816
         y: 16
         width: 124
         height: 124
@@ -228,7 +228,7 @@ TextureImporter:
       name: polygon5
       rect:
         serializedVersion: 2
-        x: 481
+        x: 952
         y: 0
         width: 120
         height: 140
@@ -246,10 +246,31 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Universal_coin
+      name: Bomb
       rect:
         serializedVersion: 2
-        x: 601
+        x: 136
+        y: 78
+        width: 58
+        height: 62
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: da4d6945e588dcb4f83bdb1bd6fbdb35
+      internalID: 978616505
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: coin
+      rect:
+        serializedVersion: 2
+        x: 272
         y: 68
         width: 66
         height: 72
@@ -260,8 +281,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c312a2bc6e5932748842e165c90f5f21
-      internalID: -1569564162
+      spriteID: fe1e0ab2cc6ab6a49bd6d94d65d16d6b
+      internalID: 864839556
       vertices: []
       indices: 
       edges: []
@@ -277,12 +298,13 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
+      Bomb: 978616505
       polygon5: -1237416390
-      Universal_coin: -1569564162
       ball: 84024603
       Glass: 2052840671
       polygon1: -1098715419
       polygon4: 640055896
+      coin: 864839556
       polygon3: 1128334879
   spritePackingTag: 
   pSDRemoveMatte: 0

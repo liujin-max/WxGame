@@ -29,6 +29,7 @@ public static class _C
         GAME_END        = 5
     }
 
+    //SpriteAtlas的序列
     public enum SPRITEATLAS
     {
         GLASS   = 0,
@@ -38,6 +39,7 @@ public static class _C
         YUAN    = 4,
         LING    = 5,
         BALL    = 6,
+        BOMB    = 7,
     }
 
   
