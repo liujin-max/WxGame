@@ -86,6 +86,7 @@ namespace CB
         public List<Ball> Balls { get { return m_Balls;}}
 
         public List<Ball> ShootQueue = new List<Ball>();
+        public List<Ball> ShootCache = new List<Ball>();    //每回合发射的弹珠记录
         public Ball CurrentBall = null;
 
         private List<Ball> m_BallSmalls = new List<Ball>();
@@ -437,7 +438,6 @@ namespace CB
                 c_takeAim.transform.localScale = Vector3.one;
             });
 
-            Debug.Log("ShootBall : " + ball.Type);
             ball.Shoot(pos);
         }
 
@@ -777,11 +777,12 @@ namespace CB
         
             GameFacade.Instance.Game.Resume();
 
-            m_FSM.Owner.BreechBall(m_FSM.Owner.PushBall(_C.BALL_ORIGIN_POS, _C.BALLTYPE.REGEN));
+            m_FSM.Owner.BreechBall(m_FSM.Owner.PushBall(_C.BALL_ORIGIN_POS, _C.BALLTYPE.BLACKHOLE));
+            m_FSM.Owner.BreechBall(m_FSM.Owner.PushBall(_C.BALL_ORIGIN_POS, _C.BALLTYPE.RANDOM));
             // m_FSM.Owner.BreechBall(m_FSM.Owner.PushBall(_C.BALL_ORIGIN_POS, _C.BALLTYPE.BOOM));
             // m_FSM.Owner.BreechBall(m_FSM.Owner.PushBall(_C.BALL_ORIGIN_POS, _C.BALLTYPE.SPLIT));
 
-            m_FSM.Owner.Army.PushRelics(125);
+            // m_FSM.Owner.Army.PushRelics(116);
 
             m_FSM.Transist(_C.FSMSTATE.GAME_IDLE);
         }
@@ -795,47 +796,6 @@ namespace CB
     {
         private CDTimer m_DelayTimer = new CDTimer(1.2f);
         private GuideWindow _GuideUI;
-
-        public Vector2[] GenerateRandomPoints(Vector2 topLeft, Vector2 bottomRight, int N, float minDistance)
-        {
-            List<Vector2> points = new List<Vector2>();
-            HashSet<Vector2> usedPoints = new HashSet<Vector2>();
-
-            int count = 0;  //防卡死机制
-            while (points.Count < N)
-            {
-                Vector2 randomPoint = new Vector2(RandomUtility.Random((int)(topLeft.x * 100), (int)(bottomRight.x * 100)) / 100.0f, RandomUtility.Random((int)(bottomRight.y * 100), (int)(topLeft.y * 100)) / 100.0f);
-
-                bool isValid = true;
-                foreach (Vector2 existingPoint in usedPoints)
-                {
-                    if (Vector2.Distance(randomPoint, existingPoint) < minDistance)
-                    {
-                        isValid = false;
-                        break;
-                    }
-                }
-
-                if (isValid)
-                {
-                    count = 0;
-                    points.Add(randomPoint);
-                    usedPoints.Add(randomPoint);
-                }
-                else
-                {
-                    count++;
-                }
-
-                //单次随机次数超出1000次，直接跳出，免得死循环了
-                if (count >= 1000) {
-                    Debug.LogError("测试输出 order ： " + points.Count);
-                    break;
-                }
-            }
-
-            return points.ToArray();
-        }
 
         void DrawObstables()
         {
@@ -884,7 +844,7 @@ namespace CB
 
             int numberOfPoints  = temp_list.Count; //25; 
             
-            Vector2[] randomPoints = GenerateRandomPoints(topLeft, bottomRight, numberOfPoints, _C.OBSTACLE_OFFSET);
+            Vector2[] randomPoints = ToolUtility.GenerateRandomPoints(topLeft, bottomRight, numberOfPoints, _C.OBSTACLE_OFFSET);
 
 
             for (int i = 0; i < randomPoints.Length; i++)
@@ -1031,6 +991,7 @@ namespace CB
             if (m_FSM.Owner.CurrentBall != null) {
                 var ball = m_FSM.Owner.CurrentBall;
                 m_FSM.Owner.ShootQueue.Remove(ball);
+                m_FSM.Owner.ShootCache.Add(ball);
                 GameFacade.Instance.Game.ShootBall(ball, m_FSM.Owner.FingerPos);
             }
 
@@ -1066,6 +1027,7 @@ namespace CB
             m_IsFinished = false;
             m_DelayTimer.Reset();
 
+            m_FSM.Owner.ShootCache.Clear(); 
             m_FSM.Owner.ShootQueue.Clear();
             foreach (var ball in m_FSM.Owner.Balls) {
                 m_FSM.Owner.ShootQueue.Add(ball);
@@ -1074,6 +1036,8 @@ namespace CB
             m_FSM.Owner.CurrentBall = m_FSM.Owner.ShootQueue[0];
 
             m_FSM.Owner.Environment.OnBegin();
+
+            GameFacade.Instance.EventManager.SendEvent(new GameEvent(EVENT.ONPLAYSTART));
 
             GameFacade.Instance.EventManager.AddHandler(EVENT.UI_SHOWBALLLIST,  OnReponseBallList);
             
@@ -1136,6 +1100,7 @@ namespace CB
                 m_IsFinished = true;
                 ReceiveReward();
 
+                m_FSM.Owner.Environment.OnEnd();
                 GameFacade.Instance.EventManager.SendEvent(new GameEvent(EVENT.ONPLAYEND));
             }
 
@@ -1149,6 +1114,7 @@ namespace CB
                     m_IsFinished = true;
                     ReceiveReward();
 
+                    m_FSM.Owner.Environment.OnEnd();
                     GameFacade.Instance.EventManager.SendEvent(new GameEvent(EVENT.ONPLAYEND));
 
                     Camera.main.GetComponent<CameraUtility>().DoShake();
@@ -1176,8 +1142,6 @@ namespace CB
 
         public override void Exit()
         {
-            m_FSM.Owner.Environment.OnEnd();
-
             GameFacade.Instance.EventManager.SendEvent(new GameEvent(EVENT.UI_FLUSHBALLS));
 
             GameFacade.Instance.EventManager.DelHandler(EVENT.UI_SHOWBALLLIST,  OnReponseBallList);

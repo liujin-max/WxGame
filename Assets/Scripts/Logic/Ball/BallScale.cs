@@ -9,7 +9,7 @@ namespace CB
     //缩放弹珠 被击中的宝石概率会缩放
     public class BallScale : Ball
     {
-        private int m_Rate = 35;
+        private int m_Rate = 45;
 
         public override string GetDescription()
         {
@@ -34,7 +34,7 @@ namespace CB
                 if (RandomUtility.IsHit(m_Rate) == true)
                 {
                     float offset = 0.15f;
-                    if (RandomUtility.IsHit(40) == true)
+                    if (RandomUtility.IsHit(35) == true)
                     {
                         offset = -0.1f;
                     }

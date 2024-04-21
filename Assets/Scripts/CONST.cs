@@ -68,10 +68,10 @@ public static class _C
     public static float BOARD_LEFT  = -4.0f;
     public static float BOARD_RIGHT  = 4.0f;
     public static float BOARD_TOP  = 4f;
-    public static float BOARD_BOTTOM  = -8f;
+    public static float BOARD_BOTTOM  = -8.2f;
 
     public static float OBSTACLE_ORIGIN_Y   = -7;
-    public static float OBSTACLE_OFFSET     = 1.5f;
+    public static float OBSTACLE_OFFSET     = 1.6f;
 
 
 
@@ -112,6 +112,10 @@ public static class _C
         REFLEX  = 23,
         BLACKHOLE = 24,     //黑洞弹珠
         MASS    = 25,
+        COIN    = 26,
+        GLASS   = 27,
+        POWER   = 28,
+        RANDOM  = 29,
     }   
 
     public enum BOXTYPE

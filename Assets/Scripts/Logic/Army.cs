@@ -19,6 +19,7 @@ namespace CB
 
         public void Awake()
         {
+            GameFacade.Instance.EventManager.AddHandler(EVENT.ONPLAYSTART,      OnReponsePlayStart);
             GameFacade.Instance.EventManager.AddHandler(EVENT.ONPLAYEND,        OnReponsePlayEnd);
             GameFacade.Instance.EventManager.AddHandler(EVENT.ONBALLSHOOT,      OnReponseBallShoot);
             GameFacade.Instance.EventManager.AddHandler(EVENT.ONBALLHITBEFORE,  OnReponseHitBefore);
@@ -45,6 +46,7 @@ namespace CB
             SeatCount.Clear();
 
 
+            GameFacade.Instance.EventManager.DelHandler(EVENT.ONPLAYSTART,      OnReponsePlayStart);
             GameFacade.Instance.EventManager.DelHandler(EVENT.ONPLAYEND,        OnReponsePlayEnd);
             GameFacade.Instance.EventManager.DelHandler(EVENT.ONBALLSHOOT,      OnReponseBallShoot);
             GameFacade.Instance.EventManager.DelHandler(EVENT.ONBALLHITBEFORE,  OnReponseHitBefore);
@@ -105,6 +107,15 @@ namespace CB
 
         //////////////////////////////////////////
 
+        void OnReponsePlayStart(GameEvent gameEvent)
+        {
+            m_Relicses.ForEach(relics => {
+                relics.GetEffects().ForEach(e => {
+                    e.OnPlayStart();
+                });
+            });
+        }
+        
         void OnReponsePlayEnd(GameEvent gameEvent)
         {
             m_Relicses.ForEach(relics => {

@@ -39,7 +39,7 @@ namespace CB
             }
 
             //吞掉小球
-            if ( ball.Type == _C.BALLTYPE.SMALL) {
+            if (ball.Type == _C.BALLTYPE.SMALL) {
                 ball.Dead();
                 return;
             }
@@ -68,6 +68,7 @@ namespace CB
                         ball.Velocity = new Vector2(10, 0);
                     }
                     
+                    GameFacade.Instance.EventManager.SendEvent(new GameEvent(EVENT.ONENTERGROUND, ball));
                     
                     break;
 

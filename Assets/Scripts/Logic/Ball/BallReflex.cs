@@ -16,25 +16,6 @@ namespace CB
 
             return str;
         }
-
-
-        public override void OnCollisionEnter2D(Collision2D collision)
-        {
-            base.OnCollisionEnter2D(collision);
-            
-            if (collision.transform.GetComponent<Wall>() != null)
-            {
-                this.Velocity = new Vector2(Velocity.x, Math.Abs(Velocity.y));
-            }
-        }
-
-        public override void OnCollisionExit2D(Collision2D collision)
-        {
-            if (collision.transform.GetComponent<Wall>() != null)
-            {
-                this.Velocity = new Vector2(Velocity.x, Math.Abs(Velocity.y));
-            }
-        }
     }
 }
 

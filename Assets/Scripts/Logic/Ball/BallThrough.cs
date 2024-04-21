@@ -6,49 +6,36 @@ using UnityEngine;
 
 namespace CB
 {
-    //穿透 有一定的概率穿透宝石，每穿透1个宝石，伤害提高#倍
+    //引力弹珠
     public class BallThrough : Ball
     {
-        private int m_Count;    //可追踪次数
-        private int m_Current = 0;
-
-        public override void Shoot(Vector3 pos)
-        {
-            base.Shoot(pos);
-
-            m_Current = m_Count;
-        }
-        
-        public override void UpgradeTo(int level)
-        {
-            base.UpgradeTo(level);
-
-            m_Count = level * 2;
-        }
+        private HashSet<Box> m_Boxs = new HashSet<Box>();
 
         public override string GetDescription()
         {
-            var str = string.Format("穿透宝石", m_Count);
+            var str = string.Format("弹珠飞行途中将吸引周围的宝石。");
 
             return str;
         }
 
-
-        //碰撞逻辑
-        public override void OnCollisionEnter2D(Collision2D collision)
+        public override void LateUpdate()
         {
-            this.TriggerEnter(collision);
-            
-            this.OnHitElement(collision);
-            bool flag = this.OnHitObstable(collision);
+            base.LateUpdate();
 
-
-
-            //碰撞的对象是宝石
-            if (flag == true) {
-                // Physics2D.IgnoreCollision(c_collision, collision.collider, true);
-                
+            foreach (var box in m_Boxs) {
+                box.Stop();
             }
+            m_Boxs.Clear();
+
+            var o_pos = transform.localPosition;
+            GameFacade.Instance.Game.Obstacles.ForEach(obstacle => {
+                var distance = Vector3.Distance(o_pos, obstacle.transform.localPosition);
+                if (distance <= 2 && distance >= this.ColliderRadius + obstacle.ColliderRadius) {
+                    m_Boxs.Add(obstacle);
+                    
+                    obstacle.Move(o_pos, 0.15f);
+                }
+            });
         }
     }
 }

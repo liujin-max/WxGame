@@ -32,6 +32,8 @@ namespace CB
 
         public override void OnLeave()
         {
+            base.OnLeave();
+            
             GameFacade.Instance.Game.Obstacles.ForEach(obstacle =>{
                 obstacle.Show(true);
             });

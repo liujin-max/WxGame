@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
+using Wangsu.WcsLib.Core;
 
 namespace CB
 {
@@ -20,12 +21,10 @@ namespace CB
         #region ==========  属性  ==========
         protected _C.BALLTYPE m_Type;
         public _C.BALLTYPE Type{ get {return m_Type;}}
-        public string Name { 
-            get {
-                var config = CONFIG.GetBallData(m_Type);
-                return config.Name ;
-            }
-        }
+
+        public BallData Config;
+
+        public string Name { get {return Config.Name ;}}
 
 
         protected int m_HP = 1;
@@ -44,6 +43,19 @@ namespace CB
         private bool m_DeadFlag = false;
         public AttributeValue Demage = new AttributeValue(1);
         public AttributeValue m_Scale = new AttributeValue(1, false);
+
+        //碰撞半径
+        public float ColliderRadius
+        {
+            get 
+            {
+                var circle_collider = transform.GetComponent<CircleCollider2D>();
+                if (circle_collider != null) {
+                    return circle_collider.radius;
+                }
+                return 0.3f;
+            }
+        }
 
         private Vector3 m_LastPos;
         private Vector2 m_LastVelocity;
@@ -112,11 +124,12 @@ namespace CB
         public virtual void Init(_C.BALLTYPE type)
         {
             m_Type = type;
+            Config = CONFIG.GetBallData(m_Type);
 
             this.UpgradeTo(1);
         }
 
-        void Update()
+        public virtual void Update()
         {
             if (this.IsActing)
             {
@@ -124,15 +137,10 @@ namespace CB
             }
         }
 
-        void LateUpdate()
+        public virtual void LateUpdate()
         {
             m_LastPos       = transform.localPosition;
             m_LastVelocity  = c_rigidbody.velocity;
-
-            //保险机制
-            if (m_LastPos.y <= -100) {
-                this.Dead();
-            }
         }
 
         public void SetState(int state)
@@ -162,6 +170,8 @@ namespace CB
         public void Dead()
         {
             m_DeadFlag = true;
+
+            GameFacade.Instance.EventManager.SendEvent(new GameEvent(EVENT.ONBALLDEAD, this));
         }
 
         public virtual void UpgradeTo(int level)

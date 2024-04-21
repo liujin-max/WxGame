@@ -75,6 +75,7 @@
     <Compile Include="Assets\Scripts\Logic\Environment\Scaler.cs" />
     <Compile Include="Assets\Scripts\UI\Item\RelicsSeatItem.cs" />
     <Compile Include="Assets\Scripts\Logic\Ball\BallManLi.cs" />
+    <Compile Include="Assets\Scripts\Logic\Ball\BallCoin.cs" />
     <Compile Include="Assets\Scripts\Effect\Floating.cs" />
     <Compile Include="Assets\Scripts\Logic\Army.cs" />
     <Compile Include="Assets\Scripts\Logic\Ball\BallSpeed.cs" />
@@ -139,6 +140,7 @@
     <Compile Include="Assets\Scripts\Utility\NumberTransition.cs" />
     <Compile Include="Assets\Scripts\UI\GuideWindow.cs" />
     <Compile Include="Assets\Scripts\Effect\RoundText.cs" />
+    <Compile Include="Assets\Scripts\Logic\Ball\BallPower.cs" />
     <Compile Include="Assets\Scripts\Logic\Ball\Ball.cs" />
     <Compile Include="Assets\Scripts\Logic\NavigationController.cs" />
     <Compile Include="Assets\Scripts\Logic\Environment\EnvironmentController.cs" />
@@ -158,12 +160,14 @@
     <Compile Include="Assets\Scripts\Struct\AttributeValue.cs" />
     <Compile Include="Assets\Scripts\GameFacade.cs" />
     <Compile Include="Assets\DOTween\Modules\DOTweenModuleAudio.cs" />
+    <Compile Include="Assets\Scripts\Logic\Ball\BallRandom.cs" />
     <Compile Include="Assets\Scripts\Logic\Ball\BallExpand.cs" />
     <Compile Include="Assets\Scripts\Struct\Pair.cs" />
     <Compile Include="Assets\Scripts\Logic\Environment\Rock.cs" />
     <Compile Include="Assets\Scripts\Utility\ScaleUtility.cs" />
     <Compile Include="Assets\Scripts\Logic\Environment\Dark.cs" />
     <Compile Include="Assets\DOTween\Modules\DOTweenModuleUI.cs" />
+    <Compile Include="Assets\Scripts\Logic\Ball\BallGlass.cs" />
     <Compile Include="Assets\Scripts\UI\JoyStickWindow.cs" />
     <Compile Include="Assets\Scripts\Logic\Ball\BallFocus.cs" />
     <Compile Include="Assets\AllIn1SpriteShader\Scripts\AllIn1ShaderWindow.cs" />

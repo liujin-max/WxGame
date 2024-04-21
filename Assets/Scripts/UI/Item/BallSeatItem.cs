@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using CB;
 using DG.Tweening;
 using UnityEngine;
 using UnityEngine.UI;
@@ -8,17 +9,20 @@ public class BallSeatItem : MonoBehaviour
 {
     [SerializeField] private Image c_Icon;
 
-    public void Init(int type = -1)
+    public Ball Ball;
+
+    public void Init(Ball ball)
     {
-        if (type == -1) {
+        Ball = ball;
+        
+        if (ball == null) {
             c_Icon.gameObject.SetActive(false);
             return;
         } 
 
         c_Icon.gameObject.SetActive(true);
 
-        var config = CONFIG.GetBallData((_C.BALLTYPE)type);
-        c_Icon.sprite = Resources.Load<Sprite>(config.Icon);
+        c_Icon.sprite = Resources.Load<Sprite>(ball.Config.Icon);
         c_Icon.SetNativeSize();
         
     }
@@ -32,7 +36,7 @@ public class BallSeatItem : MonoBehaviour
         Sequence sequence = DOTween.Sequence();
         sequence.AppendInterval(0.35f);
         sequence.AppendCallback(()=>{
-            GameFacade.Instance.EffectManager.Load(EFFECT.COMPLEX, new Vector3(0, 50f, 0), gameObject);
+            GameFacade.Instance.EffectManager.LoadUIEffect(EFFECT.COMPLEX, transform.position + new Vector3(0, 0.5f, 0));
         });
         sequence.Append(c_Icon.transform.DOScale(new Vector3(1.2f, 1.2f, 1.2f), 0.15f));
         sequence.Append(c_Icon.transform.DOScale(new Vector3(0.8f, 0.8f, 0.8f), 0.1f));

@@ -6,8 +6,12 @@ public class FlyCoin : MonoBehaviour
     private CDTimer m_DelayTimer = null;
     private SpriteRenderer m_Coin;
 
-    public void Fly(float delay = 0)
+    private bool m_IsRandomPos;
+
+    public void Fly(float delay = 0, bool is_random_pos = true)
     {
+        m_IsRandomPos = is_random_pos;
+
         m_Coin = transform.Find("coin").GetComponent<SpriteRenderer>();
         m_Coin.gameObject.SetActive(false);
 
@@ -18,7 +22,8 @@ public class FlyCoin : MonoBehaviour
     {
         m_Coin.gameObject.SetActive(true);
 
-        Vector3 startPoint = new Vector3(transform.position.x + RandomUtility.Random(-50, 50) / 100.0f, transform.position.y, 0);
+        Vector3 startPoint = transform.position;
+        if (m_IsRandomPos == true) startPoint = new Vector3(transform.position.x + RandomUtility.Random(-50, 50) / 100.0f, transform.position.y, 0);
 
         transform.position =  startPoint;
 

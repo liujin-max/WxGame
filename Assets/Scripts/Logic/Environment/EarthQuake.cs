@@ -32,11 +32,6 @@ namespace CB
             m_CDTimer.Reset(RandomUtility.Random(100, 500) / 100.0f);
         }
 
-        public override void OnLeave()
-        {
-
-        }
-
         void Update()
         {
             m_CDTimer.Update(Time.deltaTime);

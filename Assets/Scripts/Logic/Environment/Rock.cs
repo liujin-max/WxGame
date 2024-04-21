@@ -31,7 +31,7 @@ namespace CB
 
         public override string GetDescription()
         {
-            return "进入岩石层，场上不再生成<sprite=0>。";
+            return "场上不再生成<sprite=0>。";
         }
 
         void OnReponseAfterDrawObstacles(GameEvent gameEvent)
@@ -40,7 +40,7 @@ namespace CB
 
             for (int i = lists.Count - 1; i >= 0; i--)
             {
-                if (lists[i] == -1)
+                if (lists[i] == (int)_C.BOXTYPE.GHOST)
                 {
                     lists.RemoveAt(i);
                 }

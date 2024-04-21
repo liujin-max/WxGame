@@ -13,16 +13,13 @@ namespace CB
         public AttributeValue Demage;
         public AttributeValue Radius = new AttributeValue(2.5f);
 
-        public Bomb()
+        void Awake()
         {
             m_HP    = 3;
 
             //伤害随层数成长
             Demage  = new AttributeValue((int)(GameFacade.Instance.Game.Stage * 1.5f));
-        }
 
-        void Awake()
-        {
             m_Sprite = transform.Find("Sprite").GetComponent<SpriteRenderer>();
         }
 

@@ -48,6 +48,7 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 4d8dac8147f390a488272b635a9b9b42, type: 3}
   - {fileID: 21300000, guid: 654580d1843e2a04e941d4bce28e5b82, type: 3}
   - {fileID: 21300000, guid: fd9c0702ddd53a742a8095ae246f7d50, type: 3}
+  - {fileID: 21300000, guid: 3ddccb839bb30f541803080ac66bcbcf, type: 3}
   - {fileID: 21300000, guid: 96be59e33c0f03f4c9e214955b83b495, type: 3}
   - {fileID: 21300000, guid: 03aa1bd43977bc948ae866aaba9c9349, type: 3}
   - {fileID: 21300000, guid: 623dcc25e5c330c498426dc405d8aed5, type: 3}
@@ -59,13 +60,15 @@ SpriteAtlas:
   - {fileID: 21300000, guid: dd183d674bed19841816d8aefff0c5bd, type: 3}
   - {fileID: 21300000, guid: 0721e2a7291f49241beaa2e906c217a7, type: 3}
   - {fileID: 21300000, guid: 944f0a28087872341ae1f37c3f65c1d5, type: 3}
+  - {fileID: 21300000, guid: 343c1a3893019154e9a17ea7d5f66d0d, type: 3}
   - {fileID: 21300000, guid: 7267d948b000254468cd883092d29418, type: 3}
   - {fileID: 21300000, guid: c5a02488e997ab94c8ac869bc068e94a, type: 3}
-  - {fileID: 21300000, guid: c0366ea816ec24e46986ddcd130d7202, type: 3}
   - {fileID: 21300000, guid: 6f8debe86c474ea4b915a13da20e6e1b, type: 3}
   - {fileID: 21300000, guid: 3d28a3d93873c17459dd528c4290b8f0, type: 3}
   - {fileID: 21300000, guid: 6a51930a02f077748bc50f53a68112f7, type: 3}
+  - {fileID: 21300000, guid: c135253a7e455bf4ea37b684450aa41b, type: 3}
   - {fileID: 21300000, guid: 8e435f6a5cafc704a97e156405d5f58b, type: 3}
+  - {fileID: 21300000, guid: 8b42123bbd862374fa0c76158847561b, type: 3}
   - {fileID: 21300000, guid: f8567d6b33ff31b4d8a508f53a05c85e, type: 3}
   - {fileID: 21300000, guid: 6c71fb1c4f21e0e46b4f31cd0fc63756, type: 3}
   - {fileID: 21300000, guid: e471494cb92d9ee42baa1c7174492c71, type: 3}
@@ -86,6 +89,7 @@ SpriteAtlas:
   - ball_sanjiao
   - Glass
   - ball_expand
+  - ball_random
   - ball_manli
   - polygon1
   - Hit
@@ -97,18 +101,20 @@ SpriteAtlas:
   - ball_ling
   - ball_regen
   - ball_fantan
+  - ball_glass
   - ball_blackhole
   - ball
-  - Paotai
   - ball_boom
   - polygon4
   - ball_wave
+  - ball_power
   - ball_mass
+  - ball_coin
   - ball_scale
   - Bomb
   - polygon5
   - fx_focus
-  - ball_zhuizong
+  - ball_yinli
   - ball_rise
   - ball_peng
   - ball_reflex

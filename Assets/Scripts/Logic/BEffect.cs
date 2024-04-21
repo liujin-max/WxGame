@@ -480,7 +480,7 @@ namespace CB
 
         public override string GetDescription()
         {
-            return string.Format("拥有的弹珠越少，造成的伤害倍率越高(当前：X{0})", Rate);
+            return string.Format("进入下一层时拥有的弹珠越少，弹珠伤害倍率越高(当前：X{0})", Rate);
         }
 
         public override string ShowString()
@@ -488,34 +488,18 @@ namespace CB
             return string.Format("X{0}", Rate);
         }
 
-        public override void Execute()
+        
+        public override void OnPlayStart()
         {
             GameFacade.Instance.Game.Balls.ForEach(b => {
                 b.Demage.PutAUL(this, Rate - 1);
             });
         }
 
-        public override void Cancel()
+        public override void OnPlayEnd()
         {
             GameFacade.Instance.Game.Balls.ForEach(b => {
                 b.Demage.Pop(this);
-            });
-        }
-
-        public override void OnPushBall(Ball ball)
-        {
-            GameFacade.Instance.Game.Balls.ForEach(b => {
-                b.Demage.PutAUL(this, Rate - 1);
-            });
-        }
-
-        public override void OnBallShoot(Ball ball, bool is_real_shoot)
-        {
-            if (ball.IsSimulate == true) return;
-            if (is_real_shoot == false) return;
-
-            GameFacade.Instance.Game.Balls.ForEach(b => {
-                b.Demage.PutAUL(this, Rate - 1);
             });
         }
 
@@ -899,7 +883,7 @@ namespace CB
     {
         public override string GetDescription()
         {
-            return string.Format(" <sprite={0}>的爆炸范围提高20%。", (int)_C.SPRITEATLAS.BOMB);
+            return string.Format(" <sprite={0}>的爆炸范围扩大20%。", (int)_C.SPRITEATLAS.BOMB);
         }
 
         public override void OnBombBefore(Bomb bomb)
@@ -909,6 +893,52 @@ namespace CB
             GameFacade.Instance.EventManager.SendEvent(new GameEvent(EVENT.UI_TRIGGERRELICS, Belong));
         }
     }
+
+    //击落碎片时在原地留下一颗宝石
+    public class BEffect_PIECEREGEN : BEffect
+    {
+        public override string GetDescription()
+        {
+            return string.Format("击落<sprite={0}>时在原地留下一颗宝石。", (int)_C.SPRITEATLAS.GLASS);
+        }
+
+        public override void OnHitBox(Ball ball, Box g, Collision2D collision)
+        {
+            var ghost = g.GetComponent<Ghost>();
+            if (ghost != null && ghost.IsDead() == true)
+            {
+                var o = GameFacade.Instance.Game.PushObstacle(collision.transform.localPosition, 1);
+                o.DoScale();
+
+                GameFacade.Instance.EventManager.SendEvent(new GameEvent(EVENT.UI_TRIGGERRELICS, Belong));
+            }
+        }
+    }
+
+    //场上必定出现炸弹。
+    public class BEffect_BOMBRATE : BEffect
+    {
+        public override string GetDescription()
+        {
+            return string.Format("场上必定出现<sprite={0}>。", (int)_C.SPRITEATLAS.BOMB);
+        }
+
+        public override void OnDrawingObstacles(List<int> lists)
+        {
+            bool is_exist = false;
+            for (int i = lists.Count - 1; i >= 0; i--) {
+                if (lists[i] == (int)_C.BOXTYPE.BOMB) {
+                    is_exist = true;
+                    break;
+                }
+            }
+
+            if (is_exist == false) {
+                lists.Add((int)_C.BOXTYPE.BOMB);
+            }
+        }
+    }
+
 
 
 
@@ -1001,6 +1031,12 @@ namespace CB
 
                 case 1026:
                     return new BEffect_BOMBRANGE();
+
+                case 1027:
+                    return new BEffect_PIECEREGEN();
+
+                case 1028:
+                    return new BEffect_BOMBRATE();
                 
                 default:
                     return null;
@@ -1025,6 +1061,11 @@ namespace CB
         public virtual string GetDescription()
         {
             return "";
+        }
+
+        public virtual void OnPlayStart()
+        {
+
         }
 
         public virtual void OnPlayEnd()

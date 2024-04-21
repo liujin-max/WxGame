@@ -14,15 +14,12 @@ namespace CB
 
         public void OnInit(int stage_order)
         {
-            if (stage_order % 5 != 0) {
+            //每3关
+            if (stage_order % 3 != 0) {
                 return;
             }
 
-            //
-            Debug.Log("开始：" + stage_order);
-
             int rand = RandomUtility.Random(0, 10);
-
 
             switch (rand)
             {
@@ -107,7 +104,7 @@ namespace CB
 
         public virtual void OnLeave()
         {
-
+            m_IsEnter = false;
         }
 
         public virtual string GetDescription()

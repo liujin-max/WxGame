@@ -25,6 +25,8 @@ namespace CB
 
         public override void OnLeave()
         {
+            base.OnLeave();
+            
             Physics2D.gravity = _C.DEFAULT_GRAVITY;
         }
 

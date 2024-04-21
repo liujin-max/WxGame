@@ -24,6 +24,7 @@ public static class EVENT
     public static string ONBALLRECYCLE      = "ONBALLRECYCLE";
     public static string ONBALLHITBEFORE    = "ONBALLHITBEFORE";    //击中宝石前
     public static string ONBALLHITAFTER     = "ONBALLHITAFTER";     //击中宝石后
+    public static string ONPLAYSTART        = "ONPLAYSTART";
     public static string ONPLAYEND          = "ONPLAYEND";          //结算时   
     public static string ONCOMPLEXINIT      = "ONCOMPLEXINIT";      //生成合成列表时  
     public static string ONDRAWINGOBSTACLE  = "OnDRAWINGOBSTACLE";  //生成宝石时 
@@ -33,5 +34,8 @@ public static class EVENT
     public static string ONBALLHITBOX       = "ONBALLHITBOX";    
     public static string ONENTERCOLLISION   = "ONENTERCOLLISION";   //碰撞物体时
     public static string ONBOMBBEFORE       = "ONBOMBBEFORE";       //炸弹爆炸前
+    public static string ONENTERGROUND      = "ONENTERGROUND";      //撞击底部
+    public static string ONBALLDEAD         = "ONBALLDEAD";         //弹珠死亡时
+    
 
 }

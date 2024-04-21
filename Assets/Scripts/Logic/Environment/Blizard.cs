@@ -49,7 +49,7 @@ namespace CB
 
             for (int i = 0; i < 8; i++)
             {
-                lists.Add(-1);
+                lists.Add((int)_C.BOXTYPE.GHOST);
             }
         }
     }

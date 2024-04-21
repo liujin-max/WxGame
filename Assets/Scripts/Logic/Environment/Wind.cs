@@ -48,9 +48,10 @@ namespace CB
 
         public override void OnLeave()
         {
+            base.OnLeave();
+
             //销毁特效
             Destroy(m_Effect);
-
         }
 
         

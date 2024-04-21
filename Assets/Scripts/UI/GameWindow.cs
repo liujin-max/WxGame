@@ -165,6 +165,17 @@ namespace CB
             return c_SeatPivot;
         }
 
+        public BallSeatItem GetBallSeat(Ball ball)
+        {
+            for (int i = 0; i < m_SeatItems.Count; i++) {
+                var item = m_SeatItems[i];
+                if (item.Ball != null && item.Ball == ball) {
+                    return item;
+                }
+            }
+            return null;
+        }
+
         public void ShowBallList(bool flag, List<Ball> balls, Action<int> callback)
         {
             c_ListPivot.SetActive(flag);
@@ -289,13 +300,13 @@ namespace CB
 
                 if(balls.Count > i) {
                     var ball = balls[i];
-                    item.Init((int)ball.Type);
+                    item.Init(ball);
 
                     if (add_ball != null && (Ball)add_ball == ball) {
                         item.DoScale();
                     }
                 } else {
-                    item.Init(-1);
+                    item.Init(null);
                 }
             }
         }

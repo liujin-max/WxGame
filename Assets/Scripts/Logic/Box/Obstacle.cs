@@ -24,9 +24,14 @@ namespace CB
 
         private float m_HPShow = 0;
 
+        new public float ColliderRadius {
+            get  {
+                return 0.4f;
+            }
+        }
 
         public AttributeValue m_Scale = new AttributeValue(1f, false);
-        private Tweener m_ScaleTweener;
+        private Sequence m_ScaleTweener;
 
         void Awake()
         {
@@ -75,9 +80,16 @@ namespace CB
 
             var origin_sclae = m_Scale.ToNumber();
             transform.localScale = Vector3.zero;
-            m_ScaleTweener = transform.DOScale(origin_sclae * 1.3f , 0.2f).OnComplete(()=> {
-                transform.DOScale(origin_sclae, 0.1f);
+            this.SetValid(false);
+
+            m_ScaleTweener = DOTween.Sequence();
+            m_ScaleTweener.Append(transform.DOScale(origin_sclae * 1.3f , 0.2f));
+            m_ScaleTweener.Append(transform.DOScale(origin_sclae, 0.1f));
+            m_ScaleTweener.AppendCallback(()=>{
+                this.SetValid(true);
             });
+
+            m_ScaleTweener.Play();
         }
 
         public void SetHP(int value)
@@ -162,7 +174,9 @@ namespace CB
                 m_ScaleTweener.Kill();
             }
 
-            m_ScaleTweener = transform.DOScale(m_Scale.ToNumber(), 0.2f);
+            m_ScaleTweener = DOTween.Sequence();
+            m_ScaleTweener.Append(transform.DOScale(m_Scale.ToNumber(), 0.2f));
+            m_ScaleTweener.Play();
         }
 
 

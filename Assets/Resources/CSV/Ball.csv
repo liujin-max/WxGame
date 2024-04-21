@@ -4,7 +4,7 @@ ID,Name,HP,Weight,Icon,Ball,Description
 2,强力弹珠,2,28,UI/Texture/ball_strong,Prefab/Ball/BallStrong,每次撞击可以造成#点伤害
 3,分裂弹珠,3,25,UI/Texture/ball_fenlie,Prefab/Ball/BallSplit,击中宝石时有概率向四周发射#颗分裂小弹珠。
 4,小弹珠,1,0,UI/Texture/ball,Prefab/Ball/BallSmall,
-5,穿透弹珠,2,0,UI/Texture/ball_zhuizong,Prefab/Ball/BallThrough,概率穿透特定宝石
+5,引力弹珠,2,30,UI/Texture/ball_yinli,Prefab/Ball/BallThrough,弹珠飞行途中吸引周围的宝石
 6,奇迹弹珠,2,23,UI/Texture/ball_rise,Prefab/Ball/BallRise,击落宝石有概率在原地留下一枚碎片。
 7,反弹弹珠,2,32,UI/Texture/ball_fantan,Prefab/Ball/BallRebound,"触底后强力反弹,最多#次"
 8,抽风弹珠,2,30,UI/Texture/ball_crazy,Prefab/Ball/BallCrazy,击中宝石后有概率朝随机方向反弹
@@ -20,8 +20,12 @@ ID,Name,HP,Weight,Icon,Ball,Description
 18,膨胀弹珠,2,30,UI/Texture/ball_expand,Prefab/Ball/BallExpand,击中菱形宝石后体积膨胀，最大膨胀到1.5倍
 19,追踪弹珠,2,33,UI/Texture/ball_focus,Prefab/Ball/BallFocus,击中宝石后朝场上的碎片飞去
 20,震荡弹珠,3,22,UI/Texture/ball_wave,Prefab/Ball/BallWave,弹珠没有伤害。击中宝石吸收能量，积攒能量后对全场释放伤害
-21,缩放弹珠,2,32,UI/Texture/ball_scale,Prefab/Ball/BallScale,被击中的宝石会缩小
-22,高速弹珠,3,26,UI/Texture/ball_speed,Prefab/Ball/BallSpeed,发射后，弹珠的速度会随时间推移而增加
-23,反射弹珠,2,0,UI/Texture/ball_reflex,Prefab/Ball/BallReflex,触碰墙壁时弹力加倍
-24,黑洞弹珠,2,27,UI/Texture/ball_blackhole,Prefab/Ball/BallBlackHole,撞击宝石后形成黑洞，吸附并销毁周围的宝石
-25,重力弹珠,1,30,UI/Texture/ball_mass,Prefab/Ball/BallMass,重量比其他弹珠更大，但弹力也更大
+21,缩放弹珠,2,32,UI/Texture/ball_scale,Prefab/Ball/BallScale,被击中的宝石会缩小。
+22,高速弹珠,3,26,UI/Texture/ball_speed,Prefab/Ball/BallSpeed,发射后，弹珠的速度会随时间推移而增加。
+23,反射弹珠,2,0,UI/Texture/ball_reflex,Prefab/Ball/BallReflex,触碰墙壁时弹力加倍。
+24,黑洞弹珠,2,27,UI/Texture/ball_blackhole,Prefab/Ball/BallBlackHole,撞击宝石后形成黑洞，吸附并销毁周围的宝石。
+25,重力弹珠,1,30,UI/Texture/ball_mass,Prefab/Ball/BallMass,重量比其他弹珠更大，但弹力也更大。
+26,黄金弹珠,2,28,UI/Texture/ball_coin,Prefab/Ball/BallCoin,回合结束时若留在发射槽中，则获得2个金币。
+27,水晶弹珠,2,28,UI/Texture/ball_glass,Prefab/Ball/BallGlass,回合结束时若留在发射槽中，则获得1个碎片。
+28,蓄力弹珠,3,25,UI/Texture/ball_power,Prefab/Ball/BallPower,回合结束时若留在弹珠槽中，则伤害+1。
+29,变化弹珠,2,30,UI/Texture/ball_random,Prefab/Ball/BallRandom,发射时，随机变化成本关卡已发射的任意一种弹珠。
