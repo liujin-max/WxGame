@@ -21,6 +21,8 @@ public static class EFFECT
     public const string NOVA        = "Prefab/Effect/fx_wave_nova";
     public const string BLACKHOLEBOOM = "Prefab/Effect/fx_blackhole_boom";
     public const string HEALONCE    = "Prefab/Effect/fx_healOnce";
+    public const string CRIT        = "Prefab/Effect/fx_crit";
+    public const string BALLOON     = "Prefab/Effect/fx_balloon";
 
 
     public const string RATENUMBER  = "Prefab/Effect/fx_flyRate";

@@ -31,10 +31,13 @@ namespace CB
 
         void OnReponsePlayEnd(GameEvent gameEvent)
         {
-            //需要特效
             m_Count++;
-
             Demage.PutADD(this, m_Count);
+
+            var seat_item = GameFacade.Instance.Game.GameUI.GetBallSeat(this);
+            if (seat_item != null) {
+                seat_item.ShowFadeScale();
+            }
         }
     }
 }

@@ -56,7 +56,7 @@ public class RelicsSeatItem : MonoBehaviour
     }
 
 
-    void ShowScale()
+    void ShowFadeScale()
     {
         GameFacade.Instance.SoundManager.Load(SOUND.TRIGGER);
         
@@ -84,6 +84,6 @@ public class RelicsSeatItem : MonoBehaviour
         var relics = (Relics)gameEvent.GetParam(0);
         if (relics != m_Relics) return;
 
-        ShowScale();
+        ShowFadeScale();
     }
 }

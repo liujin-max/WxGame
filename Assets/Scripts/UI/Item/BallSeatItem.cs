@@ -42,4 +42,27 @@ public class BallSeatItem : MonoBehaviour
         sequence.Append(c_Icon.transform.DOScale(new Vector3(0.8f, 0.8f, 0.8f), 0.1f));
         sequence.Play();
     }
+
+    public void ShowFadeScale()
+    {
+        GameFacade.Instance.SoundManager.Load(SOUND.TRIGGER);
+        
+        GameObject obj = new GameObject("Image");
+        obj.transform.SetParent(this.transform);
+        obj.transform.localScale = Vector3.one;
+        obj.transform.localPosition = Vector3.zero;
+
+        Image imageComponent = obj.AddComponent<Image>();
+        imageComponent.sprite = c_Icon.sprite;
+        imageComponent.SetNativeSize();
+        
+        Sequence seq = DOTween.Sequence();
+        seq.Join(imageComponent.transform.DOScale(2f, 0.4f));
+        seq.Join(imageComponent.DOFade(0f, 0.4f).OnComplete(()=>{
+            Destroy(obj);
+        }));
+
+        seq.Play();
+
+    }
 }

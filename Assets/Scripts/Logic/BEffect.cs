@@ -642,8 +642,10 @@ namespace CB
         {
             if (RandomUtility.IsHit(20) == true) {
                 ball.Demage.PutMUL(this, 2);
-                //需要特效
-                GameFacade.Instance.EffectManager.FlyRate(collision.contacts[0].point, 2);
+
+                var pos = collision.contacts[0].point;
+                GameFacade.Instance.EffectManager.Load(EFFECT.CRIT, pos);
+                GameFacade.Instance.EffectManager.FlyRate(pos, 2);
 
                 GameFacade.Instance.EventManager.SendEvent(new GameEvent(EVENT.UI_TRIGGERRELICS, Belong));
             }  
@@ -671,10 +673,9 @@ namespace CB
 
             if (collision.transform.GetComponent<Wall>() != null)
             {
-                //需要特效
-                // ball.Velocity = new Vector2(ball.Velocity.x, Math.Abs(ball.Velocity.y));
                 GameFacade.Instance.Game.UpdateScore(1);
 
+                GameFacade.Instance.EffectManager.Load(EFFECT.BALLOON, collision.contacts[0].point);
                 GameFacade.Instance.EventManager.SendEvent(new GameEvent(EVENT.UI_TRIGGERRELICS, Belong));
             }
         }
@@ -1000,7 +1001,10 @@ namespace CB
             {
                 ball.Demage.PutADD(this, 1);
 
-                //需要特效
+                var seat_item = GameFacade.Instance.Game.GameUI.GetBallSeat(ball);
+                if (seat_item != null) {
+                    seat_item.ShowFadeScale();
+                }
 
                 GameFacade.Instance.EventManager.SendEvent(new GameEvent(EVENT.UI_TRIGGERRELICS, Belong));
             }
@@ -1109,7 +1113,6 @@ namespace CB
             m_Count--;
             GameFacade.Instance.Game.SeatCount.PutADD(this, m_Count);
 
-            //剔除 需要特效吗
             if (GameFacade.Instance.Game.Balls.Count > GameFacade.Instance.Game.SeatCount.ToNumber())
             {
                 var ball = GameFacade.Instance.Game.Balls[GameFacade.Instance.Game.Balls.Count - 1];
