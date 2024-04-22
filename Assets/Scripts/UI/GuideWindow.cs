@@ -52,10 +52,9 @@ public class GuideWindow : MonoBehaviour
 
             //适配遮罩高度
             var seat_pivot = GameFacade.Instance.Game.GameUI.BarPivot;
-            var pos = new Vector3(seat_pivot.transform.position.x * 100, seat_pivot.transform.position.y * 100 + 5, 0);
+            var pos = new Vector3(seat_pivot.transform.position.x * 100, seat_pivot.transform.position.y * 100 + 50, 0);
             c_GuideCoin.transform.GetComponent<UIMaskUtility>().SetCenter(pos);
-
-
+            
             return;
         }
 

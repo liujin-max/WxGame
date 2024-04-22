@@ -153,8 +153,7 @@ public class GhostWindow : MonoBehaviour
             item.transform.localPosition = new Vector3((i - ((events.Count - 1) / 2.0f)) * 300, 0, 0);
             item.Init(evt);
 
-            item.Touch.onClick.RemoveAllListeners();
-            item.Touch.onClick.AddListener(()=>{
+            item.Touch.GetComponent<MouseClickHandler>().Init(()=>{
                 GameFacade.Instance.SoundManager.Load(SOUND.BUBBLE);
                 
                 if (m_SelectGhost != null) {

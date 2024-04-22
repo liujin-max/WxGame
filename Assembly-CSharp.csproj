@@ -111,6 +111,7 @@
     <Compile Include="Assets\Scripts\Utility\UIMaskUtility.cs" />
     <Compile Include="Assets\Scripts\Logic\Environment\Blizard.cs" />
     <Compile Include="Assets\Scripts\Manager\SceneManager.cs" />
+    <Compile Include="Assets\Scripts\Logic\Environment\BanSwitch.cs" />
     <Compile Include="Assets\Scripts\Logic\Ball\BallBoom.cs" />
     <Compile Include="Assets\Scripts\Logic\Ball\BallCrazy.cs" />
     <Compile Include="Assets\DOTween\Modules\DOTweenModuleUtils.cs" />
@@ -179,6 +180,7 @@
     <Compile Include="Assets\Scripts\UI\Item\GhostItem.cs" />
     <Compile Include="Assets\AllIn1SpriteShader\Scripts\RandomSeed.cs" />
     <Compile Include="Assets\Scripts\CONFIG.cs" />
+    <Compile Include="Assets\Scripts\Logic\Environment\NOCoin.cs" />
     <Compile Include="Assets\Scripts\UI\GameSetWindow.cs" />
     <Compile Include="Assets\Scripts\Logic\Ball\BallSmall.cs" />
     <Compile Include="Assets\Scripts\FSM\State.cs" />
@@ -197,8 +199,7 @@
     <Compile Include="Assets\Scripts\UI\GhostWindow.cs" />
     <Compile Include="Assets\DOTween\Modules\DOTweenModuleUnityVersion.cs" />
     <Compile Include="Assets\Scripts\Logic\Relics.cs" />
-    <Compile Include="Assets\Scripts\Logic\Environment\BanSwitch.cs" />
-    <Compile Include="Assets\Scripts\Logic\Environment\NOCoin.cs" />
+    <Compile Include="Assets\Scripts\Utility\MouseClickHandler.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Resources\Shader\SpriteGray.shader" />
