@@ -30,12 +30,14 @@ public static class EVENT
     public static string ONDRAWINGOBSTACLE  = "OnDRAWINGOBSTACLE";  //生成宝石时 
     public static string ONAFTERDRAWOBT     = "ONAFTERDRAWOBT";     //生成宝石后
     public static string ONGLASSUPDATE      = "ONGLASSUPDATE";      //碎片变化时
+    public static string ONWILLRECEIVECOIN  = "ONWILLRECEIVECOIN";  //结算金币前
     public static string ONCOINUPDATE       = "ONCOINUPDATE";       //金币变化时
     public static string ONBALLHITBOX       = "ONBALLHITBOX";    
     public static string ONENTERCOLLISION   = "ONENTERCOLLISION";   //碰撞物体时
     public static string ONBOMBBEFORE       = "ONBOMBBEFORE";       //炸弹爆炸前
     public static string ONENTERGROUND      = "ONENTERGROUND";      //撞击底部
     public static string ONBALLDEAD         = "ONBALLDEAD";         //弹珠死亡时
+    public static string ONREFRESHEVENTS    = "ONREFRESHEVENTS";    //刷新弹珠列表时
     
 
 }

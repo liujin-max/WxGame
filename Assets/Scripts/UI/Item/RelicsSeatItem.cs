@@ -70,7 +70,7 @@ public class RelicsSeatItem : MonoBehaviour
         imageComponent.SetNativeSize();
         
         Sequence seq = DOTween.Sequence();
-        seq.Join(imageComponent.transform.DOScale(1.5f, 0.4f));
+        seq.Join(imageComponent.transform.DOScale(1.8f, 0.4f));
         seq.Join(imageComponent.DOFade(0f, 0.4f).OnComplete(()=>{
             Destroy(obj);
         }));

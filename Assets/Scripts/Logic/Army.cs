@@ -32,6 +32,8 @@ namespace CB
             GameFacade.Instance.EventManager.AddHandler(EVENT.ONBALLHITBOX,     OnReponseHitBox);
             GameFacade.Instance.EventManager.AddHandler(EVENT.ONENTERCOLLISION, OnReponseEnterCollision);
             GameFacade.Instance.EventManager.AddHandler(EVENT.ONBOMBBEFORE,     OnReponseBombBefore);
+            GameFacade.Instance.EventManager.AddHandler(EVENT.ONWILLRECEIVECOIN,OnReponseReceiveCoin);
+            GameFacade.Instance.EventManager.AddHandler(EVENT.ONREFRESHEVENTS,  OnReponseRefreshEvents);
             
             
         }
@@ -59,6 +61,10 @@ namespace CB
             GameFacade.Instance.EventManager.DelHandler(EVENT.ONBALLHITBOX,     OnReponseHitBox);
             GameFacade.Instance.EventManager.DelHandler(EVENT.ONENTERCOLLISION, OnReponseEnterCollision);
             GameFacade.Instance.EventManager.DelHandler(EVENT.ONBOMBBEFORE,     OnReponseBombBefore);
+            GameFacade.Instance.EventManager.DelHandler(EVENT.ONWILLRECEIVECOIN,OnReponseReceiveCoin);
+            GameFacade.Instance.EventManager.DelHandler(EVENT.ONREFRESHEVENTS,  OnReponseRefreshEvents);
+
+
         }
 
         public Relics PushRelics(int id)
@@ -177,7 +183,7 @@ namespace CB
         {
              m_Relicses.ForEach(relics => {
                 relics.GetEffects().ForEach(e => {
-                    e.OnDrawingObstacles((List<int>)gameEvent.GetParam(0));
+                    e.OnDrawingObstacles((List<int>)gameEvent.GetParam(0), (AttributeValue)gameEvent.GetParam(1));
                 });
             });
         }
@@ -226,6 +232,26 @@ namespace CB
             m_Relicses.ForEach(relics => {
                 relics.GetEffects().ForEach(e => {
                     e.OnBombBefore((Bomb)gameEvent.GetParam(0));
+                });
+            });
+        }
+
+        //结算金币前
+        void OnReponseReceiveCoin(GameEvent gameEvent)
+        {
+            m_Relicses.ForEach(relics => {
+                relics.GetEffects().ForEach(e => {
+                    e.OnWillReceiveCoin((AttributeValue)gameEvent.GetParam(0));
+                });
+            });
+        }
+
+        //刷新弹珠列表时
+        void OnReponseRefreshEvents(GameEvent gameEvent)
+        {
+            m_Relicses.ForEach(relics => {
+                relics.GetEffects().ForEach(e => {
+                    e.OnRefreshEvents((List<ComplextEvent>)gameEvent.GetParam(0));
                 });
             });
         }

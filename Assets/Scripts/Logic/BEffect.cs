@@ -923,7 +923,7 @@ namespace CB
             return string.Format("场上必定出现<sprite={0}>。", (int)_C.SPRITEATLAS.BOMB);
         }
 
-        public override void OnDrawingObstacles(List<int> lists)
+        public override void OnDrawingObstacles(List<int> lists, AttributeValue draw_count)
         {
             bool is_exist = false;
             for (int i = lists.Count - 1; i >= 0; i--) {
@@ -935,8 +935,220 @@ namespace CB
 
             if (is_exist == false) {
                 lists.Add((int)_C.BOXTYPE.BOMB);
+
+                GameFacade.Instance.EventManager.SendEvent(new GameEvent(EVENT.UI_TRIGGERRELICS, Belong));
             }
         }
+    }
+
+
+    //场上将出现更多的宝石
+    public class BEffect_GEMMORE : BEffect
+    {
+        public override string GetDescription()
+        {
+            return string.Format("场上将出现更多的宝石。");
+        }
+
+        public override void OnDrawingObstacles(List<int> lists, AttributeValue draw_count)
+        {
+            draw_count.PutADD(this, 3);
+
+            GameFacade.Instance.EventManager.SendEvent(new GameEvent(EVENT.UI_TRIGGERRELICS, Belong));
+        }
+    }
+
+
+    //回合结束时获得1金币
+    public class BEffect_TURNCOIN : BEffect
+    {
+        public override string GetDescription()
+        {
+            return string.Format("回合结束时获得1<sprite={0}>。", (int)_C.SPRITEATLAS.COIN);
+        }
+
+        public override void OnPlayEnd()
+        {
+            GameFacade.Instance.Game.UpdateCoin(1);
+
+            var item = GameFacade.Instance.Game.GameUI.GetRelicsSeat(Belong);
+            if (item != null) {
+                var e = GameFacade.Instance.EffectManager.LoadUIEffect(EFFECT.FLYCOIN, item.transform.position);
+                e.GetComponent<FlyCoin>().Fly(0, false); 
+            }
+
+            GameFacade.Instance.EventManager.SendEvent(new GameEvent(EVENT.UI_TRIGGERRELICS, Belong));
+        }
+
+    }
+
+    //弹珠发射时，有概率临时提高1点伤害
+    public class BEffect_TEMPDEMAGE : BEffect
+    {
+        public override string GetDescription()
+        {
+            return string.Format("弹珠发射时有概率临时提高1点伤害。");
+        }
+
+
+        public override void OnBallShoot(Ball ball, bool is_real_shoot)
+        {
+            if (is_real_shoot != true) return;
+            if (ball.IsSimulate == true) return;
+
+            if (RandomUtility.IsHit(30))
+            {
+                ball.Demage.PutADD(this, 1);
+
+                //需要特效
+
+                GameFacade.Instance.EventManager.SendEvent(new GameEvent(EVENT.UI_TRIGGERRELICS, Belong));
+            }
+        }
+
+        public override void OnPlayEnd()
+        {
+            GameFacade.Instance.Game.Balls.ForEach(b => {
+                b.Demage.Pop(this);
+            });
+        }
+    }
+
+    //结算时获得双倍的金币，但场上不会再出现碎片
+    public class BEffect_DOUBLECOIN : BEffect
+    {
+        public override string GetDescription()
+        {
+            return string.Format("结算时获得双倍<sprite={0}>，但场上不会再出现<sprite={1}>。", (int)_C.SPRITEATLAS.COIN, (int)_C.SPRITEATLAS.GLASS);
+        }
+
+        //将碎片替换成宝石
+        public override void OnDrawingObstacles(List<int> lists, AttributeValue draw_count)
+        {
+            for (int i = lists.Count - 1; i >= 0; i--) {
+                if (lists[i] == (int)_C.BOXTYPE.GHOST) {
+                    lists.RemoveAt(i);
+                }
+            }
+
+            GameFacade.Instance.EventManager.SendEvent(new GameEvent(EVENT.UI_TRIGGERRELICS, Belong));
+        }
+
+        public override void OnWillReceiveCoin(AttributeValue coin_number)
+        {
+            coin_number.PutAUL(this, 1);
+
+            GameFacade.Instance.EventManager.SendEvent(new GameEvent(EVENT.UI_TRIGGERRELICS, Belong));
+        }
+    }
+
+
+    //每刷新一次弹珠列表，使弹珠的伤害倍率提高0.1倍
+    public class BEffect_REFRESHBALL : BEffect
+    {
+        private int m_Count = 0;
+        public override string GetDescription()
+        {
+            return string.Format("每次刷新弹珠列表，弹珠的伤害倍率提高0.1倍。(当前：X{0})", 0.1f * m_Count);
+        }
+
+        public override string ShowString()
+        {
+            return (0.1f * m_Count).ToString();
+        }
+
+        public override void OnRefreshEvents(List<ComplextEvent> events)
+        {
+            m_Count++;
+
+            GameFacade.Instance.Game.Balls.ForEach(b => {
+                b.Demage.PutAUL(this, 0.1f * m_Count);
+            });
+
+            GameFacade.Instance.EventManager.SendEvent(new GameEvent(EVENT.UI_TRIGGERRELICS, Belong));
+        }
+
+        public override void OnPushBall(Ball ball)
+        {
+            ball.Demage.PutAUL(this, 0.1f * m_Count);
+        }
+
+        public override void OnBallShoot(Ball ball, bool is_real_shoot)
+        {
+            ball.Demage.PutAUL(this, 0.1f * m_Count);
+        }
+    }
+
+    //弹珠槽+3，回合结束时-1
+    public class BEffect_TEMPSEAT : BEffect
+    {
+        private int m_Max   = 3;
+        private int m_Count = 3;
+        public override string GetDescription()
+        {
+            return string.Format("可以额外携带{0}颗弹珠，回合结束时减少1颗。(当前：{1})", m_Max, m_Count);
+        }
+
+        public override string ShowString()
+        {
+            return m_Count.ToString();
+        }
+
+        public override void Execute()
+        {
+            GameFacade.Instance.Game.SeatCount.PutADD(this, m_Count);
+
+            GameFacade.Instance.EventManager.SendEvent(new GameEvent(EVENT.UI_FLUSHBALLS));
+            GameFacade.Instance.EventManager.SendEvent(new GameEvent(EVENT.UI_TRIGGERRELICS, Belong));
+        }
+
+        public override void OnPlayEnd()
+        {
+            if (m_Count == 0) return;
+
+            m_Count--;
+            GameFacade.Instance.Game.SeatCount.PutADD(this, m_Count);
+
+            //剔除 需要特效吗
+            if (GameFacade.Instance.Game.Balls.Count > GameFacade.Instance.Game.SeatCount.ToNumber())
+            {
+                var ball = GameFacade.Instance.Game.Balls[GameFacade.Instance.Game.Balls.Count - 1];
+
+                ball.Dispose();
+                GameFacade.Instance.Game.Balls.Remove(ball);
+            }
+
+            GameFacade.Instance.EventManager.SendEvent(new GameEvent(EVENT.UI_FLUSHBALLS));
+            GameFacade.Instance.EventManager.SendEvent(new GameEvent(EVENT.UI_TRIGGERRELICS, Belong));
+        }
+    }
+
+    //回合结束时留在弹珠槽里的每颗弹珠有概率给予1金币
+    public class BEffect_CHECKBALLCOIN : BEffect
+    {
+        public override string GetDescription()
+        {
+            return string.Format("回合结束时留在弹珠槽里的每颗弹珠有概率给予1<sprite={0}>", (int)_C.SPRITEATLAS.COIN);
+        }
+
+        public override void OnPlayEnd()
+        {
+            GameFacade.Instance.Game.Balls.ForEach(ball => {
+                if (RandomUtility.IsHit(50)) 
+                {
+                    GameFacade.Instance.Game.UpdateCoin(1);
+
+                    var item = GameFacade.Instance.Game.GameUI.GetBallSeat(ball);
+                    if (item != null) {
+                        var e = GameFacade.Instance.EffectManager.LoadUIEffect(EFFECT.FLYCOIN, item.transform.position);
+                        e.GetComponent<FlyCoin>().Fly(0, false); 
+                    }
+                }
+            });
+
+            GameFacade.Instance.EventManager.SendEvent(new GameEvent(EVENT.UI_TRIGGERRELICS, Belong));
+        }
+
     }
 
 
@@ -1037,6 +1249,28 @@ namespace CB
 
                 case 1028:
                     return new BEffect_BOMBRATE();
+
+                case 1029:
+                    return new BEffect_GEMMORE();
+
+                case 1031:
+                    return new BEffect_TURNCOIN();
+
+                case 1032:
+                    return new BEffect_TEMPDEMAGE();
+
+                case 1033:
+                    return new BEffect_DOUBLECOIN();
+
+                case 1034:
+                    return new BEffect_REFRESHBALL();
+
+                case 1035:
+                    return new BEffect_TEMPSEAT();
+
+                case 1036:
+                    return new BEffect_CHECKBALLCOIN();
+                    
                 
                 default:
                     return null;
@@ -1098,7 +1332,7 @@ namespace CB
 
         }
 
-        public virtual void OnDrawingObstacles(List<int> lists)
+        public virtual void OnDrawingObstacles(List<int> lists, AttributeValue draw_count)
         {
 
         }
@@ -1124,6 +1358,16 @@ namespace CB
         }
 
         public virtual void OnBombBefore(Bomb bomb)
+        {
+
+        }
+
+        public virtual void OnWillReceiveCoin(AttributeValue coin_number)
+        {
+
+        }
+
+        public virtual void OnRefreshEvents(List<ComplextEvent> events)
         {
 
         }

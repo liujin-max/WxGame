@@ -15,11 +15,11 @@ namespace CB
         public void OnInit(int stage_order)
         {
             //每3关
-            if (stage_order % 3 != 0) {
-                return;
-            }
+            // if (stage_order % 3 != 0) {
+            //     return;
+            // }
 
-            int rand = RandomUtility.Random(0, 10);
+            int rand = 11; //RandomUtility.Random(0, 10);
 
             switch (rand)
             {
@@ -61,6 +61,14 @@ namespace CB
 
                 case 9:
                     m_Env = transform.AddComponent<FadeShine>();
+                    break;
+
+                case 10:
+                    m_Env = transform.AddComponent<BanSwitch>();
+                    break;
+
+                case 11:
+                    m_Env = transform.AddComponent<NOCoin>();
                     break;
                 
                 default:

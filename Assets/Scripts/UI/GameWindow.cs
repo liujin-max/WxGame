@@ -176,6 +176,17 @@ namespace CB
             return null;
         }
 
+        public RelicsSeatItem GetRelicsSeat(Relics relics)
+        {
+            for (int i = 0; i < m_RelicsItems.Count; i++) {
+                var item = m_RelicsItems[i];
+                if (item.m_Relics == relics) {
+                    return item;
+                }
+            }
+            return null;
+        }
+
         public void ShowBallList(bool flag, List<Ball> balls, Action<int> callback)
         {
             c_ListPivot.SetActive(flag);

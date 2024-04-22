@@ -197,6 +197,8 @@
     <Compile Include="Assets\Scripts\UI\GhostWindow.cs" />
     <Compile Include="Assets\DOTween\Modules\DOTweenModuleUnityVersion.cs" />
     <Compile Include="Assets\Scripts\Logic\Relics.cs" />
+    <Compile Include="Assets\Scripts\Logic\Environment\BanSwitch.cs" />
+    <Compile Include="Assets\Scripts\Logic\Environment\NOCoin.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Resources\Shader\SpriteGray.shader" />

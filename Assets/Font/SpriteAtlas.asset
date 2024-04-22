@@ -84,22 +84,22 @@ MonoBehaviour:
   - m_ElementType: 2
     m_Unicode: 65534
     m_GlyphIndex: 0
-    m_Scale: 1.6
+    m_Scale: 1.5
     m_Name: Bomb
     m_HashCode: 2491010
   m_SpriteGlyphTable:
   - m_Index: 0
     m_Metrics:
-      m_Width: 58
-      m_Height: 62
-      m_HorizontalBearingX: 10
-      m_HorizontalBearingY: 48
+      m_Width: 63
+      m_Height: 66
+      m_HorizontalBearingX: 7
+      m_HorizontalBearingY: 55
       m_HorizontalAdvance: 85
     m_GlyphRect:
       m_X: 136
-      m_Y: 78
-      m_Width: 58
-      m_Height: 62
+      m_Y: 74
+      m_Width: 63
+      m_Height: 66
     m_Scale: 1
     m_AtlasIndex: 0
     sprite: {fileID: 978616505, guid: 0cf97b78573111d4fa737d9fdc6deb65, type: 3}

@@ -31,20 +31,20 @@ namespace CB
         public GameObject c_takeAim;
         public Collider2D c_borad;
         private GameWindow _GameUI;
-        public GameWindow GameUI
+        [HideInInspector] public GameWindow GameUI
         {
             get { return _GameUI; }
             set { _GameUI = value; }
         }
 
         private Simulator m_Simulator;
-        public Simulator Simulator {get { return m_Simulator;}}
+        [HideInInspector] public Simulator Simulator {get { return m_Simulator;}}
 
         private EnvironmentController m_Environment;
-        public EnvironmentController Environment {get { return m_Environment;}}
+        [HideInInspector] public EnvironmentController Environment {get { return m_Environment;}}
 
         private Army m_Army = new Army();
-        public Army Army {get { return m_Army;}}
+        [HideInInspector] public Army Army {get { return m_Army;}}
 
  
         private Tweener t_Aim_Tweener;
@@ -72,10 +72,10 @@ namespace CB
 
         internal int m_RefreshTimes;
 
-        public int RefreshCoin { get {return 2 + m_RefreshTimes;} }
+        [HideInInspector] public int RefreshCoin { get {return 2 + m_RefreshTimes;} }
 
         private Vector3 m_FingerPos;
-        public Vector3 FingerPos 
+        [HideInInspector] public Vector3 FingerPos 
         { 
             get { return m_FingerPos;}
             set { m_FingerPos = value;}
@@ -83,27 +83,27 @@ namespace CB
 
         
         private List<Ball> m_Balls = new List<Ball>();   //球
-        public List<Ball> Balls { get { return m_Balls;}}
+        [HideInInspector] public List<Ball> Balls { get { return m_Balls;}}
 
-        public List<Ball> ShootQueue = new List<Ball>();
-        public List<Ball> ShootCache = new List<Ball>();    //每回合发射的弹珠记录
-        public Ball CurrentBall = null;
+        [HideInInspector] public List<Ball> ShootQueue = new List<Ball>();
+        [HideInInspector] public List<Ball> ShootCache = new List<Ball>();    //每回合发射的弹珠记录
+        [HideInInspector] public Ball CurrentBall = null;
 
         private List<Ball> m_BallSmalls = new List<Ball>();
-        public List<Ball> SmallBalls { get { return m_BallSmalls;}}
+        [HideInInspector] public List<Ball> SmallBalls { get { return m_BallSmalls;}}
 
         private List<Obstacle> m_Obstacles = new List<Obstacle>();
-        public List<Obstacle> Obstacles{ get { return m_Obstacles;}}
+        [HideInInspector] public List<Obstacle> Obstacles{ get { return m_Obstacles;}}
 
         private List<Box> m_Boxs = new List<Box>();
-        public List<Box> Boxs { get {return m_Boxs;}}
+        [HideInInspector] public List<Box> Boxs { get {return m_Boxs;}}
 
         private List<Box> m_Elements = new List<Box>();
-        public List<Box> Elements { get {return m_Elements;}}
+        [HideInInspector] public List<Box> Elements { get {return m_Elements;}}
 
-        public AttributeValue SeatCount = new AttributeValue(5);     //可携带的弹珠数量上限
+        [HideInInspector] public AttributeValue SeatCount = new AttributeValue(5);     //可携带的弹珠数量上限
 
-        
+        public bool SwitchBanFlag = false;  //禁止切换弹珠
 
 
 
@@ -644,6 +644,8 @@ namespace CB
 
             List<ComplextEvent> events = GameFacade.Instance.Game.GenerateEvents();
 
+            GameFacade.Instance.EventManager.SendEvent(new GameEvent(EVENT.ONREFRESHEVENTS, events));
+
             return events;
         }
 
@@ -782,7 +784,7 @@ namespace CB
             // m_FSM.Owner.BreechBall(m_FSM.Owner.PushBall(_C.BALL_ORIGIN_POS, _C.BALLTYPE.BOOM));
             // m_FSM.Owner.BreechBall(m_FSM.Owner.PushBall(_C.BALL_ORIGIN_POS, _C.BALLTYPE.SPLIT));
 
-            // m_FSM.Owner.Army.PushRelics(116);
+            // m_FSM.Owner.Army.PushRelics(136);
 
             m_FSM.Transist(_C.FSMSTATE.GAME_IDLE);
         }
@@ -804,20 +806,25 @@ namespace CB
 
 
             //生成的宝石血量总和 至少要大于目标分数的1.3倍
-            int hp_need = (int)Math.Floor(m_FSM.Owner.GetTargetScore() * 1.0f);      //目标分数
+            int hp_need = m_FSM.Owner.GetTargetScore();      //目标分数
 
             List<int> temp_list = new List<int>();
 
-
-            int random_count = RandomUtility.Random(23, 27);
+            AttributeValue random_count = new AttributeValue(RandomUtility.Random(23, 28));
             int hp_now  = 0;
-            int hp_avg  = (int)Mathf.Ceil(hp_need / (random_count * 1.0f));  //平均一颗宝石的血量
-            int count   = 0;
+            int hp_avg  = (int)Mathf.Ceil(hp_need / random_count.ToNumber());  //平均一颗宝石的血量
+
 
             //至少有3个碎片
             temp_list.Add((int)_C.BOXTYPE.GHOST);
             temp_list.Add((int)_C.BOXTYPE.GHOST);
             temp_list.Add((int)_C.BOXTYPE.GHOST);
+
+            for (int i = 0; i < 3; i++) {
+                if (RandomUtility.IsHit(60))  {
+                    temp_list.Add((int)_C.BOXTYPE.GHOST);
+                }
+            }
             
             //概率有炸弹
             if (RandomUtility.IsHit(33))
@@ -825,15 +832,11 @@ namespace CB
                 temp_list.Add((int)_C.BOXTYPE.BOMB);
             }
 
-            GameFacade.Instance.EventManager.SendEvent(new GameEvent(EVENT.ONDRAWINGOBSTACLE, temp_list));
+            GameFacade.Instance.EventManager.SendEvent(new GameEvent(EVENT.ONDRAWINGOBSTACLE, temp_list, random_count));
 
-            for (int i = 0; i < random_count; i++)
+            //生成宝石
+            for (int i = 0; i < random_count.ToNumber(); i++)
             {
-                if (RandomUtility.IsHit(15) && count < 3) { //7% 最多3个
-                    count++;
-                    temp_list.Add((int)_C.BOXTYPE.GHOST);
-                }
-
                 int hp = (int)Mathf.Ceil(RandomUtility.Random(hp_avg * 250, hp_avg * 450) / 100.0f);
                 temp_list.Add(hp);
                 hp_now += hp;
@@ -1010,12 +1013,17 @@ namespace CB
             int min = RandomUtility.Random(1, 4);
             int max = RandomUtility.Random(17, 24);
             int coin = Mathf.Clamp((int)Mathf.Floor(m_FSM.Owner.GetTargetScore() / 20.0f), min, max);
-            GameFacade.Instance.Game.UpdateCoin(coin);
 
+            AttributeValue coin_number = new AttributeValue(coin);
+
+            GameFacade.Instance.EventManager.SendEvent(new GameEvent(EVENT.ONWILLRECEIVECOIN, coin_number));
+
+            var real_number = (int)coin_number.ToNumber();
+            GameFacade.Instance.Game.UpdateCoin(real_number);
   
 
             GameFacade.Instance.EventManager.SendEvent(new GameEvent(EVENT.UI_FLUSHSCORE, 0, m_FSM.Owner.GetTargetScore(m_FSM.Owner.m_Stage + 1),false));
-            GameFacade.Instance.EventManager.SendEvent(new GameEvent(EVENT.UI_FLYCOIN, coin));
+            GameFacade.Instance.EventManager.SendEvent(new GameEvent(EVENT.UI_FLYCOIN, real_number));
         }
 
         public State_PLAY(_C.FSMSTATE id) : base(id)
@@ -1152,6 +1160,12 @@ namespace CB
         void OnReponseBallList(GameEvent gameEvent)
         {
             if (m_FSM.Owner.ShootQueue.Count == 0) return;
+
+            if (m_FSM.Owner.SwitchBanFlag == true) 
+            {
+                GameFacade.Instance.FlyTip("禁止使用");
+                return;
+            }
 
 
             bool flag = (bool)gameEvent.GetParam(0);
