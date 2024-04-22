@@ -46,23 +46,23 @@ public class GhostItem : MonoBehaviour
             c_Icon.texture = Resources.Load<Texture2D>("UI/Texture/Glass");
 
             StringBuilder sb = new StringBuilder();
-            
-            if (GameFacade.Instance.Game.m_Coin < _C.GLASSPRICE) {
-                sb.Append(_C.REDCOLOR);
-            } 
-            sb.Append(_C.GLASSPRICE.ToString() + " <sprite=1>");
 
+            if (GameFacade.Instance.Game.m_Coin < evt.Cost.ToNumber()) {
+                sb.Append(_C.REDCOLOR);
+            } else if (evt.Cost.ToNumber() < evt.Cost.GetBase()) {
+                sb.Append(_C.GREENCOLOR);
+            }
+
+            sb.Append(evt.Cost.ToNumber().ToString() + " <sprite=1>");
+            
             c_Cost.text = sb.ToString();
 
         }
         else
         {
-            m_Event.BallConfig  = CONFIG.CreateBallData(GameFacade.Instance.CsvManager.GetStringArray(CsvManager.TableKey_Ball, (int)evt.Type));
-            var config      = m_Event.BallConfig;
+            var config  = CONFIG.CreateBallData(GameFacade.Instance.CsvManager.GetStringArray(CsvManager.TableKey_Ball, (int)evt.Type));
+
             c_Icon.texture  = Resources.Load<Texture2D>(config.Icon);
-
-
-            GameFacade.Instance.EventManager.SendEvent(new GameEvent(EVENT.ONCOMPLEXINIT, m_Event, config));
 
 
             GameObject prefab = Resources.Load<GameObject>(config.Ball);
@@ -82,13 +82,13 @@ public class GhostItem : MonoBehaviour
 
             StringBuilder sb = new StringBuilder();
 
-            if (GameFacade.Instance.Game.Glass < config.Cost.ToNumber()) {
+            if (GameFacade.Instance.Game.Glass < evt.Cost.ToNumber()) {
                 sb.Append(_C.REDCOLOR);
-            } else if (config.Cost.ToNumber() < config.Cost.GetBase()) {
+            } else if (evt.Cost.ToNumber() < evt.Cost.GetBase()) {
                 sb.Append(_C.GREENCOLOR);
             }
 
-            sb.Append(config.Cost.ToNumber().ToString() + " <sprite=0>");
+            sb.Append(evt.Cost.ToNumber().ToString() + " <sprite=0>");
             
             c_Cost.text = sb.ToString();
         }

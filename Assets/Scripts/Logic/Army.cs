@@ -165,7 +165,7 @@ namespace CB
         {
             m_Relicses.ForEach(relics => {
                 relics.GetEffects().ForEach(e => {
-                    e.OnComplextInit((ComplextEvent)gameEvent.GetParam(0), (BallData)gameEvent.GetParam(1));
+                    e.OnComplextInit((ComplextEvent)gameEvent.GetParam(0));
                 });
             });
         }

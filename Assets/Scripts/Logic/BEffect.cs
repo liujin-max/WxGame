@@ -262,12 +262,12 @@ namespace CB
             return "合成弹珠花费的<sprite=0>数量有概率-1。";
         }
 
-        public override void OnComplextInit(ComplextEvent evt, BallData config)
+        public override void OnComplextInit(ComplextEvent evt)
         {
-            if (evt.EventType == _C.COMPLEXTEVEMT.UPGRADE) {
+            if (evt.EventType == _C.COMPLEXTEVEMT.NEW) {
                 if (RandomUtility.IsHit(50) == true) {
-                    if (config.Cost.ToNumber() > 1) {
-                        config.Cost.PutADD(this, -1);
+                    if (evt.Cost.ToNumber() > 1) {
+                        evt.Cost.PutADD(this, -1);
 
                         GameFacade.Instance.EventManager.SendEvent(new GameEvent(EVENT.UI_TRIGGERRELICS, Belong));
                     }
@@ -1148,10 +1148,55 @@ namespace CB
 
             GameFacade.Instance.EventManager.SendEvent(new GameEvent(EVENT.UI_TRIGGERRELICS, Belong));
         }
-
     }
 
+    //碎片的售价有概率-1
+    public class BEffect_GLASSCOST : BEffect
+    {
+        public override string GetDescription()
+        {
+            return string.Format("购买<sprite={0}>花费的<sprite={1}>有概率-1。", (int)_C.SPRITEATLAS.GLASS, (int)_C.SPRITEATLAS.COIN);
+        }
 
+        public override void OnComplextInit(ComplextEvent evt)
+        {
+            if (evt.EventType == _C.COMPLEXTEVEMT.GLASS) {
+                if (RandomUtility.IsHit(50) == true) {
+                    if (evt.Cost.ToNumber() > 1) {
+                        evt.Cost.PutADD(this, -1);
+
+                        GameFacade.Instance.EventManager.SendEvent(new GameEvent(EVENT.UI_TRIGGERRELICS, Belong));
+                    }
+                }
+            }
+        }
+    }
+
+    //刷新的价格-1
+    public class BEffect_REFRESHCOST : BEffect
+    {
+        public override string GetDescription()
+        {
+            return string.Format("刷新弹珠花费的<sprite={0}>-1。",  (int)_C.SPRITEATLAS.COIN);
+        }
+
+        public override void Execute()
+        {
+            GameFacade.Instance.Game.RefreshCoin.PutADD(this, -1);
+
+            GameFacade.Instance.EventManager.SendEvent(new GameEvent(EVENT.UI_TRIGGERRELICS, Belong));
+        }
+
+        public override void Cancel()
+        {
+            GameFacade.Instance.Game.RefreshCoin.Pop(this);
+        }
+
+        public override void OnRefreshEvents(List<ComplextEvent> events)
+        {
+            GameFacade.Instance.EventManager.SendEvent(new GameEvent(EVENT.UI_TRIGGERRELICS, Belong));
+        }
+    }
 
 
 
@@ -1270,6 +1315,12 @@ namespace CB
 
                 case 1036:
                     return new BEffect_CHECKBALLCOIN();
+
+                case 1037:
+                    return new BEffect_GLASSCOST();
+
+                case 1038:
+                    return new BEffect_REFRESHCOST();
                     
                 
                 default:
@@ -1322,7 +1373,7 @@ namespace CB
 
         }
 
-        public virtual void OnComplextInit(ComplextEvent evt, BallData config)
+        public virtual void OnComplextInit(ComplextEvent evt)
         {
 
         }

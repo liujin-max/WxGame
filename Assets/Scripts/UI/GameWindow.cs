@@ -18,6 +18,8 @@ namespace CB
     {
         
         [SerializeField] private Button c_BtnSet;
+        [SerializeField] private GameObject c_BarPivot;
+        [HideInInspector] public GameObject BarPivot {get {return c_BarPivot;}}
 
         [SerializeField] private GameObject c_EffectPivot;
         [SerializeField] private TextMeshProUGUI c_scoreText;
@@ -44,6 +46,7 @@ namespace CB
         [SerializeField] private GameObject c_BallContent;
         private List<BallItem> m_BallItems = new List<BallItem>();
         [SerializeField] private GameObject c_SeatPivot;
+        [HideInInspector] public GameObject SeatPivot{ get {return c_SeatPivot;}}
         private List<BallSeatItem> m_SeatItems = new List<BallSeatItem>();
         [SerializeField] private GameObject c_RelicsPivot;
         private List<RelicsSeatItem> m_RelicsItems = new List<RelicsSeatItem>();
@@ -158,11 +161,6 @@ namespace CB
                 
                 c_scoreBar.fillAmount   = m_Cscore / m_Mscore;
             }
-        }
-
-        public GameObject GetSeatPivot()
-        {
-            return c_SeatPivot;
         }
 
         public BallSeatItem GetBallSeat(Ball ball)

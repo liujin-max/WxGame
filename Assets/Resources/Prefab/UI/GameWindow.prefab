@@ -1132,6 +1132,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   c_BtnSet: {fileID: 537944895917857485}
+  c_BarPivot: {fileID: 7777103664859840838}
   c_EffectPivot: {fileID: 2673947160736512121}
   c_scoreText: {fileID: 6236110679872502567}
   c_scoreTarget: {fileID: 3984686713469210597}

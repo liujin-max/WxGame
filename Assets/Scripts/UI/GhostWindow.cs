@@ -94,7 +94,7 @@ public class GhostWindow : MonoBehaviour
 
 
         //适配遮罩高度
-        var seat_pivot = GameFacade.Instance.Game.GameUI.GetSeatPivot();
+        var seat_pivot = GameFacade.Instance.Game.GameUI.SeatPivot;
         var pos = new Vector3(seat_pivot.transform.position.x * 100, seat_pivot.transform.position.y * 100 + 5, 0);
         c_Mask.GetComponent<UIMaskUtility>().SetCenter(pos);
     }
@@ -109,10 +109,11 @@ public class GhostWindow : MonoBehaviour
     {
         c_Tip.text = string.Format("消耗 <sprite=0>（拥有{0}个）合成弹珠", GameFacade.Instance.Game.Glass);
 
-        if (GameFacade.Instance.Game.m_Coin >= GameFacade.Instance.Game.RefreshCoin) {
-            c_BtnRefresh.transform.Find("Text").GetComponent<TextMeshProUGUI>().text = GameFacade.Instance.Game.RefreshCoin + " <sprite=1>";
+        int cost = (int)GameFacade.Instance.Game.RefreshCoin.ToNumber();
+        if (GameFacade.Instance.Game.m_Coin >= cost) {
+            c_BtnRefresh.transform.Find("Text").GetComponent<TextMeshProUGUI>().text = cost + " <sprite=1>";
         } else {
-            c_BtnRefresh.transform.Find("Text").GetComponent<TextMeshProUGUI>().text = _C.REDCOLOR + GameFacade.Instance.Game.RefreshCoin + " <sprite=1>";
+            c_BtnRefresh.transform.Find("Text").GetComponent<TextMeshProUGUI>().text = _C.REDCOLOR + cost + " <sprite=1>";
         }
         
     }

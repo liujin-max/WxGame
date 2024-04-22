@@ -49,7 +49,7 @@ namespace CB
 
                 
 
-                if (m_Count >= 10)
+                if (m_Count >= 8)
                 {
                     m_Count = 0;
 

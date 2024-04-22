@@ -29,7 +29,7 @@ namespace CB
 
             GameFacade.Instance.Game.SwitchBanFlag = true;
 
-            var seat_pivot = GameFacade.Instance.Game.GameUI.GetSeatPivot();
+            var seat_pivot = GameFacade.Instance.Game.GameUI.SeatPivot;
 
             ImageGray imageGray = seat_pivot.GetComponent<ImageGray>();
             if (imageGray == null) {
@@ -46,7 +46,7 @@ namespace CB
 
             GameFacade.Instance.Game.SwitchBanFlag = false;
 
-            var seat_pivot = GameFacade.Instance.Game.GameUI.GetSeatPivot();
+            var seat_pivot = GameFacade.Instance.Game.GameUI.SeatPivot;
             ImageGray imageGray = seat_pivot.GetComponent<ImageGray>();
             if (imageGray == null) {
                 imageGray = seat_pivot.AddComponent<ImageGray>();

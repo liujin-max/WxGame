@@ -6,6 +6,8 @@ using UnityEngine;
 
 public class GameFacade : MonoBehaviour
 {
+    public bool Reboot = false;
+
     private TipWindow m_TipWindow;
 
     #region =====  Manager =====

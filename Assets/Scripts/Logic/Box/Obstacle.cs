@@ -174,6 +174,8 @@ namespace CB
                 m_ScaleTweener.Kill();
             }
 
+            this.SetValid(true);
+
             m_ScaleTweener = DOTween.Sequence();
             m_ScaleTweener.Append(transform.DOScale(m_Scale.ToNumber(), 0.2f));
             m_ScaleTweener.Play();

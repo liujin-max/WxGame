@@ -6,6 +6,7 @@ using UnityEngine.UI;
 
 public class GuideWindow : MonoBehaviour
 {
+    [SerializeField] Button c_GuideCoin;
     [SerializeField] Button c_GuideScore;
     [SerializeField] Button c_GuideBall;
     [SerializeField] Button c_GuideSwitch;
@@ -15,11 +16,15 @@ public class GuideWindow : MonoBehaviour
 
     void Awake()
     {
+        c_GuideCoin.gameObject.SetActive(false);
         c_GuideScore.gameObject.SetActive(false);
         c_GuideBall.gameObject.SetActive(false);
         c_GuideSwitch.gameObject.SetActive(false);
 
-
+        c_GuideCoin.onClick.AddListener(()=>{
+            c_GuideCoin.gameObject.SetActive(false);
+            m_Guides.Add(c_GuideCoin);
+        });
 
         c_GuideScore.onClick.AddListener(()=>{
             c_GuideScore.gameObject.SetActive(false);
@@ -41,6 +46,20 @@ public class GuideWindow : MonoBehaviour
 
     void Update()
     {
+        if (m_Guides.Contains(c_GuideCoin) == false)
+        {
+            c_GuideCoin.gameObject.SetActive(true);
+
+            //适配遮罩高度
+            var seat_pivot = GameFacade.Instance.Game.GameUI.BarPivot;
+            var pos = new Vector3(seat_pivot.transform.position.x * 100, seat_pivot.transform.position.y * 100 + 5, 0);
+            c_GuideCoin.transform.GetComponent<UIMaskUtility>().SetCenter(pos);
+
+
+            return;
+        }
+
+
         if (m_Guides.Contains(c_GuideScore) == false)
         {
             c_GuideScore.gameObject.SetActive(true);
@@ -51,8 +70,8 @@ public class GuideWindow : MonoBehaviour
         {
             c_GuideBall.gameObject.SetActive(true);
 
-                    //适配遮罩高度
-            var seat_pivot = GameFacade.Instance.Game.GameUI.GetSeatPivot();
+            //适配遮罩高度
+            var seat_pivot = GameFacade.Instance.Game.GameUI.SeatPivot;
             var pos = new Vector3(seat_pivot.transform.position.x * 100, seat_pivot.transform.position.y * 100 + 5, 0);
             c_GuideBall.transform.GetComponent<UIMaskUtility>().SetCenter(pos);
 
@@ -63,7 +82,7 @@ public class GuideWindow : MonoBehaviour
         {
             c_GuideSwitch.gameObject.SetActive(true);
             
-            var seat_pivot = GameFacade.Instance.Game.GameUI.GetSeatPivot();
+            var seat_pivot = GameFacade.Instance.Game.GameUI.SeatPivot;
             var pos = new Vector3(seat_pivot.transform.position.x * 100, seat_pivot.transform.position.y * 100 + 5, 0);
             c_GuideSwitch.transform.GetComponent<UIMaskUtility>().SetCenter(pos);
 

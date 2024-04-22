@@ -115,8 +115,11 @@ public class ShakeText : MonoBehaviour
                     vertexCount = 4;
                 } 
 
+                vertexCount = Math.Abs(vertexCount);
+
                 // Debug.Log("长度:" + vertices.Length + ", " + m_rawVertex.Length);
                 // Debug.Log("序列：" + vertexIndex + ", " + (vertexIndex + vertexCount));
+                // Debug.Log("vertexCount ：" + vertexCount);
                 
                 for (int j = vertexIndex; j < vertexIndex + vertexCount; j++)
                 {

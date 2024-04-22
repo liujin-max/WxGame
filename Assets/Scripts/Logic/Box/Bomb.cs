@@ -11,7 +11,7 @@ namespace CB
     {
         private SpriteRenderer m_Sprite;
         public AttributeValue Demage;
-        public AttributeValue Radius = new AttributeValue(2.5f);
+        public AttributeValue Radius = new AttributeValue(3f);
 
         void Awake()
         {

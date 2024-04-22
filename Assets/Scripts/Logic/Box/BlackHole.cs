@@ -22,6 +22,7 @@ public class BlackHole : Box
                 // 将对象移向黑洞
                 obstacle.transform.DOLocalMove(o_pos, 1f).SetEase(Ease.InOutQuad);
                 obstacle.transform.DOScale(Vector3.zero, 1f).OnComplete(()=>{
+                    obstacle.RemoveShield();
                     obstacle.OnHit(null, obstacle.HP);
                     obstacle.ForceDead();
                 });

@@ -5,7 +5,7 @@ namespace CB
     //全局数据类
     public class DataManager : MonoBehaviour
     {
-        public  const string KEY_STAGE = "KEY_STAGE1";
+        public  const string KEY_SCORE = "KEY_SCORE";
 
 
         public const string KEY_GUIDE  = "KEY_GUIDE";
@@ -38,8 +38,15 @@ namespace CB
 
         void Awake()
         {
-            m_Score = PlayerPrefs.GetInt(KEY_STAGE, 0);
+            //清空记录
+            if (GameFacade.Instance.Reboot == true)
+            {
+                PlayerPrefs.SetInt(KEY_SCORE, 0);
+                PlayerPrefs.SetInt(KEY_GUIDE, 0);
+            }
 
+
+            m_Score = PlayerPrefs.GetInt(KEY_SCORE, 0);
 
             m_MusicVolume   = PlayerPrefs.GetFloat(KEY_MUSIC, 1);
             m_SoundVolume   = PlayerPrefs.GetFloat(KEY_SOUND, 1);
@@ -52,9 +59,8 @@ namespace CB
 
             m_Score = value;
 
-            PlayerPrefs.SetInt(KEY_STAGE, value);
+            PlayerPrefs.SetInt(KEY_SCORE, value);
         }
-
 
         public int GetIntByKey(string key)
         {

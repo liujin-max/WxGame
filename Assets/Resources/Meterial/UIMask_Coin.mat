@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: UIMask_Shop
+  m_Name: UIMask_Coin
   m_Shader: {fileID: 4800000, guid: 69b4077b1b7f8d44bad4316fa520d736, type: 3}
   m_ShaderKeywords: _ROUNDMODE_ELLIPSE
   m_LightmapFlags: 4
@@ -62,17 +62,17 @@ Material:
     - _Cutoff: 0.5
     - _DetailNormalMapScale: 1
     - _DstBlend: 0
-    - _Ellipse: 4
+    - _Ellipse: 15
     - _GlossMapScale: 1
     - _Glossiness: 0.5
     - _GlossyReflections: 1
-    - _Height: 50
+    - _Height: 95
     - _MaxRadius: 1500
     - _Metallic: 0
     - _Mode: 0
     - _OcclusionStrength: 1
     - _Parallax: 0.02
-    - _Radius: 250
+    - _Radius: 596
     - _ReduceTime: 1
     - _RoundMode: 1
     - _SmoothnessTextureChannel: 0
@@ -85,13 +85,13 @@ Material:
     - _StencilReadMask: 255
     - _StencilWriteMask: 255
     - _TotalTime: 1
-    - _TransitionRange: 35
+    - _TransitionRange: 0
     - _UVSec: 0
     - _UseUIAlphaClip: 0
-    - _Width: 225
+    - _Width: 650
     - _ZWrite: 1
     m_Colors:
-    - _Center: {r: 0.000001024636, g: 756.90015, b: 0, a: 0}
+    - _Center: {r: 0, g: 917.00006, b: 0, a: 0}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
   m_BuildTextureStacks: []

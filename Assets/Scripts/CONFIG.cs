@@ -10,7 +10,7 @@ using UnityEngine;
 public struct BallData
 {
     public _C.BALLTYPE Type;
-    public AttributeValue Cost;
+    public int Cost;
     public string Ball;
     public int Weight;
 
@@ -74,7 +74,7 @@ public static class CONFIG
         BallData config = new BallData();
         config.Type     = (_C.BALLTYPE)Convert.ToInt16(data[0]);
         config.Name     = data[1].ToString();
-        config.Cost     = new AttributeValue(Convert.ToInt16(data[2]));
+        config.Cost     = Convert.ToInt16(data[2]);
         config.Weight   = Convert.ToInt16(data[3]);
         config.Icon     = data[4].ToString();
         config.Ball     = data[5].ToString();

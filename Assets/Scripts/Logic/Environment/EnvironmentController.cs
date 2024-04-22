@@ -15,11 +15,11 @@ namespace CB
         public void OnInit(int stage_order)
         {
             //每3关
-            // if (stage_order % 3 != 0) {
-            //     return;
-            // }
+            if (stage_order % 3 != 0) {
+                return;
+            }
 
-            int rand = 11; //RandomUtility.Random(0, 10);
+            int rand = RandomUtility.Random(0, 12);
 
             switch (rand)
             {

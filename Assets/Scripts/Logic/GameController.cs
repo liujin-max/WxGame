@@ -18,7 +18,8 @@ namespace CB
         public _C.COMPLEXTEVEMT EventType;
         public _C.BALLTYPE Type;
 
-        public BallData BallConfig;
+        // public BallData BallConfig;
+        public AttributeValue Cost;
 
     }
 
@@ -70,9 +71,8 @@ namespace CB
             set { m_Glass = value;}
         }
 
-        internal int m_RefreshTimes;
-
-        [HideInInspector] public int RefreshCoin { get {return 2 + m_RefreshTimes;} }
+        internal int m_RefreshTimes = 0;
+        [HideInInspector] public AttributeValue RefreshCoin = new AttributeValue(2); //{ get {return 2 + m_RefreshTimes;} }
 
         private Vector3 m_FingerPos;
         [HideInInspector] public Vector3 FingerPos 
@@ -385,7 +385,7 @@ namespace CB
             if(evt.EventType == _C.COMPLEXTEVEMT.GLASS)
             {
                 //判断是否足够
-                int price = _C.GLASSPRICE;
+                int price = (int)evt.Cost.ToNumber();
                 if (m_Coin < price) {
                     GameFacade.Instance.FlyTip("<sprite=1> 金币不足");
                     return false;
@@ -397,10 +397,10 @@ namespace CB
             }
             else
             {
-                var config  = evt.BallConfig;
+                // var config  = evt.BallConfig;
 
 
-                int cost_need = (int)config.Cost.ToNumber();
+                int cost_need = (int)evt.Cost.ToNumber(); //(int)config.Cost.ToNumber();
 
                 //判断是否足够
                 if (Glass < cost_need) {
@@ -609,21 +609,25 @@ namespace CB
             bool is_glass_sell = false;
             for (int i = 0; i < count; i++)
             {
-                BallData config     = (BallData)RandomUtility.PickByWeight(keyValuePairs);
                 ComplextEvent et    = new ComplextEvent(); 
 
                 if (RandomUtility.IsHit(15) == true && is_glass_sell == false)    //10%的概率卖碎片
                 {
                     is_glass_sell   = true;
-                    et.EventType = _C.COMPLEXTEVEMT.GLASS;
+                    et.EventType    = _C.COMPLEXTEVEMT.GLASS;
+                    et.Cost         = new AttributeValue(_C.GLASSPRICE);
                 }
                 else
                 {
-                    et.Type = config.Type;
-                    et.EventType = _C.COMPLEXTEVEMT.NEW;
+                    BallData config = (BallData)RandomUtility.PickByWeight(keyValuePairs);
+                    et.Type         = config.Type;
+                    et.EventType    = _C.COMPLEXTEVEMT.NEW;
+                    et.Cost         = new AttributeValue(config.Cost);
 
                     keyValuePairs.Remove(config);
                 }
+
+                GameFacade.Instance.EventManager.SendEvent(new GameEvent(EVENT.ONCOMPLEXINIT, et));
 
                 events.Add(et);
             }
@@ -633,7 +637,7 @@ namespace CB
 
         public List<ComplextEvent> RefreshEvents()
         {
-            int cost = RefreshCoin;
+            int cost = (int)RefreshCoin.ToNumber();
             if (m_Coin < cost) {
                 GameFacade.Instance.FlyTip("<sprite=1> 金币不足");
                 return null;
@@ -641,6 +645,7 @@ namespace CB
 
             this.UpdateCoin(-cost);
             m_RefreshTimes += 1;
+            RefreshCoin.PutADD(GameFacade.Instance.Game, m_RefreshTimes);
 
             List<ComplextEvent> events = GameFacade.Instance.Game.GenerateEvents();
 
@@ -768,7 +773,7 @@ namespace CB
 
             m_FSM.Owner.Army.Awake();
 
-            m_FSM.Owner.m_Coin = _C.DEFAULT_COIN;
+            m_FSM.Owner.m_Coin = GameFacade.Instance.DataManager.Score;
             m_FSM.Owner.m_Glass= _C.DEFAULT_GLASS;
 
             m_FSM.Owner.GameUI = GameFacade.Instance.UIManager.LoadWindow("Prefab/UI/GameWindow", GameFacade.Instance.UIManager.BOTTOM).GetComponent<GameWindow>();
@@ -779,12 +784,10 @@ namespace CB
         
             GameFacade.Instance.Game.Resume();
 
-            m_FSM.Owner.BreechBall(m_FSM.Owner.PushBall(_C.BALL_ORIGIN_POS, _C.BALLTYPE.BLACKHOLE));
-            m_FSM.Owner.BreechBall(m_FSM.Owner.PushBall(_C.BALL_ORIGIN_POS, _C.BALLTYPE.RANDOM));
-            // m_FSM.Owner.BreechBall(m_FSM.Owner.PushBall(_C.BALL_ORIGIN_POS, _C.BALLTYPE.BOOM));
-            // m_FSM.Owner.BreechBall(m_FSM.Owner.PushBall(_C.BALL_ORIGIN_POS, _C.BALLTYPE.SPLIT));
+            m_FSM.Owner.BreechBall(m_FSM.Owner.PushBall(_C.BALL_ORIGIN_POS, _C.BALLTYPE.NORMAL));
+            // m_FSM.Owner.BreechBall(m_FSM.Owner.PushBall(_C.BALL_ORIGIN_POS, _C.BALLTYPE.RANDOM));
 
-            // m_FSM.Owner.Army.PushRelics(136);
+            m_FSM.Owner.Army.PushRelics(138);
 
             m_FSM.Transist(_C.FSMSTATE.GAME_IDLE);
         }
@@ -907,8 +910,8 @@ namespace CB
                 //生成宝石
                 DrawObstables();
 
-                if (m_FSM.Owner.Stage == 1 && GameFacade.Instance.DataManager.GetIntByKey(DataManager.KEY_GUIDE) == 0) {
-                // if (m_FSM.Owner.Stage == 1) {
+                // if (m_FSM.Owner.Stage == 1 && GameFacade.Instance.DataManager.GetIntByKey(DataManager.KEY_GUIDE) == 0) {
+                if (m_FSM.Owner.Stage == 1) {
                     _GuideUI = GameFacade.Instance.UIManager.LoadWindow("Prefab/UI/GuideWindow", GameFacade.Instance.UIManager.MAJOR).GetComponent<GuideWindow>();
                 } else {
                     m_FSM.Transist(_C.FSMSTATE.GAME_PLAY);
@@ -1248,6 +1251,7 @@ namespace CB
         public override void Enter()
         {
             m_FSM.Owner.m_RefreshTimes = 0;
+            m_FSM.Owner.RefreshCoin.PutADD(GameFacade.Instance.Game, m_FSM.Owner.m_RefreshTimes);
 
             GameFacade.Instance.EventManager.SendEvent(new GameEvent(EVENT.UI_FLUSHBALLS));
 
