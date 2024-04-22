@@ -816,9 +816,9 @@ namespace CB
             GameFacade.Instance.Game.Resume();
 
             m_FSM.Owner.BreechBall(m_FSM.Owner.PushBall(_C.BALL_ORIGIN_POS, _C.BALLTYPE.NORMAL));
-            m_FSM.Owner.BreechBall(m_FSM.Owner.PushBall(_C.BALL_ORIGIN_POS, _C.BALLTYPE.POWER));
+            // m_FSM.Owner.BreechBall(m_FSM.Owner.PushBall(_C.BALL_ORIGIN_POS, _C.BALLTYPE.POWER));
 
-            m_FSM.Owner.Army.PushRelics(118);
+            // m_FSM.Owner.Army.PushRelics(118);
 
             m_FSM.Transist(_C.FSMSTATE.GAME_IDLE);
         }
