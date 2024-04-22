@@ -41,8 +41,7 @@ namespace CB
             //清空记录
             if (GameFacade.Instance.Reboot == true)
             {
-                PlayerPrefs.SetInt(KEY_SCORE, 0);
-                PlayerPrefs.SetInt(KEY_GUIDE, 0);
+                ClearRecord();
             }
 
 
@@ -50,6 +49,12 @@ namespace CB
 
             m_MusicVolume   = PlayerPrefs.GetFloat(KEY_MUSIC, 1);
             m_SoundVolume   = PlayerPrefs.GetFloat(KEY_SOUND, 1);
+        }
+
+        public void ClearRecord()
+        {
+            PlayerPrefs.SetInt(KEY_SCORE, 0);
+            PlayerPrefs.SetInt(KEY_GUIDE, 0);
         }
 
         //层数记录

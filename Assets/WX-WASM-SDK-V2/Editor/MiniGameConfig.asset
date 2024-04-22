@@ -73,3 +73,6 @@ MonoBehaviour:
     force: 0
   PlayerPrefsKeys:
   - KEY_SCORE
+  - KEY_GUIDE
+  - KEY_MUSIC
+  - KEY_SOUND

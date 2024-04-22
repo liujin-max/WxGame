@@ -251,7 +251,7 @@ namespace CB
         {
             m_Relicses.ForEach(relics => {
                 relics.GetEffects().ForEach(e => {
-                    e.OnRefreshEvents((List<ComplextEvent>)gameEvent.GetParam(0));
+                    e.OnRefreshEvents((List<ComplextEvent>)gameEvent.GetParam(0), (bool)gameEvent.GetParam(1));
                 });
             });
         }

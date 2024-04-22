@@ -11,7 +11,7 @@ public class ShopWindow : MonoBehaviour
     [SerializeField] Transform c_SellPivot;
     [SerializeField] Button c_BtnSelect;
     [SerializeField] Button c_BtnCancel;
-    [SerializeField] Button c_BtnSell;
+    [SerializeField] Button c_BtnVideoRefresh;
 
     [SerializeField] GameObject c_DescriptionPivot;
 
@@ -23,24 +23,6 @@ public class ShopWindow : MonoBehaviour
     private List<RelicsItem> m_OurItems = new List<RelicsItem>();
     private List<RelicsItem> m_Items = new List<RelicsItem>();
 
-
-    RelicsItem new_our_item(int order)
-    {
-        RelicsItem item = null;
-        if (m_OurItems.Count > order){
-            item = m_OurItems[order];
-        } else {
-            GameObject obj = GameFacade.Instance.UIManager.LoadItem("Prefab/UI/Item/RelicsItem", c_OurPivot);
-            item = obj.GetComponent<RelicsItem>();
-
-            m_OurItems.Add(item);
-        }
-
-        item.gameObject.SetActive(true);
-        item.ShowCost(false);
-
-        return item;
-    }
 
     RelicsItem new_relics_item(int order)
     {
@@ -73,19 +55,17 @@ public class ShopWindow : MonoBehaviour
             }
         });
 
-        c_BtnSell.onClick.AddListener(()=> {
-            GameFacade.Instance.SoundManager.Load(SOUND.CLICK);
-
-            GameFacade.Instance.Game.Army.RemoveRelics(m_SelectItem.m_Relics);
-
-            InitOurs();
-        });
-
 
         c_BtnCancel.onClick.AddListener(()=> {
             GameFacade.Instance.SoundManager.Load(SOUND.CLICK);
 
             GameFacade.Instance.Game.DOTransist(_C.FSMSTATE.GAME_COMPLEX);
+        });
+
+        c_BtnVideoRefresh.onClick.AddListener(()=>{
+            List<Relics> datas = GameFacade.Instance.Game.GenerateRelicses();
+            
+            Init(datas);
         });
 
     }
@@ -94,57 +74,13 @@ public class ShopWindow : MonoBehaviour
     {
         m_Relicses = relicses;
 
-        // InitOurs();
         InitRelicses(relicses);
-    }
-
-
-
-    public void InitOurs()
-    {
-        c_BtnSelect.gameObject.SetActive(false);
-        c_BtnSell.gameObject.SetActive(false);
-
-        if (m_SelectItem != null) {
-            m_SelectItem.Select(false);
-        }
-        m_SelectItem = null;
-
-        foreach (var item in m_OurItems) {
-            item.gameObject.SetActive(false);
-        }
-
-        var relicses = GameFacade.Instance.Game.Army.GetRelicses();
-        for (int i = 0; i < relicses.Count; i++)
-        {
-            var relics      = relicses[i];
-            RelicsItem item = new_our_item(i);
-            item.transform.localPosition = new Vector3((i - ((relicses.Count - 1) / 2.0f)) * 290, 0, 0); 
-            item.Init(relics);
-
-            item.Touch.onClick.RemoveAllListeners();
-            item.Touch.onClick.AddListener(()=>{
-                GameFacade.Instance.SoundManager.Load(SOUND.BUBBLE);
-                
-                if (m_SelectItem != null) {
-                    m_SelectItem.Select(false);
-                }
-
-                m_SelectItem = item;
-                m_SelectItem.Select(true);
-
-                c_BtnSelect.gameObject.SetActive(false);
-                c_BtnSell.gameObject.SetActive(true);
-
-                this.ShowDescription(relics);
-            });
-        }
     }
 
     public void InitRelicses(List<Relics> relicses)
     {
+        c_DescriptionPivot.SetActive(false);
         c_BtnSelect.gameObject.SetActive(false);
-        c_BtnSell.gameObject.SetActive(false);
 
         if (m_SelectItem != null) {
             m_SelectItem.Select(false);
@@ -175,7 +111,6 @@ public class ShopWindow : MonoBehaviour
                 m_SelectItem.Select(true);
 
                 c_BtnSelect.gameObject.SetActive(true);
-                c_BtnSell.gameObject.SetActive(false);
 
                 this.ShowDescription(relics);
             });

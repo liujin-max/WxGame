@@ -1057,7 +1057,7 @@ namespace CB
             return (0.1f * m_Count).ToString();
         }
 
-        public override void OnRefreshEvents(List<ComplextEvent> events)
+        public override void OnRefreshEvents(List<ComplextEvent> events, bool is_video_play)
         {
             m_Count++;
 
@@ -1192,8 +1192,10 @@ namespace CB
             GameFacade.Instance.Game.RefreshCoin.Pop(this);
         }
 
-        public override void OnRefreshEvents(List<ComplextEvent> events)
+        public override void OnRefreshEvents(List<ComplextEvent> events, bool is_video_play)
         {
+            if (is_video_play) return;
+            
             GameFacade.Instance.EventManager.SendEvent(new GameEvent(EVENT.UI_TRIGGERRELICS, Belong));
         }
     }
@@ -1418,7 +1420,7 @@ namespace CB
 
         }
 
-        public virtual void OnRefreshEvents(List<ComplextEvent> events)
+        public virtual void OnRefreshEvents(List<ComplextEvent> events, bool is_video_play)
         {
 
         }

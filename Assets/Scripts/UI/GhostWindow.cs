@@ -15,6 +15,7 @@ public class GhostWindow : MonoBehaviour
     [SerializeField] private Button c_BtnCancel;
     [SerializeField] private Button c_BtnRefresh;
     [SerializeField] private Button c_BtnGlass;
+    [SerializeField] private Button c_BtnVideoRefresh;
     [SerializeField] private GameObject c_ButtonPivot;
     [SerializeField] private GameObject c_DescriptionPivot;
     [SerializeField] private TextMeshProUGUI c_Tip;
@@ -50,6 +51,7 @@ public class GhostWindow : MonoBehaviour
         c_BtnSelect.gameObject.SetActive(false);
         c_BtnCancel.gameObject.SetActive(false);
         c_BtnGlass.gameObject.SetActive(false);
+        c_BtnVideoRefresh.gameObject.SetActive(false);
 
         c_BtnSelect.onClick.AddListener(()=> {
             var flag = GameFacade.Instance.Game.ComplextBall(m_SelectGhost.m_Event);
@@ -90,6 +92,14 @@ public class GhostWindow : MonoBehaviour
         c_BtnGlass.onClick.AddListener(()=>{
             GameFacade.Instance.Game.PushGlass(1);
             GameFacade.Instance.EffectManager.LoadUIEffect(EFFECT.FLYGLASS, c_BtnGlass.transform.position);
+        });
+
+        //看广告，刷新
+        c_BtnVideoRefresh.onClick.AddListener(()=>{
+            List<ComplextEvent> events = GameFacade.Instance.Game.RefreshEvents(is_video_play : true);
+            if (events != null) {
+                this.Init(events);
+            }
         });
 
 
@@ -192,6 +202,7 @@ public class GhostWindow : MonoBehaviour
             c_BtnRefresh.gameObject.SetActive(true);
             c_BtnCancel.gameObject.SetActive(true);
             c_BtnGlass.gameObject.SetActive(true);
+            c_BtnVideoRefresh.gameObject.SetActive(true);
         }
     }
 }

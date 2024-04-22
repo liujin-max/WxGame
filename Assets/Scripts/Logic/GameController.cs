@@ -635,23 +635,54 @@ namespace CB
             return events;
         }
 
-        public List<ComplextEvent> RefreshEvents()
+        public List<ComplextEvent> RefreshEvents(bool is_video_play = false)
         {
-            int cost = (int)RefreshCoin.ToNumber();
-            if (m_Coin < cost) {
-                GameFacade.Instance.FlyTip("<sprite=1> 金币不足");
-                return null;
-            }
+            if (is_video_play == false)
+            {
+                int cost = (int)RefreshCoin.ToNumber();
+                if (m_Coin < cost) {
+                    GameFacade.Instance.FlyTip("<sprite=1> 金币不足");
+                    return null;
+                }
 
-            this.UpdateCoin(-cost);
-            m_RefreshTimes += 1;
-            RefreshCoin.PutADD(GameFacade.Instance.Game, m_RefreshTimes);
+                this.UpdateCoin(-cost);
+                m_RefreshTimes += 1;
+                RefreshCoin.PutADD(GameFacade.Instance.Game, m_RefreshTimes);
+            }
 
             List<ComplextEvent> events = GameFacade.Instance.Game.GenerateEvents();
 
-            GameFacade.Instance.EventManager.SendEvent(new GameEvent(EVENT.ONREFRESHEVENTS, events));
+            GameFacade.Instance.EventManager.SendEvent(new GameEvent(EVENT.ONREFRESHEVENTS, events, is_video_play));
 
             return events;
+        }
+
+        public List<Relics> GenerateRelicses()
+        {
+            List<Relics> list = new List<Relics>();
+
+            int count = 3;
+
+            Dictionary<object, int> keyValuePairs = new Dictionary<object, int>();
+            foreach (RelicsData r in CONFIG.GetRelicsDatas())  {
+                if (r.Weight > 0 && m_FSM.Owner.Army.GetRelics(r.ID) == null) {
+                    keyValuePairs.Add(r, r.Weight);
+                }
+            }
+
+            
+            for (int i = 0; i < count; i++)
+            {
+                if (keyValuePairs.Count == 0) break;
+
+                RelicsData config   = (RelicsData)RandomUtility.PickByWeight(keyValuePairs);
+                Relics relics   = new Relics(config);
+
+                keyValuePairs.Remove(config);
+                list.Add(relics);
+            }
+
+            return list;
         }
 
         public void ShowBallBubble(Ball ball)
@@ -1282,31 +1313,6 @@ namespace CB
     {
         private ShopWindow m_ShopUI;
 
-        List<Relics> GenerateRelicses()
-        {
-            List<Relics> list = new List<Relics>();
-
-            int count = 3;
-
-            Dictionary<object, int> keyValuePairs = new Dictionary<object, int>();
-            foreach (RelicsData r in CONFIG.GetRelicsDatas())  {
-                if (r.Weight > 0 && m_FSM.Owner.Army.GetRelics(r.ID) == null) {
-                    keyValuePairs.Add(r, r.Weight);
-                }
-            }
-
-
-            for (int i = 0; i < count; i++)
-            {
-                RelicsData config   = (RelicsData)RandomUtility.PickByWeight(keyValuePairs);
-                Relics relics   = new Relics(config);
-
-                keyValuePairs.Remove(config);
-                list.Add(relics);
-            }
-
-            return list;
-        }
 
         public State_SHOP(_C.FSMSTATE id) : base(id)
         {
@@ -1316,7 +1322,12 @@ namespace CB
         {
             GameFacade.Instance.EventManager.SendEvent(new GameEvent(EVENT.UI_FLUSHBALLS));
 
-            List<Relics> datas = this.GenerateRelicses();
+            List<Relics> datas = m_FSM.Owner.GenerateRelicses();
+
+            if (datas.Count == 0) {
+                m_FSM.Transist(_C.FSMSTATE.GAME_COMPLEX);
+                return;
+            }
 
             m_ShopUI  = GameFacade.Instance.UIManager.LoadWindow("Prefab/UI/ShopWindow", GameFacade.Instance.UIManager.BOARD).GetComponent<ShopWindow>();
             m_ShopUI.Init(datas);

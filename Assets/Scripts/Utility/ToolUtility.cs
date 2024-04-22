@@ -4,6 +4,15 @@ using UnityEngine;
 
 public static class ToolUtility
 {
+    public static void ApplicationQuit()
+    {
+        #if UNITY_EDITOR
+            UnityEditor.EditorApplication.isPlaying = false;
+        #else
+            Application.Quit();
+        #endif
+    }
+
     public static bool Approximately(Vector3 v1, Vector3 v2) {
         return Vector3.SqrMagnitude(v1 - v2) < float.Epsilon;
     }
