@@ -73,6 +73,7 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 6c71fb1c4f21e0e46b4f31cd0fc63756, type: 3}
   - {fileID: 21300000, guid: e471494cb92d9ee42baa1c7174492c71, type: 3}
   - {fileID: 21300000, guid: 5474d37cb96624448aa77b7107c3128f, type: 3}
+  - {fileID: 21300000, guid: 454857ecb6b2cde4ea369f963222f81c, type: 3}
   - {fileID: 21300000, guid: 468cebfc2b7db7140bd27586a6d4a34f, type: 3}
   - {fileID: 21300000, guid: 861063dd702300d45872c07f640c8ca2, type: 3}
   - {fileID: 21300000, guid: 10d6915e48e446c4099bc5f78e5dfd60, type: 3}
@@ -114,6 +115,7 @@ SpriteAtlas:
   - Bomb
   - polygon5
   - fx_focus
+  - ball_focusbomb
   - ball_yinli
   - ball_rise
   - ball_peng

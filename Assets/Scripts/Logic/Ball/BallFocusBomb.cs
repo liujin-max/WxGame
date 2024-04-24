@@ -6,17 +6,15 @@ using UnityEngine;
 
 namespace CB
 {
-    //追踪
-    public class BallFocus : Ball
+    //炸弹
+    public class BallFocusBomb : Ball
     {
         private int m_Rate = 45;
 
 
         public override string GetDescription()
         {
-            var str = "击中宝石后有一定概率朝场上的<sprite=0>飞去";
-
-            return str;
+            return string.Format("击中宝石后有一定概率朝场上的<sprite={0}>飞去", (int)_C.SPRITEATLAS.BOMB);
         }
 
 
@@ -38,11 +36,11 @@ namespace CB
                 {
                     for (int i = 0; i < GameFacade.Instance.Game.Boxs.Count; i++)
                     {
-                        var g = GameFacade.Instance.Game.Boxs[i].GetComponent<Ghost>();
-                        if (g != null) {
+                        var b = GameFacade.Instance.Game.Boxs[i].GetComponent<Bomb>();
+                        if (b != null) {
                             this.Velocity = Vector2.zero;
 
-                            Vector2 force = g.transform.localPosition - transform.localPosition;
+                            Vector2 force = b.transform.localPosition - transform.localPosition;
                             Vector2 normal= Vector3.Normalize(force);
                             Vector2 vec     = normal * 850;
 

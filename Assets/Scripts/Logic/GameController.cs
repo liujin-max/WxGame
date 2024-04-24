@@ -58,6 +58,7 @@ namespace CB
 
 
         internal bool m_StartFlag = false;
+        internal bool m_PauseFlag = false;
         internal int m_Score = 0;
         internal int m_Stage = 0;
         public int Stage {get {return m_Stage;}}
@@ -230,7 +231,10 @@ namespace CB
                 count += i;
             }
 
-            return count * 5;
+            //每9关，分数要求提升一个台阶
+            int step = (int)(stage / (3 * _C.STAGESTEP));
+
+            return count * 3 * (step + 1);
         }
 
         public bool IsScoreReach()
@@ -559,6 +563,8 @@ namespace CB
 
         public void Pause()
         {
+            m_PauseFlag = true;
+
             Physics2D.simulationMode = SimulationMode2D.Script;
             // Time.timeScale  = 0;
 
@@ -573,6 +579,8 @@ namespace CB
 
         public void Resume()
         {
+            m_PauseFlag = false;
+
             Physics2D.simulationMode = SimulationMode2D.FixedUpdate;
             // Time.timeScale = 1;
 
@@ -819,6 +827,10 @@ namespace CB
             // m_FSM.Owner.BreechBall(m_FSM.Owner.PushBall(_C.BALL_ORIGIN_POS, _C.BALLTYPE.POWER));
 
             // m_FSM.Owner.Army.PushRelics(118);
+            // CONFIG.GetRelicsDatas().ForEach(x => {
+            //     if (x.Weight > 0) m_FSM.Owner.Army.PushRelics(x.ID);
+            // });
+
 
             m_FSM.Transist(_C.FSMSTATE.GAME_IDLE);
         }
@@ -861,7 +873,7 @@ namespace CB
             }
             
             //概率有炸弹
-            if (RandomUtility.IsHit(33))
+            if (RandomUtility.IsHit(45))
             {
                 temp_list.Add((int)_C.BOXTYPE.BOMB);
             }
@@ -1046,7 +1058,7 @@ namespace CB
             //金币跟积分挂钩，最少也给1块钱
             int min = RandomUtility.Random(1, 4);
             int max = RandomUtility.Random(17, 24);
-            int coin = Mathf.Clamp((int)Mathf.Floor(m_FSM.Owner.GetTargetScore() / 20.0f), min, max);
+            int coin = Mathf.Clamp((int)Mathf.Floor(m_FSM.Owner.m_Score / 20.0f), min, max);
 
             AttributeValue coin_number = new AttributeValue(coin);
 
@@ -1088,20 +1100,6 @@ namespace CB
 
         public override void Update()
         {
-            if (m_IsFinished == true) {
-                m_DelayTimer.Update(Time.deltaTime);
-                if (m_DelayTimer.IsFinished() == true) {
-                    if (m_FSM.Owner.m_Stage % 3 == 0) { //每3关
-                        m_FSM.Transist(_C.FSMSTATE.GAME_SHOP);
-                    }
-                    else {
-                        m_FSM.Transist(_C.FSMSTATE.GAME_COMPLEX);
-                    }
-                    
-                }
-                return;
-            }
-
             //监听弹珠发射
             if (Input.GetMouseButtonDown(0)) // 如果按下了左键（鼠标点击）
             {
@@ -1134,6 +1132,22 @@ namespace CB
             if (Input.GetMouseButtonUp(0)) // 如果松开了左键（鼠标释放）
             {
                 OnMouseUp();
+            }
+
+            if (m_FSM.Owner.m_PauseFlag == true) return;
+
+            if (m_IsFinished == true) {
+                m_DelayTimer.Update(Time.deltaTime);
+                if (m_DelayTimer.IsFinished() == true) {
+                    if (m_FSM.Owner.m_Stage % _C.STAGESTEP == 0) { //每3关
+                        m_FSM.Transist(_C.FSMSTATE.GAME_SHOP);
+                    }
+                    else {
+                        m_FSM.Transist(_C.FSMSTATE.GAME_COMPLEX);
+                    }
+                    
+                }
+                return;
             }
 
             //场上清空后，不管还有没有剩余弹珠和积分够不够，直接胜利

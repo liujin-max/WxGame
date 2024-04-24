@@ -19,8 +19,6 @@ public class ShopWindow : MonoBehaviour
 
     private List<Relics> m_Relicses;
     private RelicsItem m_SelectItem = null;
-
-    private List<RelicsItem> m_OurItems = new List<RelicsItem>();
     private List<RelicsItem> m_Items = new List<RelicsItem>();
 
 
@@ -51,7 +49,10 @@ public class ShopWindow : MonoBehaviour
 
             if (GameFacade.Instance.Game.BuyRelics(m_SelectItem.m_Relics) != null)
             {
-                GameFacade.Instance.Game.DOTransist(_C.FSMSTATE.GAME_COMPLEX);
+                // GameFacade.Instance.Game.DOTransist(_C.FSMSTATE.GAME_COMPLEX);
+
+                m_Relicses.Remove(m_SelectItem.m_Relics);
+                this.Init(m_Relicses);
             }
         });
 

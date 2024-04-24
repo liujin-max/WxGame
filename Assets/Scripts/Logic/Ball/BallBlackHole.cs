@@ -12,7 +12,7 @@ namespace CB
     {
         public override string GetDescription()
         {
-            return "击中宝石后有低概率形成黑洞，吸附并销毁周围的宝石";
+            return "击中宝石后有小概率形成黑洞，吸附并销毁周围的宝石";
         }
 
 

@@ -30,6 +30,9 @@ public class GhostItem : MonoBehaviour
     void Awake()
     {
         c_Light.SetActive(false);
+
+        GameFacade.Instance.EventManager.AddHandler(EVENT.UI_FLUSHCOIN,     OnReponseFlushCoin);
+        GameFacade.Instance.EventManager.AddHandler(EVENT.UI_FLUSHCOUNT,    OnReponseFlushGlass);
     }
 
     public void Init(ComplextEvent evt)
@@ -44,26 +47,14 @@ public class GhostItem : MonoBehaviour
         if (m_Event.EventType == _C.COMPLEXTEVEMT.GLASS)
         {
             c_Icon.texture = Resources.Load<Texture2D>("UI/Texture/Glass");
-
-            StringBuilder sb = new StringBuilder();
-
-            if (GameFacade.Instance.Game.m_Coin < evt.Cost.ToNumber()) {
-                sb.Append(_C.REDCOLOR);
-            } else if (evt.Cost.ToNumber() < evt.Cost.GetBase()) {
-                sb.Append(_C.GREENCOLOR);
-            }
-
-            sb.Append(evt.Cost.ToNumber().ToString() + " <sprite=1>");
-            
-            c_Cost.text = sb.ToString();
-
+            c_Icon.SetNativeSize();
         }
         else
         {
             var config  = CONFIG.CreateBallData(GameFacade.Instance.CsvManager.GetStringArray(CsvManager.TableKey_Ball, (int)evt.Type));
 
             c_Icon.texture  = Resources.Load<Texture2D>(config.Icon);
-
+            c_Icon.SetNativeSize();
 
             GameObject prefab = Resources.Load<GameObject>(config.Ball);
             var obj     = Instantiate(prefab, Vector3.zero, Quaternion.identity, transform);
@@ -79,9 +70,28 @@ public class GhostItem : MonoBehaviour
                 var b = GameFacade.Instance.Game.GetBall(m_Event.Type);
                 m_Ball.UpgradeTo(b.Level + 1);
             }
+        }
+            
+        FlushCost(evt);
+        DoScale();
+    }
 
-            StringBuilder sb = new StringBuilder();
+    void FlushCost(ComplextEvent evt)
+    {
+        StringBuilder sb = new StringBuilder();
 
+        if (m_Event.EventType == _C.COMPLEXTEVEMT.GLASS)
+        {
+            if (GameFacade.Instance.Game.m_Coin < evt.Cost.ToNumber()) {
+                sb.Append(_C.REDCOLOR);
+            } else if (evt.Cost.ToNumber() < evt.Cost.GetBase()) {
+                sb.Append(_C.GREENCOLOR);
+            }
+
+            sb.Append(evt.Cost.ToNumber().ToString() + " <sprite=1>");
+        }
+        else
+        {
             if (GameFacade.Instance.Game.Glass < evt.Cost.ToNumber()) {
                 sb.Append(_C.REDCOLOR);
             } else if (evt.Cost.ToNumber() < evt.Cost.GetBase()) {
@@ -89,12 +99,9 @@ public class GhostItem : MonoBehaviour
             }
 
             sb.Append(evt.Cost.ToNumber().ToString() + " <sprite=0>");
-            
-            c_Cost.text = sb.ToString();
         }
-            
 
-        DoScale();
+        c_Cost.text = sb.ToString();
     }
 
     void DoScale()
@@ -128,11 +135,23 @@ public class GhostItem : MonoBehaviour
         }
     }
 
+    void OnReponseFlushCoin(GameEvent gameEvent)
+    {
+        this.FlushCost(m_Event);
+    }
+
+    void OnReponseFlushGlass(GameEvent gameEvent)
+    {
+        this.FlushCost(m_Event);
+    }
 
     void OnDestroy()
     {
         if (m_Ball != null) {
             Destroy(m_Ball.gameObject);
         }
+
+        GameFacade.Instance.EventManager.DelHandler(EVENT.UI_FLUSHCOIN,     OnReponseFlushCoin);
+        GameFacade.Instance.EventManager.DelHandler(EVENT.UI_FLUSHCOUNT,    OnReponseFlushGlass);
     }
 }

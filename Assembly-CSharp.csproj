@@ -120,6 +120,7 @@
     <Compile Include="Assets\AllIn1SpriteShader\Demo\Scripts\DemoItem.cs" />
     <Compile Include="Assets\Scripts\Utility\UIFitter.cs" />
     <Compile Include="Assets\Scripts\UI\ResultWindow.cs" />
+    <Compile Include="Assets\Scripts\Logic\Ball\BallFocusBomb.cs" />
     <Compile Include="Assets\DOTween\Modules\DOTweenModulePhysics.cs" />
     <Compile Include="Assets\AllIn1SpriteShader\Demo\Scripts\DemoCamera.cs" />
     <Compile Include="Assets\Scripts\Logic\Ground.cs" />
@@ -150,6 +151,7 @@
     <Compile Include="Assets\Scripts\FSM\FSM.cs" />
     <Compile Include="Assets\Scripts\Logic\Ball\BallSimulator.cs" />
     <Compile Include="Assets\Scripts\Effect\FlyCoin.cs" />
+    <Compile Include="Assets\Scripts\Utility\MouseClickHandler.cs" />
     <Compile Include="Assets\Scripts\Logic\Environment\BBMachine.cs" />
     <Compile Include="Assets\Scripts\Logic\Ball\BallRise.cs" />
     <Compile Include="Assets\Scripts\Manager\CsvManager.cs" />
@@ -199,7 +201,6 @@
     <Compile Include="Assets\Scripts\UI\GhostWindow.cs" />
     <Compile Include="Assets\DOTween\Modules\DOTweenModuleUnityVersion.cs" />
     <Compile Include="Assets\Scripts\Logic\Relics.cs" />
-    <Compile Include="Assets\Scripts\Utility\MouseClickHandler.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Resources\Shader\SpriteGray.shader" />

@@ -15,7 +15,7 @@ namespace CB
         public void OnInit(int stage_order)
         {
             //每3关
-            if (stage_order % 3 != 0) {
+            if (stage_order % _C.STAGESTEP != 0) {
                 return;
             }
 

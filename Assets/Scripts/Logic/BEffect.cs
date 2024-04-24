@@ -109,14 +109,14 @@ namespace CB
 
         public override string ShowString()
         {
-            return (GameFacade.Instance.Game.Glass * 0.5f).ToString();
+            return ((int)(GameFacade.Instance.Game.Glass * 0.5f)).ToString();
         }
 
         public override void Execute()
         {
             GameFacade.Instance.Game.Balls.ForEach(b => {
                 if (b.Type != _C.BALLTYPE.NORMAL && b.Type != _C.BALLTYPE.SMALL) {
-                    b.Demage.PutADD(this, GameFacade.Instance.Game.Glass * 0.5f);
+                    b.Demage.PutADD(this, (int)GameFacade.Instance.Game.Glass * 0.5f);
                 }
             });
         }
@@ -745,7 +745,7 @@ namespace CB
     //弹珠每击中宝石#次立即获得1点积分
     public class BEffect_HITSCORE : BEffect
     {
-        private const int m_CountMax = 15;
+        private const int m_CountMax = 5;
         private int m_Count;
 
         public BEffect_HITSCORE() 
@@ -794,7 +794,7 @@ namespace CB
             if (collision.transform.GetComponent<Wall>() != null)
             {
                 // ball.Velocity = new Vector2(ball.Velocity.x, Math.Abs(ball.Velocity.y));
-                ball.Velocity = new Vector2((ball.Velocity.x / Math.Abs(ball.Velocity.x)) * Math.Abs(ball.Velocity.y), Math.Abs(ball.Velocity.x));
+                ball.Velocity = new Vector2(ball.Velocity.x / Math.Abs(ball.Velocity.x) * Math.Abs(ball.Velocity.y), Math.Abs(ball.Velocity.x));
 
                 if (ball.IsSimulate != true) {
                     GameFacade.Instance.EventManager.SendEvent(new GameEvent(EVENT.UI_TRIGGERRELICS, Belong));

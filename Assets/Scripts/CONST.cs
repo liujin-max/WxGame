@@ -43,10 +43,10 @@ public static class _C
     }
 
   
-    public static int GLASSPRICE   = 2;    //碎片价格
-    public static int DEFAULT_COIN = 5;
-    public static int DEFAULT_GLASS= 5;
-
+    public static int GLASSPRICE    = 2;    //碎片价格
+    public static int DEFAULT_COIN  = 5;
+    public static int DEFAULT_GLASS = 5;
+    public static int STAGESTEP     = 3;    //每3关 触发一次不利条件和遗物选择
 
 
     public static Vector2 DEFAULT_GRAVITY = new Vector2(0, -9.81f);
@@ -56,6 +56,7 @@ public static class _C
     public static Vector3 BALL_ORIGIN_POS   = new Vector3(0, 6.9f, 0);  //待机位置
     public static Vector3 BALL_SHOOT_POS    = new Vector3(0, 6.6f, 0);  //发射位置
 
+    
 
 
     public static string REDCOLOR   = "<#FF6631>";
@@ -71,7 +72,7 @@ public static class _C
     public static float BOARD_BOTTOM  = -8.2f;
 
     public static float OBSTACLE_ORIGIN_Y   = -7;
-    public static float OBSTACLE_OFFSET     = 1.6f;
+    public static float OBSTACLE_OFFSET     = 1.5f;
 
 
 
@@ -116,6 +117,7 @@ public static class _C
         GLASS   = 27,
         POWER   = 28,
         RANDOM  = 29,
+        FOCUSBOMB = 30,
     }   
 
     public enum BOXTYPE
