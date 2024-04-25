@@ -1053,7 +1053,7 @@ namespace CB
         private int m_Count = 0;
         public override string GetDescription()
         {
-            return string.Format("每次刷新弹珠列表，弹珠的伤害倍率提高0.1倍。(当前：X{0})", 0.1f * m_Count);
+            return string.Format("每次刷新合成列表，弹珠的伤害倍率提高0.1倍。(当前：X{0})", 0.1f * m_Count);
         }
 
         public override string ShowString()
@@ -1203,6 +1203,24 @@ namespace CB
         }
     }
 
+    //提高商店出售碎片的几率
+    public class BEffect_GLASSRATE : BEffect
+    {
+        public override string GetDescription()
+        {
+            return string.Format("提高合成列表出现<sprite={0}>的几率。",  (int)_C.SPRITEATLAS.GLASS);
+        }
+
+        public override void Execute()
+        {
+            GameFacade.Instance.Game.GlassRate.PutADD(this, 10);
+        }
+
+        public override void Cancel()
+        {
+            GameFacade.Instance.Game.GlassRate.Pop(this);
+        }
+    }
 
 
 
@@ -1326,6 +1344,9 @@ namespace CB
 
                 case 1038:
                     return new BEffect_REFRESHCOST();
+
+                case 1039:
+                    return new BEffect_GLASSRATE();
                     
                 
                 default:

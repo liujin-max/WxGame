@@ -103,6 +103,7 @@ namespace CB
         [HideInInspector] public List<Box> Elements { get {return m_Elements;}}
 
         [HideInInspector] public AttributeValue SeatCount = new AttributeValue(5);     //可携带的弹珠数量上限
+        [HideInInspector] public AttributeValue GlassRate = new AttributeValue(15);     //合成列表出现碎片的几率
 
         public bool SwitchBanFlag = false;  //禁止切换弹珠
 
@@ -615,11 +616,12 @@ namespace CB
 
 
             bool is_glass_sell = false;
+            int glass_rate = (int)m_FSM.Owner.GlassRate.ToNumber();
             for (int i = 0; i < count; i++)
             {
                 ComplextEvent et    = new ComplextEvent(); 
 
-                if (RandomUtility.IsHit(15) == true && is_glass_sell == false)    //10%的概率卖碎片
+                if (RandomUtility.IsHit(glass_rate) == true && is_glass_sell == false)    //10%的概率卖碎片
                 {
                     is_glass_sell   = true;
                     et.EventType    = _C.COMPLEXTEVEMT.GLASS;
@@ -813,7 +815,7 @@ namespace CB
             m_FSM.Owner.Army.Awake();
 
             m_FSM.Owner.m_Coin = GameFacade.Instance.DataManager.Score;
-            m_FSM.Owner.m_Glass= _C.DEFAULT_GLASS;
+            m_FSM.Owner.m_Glass= _C.DEFAULT_GLASS + (int)(GameFacade.Instance.DataManager.Score / 5.0);
 
             m_FSM.Owner.GameUI = GameFacade.Instance.UIManager.LoadWindow("Prefab/UI/GameWindow", GameFacade.Instance.UIManager.BOTTOM).GetComponent<GameWindow>();
 
@@ -826,7 +828,7 @@ namespace CB
             m_FSM.Owner.BreechBall(m_FSM.Owner.PushBall(_C.BALL_ORIGIN_POS, _C.BALLTYPE.NORMAL));
             // m_FSM.Owner.BreechBall(m_FSM.Owner.PushBall(_C.BALL_ORIGIN_POS, _C.BALLTYPE.POWER));
 
-            // m_FSM.Owner.Army.PushRelics(118);
+            m_FSM.Owner.Army.PushRelics(139);
             // CONFIG.GetRelicsDatas().ForEach(x => {
             //     if (x.Weight > 0) m_FSM.Owner.Army.PushRelics(x.ID);
             // });
@@ -953,8 +955,8 @@ namespace CB
                 //生成宝石
                 DrawObstables();
 
-                // if (m_FSM.Owner.Stage == 1 && GameFacade.Instance.DataManager.GetIntByKey(DataManager.KEY_GUIDE) == 0) {
-                if (m_FSM.Owner.Stage == 1) {
+                if (m_FSM.Owner.Stage == 1 && GameFacade.Instance.DataManager.GetIntByKey(DataManager.KEY_GUIDE) == 0) {
+                // if (m_FSM.Owner.Stage == 1) {
                     _GuideUI = GameFacade.Instance.UIManager.LoadWindow("Prefab/UI/GuideWindow", GameFacade.Instance.UIManager.MAJOR).GetComponent<GuideWindow>();
                 } else {
                     m_FSM.Transist(_C.FSMSTATE.GAME_PLAY);
