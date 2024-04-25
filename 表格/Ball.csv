@@ -8,7 +8,7 @@ ID,Name,HP,Weight,Icon,Ball,Description
 6,奇迹弹珠,2,23,UI/Texture/ball_rise,Prefab/Ball/BallRise,击落宝石有概率在原地留下一枚碎片。
 7,反弹弹珠,2,32,UI/Texture/ball_fantan,Prefab/Ball/BallRebound,"触底后强力反弹,最多#次"
 8,抽风弹珠,2,30,UI/Texture/ball_crazy,Prefab/Ball/BallCrazy,击中宝石后有概率朝随机方向反弹
-9,碰碰弹珠,3,26,UI/Texture/ball_peng,Prefab/Ball/BallPeng,每击落一枚碎片，伤害增加#点
+9,碰碰弹珠,2,26,UI/Texture/ball_peng,Prefab/Ball/BallPeng,每击落一枚碎片，伤害增加#点
 10,蛮力弹珠,2,30,UI/Texture/ball_manli,Prefab/Ball/BallManLi,初始拥有#点伤害，每次击中宝石后伤害降低1点
 11,光环弹珠,2,28,UI/Texture/ball_ring,Prefab/Ball/BallHalo,发射途中为场上其他弹珠提供#点伤害
 12,变形弹珠(三角),2,20,UI/Texture/ball_sanjiao,Prefab/Ball/BallSanjiao,

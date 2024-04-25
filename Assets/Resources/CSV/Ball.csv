@@ -3,12 +3,12 @@ ID,Name,HP,Weight,Icon,Ball,Description
 1,爆炸弹珠,3,28,UI/Texture/ball_boom,Prefab/Ball/BallBoom,击中宝石对#码范围内的其他宝石产生伤害。
 2,强力弹珠,2,28,UI/Texture/ball_strong,Prefab/Ball/BallStrong,每次撞击可以造成#点伤害
 3,分裂弹珠,3,25,UI/Texture/ball_fenlie,Prefab/Ball/BallSplit,击中宝石时有概率向四周发射#颗分裂小弹珠。
-4,小弹珠,1,0,UI/Texture/ball,Prefab/Ball/BallSmall,
+4,小弹珠,1,0,UI/Texture/ball_small,Prefab/Ball/BallSmall,
 5,引力弹珠,2,30,UI/Texture/ball_yinli,Prefab/Ball/BallThrough,弹珠飞行途中吸引周围的宝石
 6,奇迹弹珠,2,23,UI/Texture/ball_rise,Prefab/Ball/BallRise,击落宝石有概率在原地留下一枚碎片。
 7,反弹弹珠,2,32,UI/Texture/ball_fantan,Prefab/Ball/BallRebound,"触底后强力反弹,最多#次"
 8,抽风弹珠,2,30,UI/Texture/ball_crazy,Prefab/Ball/BallCrazy,击中宝石后有概率朝随机方向反弹
-9,碰碰弹珠,3,26,UI/Texture/ball_peng,Prefab/Ball/BallPeng,每击落一枚碎片，伤害增加#点
+9,碰碰弹珠,2,26,UI/Texture/ball_peng,Prefab/Ball/BallPeng,每击落一枚碎片，伤害增加#点
 10,蛮力弹珠,2,30,UI/Texture/ball_manli,Prefab/Ball/BallManLi,初始拥有#点伤害，每次击中宝石后伤害降低1点
 11,光环弹珠,2,28,UI/Texture/ball_ring,Prefab/Ball/BallHalo,发射途中为场上其他弹珠提供#点伤害
 12,变形弹珠(三角),2,20,UI/Texture/ball_sanjiao,Prefab/Ball/BallSanjiao,
@@ -17,7 +17,7 @@ ID,Name,HP,Weight,Icon,Ball,Description
 15,变形弹珠(菱),1,24,UI/Texture/ball_ling,Prefab/Ball/BallLing,
 16,再生弹珠,1,31,UI/Texture/ball_regen,Prefab/Ball/BallRegen,击中宝石时有概率使宝石恢复血量
 17,成长弹珠,1,33,UI/Texture/ball_growth,Prefab/Ball/BallGrowth,每击落一颗宝石，伤害永久增加#点
-18,膨胀弹珠,2,30,UI/Texture/ball_expand,Prefab/Ball/BallExpand,击中菱形宝石后体积膨胀，最大膨胀到1.5倍
+18,膨胀弹珠,1,30,UI/Texture/ball_expand,Prefab/Ball/BallExpand,击中菱形宝石后体积膨胀，最大膨胀到1.5倍
 19,追踪弹珠,2,33,UI/Texture/ball_focus,Prefab/Ball/BallFocus,击中宝石后朝场上的碎片飞去
 20,震荡弹珠,3,24,UI/Texture/ball_wave,Prefab/Ball/BallWave,弹珠没有伤害。击中宝石吸收能量，积攒能量后对全场释放伤害
 21,缩放弹珠,2,32,UI/Texture/ball_scale,Prefab/Ball/BallScale,被击中的宝石会缩小。

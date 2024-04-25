@@ -825,10 +825,10 @@ namespace CB
         
             GameFacade.Instance.Game.Resume();
 
-            m_FSM.Owner.BreechBall(m_FSM.Owner.PushBall(_C.BALL_ORIGIN_POS, _C.BALLTYPE.BOOM));
+            m_FSM.Owner.BreechBall(m_FSM.Owner.PushBall(_C.BALL_ORIGIN_POS, _C.BALLTYPE.NORMAL));
             // m_FSM.Owner.BreechBall(m_FSM.Owner.PushBall(_C.BALL_ORIGIN_POS, _C.BALLTYPE.POWER));
 
-            m_FSM.Owner.Army.PushRelics(102);
+            // m_FSM.Owner.Army.PushRelics(102);
             // CONFIG.GetRelicsDatas().ForEach(x => {
             //     if (x.Weight > 0) m_FSM.Owner.Army.PushRelics(x.ID);
             // });
