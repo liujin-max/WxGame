@@ -1,0 +1,52 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!28 &2800000
+Texture2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: seamlessNoise.png
+  m_ImageContentsHash:
+    serializedVersion: 2
+    Hash: 00000000000000000000000000000000
+  m_ForcedFallbackFormat: 4
+  m_DownscaleFallback: 0
+  m_IsAlphaChannelOptional: 0
+  serializedVersion: 3
+  m_Width: 32
+  m_Height: 32
+  m_CompleteImageSize: 576
+  m_MipsStripped: 0
+  m_TextureFormat: 50
+  m_MipCount: 1
+  m_IsReadable: 1
+  m_IsPreProcessed: 0
+  m_IgnoreMasterTextureLimit: 0
+  m_StreamingMipmaps: 0
+  m_StreamingMipmapsPriority: 0
+  m_VTOnly: 0
+  m_AlphaIsTransparency: 1
+  m_ImageCount: 1
+  m_TextureDimension: 2
+  m_TextureSettings:
+    serializedVersion: 2
+    m_FilterMode: 1
+    m_Aniso: 1
+    m_MipBias: 0
+    m_WrapU: 0
+    m_WrapV: 0
+    m_WrapW: 0
+  m_LightmapFormat: 6
+  m_ColorSpace: 1
+  m_PlatformBlob: 
+  image data: 576
+  _typelessdata: 5183a2f3fff9d5b75c99e7001a5771e47f00b63281d7348a193808f2447d3d0b73019c2ec16a424dbad9d92f79ef225b7f00c03c81be0d7602d9464d6aa66c277f00d04a81e0115e2077c82ce411d92d4d825c7383814252b49160825f631568518328f6ff3d7023dfe4c648bff36e447301da3481457090b742721dca9e1bf7f10298380191e77c62dbe9e77e397d737f00b83a8157cf5bebae85fcc17ef56d5d02a630016874e75bf675ac581a5c7a6f80c420fdfb0104400d28010da000d4e3e8d960cd146b1087f4e453352311287f00b624810106598dbd4e5a578e6b7a7f00ba3a416cdbde10ef881cd75237337301ca2201ffa6709728b1128b7e377b5301aa280100007b09644d6d492e65d1e182a0b720245134037a026e059e4c225183acf3ffad8854af165bb6c95640445f083c4073a1bddf5ccfd9ad571af5a07301d02a81b73ddee2696f0c47862dca0c01d62245fedc4dbf7def03b20090ae7f00b816c1dba6923e4b5fb22cbd77136f80ec3cfff90168800368002ec001000c01c43ae17f795bf97b8f26161ef9b25d02bc4401ca01ecbdaeae3e3793cb745d02dc46010c7f79f09c189e55996d7a532903c0f6e33772b6defc2d900c5b897f009628414125a036d17fa5ae56de367f00ac3e014996444b22258992e448ec72690c40c5b33d010000000080c3a0b222838c12fbfd0100004871e784791f466381c62af9ff0100000000006e0a053f6f80d8fefef9010000000000c0c8673ee1822cd920248924928800509e5c4a166f80b81cfdf9a5a49494925252824e81
+  m_StreamData:
+    serializedVersion: 2
+    offset: 0
+    size: 0
+    path: 
+  m_OriginalWidth: 0
+  m_OriginalHeight: 0
+  m_OriginalAssetGuid: 00000000000000000000000000000000

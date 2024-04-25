@@ -15,14 +15,14 @@ MonoBehaviour:
   ProjectConf:
     projectName: "\u5408\u6210\u5F39\u73E0"
     Appid: wx3eeae3a7e9821066
-    CDN: 
+    CDN: https://a.unity.cn/client_api/v1/buckets/af9f455f-c0e4-49f5-ade7-cfbc976b74b8/release_by_badge/latest/content
     assetLoadType: 1
     compressDataPackage: 1
     VideoUrl: 
     DST: D:/Work/WxGame/CBGane
     StreamCDN: 
     bundleHashLength: 32
-    bundlePathIdentifier: StreamingAssets;
+    bundlePathIdentifier: StreamingAssets;AS;CUS/CustomAB
     bundleExcludeExtensions: json;
     AssetsUrl: 
     MemorySize: 256
@@ -30,7 +30,7 @@ MonoBehaviour:
     preloadFiles: 
     Orientation: 0
     bgImageSrc: Assets/Resources/Scape/ScreenLoading.png
-    dataFileSubPrefix: 
+    dataFileSubPrefix: CUS
     maxStorage: 200
     defaultReleaseSize: 31457280
     texturesHashLength: 8
