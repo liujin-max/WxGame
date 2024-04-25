@@ -23,7 +23,7 @@ namespace CB
 
         public override string GetDescription()
         {
-            var str = "弹珠没有伤害。击中宝石为自身蓄能，积攒能量后释放震荡波，对全场宝石造成1点伤害";
+            var str = "弹珠没有伤害。击中宝石为自身蓄能，积攒能量后释放震荡波，对全场造成1点伤害";
 
             return str;
         }
@@ -62,6 +62,9 @@ namespace CB
                         obt.OnHit(null, 1);
                     });
 
+                    GameFacade.Instance.Game.Boxs.ForEach(b => {
+                        b.OnHit(null, 1);
+                    });
                 }
             }
         }

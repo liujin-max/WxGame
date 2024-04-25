@@ -132,7 +132,7 @@ namespace CB
         {
             GameFacade.Instance.Game.Balls.ForEach(b => {
                 if (b.Type != _C.BALLTYPE.NORMAL && b.Type != _C.BALLTYPE.SMALL) {
-                    b.Demage.PutADD(this, GameFacade.Instance.Game.Glass);
+                    b.Demage.PutADD(this, (int)GameFacade.Instance.Game.Glass * 0.5f);
                 }
             });
         }
@@ -141,7 +141,7 @@ namespace CB
         {
             if (ball.Type == _C.BALLTYPE.NORMAL || ball.Type == _C.BALLTYPE.SMALL) return;
 
-            ball.Demage.PutADD(this, GameFacade.Instance.Game.Glass);
+            ball.Demage.PutADD(this, (int)GameFacade.Instance.Game.Glass * 0.5f);
         }
     }
 

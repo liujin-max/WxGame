@@ -25,6 +25,7 @@ namespace CB
         {
             this.TriggerEnter(collision);
             this.OnHitElement(collision);
+            this.OnHitObstable(collision);
 
             //
             if (collision.gameObject.GetComponent<Obstacle>() != null || collision.gameObject.GetComponent<Box>() != null) {
@@ -40,7 +41,7 @@ namespace CB
                 var obstacles   = GameFacade.Instance.Game.Obstacles;
                 for (int i = 0; i < obstacles.Count; i++) {
                     Obstacle obt = obstacles[i]; 
-                    if (Vector3.Distance(obt.transform.localPosition, collision_point) <= radius) {
+                    if (Vector3.Distance(obt.transform.localPosition, collision_point) <= radius && obt.gameObject != collision.gameObject) {
                         obt.OnHit(this, (int)Demage.ToNumber());
                     }
                 }

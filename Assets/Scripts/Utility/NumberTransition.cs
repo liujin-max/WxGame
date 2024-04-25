@@ -25,6 +25,13 @@ public class NumberTransition : MonoBehaviour
         m_Text.text = m_CurrentNumber.ToString();
     }
 
+    public void ForceValue(int value)
+    {
+        m_TargetNumber = value;
+        m_CurrentNumber = value;
+        m_Text.text = m_CurrentNumber.ToString();
+    }
+
     void Update()
     {
         if (m_TargetNumber == (int)m_CurrentNumber) return;

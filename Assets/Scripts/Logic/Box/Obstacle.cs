@@ -206,6 +206,7 @@ namespace CB
             }
 
             GameFacade.Instance.EventManager.SendEvent(new GameEvent(EVENT.ONOBSTACLEHIT, demage, ball));
+
         }
 
 

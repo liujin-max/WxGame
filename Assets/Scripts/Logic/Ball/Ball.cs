@@ -274,7 +274,6 @@ namespace CB
 
                 obt.OnHit(this, (int)Demage.ToNumber());
 
-                
                 GameFacade.Instance.EventManager.SendEvent(new GameEvent(EVENT.ONBALLHITAFTER, this, obt, collision));
 
                 return true;

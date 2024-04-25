@@ -162,7 +162,7 @@ namespace CB
         {
             m_Coin += value;
 
-            GameFacade.Instance.EventManager.SendEvent(new GameEvent(EVENT.UI_FLUSHCOIN, m_Coin));
+            GameFacade.Instance.EventManager.SendEvent(new GameEvent(EVENT.UI_FLUSHCOIN, m_Coin, true));
             GameFacade.Instance.EventManager.SendEvent(new GameEvent(EVENT.ONCOINUPDATE, m_Coin));
         }
 
@@ -497,7 +497,7 @@ namespace CB
         {
             this.m_Glass += value;
 
-            GameFacade.Instance.EventManager.SendEvent(new GameEvent(EVENT.UI_FLUSHCOUNT));
+            GameFacade.Instance.EventManager.SendEvent(new GameEvent(EVENT.UI_FLUSHCOUNT, true));
             GameFacade.Instance.EventManager.SendEvent(new GameEvent(EVENT.ONGLASSUPDATE, m_Glass));
 
         }
@@ -819,16 +819,16 @@ namespace CB
 
             m_FSM.Owner.GameUI = GameFacade.Instance.UIManager.LoadWindow("Prefab/UI/GameWindow", GameFacade.Instance.UIManager.BOTTOM).GetComponent<GameWindow>();
 
-            GameFacade.Instance.EventManager.SendEvent(new GameEvent(EVENT.UI_FLUSHCOUNT));
-            GameFacade.Instance.EventManager.SendEvent(new GameEvent(EVENT.UI_FLUSHCOIN, m_FSM.Owner.m_Coin));
+            GameFacade.Instance.EventManager.SendEvent(new GameEvent(EVENT.UI_FLUSHCOUNT, false));
+            GameFacade.Instance.EventManager.SendEvent(new GameEvent(EVENT.UI_FLUSHCOIN, m_FSM.Owner.m_Coin, false));
             GameFacade.Instance.EventManager.SendEvent(new GameEvent(EVENT.UI_FLUSHRELICS));
         
             GameFacade.Instance.Game.Resume();
 
-            m_FSM.Owner.BreechBall(m_FSM.Owner.PushBall(_C.BALL_ORIGIN_POS, _C.BALLTYPE.NORMAL));
+            m_FSM.Owner.BreechBall(m_FSM.Owner.PushBall(_C.BALL_ORIGIN_POS, _C.BALLTYPE.BOOM));
             // m_FSM.Owner.BreechBall(m_FSM.Owner.PushBall(_C.BALL_ORIGIN_POS, _C.BALLTYPE.POWER));
 
-            m_FSM.Owner.Army.PushRelics(139);
+            m_FSM.Owner.Army.PushRelics(102);
             // CONFIG.GetRelicsDatas().ForEach(x => {
             //     if (x.Weight > 0) m_FSM.Owner.Army.PushRelics(x.ID);
             // });

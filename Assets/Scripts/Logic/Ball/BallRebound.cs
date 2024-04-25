@@ -11,30 +11,11 @@ namespace CB
     /// 
     public class BallRebound : Ball
     {
-        private int m_Count;
-        private int m_Current;
-
-
-        public override void Shoot(Vector3 pos)
-        {
-            base.Shoot(pos);
-
-            m_Current = m_Count;
-            m_GroundValid = false;
-        }
-
-        public override void UpgradeTo(int level)
-        {
-            base.UpgradeTo(level);
-
-            m_Count = 2 * m_Level;
-        }
+        private int m_Rate = 55;
 
         public override string GetDescription()
         {
-            var str = string.Format("触底后强力反弹,最多<size=32><#43A600>{0}</color></size>次", m_Count);
-
-            return str;
+            return string.Format("触底后有概率强力反弹。");
         }
 
         //碰撞逻辑
@@ -47,8 +28,8 @@ namespace CB
             Ground ground = collision.transform.GetComponent<Ground>();
             if (ground != null) {
                 if (ground.GroundType == GroundType.Ground) {
-                    if (m_Current > 0) {
-                        m_Current--;
+                    if (RandomUtility.IsHit(m_Rate)) {
+                        m_GroundValid = false;
 
                         Vector3 random_pos = new Vector3(RandomUtility.Random(-43, 44) / 10.0f, 6f, 0);
                         Vector2 force   = random_pos - transform.localPosition;
@@ -56,22 +37,24 @@ namespace CB
                         Vector2 vec     = normal * 850;
 
                         c_rigidbody.AddForce(vec);
+                    } else {
+                        m_GroundValid = true;
                     }
                 }
             }
         }
 
-        public override void OnCollisionExit2D(Collision2D collision)
-        {
-            Ground ground = collision.transform.GetComponent<Ground>();
-            if (ground != null) {
-                if (ground.GroundType == GroundType.Ground) {
-                    if (m_Current <= 0) {
-                        m_GroundValid = true;
-                    }
-                }
-            }  
-        }
+        // public override void OnCollisionExit2D(Collision2D collision)
+        // {
+        //     Ground ground = collision.transform.GetComponent<Ground>();
+        //     if (ground != null) {
+        //         if (ground.GroundType == GroundType.Ground) {
+        //             if (m_Current <= 0) {
+        //                 m_GroundValid = true;
+        //             }
+        //         }
+        //     }  
+        // }
     }
 }
 

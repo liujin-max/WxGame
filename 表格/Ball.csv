@@ -17,7 +17,7 @@ ID,Name,HP,Weight,Icon,Ball,Description
 15,变形弹珠(菱),1,24,UI/Texture/ball_ling,Prefab/Ball/BallLing,
 16,再生弹珠,1,31,UI/Texture/ball_regen,Prefab/Ball/BallRegen,击中宝石时有概率使宝石恢复血量
 17,成长弹珠,1,33,UI/Texture/ball_growth,Prefab/Ball/BallGrowth,每击落一颗宝石，伤害永久增加#点
-18,膨胀弹珠,2,30,UI/Texture/ball_expand,Prefab/Ball/BallExpand,击中菱形宝石后体积膨胀，最大膨胀到1.5倍
+18,膨胀弹珠,1,30,UI/Texture/ball_expand,Prefab/Ball/BallExpand,击中菱形宝石后体积膨胀，最大膨胀到1.5倍
 19,追踪弹珠,2,33,UI/Texture/ball_focus,Prefab/Ball/BallFocus,击中宝石后朝场上的碎片飞去
 20,震荡弹珠,3,24,UI/Texture/ball_wave,Prefab/Ball/BallWave,弹珠没有伤害。击中宝石吸收能量，积攒能量后对全场释放伤害
 21,缩放弹珠,2,32,UI/Texture/ball_scale,Prefab/Ball/BallScale,被击中的宝石会缩小。
