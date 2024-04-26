@@ -104,7 +104,7 @@ public class AttributeValue
         base_value = (base_value + add_value)  * aul_value * mul_value;
 
         if (m_IsInt == true) {
-            base_value = MathF.Floor(base_value);
+            base_value = (float)Math.Floor(base_value);
         }
 
         return base_value;

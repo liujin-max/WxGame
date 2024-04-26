@@ -4,8 +4,6 @@ using System.Collections.Generic;
 using System.Linq;
 using DG.Tweening;
 using TMPro;
-using Unity.Burst.Intrinsics;
-using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -146,9 +144,9 @@ namespace CB
 
                 float speed;
                 if (step >= 0) {
-                    speed = math.max(step / 0.5f, 5.0f);
+                    speed = Math.Max(step / 0.5f, 5.0f);
                 } else {
-                    speed = math.min(step / 0.5f, -15.0f);
+                    speed = Math.Min(step / 0.5f, -15.0f);
                 }
                 
                 m_Cscore += speed * Time.deltaTime; //Math.Min(speed * Time.deltaTime, m_Tscore);
