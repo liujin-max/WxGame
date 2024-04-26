@@ -211,6 +211,7 @@
     <None Include="Assets\AllIn1SpriteShader\Resources\AllIn1SpriteShader.shader" />
     <None Include="Assets\TextMesh Pro\Shaders\TMPro_Mobile.cginc" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF SSD.shader" />
+    <None Include="Assets\WX-WASM-SDK-V2\Runtime\Plugins\link.xml" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Surface-Mobile.shader" />
     <None Include="Assets\AllIn1SpriteShader\Resources\AllIn1SpriteShaderScrollView.shader" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Surface.shader" />
@@ -517,7 +518,7 @@
       <Private>False</Private>
     </Reference>
     <Reference Include="Unity.FontABTool">
-      <HintPath>Assets\WX-WASM-SDK-V2\Runtime\Plugins\Unity.FontABTool.dll</HintPath>
+      <HintPath>Library\PackageCache\com.qq.weixin.minigame@2c8fc737b7\Runtime\Plugins\Unity.FontABTool.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="Newtonsoft.Json">
@@ -525,7 +526,7 @@
       <Private>False</Private>
     </Reference>
     <Reference Include="wx-runtime-editor">
-      <HintPath>Assets\WX-WASM-SDK-V2\Runtime\Plugins\wx-runtime-editor.dll</HintPath>
+      <HintPath>Library\PackageCache\com.qq.weixin.minigame@2c8fc737b7\Runtime\Plugins\wx-runtime-editor.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="Unity.Burst.Unsafe">
@@ -541,7 +542,7 @@
       <Private>False</Private>
     </Reference>
     <Reference Include="LitJson">
-      <HintPath>Assets\WX-WASM-SDK-V2\Runtime\Plugins\LitJson.dll</HintPath>
+      <HintPath>Library\PackageCache\com.qq.weixin.minigame@2c8fc737b7\Runtime\Plugins\LitJson.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="Unity.VisualScripting.Antlr3.Runtime">
@@ -1168,6 +1169,10 @@
       <HintPath>Library\ScriptAssemblies\Unity.2D.IK.Runtime.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="Wx">
+      <HintPath>Library\ScriptAssemblies\Wx.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
     <Reference Include="Unity.Burst">
       <HintPath>Library\ScriptAssemblies\Unity.Burst.dll</HintPath>
       <Private>False</Private>
@@ -1200,6 +1205,10 @@
       <HintPath>Library\ScriptAssemblies\Unity.2D.Common.Editor.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="WxEditor">
+      <HintPath>Library\ScriptAssemblies\WxEditor.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
     <Reference Include="Unity.2D.SpriteShape.Runtime">
       <HintPath>Library\ScriptAssemblies\Unity.2D.SpriteShape.Runtime.dll</HintPath>
       <Private>False</Private>
@@ -1210,8 +1219,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="Wx.csproj" />
-    <ProjectReference Include="WxEditor.csproj" />
   </ItemGroup>
   <Import Project="Sdk.targets" Sdk="Microsoft.NET.Sdk" />
   <ItemGroup>
