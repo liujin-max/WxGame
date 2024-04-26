@@ -56,7 +56,7 @@ namespace CB
 
 
         internal bool m_StartFlag = false;
-        internal bool m_PauseFlag = false;
+        public bool PauseFlag = false;
         internal int m_Score = 0;
         internal int m_Stage = 0;
         public int Stage {get {return m_Stage;}}
@@ -230,8 +230,8 @@ namespace CB
                 count += i;
             }
 
-            //每9关，分数要求提升一个台阶
-            int step = (int)(stage / (3 * _C.STAGESTEP));
+            //每#关，分数要求提升一个台阶
+            int step = (int)(stage / (3 * _C.STAGESTEP + 1));
 
             return count * 3 * (step + 1);
         }
@@ -400,9 +400,6 @@ namespace CB
             }
             else
             {
-                // var config  = evt.BallConfig;
-
-
                 int cost_need = (int)evt.Cost.ToNumber(); //(int)config.Cost.ToNumber();
 
                 //判断是否足够
@@ -562,7 +559,7 @@ namespace CB
 
         public void Pause()
         {
-            m_PauseFlag = true;
+            PauseFlag = true;
 
             Physics2D.simulationMode = SimulationMode2D.Script;
             // Time.timeScale  = 0;
@@ -578,7 +575,7 @@ namespace CB
 
         public void Resume()
         {
-            m_PauseFlag = false;
+            PauseFlag = false;
 
             Physics2D.simulationMode = SimulationMode2D.FixedUpdate;
             // Time.timeScale = 1;
@@ -867,7 +864,7 @@ namespace CB
             temp_list.Add((int)_C.BOXTYPE.GHOST);
 
             for (int i = 0; i < 3; i++) {
-                if (RandomUtility.IsHit(60))  {
+                if (RandomUtility.IsHit(70))  {
                     temp_list.Add((int)_C.BOXTYPE.GHOST);
                 }
             }
@@ -1134,7 +1131,7 @@ namespace CB
                 OnMouseUp();
             }
 
-            if (m_FSM.Owner.m_PauseFlag == true) return;
+            if (m_FSM.Owner.PauseFlag == true) return;
 
             if (m_IsFinished == true) {
                 m_DelayTimer.Update(Time.deltaTime);

@@ -63,6 +63,7 @@ namespace CB
         void Update()
         {
             if(m_IsEnter != true) return;
+            if (GameFacade.Instance.Game.PauseFlag == true) return;
 
 
             m_CDTimer.Update(Time.deltaTime);

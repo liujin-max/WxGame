@@ -672,7 +672,7 @@ namespace CB
 
             if (collision.transform.GetComponent<Wall>() != null)
             {
-                GameFacade.Instance.Game.UpdateScore(1);
+                GameFacade.Instance.Game.UpdateScore((int)ball.Demage.ToNumber());
 
                 GameFacade.Instance.EffectManager.Load(EFFECT.BALLOON, collision.contacts[0].point);
                 GameFacade.Instance.EventManager.SendEvent(new GameEvent(EVENT.UI_TRIGGERRELICS, Belong));
@@ -1195,7 +1195,7 @@ namespace CB
     {
         public override string GetDescription()
         {
-            return string.Format("提高合成列表出现<sprite={0}>的几率。",  (int)_C.SPRITEATLAS.GLASS);
+            return string.Format("提高合成列表出现<sprite={0}>的概率。",  (int)_C.SPRITEATLAS.GLASS);
         }
 
         public override void Execute()
