@@ -1,7 +1,31 @@
 fileFormatVersion: 2
 guid: 0cf97b78573111d4fa737d9fdc6deb65
 TextureImporter:
-  internalIDToNameTable: []
+  internalIDToNameTable:
+  - first:
+      213: -7600441579368616308
+    second: ball
+  - first:
+      213: -2645361854805593308
+    second: Bomb
+  - first:
+      213: -4937799242134460900
+    second: coin
+  - first:
+      213: -6496027776070713111
+    second: Glass
+  - first:
+      213: 1011734911467510150
+    second: polygon1
+  - first:
+      213: -5251040250293619589
+    second: polygon3
+  - first:
+      213: 6979435127725564671
+    second: polygon4
+  - first:
+      213: -8569785819023427980
+    second: polygon5
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -132,115 +156,10 @@ TextureImporter:
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
-      tessellationDetail: 0
+      tessellationDetail: -1
       bones: []
-      spriteID: 9cfd2dca6505bf0499e09912d1cd4f87
-      internalID: 84024603
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Glass
-      rect:
-        serializedVersion: 2
-        x: 408
-        y: 74
-        width: 66
-        height: 66
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 3f28f360ffe3b7943a4cea3d0f37d0a8
-      internalID: 2052840671
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: polygon1
-      rect:
-        serializedVersion: 2
-        x: 544
-        y: 12
-        width: 124
-        height: 128
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 02472b7cb79c4a64a824dd054775d45b
-      internalID: -1098715419
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: polygon3
-      rect:
-        serializedVersion: 2
-        x: 680
-        y: 16
-        width: 136
-        height: 124
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: a67694d10da657e48a6fdb795249dcc1
-      internalID: 1128334879
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: polygon4
-      rect:
-        serializedVersion: 2
-        x: 816
-        y: 16
-        width: 124
-        height: 124
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 319e26ff5c5b3a84e8d50dcccec6ff24
-      internalID: 640055896
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: polygon5
-      rect:
-        serializedVersion: 2
-        x: 952
-        y: 0
-        width: 120
-        height: 140
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: f5a8e046a80258d449ac963376f66527
-      internalID: -1237416390
+      spriteID: c8eef9507aec58690800000000000000
+      internalID: -7600441579368616308
       vertices: []
       indices: 
       edges: []
@@ -258,10 +177,10 @@ TextureImporter:
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
-      tessellationDetail: 0
+      tessellationDetail: -1
       bones: []
-      spriteID: da4d6945e588dcb4f83bdb1bd6fbdb35
-      internalID: 978616505
+      spriteID: 423b1f5a869c94bd0800000000000000
+      internalID: -2645361854805593308
       vertices: []
       indices: 
       edges: []
@@ -279,10 +198,115 @@ TextureImporter:
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
-      tessellationDetail: 0
+      tessellationDetail: -1
       bones: []
-      spriteID: fe1e0ab2cc6ab6a49bd6d94d65d16d6b
-      internalID: 864839556
+      spriteID: c16e16830c9697bb0800000000000000
+      internalID: -4937799242134460900
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Glass
+      rect:
+        serializedVersion: 2
+        x: 408
+        y: 74
+        width: 66
+        height: 66
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9e00c34b72979d5a0800000000000000
+      internalID: -6496027776070713111
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: polygon1
+      rect:
+        serializedVersion: 2
+        x: 544
+        y: 12
+        width: 124
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 689d1e4aa876a0e00800000000000000
+      internalID: 1011734911467510150
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: polygon3
+      rect:
+        serializedVersion: 2
+        x: 680
+        y: 16
+        width: 136
+        height: 124
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b7478fba6be8027b0800000000000000
+      internalID: -5251040250293619589
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: polygon4
+      rect:
+        serializedVersion: 2
+        x: 816
+        y: 16
+        width: 124
+        height: 124
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ff227f0254febd060800000000000000
+      internalID: 6979435127725564671
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: polygon5
+      rect:
+        serializedVersion: 2
+        x: 952
+        y: 0
+        width: 120
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 476bde7c331021980800000000000000
+      internalID: -8569785819023427980
       vertices: []
       indices: 
       edges: []
@@ -298,14 +322,14 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Bomb: 978616505
-      polygon5: -1237416390
-      ball: 84024603
-      Glass: 2052840671
-      polygon1: -1098715419
-      polygon4: 640055896
-      coin: 864839556
-      polygon3: 1128334879
+      Bomb: -2645361854805593308
+      polygon5: -8569785819023427980
+      ball: -7600441579368616308
+      Glass: -6496027776070713111
+      polygon1: 1011734911467510150
+      polygon4: 6979435127725564671
+      coin: -4937799242134460900
+      polygon3: -5251040250293619589
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0
