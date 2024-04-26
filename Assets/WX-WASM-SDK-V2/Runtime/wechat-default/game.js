@@ -102,7 +102,7 @@ checkVersion().then((enable) => {
                     firstStartText: '',
                     downloadingText: ['正在进入弹珠世界'],
                     compilingText: '生成弹珠...',
-                    initText: '马不停蹄...',
+                    initText: '生成宝石...',
                     completeText: '开始游戏',
                     textDuration: 1500,
                     // 文字样式

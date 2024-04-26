@@ -55,7 +55,7 @@ namespace CB
 
         public override string GetDescription()
         {
-            var str = string.Format("发射途中为场上其他弹珠提供<size=32><#43A600>{0}</color></size>点伤害", m_Power);
+            var str = string.Format("飞行途中为场上其他弹珠提供<size=32><#43A600>{0}</color></size>点伤害", m_Power);
 
             return str;
         }

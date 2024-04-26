@@ -828,7 +828,7 @@ namespace CB
             m_FSM.Owner.BreechBall(m_FSM.Owner.PushBall(_C.BALL_ORIGIN_POS, _C.BALLTYPE.NORMAL));
             // m_FSM.Owner.BreechBall(m_FSM.Owner.PushBall(_C.BALL_ORIGIN_POS, _C.BALLTYPE.POWER));
 
-            // m_FSM.Owner.Army.PushRelics(102);
+            // m_FSM.Owner.Army.PushRelics(121);
             // CONFIG.GetRelicsDatas().ForEach(x => {
             //     if (x.Weight > 0) m_FSM.Owner.Army.PushRelics(x.ID);
             // });
@@ -858,7 +858,7 @@ namespace CB
 
             List<int> temp_list = new List<int>();
 
-            AttributeValue random_count = new AttributeValue(RandomUtility.Random(23, 28));
+            AttributeValue random_count = new AttributeValue(RandomUtility.Random(24, 28));
             int hp_now  = 0;
             int hp_avg  = (int)Mathf.Ceil(hp_need / random_count.ToNumber());  //平均一颗宝石的血量
 

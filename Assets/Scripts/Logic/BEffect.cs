@@ -745,34 +745,22 @@ namespace CB
     //弹珠每击中宝石#次立即获得1点积分
     public class BEffect_HITSCORE : BEffect
     {
-        private const int m_CountMax = 5;
-        private int m_Count;
-
         public BEffect_HITSCORE() 
         {
-            m_Count = m_CountMax;
+
         }
 
         public override string GetDescription()
         {
-            return string.Format("弹珠每击中宝石{0}次，获得1点分数。", m_CountMax);
+            return string.Format("弹珠每次击中宝石额外获得1点分数。");
         }
 
-        public override string ShowString()
-        {
-            return m_Count.ToString();
-        }
 
         public override void OnHitAfter(Ball ball, Obstacle obt, Collision2D collision)
         {
-            m_Count--;
-            if (m_Count == 0) {
-                m_Count = m_CountMax;
+            GameFacade.Instance.Game.UpdateScore(1);
 
-                GameFacade.Instance.Game.UpdateScore(1);
-
-                GameFacade.Instance.EventManager.SendEvent(new GameEvent(EVENT.UI_TRIGGERRELICS, Belong));
-            }
+            GameFacade.Instance.EventManager.SendEvent(new GameEvent(EVENT.UI_TRIGGERRELICS, Belong));
         }
     }
 

@@ -149,7 +149,7 @@ AutoStreamingSettings:
     refs:
     - 0
     - res
-    maxPlaceholderSize: 196640
+    maxPlaceholderSize: 0
     width: 128
     height: 68
     abSize: 0
@@ -173,7 +173,7 @@ AutoStreamingSettings:
     warningFlag: 0
     refs:
     - res
-    maxPlaceholderSize: 196640
+    maxPlaceholderSize: 0
     width: 64
     height: 64
     abSize: 0
@@ -223,7 +223,7 @@ AutoStreamingSettings:
     warningFlag: 0
     refs:
     - res
-    maxPlaceholderSize: 196640
+    maxPlaceholderSize: 0
     width: 512
     height: 84
     abSize: 0
@@ -349,7 +349,7 @@ AutoStreamingSettings:
     warningFlag: 0
     refs:
     - res
-    maxPlaceholderSize: 196640
+    maxPlaceholderSize: 0
     width: 128
     height: 128
     abSize: 0
@@ -361,7 +361,7 @@ AutoStreamingSettings:
     warningFlag: 0
     refs:
     - res
-    maxPlaceholderSize: 196640
+    maxPlaceholderSize: 0
     width: 128
     height: 128
     abSize: 0
@@ -373,7 +373,7 @@ AutoStreamingSettings:
     warningFlag: 0
     refs:
     - res
-    maxPlaceholderSize: 196640
+    maxPlaceholderSize: 0
     width: 128
     height: 128
     abSize: 0
@@ -385,7 +385,7 @@ AutoStreamingSettings:
     warningFlag: 0
     refs:
     - res
-    maxPlaceholderSize: 196640
+    maxPlaceholderSize: 0
     width: 128
     height: 128
     abSize: 0
@@ -397,7 +397,7 @@ AutoStreamingSettings:
     warningFlag: 0
     refs:
     - res
-    maxPlaceholderSize: 196640
+    maxPlaceholderSize: 0
     width: 128
     height: 128
     abSize: 0
@@ -409,7 +409,7 @@ AutoStreamingSettings:
     warningFlag: 0
     refs:
     - res
-    maxPlaceholderSize: 196640
+    maxPlaceholderSize: 0
     width: 256
     height: 32
     abSize: 0
@@ -421,7 +421,7 @@ AutoStreamingSettings:
     warningFlag: 0
     refs:
     - res
-    maxPlaceholderSize: 196640
+    maxPlaceholderSize: 0
     width: 128
     height: 128
     abSize: 0
@@ -433,7 +433,7 @@ AutoStreamingSettings:
     warningFlag: 0
     refs:
     - res
-    maxPlaceholderSize: 196640
+    maxPlaceholderSize: 0
     width: 128
     height: 128
     abSize: 0
@@ -445,7 +445,7 @@ AutoStreamingSettings:
     warningFlag: 0
     refs:
     - res
-    maxPlaceholderSize: 196640
+    maxPlaceholderSize: 0
     width: 128
     height: 128
     abSize: 0
@@ -457,7 +457,7 @@ AutoStreamingSettings:
     warningFlag: 0
     refs:
     - res
-    maxPlaceholderSize: 196640
+    maxPlaceholderSize: 0
     width: 64
     height: 64
     abSize: 0
@@ -481,7 +481,7 @@ AutoStreamingSettings:
     warningFlag: 0
     refs:
     - res
-    maxPlaceholderSize: 196640
+    maxPlaceholderSize: 0
     width: 128
     height: 128
     abSize: 0
@@ -493,7 +493,7 @@ AutoStreamingSettings:
     warningFlag: 0
     refs:
     - res
-    maxPlaceholderSize: 196640
+    maxPlaceholderSize: 0
     width: 128
     height: 128
     abSize: 0
@@ -505,7 +505,7 @@ AutoStreamingSettings:
     warningFlag: 0
     refs:
     - res
-    maxPlaceholderSize: 196640
+    maxPlaceholderSize: 0
     width: 128
     height: 128
     abSize: 0
@@ -517,7 +517,7 @@ AutoStreamingSettings:
     warningFlag: 0
     refs:
     - res
-    maxPlaceholderSize: 196640
+    maxPlaceholderSize: 0
     width: 128
     height: 128
     abSize: 0
@@ -530,7 +530,7 @@ AutoStreamingSettings:
     refs:
     - 0
     - res
-    maxPlaceholderSize: 196640
+    maxPlaceholderSize: 0
     width: 64
     height: 64
     abSize: 0
@@ -567,7 +567,7 @@ AutoStreamingSettings:
     warningFlag: 0
     refs:
     - res
-    maxPlaceholderSize: 196640
+    maxPlaceholderSize: 0
     width: 128
     height: 128
     abSize: 0
@@ -579,7 +579,7 @@ AutoStreamingSettings:
     warningFlag: 0
     refs:
     - res
-    maxPlaceholderSize: 196640
+    maxPlaceholderSize: 0
     width: 64
     height: 64
     abSize: 0

@@ -12,7 +12,8 @@
 
 
 问题：
-
+失败界面需要积极一点，如果是新纪录，要显示
+PE_ConfettiBlastRainbow (UnityEngine.GameObject)
 
 
 玩法调整：

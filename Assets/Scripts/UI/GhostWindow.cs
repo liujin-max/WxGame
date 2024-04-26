@@ -200,8 +200,8 @@ public class GhostWindow : MonoBehaviour
 
             c_BtnRefresh.gameObject.SetActive(true);
             c_BtnCancel.gameObject.SetActive(true);
-            c_BtnGlass.gameObject.SetActive(true);
-            c_BtnVideoRefresh.gameObject.SetActive(true);
+            // c_BtnGlass.gameObject.SetActive(true);
+            // c_BtnVideoRefresh.gameObject.SetActive(true);
         }
     }
 }
