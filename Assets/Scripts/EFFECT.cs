@@ -23,6 +23,9 @@ public static class EFFECT
     public const string HEALONCE    = "Prefab/Effect/fx_healOnce";
     public const string CRIT        = "Prefab/Effect/fx_crit";
     public const string BALLOON     = "Prefab/Effect/fx_balloon";
+    public const string NEWSCORE    = "Prefab/Effect/fx_newScore";
+    public const string RAINBOW     = "Prefab/Effect/fx_rainbow";
+    public const string SCORETEXT   = "Prefab/Effect/fx_text_score";
 
 
     public const string RATENUMBER  = "Prefab/Effect/fx_flyRate";

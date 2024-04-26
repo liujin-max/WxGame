@@ -939,6 +939,11 @@ namespace CB
             //回合开始动画
             var obj = GameFacade.Instance.EffectManager.Load(EFFECT.ROUND, new Vector3(0, 2, 0));
             obj.GetComponent<RoundText>().Init(m_FSM.Owner.m_Stage);
+
+            if (GameFacade.Instance.DataManager.IsNewScore(m_FSM.Owner.m_Stage))
+            {
+                GameFacade.Instance.EffectManager.Load(EFFECT.SCORETEXT, new Vector3(0, 5.5f, 0));
+            }
         }
         
         public override void Update()
@@ -1372,6 +1377,7 @@ namespace CB
         {
             GameFacade.Instance.Game.Pause();
 
+            bool is_new_score = GameFacade.Instance.DataManager.IsNewScore(m_FSM.Owner.m_Stage);
             //记录分数
             GameFacade.Instance.DataManager.SetScore(m_FSM.Owner.m_Stage);
 
@@ -1379,7 +1385,7 @@ namespace CB
 
             var obj = GameFacade.Instance.UIManager.LoadWindow("Prefab/UI/ResultWindow", GameFacade.Instance.UIManager.BOARD);
             var ui  = obj.GetComponent<ResultWindow>();
-            ui.Init(m_FSM.Owner.m_Stage, m_FSM.Owner.m_Coin);
+            ui.Init(m_FSM.Owner.m_Stage, is_new_score);
         }
     }
 

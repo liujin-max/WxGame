@@ -67,6 +67,13 @@ namespace CB
             PlayerPrefs.SetInt(KEY_SCORE, value);
         }
 
+        public bool IsNewScore(int score)
+        {
+            if (m_Score == 0) return false;
+
+            return score > m_Score;
+        }
+
         public int GetIntByKey(string key)
         {
             return PlayerPrefs.GetInt(key, 0);

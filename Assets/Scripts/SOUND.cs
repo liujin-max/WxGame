@@ -13,6 +13,7 @@ public static class SOUND
     //音效
     public const string CLICK       = "Prefab/Sound/Sound_click";
     public const string RESULT      = "Prefab/Sound/Sound_result";
+    public const string NEWSCORE    = "Prefab/Sound/Sound_newscore";
     public const string COST        = "Prefab/Sound/Sound_cost";
     public const string HIT         = "Prefab/Sound/Sound_hit";
     public const string DROP        = "Prefab/Sound/Sound_drop";

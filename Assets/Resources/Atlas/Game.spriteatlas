@@ -67,8 +67,10 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 63812af45f25a2a48bbf3349456d4878, type: 3}
   - {fileID: 21300000, guid: 43a9641549c11af4c8378cfc03c3323b, type: 3}
   - {fileID: 21300000, guid: a5b3cb15ad3da654596ee2b975361c2b, type: 3}
+  - {fileID: 21300000, guid: 1f38f1b5f31f17c4487ecb646f1e224e, type: 3}
   - {fileID: 21300000, guid: 9da55fc6e619eba438019a4d216ffd5b, type: 3}
   - {fileID: 21300000, guid: a6e51797376b975498f121c4f48bff70, type: 3}
+  - {fileID: 21300000, guid: 1577d3d791226a741bbe4661f1458307, type: 3}
   - {fileID: 21300000, guid: 187164397907e274cb6f493d846d65c4, type: 3}
   - {fileID: 21300000, guid: 85a5d1d9e84a17245920d74312ef9689, type: 3}
   - {fileID: 21300000, guid: a3e243e966db59041b58c5f0750e94e4, type: 3}
@@ -92,8 +94,10 @@ SpriteAtlas:
   - Game_upgrade_title_upgrade
   - Game_ball_list_frame
   - Game_relics_bubble
+  - Game_new_score
   - Game_btn_restart
   - Game_upgrade_title_complex
+  - Game_text_newscore
   - Game_btn_select
   - Game_score_bar
   - Game_text_stage_1
