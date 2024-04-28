@@ -139,6 +139,7 @@ public class GameFacade : MonoBehaviour
         #if WEIXINMINIGAME && !UNITY_EDITOR
             WX.InitSDK((code) =>
             {
+                WX.ReportGameStart();
                 Init();
             });
         #else

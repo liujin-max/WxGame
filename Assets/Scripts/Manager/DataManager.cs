@@ -45,26 +45,51 @@ namespace CB
             }
 
 
-            m_Score = PlayerPrefs.GetInt(KEY_SCORE, 0);
+            LoadRecord();
 
             m_MusicVolume   = PlayerPrefs.GetFloat(KEY_MUSIC, 1);
             m_SoundVolume   = PlayerPrefs.GetFloat(KEY_SOUND, 1);
         }
 
+        public void LoadRecord()
+        {
+            #if WEIXINMINIGAME && !UNITY_EDITOR
+                //加载存档
+
+            #else
+                m_Score = PlayerPrefs.GetInt(KEY_SCORE, 0);
+            #endif 
+        }
+
         public void ClearRecord()
         {
-            PlayerPrefs.SetInt(KEY_SCORE, 0);
+            #if WEIXINMINIGAME && !UNITY_EDITOR
+                //清空排行榜
+                // WXUtility.UnloadRankScore(value);
+                //清空个人数据
+
+            #else
+                PlayerPrefs.SetInt(KEY_SCORE, 0);
+            #endif 
+            
         }
 
         //层数记录
         public void SetScore(int value)
         {
-            // if (value <= m_Score ) return;
+            if (value <= m_Score ) return;
 
-            // m_Score = value;
+            m_Score = value;
 
-            // PlayerPrefs.SetInt(KEY_SCORE, value);
-            WXUtility.UnloadRankScore(value);
+
+            #if WEIXINMINIGAME && !UNITY_EDITOR
+                //存储个人数据
+
+                //上传排行榜
+                WXUtility.UnloadRankScore(value);
+            #else
+                PlayerPrefs.SetInt(KEY_SCORE, value);
+            #endif  
         }
 
         public bool IsNewScore(int score)
