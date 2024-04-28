@@ -251,7 +251,7 @@ namespace CB
 
             Box box = collision.gameObject.GetComponent<Box>();
             if (box != null) {
-                GameFacade.Instance.SoundManager.Load(SOUND.HIT);
+                GameFacade.Instance.EffectManager.Load(EFFECT.BALLOON, collision.contacts[0].point);
 
                 box.OnHit(this);
                 box.OnShake();
@@ -268,7 +268,7 @@ namespace CB
         {
             Obstacle obt = collision.gameObject.GetComponent<Obstacle>();
             if (obt != null) {
-                GameFacade.Instance.SoundManager.Load(SOUND.HIT);
+                GameFacade.Instance.EffectManager.Load(EFFECT.BALLOON, collision.contacts[0].point);
 
                 GameFacade.Instance.EventManager.SendEvent(new GameEvent(EVENT.ONBALLHITBEFORE, this, obt, collision));
 

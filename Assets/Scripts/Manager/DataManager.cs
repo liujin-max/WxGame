@@ -8,7 +8,6 @@ namespace CB
         public  const string KEY_SCORE = "KEY_SCORE";
 
 
-        public const string KEY_GUIDE  = "KEY_GUIDE";
         public const string KEY_MUSIC  = "KEY_MUSIC";  //音乐
         public const string KEY_SOUND  = "KEY_SOUND";  //音效
 
@@ -54,7 +53,6 @@ namespace CB
         public void ClearRecord()
         {
             PlayerPrefs.SetInt(KEY_SCORE, 0);
-            PlayerPrefs.SetInt(KEY_GUIDE, 0);
         }
 
         //层数记录

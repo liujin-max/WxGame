@@ -36,7 +36,7 @@ namespace CB
             
             m_Shaking = true;
 
-            m_Sprite.transform.DOShakeRotation(0.25f, 20f, vibrato: 15, randomness: 50).OnComplete(()=>{
+            m_Sprite.transform.DOShakeRotation(0.25f, 25f, vibrato: 15, randomness: 50).OnComplete(()=>{
                 m_Shaking = false;
             });
         }

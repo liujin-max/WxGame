@@ -131,6 +131,7 @@ namespace CB
         {
             State<GameController>[] array = {
                 new State_START<GameController>(_C.FSMSTATE.GAME_START), 
+                new State_RECORD<GameController>(_C.FSMSTATE.GAME_RECORD),
                 new State_IDLE<GameController>(_C.FSMSTATE.GAME_IDLE),
                 new State_PLAY<GameController>(_C.FSMSTATE.GAME_PLAY),
                 new State_COMPLEXT<GameController>(_C.FSMSTATE.GAME_COMPLEX),
@@ -718,6 +719,18 @@ namespace CB
             return new_relics;
         }
 
+        //根据当前记录可以得到的金币
+        public int GetScoreCoin()
+        {
+            return GameFacade.Instance.DataManager.Score;
+        }
+
+        //根据当前记录可以得到的碎片
+        public int GetScoreGlass()
+        {
+            return _C.DEFAULT_GLASS + (int)(GameFacade.Instance.DataManager.Score / 5.0);
+        }
+
         //范围伤害
         public void Boom(Vector3 center_pos, float radius, int demage)
         {
@@ -809,14 +822,18 @@ namespace CB
 
             m_FSM.Owner.Army.Awake();
 
-            m_FSM.Owner.m_Coin = GameFacade.Instance.DataManager.Score;
-            m_FSM.Owner.m_Glass= _C.DEFAULT_GLASS + (int)(GameFacade.Instance.DataManager.Score / 5.0);
+            m_FSM.Owner.m_Coin  = 0;
+            m_FSM.Owner.m_Glass = 0;
+            m_FSM.Owner.m_Score = 0;
+            m_FSM.Owner.m_Stage = 0;
+
 
             m_FSM.Owner.GameUI = GameFacade.Instance.UIManager.LoadWindow("Prefab/UI/GameWindow", GameFacade.Instance.UIManager.BOTTOM).GetComponent<GameWindow>();
 
             GameFacade.Instance.EventManager.SendEvent(new GameEvent(EVENT.UI_FLUSHCOUNT, false));
             GameFacade.Instance.EventManager.SendEvent(new GameEvent(EVENT.UI_FLUSHCOIN, m_FSM.Owner.m_Coin, false));
             GameFacade.Instance.EventManager.SendEvent(new GameEvent(EVENT.UI_FLUSHRELICS));
+            GameFacade.Instance.EventManager.SendEvent(new GameEvent(EVENT.UI_FLUSHSCORE, m_FSM.Owner.m_Score, m_FSM.Owner.GetTargetScore(1), true));
         
             GameFacade.Instance.Game.Resume();
 
@@ -829,12 +846,47 @@ namespace CB
             // });
 
 
-            m_FSM.Transist(_C.FSMSTATE.GAME_IDLE);
+            m_FSM.Transist(_C.FSMSTATE.GAME_RECORD);
         }
     }
 
 
+    //根据记录获得奖励
+    internal class State_RECORD<T> : State<GameController>
+    {
+        private RecordWindow m_RecordUI;
+        public State_RECORD(_C.FSMSTATE id) : base(id)
+        {
+        }
 
+        public override void Enter()
+        {   
+            if (GameFacade.Instance.DataManager.Score > 0)
+            {
+                m_RecordUI = GameFacade.Instance.UIManager.LoadWindow("Prefab/UI/RecordWindow", GameFacade.Instance.UIManager.BOTTOM).GetComponent<RecordWindow>();
+                m_RecordUI.Init();
+            }
+        }
+
+        public override void Update()
+        {
+            if (m_RecordUI == null)
+            {
+                GameFacade.Instance.Game.DOTransist(_C.FSMSTATE.GAME_IDLE);
+            }
+        }
+
+        public override void Exit()
+        {
+            m_FSM.Owner.m_Coin  = GameFacade.Instance.Game.GetScoreCoin();
+            m_FSM.Owner.m_Glass = GameFacade.Instance.Game.GetScoreGlass();
+
+            GameFacade.Instance.EventManager.SendEvent(new GameEvent(EVENT.UI_FLUSHCOUNT, true));
+            GameFacade.Instance.EventManager.SendEvent(new GameEvent(EVENT.UI_FLUSHCOIN, m_FSM.Owner.m_Coin, true));
+
+            m_RecordUI = null;
+        }
+    }
 
     //回合开始
     internal class State_IDLE<T> : State<GameController>
@@ -955,13 +1007,11 @@ namespace CB
                 //生成宝石
                 DrawObstables();
 
-                if (m_FSM.Owner.Stage == 1 && GameFacade.Instance.DataManager.GetIntByKey(DataManager.KEY_GUIDE) == 0) {
-                // if (m_FSM.Owner.Stage == 1) {
+                if (m_FSM.Owner.Stage == 1 && GameFacade.Instance.DataManager.Score == 0) {
                     _GuideUI = GameFacade.Instance.UIManager.LoadWindow("Prefab/UI/GuideWindow", GameFacade.Instance.UIManager.MAJOR).GetComponent<GuideWindow>();
                 } else {
                     m_FSM.Transist(_C.FSMSTATE.GAME_PLAY);
                 }
-                
             }
         }
     }

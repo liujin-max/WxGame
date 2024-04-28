@@ -22,11 +22,12 @@ public static class _C
     public enum FSMSTATE
     {
         GAME_START      = 0,
-        GAME_IDLE       = 1,
-        GAME_PLAY       = 2,
-        GAME_COMPLEX    = 3,
-        GAME_SHOP       = 4,
-        GAME_END        = 5
+        GAME_RECORD     = 1,
+        GAME_IDLE       = 2,
+        GAME_PLAY       = 3,
+        GAME_COMPLEX    = 4,
+        GAME_SHOP       = 5,
+        GAME_END        = 6
     }
 
     //SpriteAtlas的序列

@@ -90,7 +90,6 @@ public class GuideWindow : MonoBehaviour
 
 
         GameFacade.Instance.Game.DOTransist(_C.FSMSTATE.GAME_PLAY);
-        GameFacade.Instance.DataManager.SetIntByKey(DataManager.KEY_GUIDE, 1);  //存储记录
         Destroy(gameObject);
     }
 }
