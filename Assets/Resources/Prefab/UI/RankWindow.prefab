@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 4059712356686077653}
   - component: {fileID: 1369802026439211083}
   m_Layer: 5
-  m_Name: '-'
+  m_Name: Box
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -128,6 +128,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Mask: {fileID: 4624191252783419962}
   RankImg: {fileID: 4556490099041550605}
+  Box: {fileID: 1297117737501223099}
 --- !u!1 &8831961713360360594
 GameObject:
   m_ObjectHideFlags: 0
@@ -164,7 +165,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: -78}
-  m_SizeDelta: {x: 680, y: 850}
+  m_SizeDelta: {x: 680, y: 860}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3503143085027945942
 CanvasRenderer:

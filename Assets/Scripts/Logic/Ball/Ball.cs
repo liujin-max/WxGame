@@ -17,7 +17,7 @@ namespace CB
         public Collider2D Collision{ get {return c_collision;}}
 
 
-        #region ==========  属性  ==========
+        #region 属性
         protected _C.BALLTYPE m_Type;
         public _C.BALLTYPE Type{ get {return m_Type;}}
 
@@ -100,7 +100,7 @@ namespace CB
             get {return transform.localPosition.x - m_LastPos.x;}
         }
 
-        #endregion  ==========  属性  ==========
+        #endregion 属性
 
 
 

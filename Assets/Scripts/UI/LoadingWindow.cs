@@ -2,6 +2,7 @@ using System.Collections;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using WeChatWASM;
 
 
 namespace CB
@@ -15,12 +16,11 @@ namespace CB
         [SerializeField] private Button BtnRank;
 
 
+        
         // Start is called before the first frame update
         void Start()
         {
-
             c_Score.text    = GameFacade.Instance.DataManager.Score.ToString() + " 层";
-            // c_Coin.text     = GameFacade.Instance.DataManager.Coin.ToString() + " <sprite=1>";
 
             BtnEnter.onClick.AddListener(() => {
                 GameFacade.Instance.SoundManager.Load(SOUND.CLICK);
@@ -36,8 +36,11 @@ namespace CB
             });
 
             BtnRank.onClick.AddListener(()=>{  
-                GameFacade.Instance.UIManager.LoadWindow("Prefab/UI/RankWindow", GameFacade.Instance.UIManager.RANK);
+                GameFacade.Instance.UIManager.LoadWindow("Prefab/UI/RankWindow", GameFacade.Instance.UIManager.BOARD);
             });
+
+
+
         }
 
     }

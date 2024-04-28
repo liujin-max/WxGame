@@ -1,4 +1,4 @@
-// @ts-nocheck
+﻿// @ts-nocheck
 /* eslint-disable no-prototype-builtins */
 /* eslint-disable no-unused-vars */
 /* eslint-disable no-undef */
@@ -37,12 +37,12 @@ if (false) {
     checkUpdate();
 }
 const managerConfig = {
-    DATA_FILE_MD5: '4dea3f1868004d6c',
-    CODE_FILE_MD5: '25f7c266670f7821',
+    DATA_FILE_MD5: '0e83d90462e9be26',
+    CODE_FILE_MD5: '4364d766a2eee753',
     GAME_NAME: 'webgl',
     APPID: 'wx3eeae3a7e9821066',
-    DATA_FILE_SIZE: '7507327',
-    OPT_DATA_FILE_SIZE: '$OPT_DATA_FILE_SIZE',
+    DATA_FILE_SIZE: '7507479',
+    OPT_DATA_FILE_SIZE: '6805324',
     DATA_CDN: '',
     // 资源包是否作为小游戏分包加载
     loadDataPackageFromSubpackage: true,

@@ -762,7 +762,7 @@ namespace CB
         }
 
 
-        #region ==== 监听事件 ====
+        #region 监听事件
         //障碍物扣血
         public void OnReponseObstacleHit(GameEvent gameEvent)
         {
@@ -806,7 +806,7 @@ namespace CB
 
 
 
-    #region ==========  状态机  ==========
+    #region 状态机
 
     //游戏开始 
     internal class State_START<T> : State<GameController>

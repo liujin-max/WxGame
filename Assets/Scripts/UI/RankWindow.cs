@@ -11,12 +11,15 @@ namespace CB
     {
         [SerializeField] private Button Mask;
         [SerializeField] private RawImage RankImg;
-
+        [SerializeField] private GameObject Box;
 
 
         void Awake()
         {
             Mask.onClick.AddListener(()=>{
+                Box.SetActive(false);
+                WX.HideOpenData();
+
                 GameFacade.Instance.UIManager.UnloadWindow(gameObject);
             });
         }
@@ -24,14 +27,11 @@ namespace CB
         // Start is called before the first frame update
         void Start()
         {
-            WX.ShowOpenData(RankImg.texture, 200, 1360, 680, 860);
-            WXUtility.ShowGroupRank();
-        }
+            Box.SetActive(true);
 
+            WX.ShowOpenData(RankImg.texture, 200, 480, 680, 860);
 
-        void OnDestroy()
-        {
-            WX.HideOpenData();
+            WXUtility.ShowFriendsRank();
         }
     }
 }
