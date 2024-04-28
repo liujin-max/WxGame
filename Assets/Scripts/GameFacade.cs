@@ -125,7 +125,7 @@ public class GameFacade : MonoBehaviour
         _instance = this;
 
         Input.multiTouchEnabled = false;
-        Application.targetFrameRate = 60;
+        
 
         DontDestroyOnLoad(gameObject);
         DontDestroyOnLoad(GameObject.Find("POOL"));
@@ -139,10 +139,13 @@ public class GameFacade : MonoBehaviour
         #if WEIXINMINIGAME && !UNITY_EDITOR
             WX.InitSDK((code) =>
             {
+                WX.SetPreferredFramesPerSecond(_C.DEFAULT_FRAME);
                 WX.ReportGameStart();
                 Init();
             });
         #else
+            Application.targetFrameRate = _C.DEFAULT_FRAME;
+
             Init();
         #endif
     }

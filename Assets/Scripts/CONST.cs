@@ -43,7 +43,7 @@ public static class _C
         BOMB    = 7,
     }
 
-  
+    public static int DEFAULT_FRAME = 60;
     public static int GLASSPRICE    = 2;    //碎片价格
     public static int DEFAULT_COIN  = 5;
     public static int DEFAULT_GLASS = 5;
