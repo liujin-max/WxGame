@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
 using UnityEngine;
 using WeChatWASM;
 
@@ -12,13 +13,11 @@ public class UIFitter : MonoBehaviour
     }
     private void FillterUI()
     {
-        #if UNITY_WEBGL && !UNITY_EDITOR
+        #if WEIXINMINIGAME && !UNITY_EDITOR
             RectTransform rectTransform = GetComponent<RectTransform>();
 
             var info = WX.GetSystemInfoSync();
             float py = (float)info.safeArea.top / (float)info.windowHeight;
-
-            
 
             // Debug.Log("safeArea : " + info.safeArea.top);
             // Debug.Log("windowHeight : " + info.windowHeight);
@@ -33,6 +32,6 @@ public class UIFitter : MonoBehaviour
             rectTransform.offsetMax = Vector2.zero;
         #endif
         
-    
+
     }
 }

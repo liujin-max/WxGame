@@ -66,7 +66,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\u6E05\u7A7A\u5B58\u6863"
+  m_text: "\u6392\u884C\u699C"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 32c80d060003e7948a473f15dd09db7a, type: 2}
   m_sharedMaterial: {fileID: 2100000, guid: af9a12627dbbf504d8ff999d22fc5ce0, type: 2}
@@ -402,7 +402,8 @@ MonoBehaviour:
   c_Score: {fileID: 8321500377662041925}
   c_Coin: {fileID: 1664205603002264952}
   BtnEnter: {fileID: 3730634391439220101}
-  BtnRecord: {fileID: 6395027188778845220}
+  BtnRank: {fileID: 6395027188778845220}
+  RankImage: {fileID: 0}
 --- !u!1 &4427863771599877862
 GameObject:
   m_ObjectHideFlags: 0
@@ -918,12 +919,12 @@ GameObject:
   - component: {fileID: 6395027188778845220}
   - component: {fileID: 7982937419850598900}
   m_Layer: 5
-  m_Name: BtnRecord
+  m_Name: BtnRank
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &5006164516818343807
 RectTransform:
   m_ObjectHideFlags: 0

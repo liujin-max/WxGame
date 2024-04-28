@@ -1,4 +1,5 @@
 using UnityEngine;
+using WeChatWASM;
 
 namespace CB
 {
@@ -63,6 +64,7 @@ namespace CB
             m_Score = value;
 
             PlayerPrefs.SetInt(KEY_SCORE, value);
+            WXUtility.UnloadRankScore(value);
         }
 
         public bool IsNewScore(int score)

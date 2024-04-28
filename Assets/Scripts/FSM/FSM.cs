@@ -29,7 +29,22 @@ public class FSM<T> where T : class
         return States[id];
     }
 
-    public void Transist(_C.FSMSTATE id)
+    // public void Transist(_C.FSMSTATE id)
+    // {
+    //     if (CurrentState != null)
+    //     {
+    //         CurrentState.Exit();
+    //     }
+
+    //     State<T> state = GetState(id);
+    //     if (state != null)
+    //     {
+    //         CurrentState = state;
+    //         CurrentState.Enter();
+    //     }
+    // }
+
+    public void Transist(_C.FSMSTATE id, params object[] values)
     {
         if (CurrentState != null)
         {
@@ -40,22 +55,7 @@ public class FSM<T> where T : class
         if (state != null)
         {
             CurrentState = state;
-            CurrentState.Enter();
-        }
-    }
-
-    public void Transist(_C.FSMSTATE id, Dictionary<string, object> keyValuePairs)
-    {
-        if (CurrentState != null)
-        {
-            CurrentState.Exit();
-        }
-
-        State<T> state = GetState(id);
-        if (state != null)
-        {
-            CurrentState = state;
-            CurrentState.Enter(keyValuePairs);
+            CurrentState.Enter(values);
         }
     }
  

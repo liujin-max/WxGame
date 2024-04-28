@@ -17,7 +17,7 @@ namespace CB
             return str;
         }
 
-        void Update()
+        public override void Update()
         {
             if (this.IsActing == true) {
                 m_Rate += Time.deltaTime;

@@ -12,7 +12,7 @@ namespace CB
         [SerializeField] private TextMeshProUGUI c_Coin;
 
         [SerializeField] private Button BtnEnter;
-        [SerializeField] private Button BtnRecord;
+        [SerializeField] private Button BtnRank;
 
 
         // Start is called before the first frame update
@@ -35,10 +35,8 @@ namespace CB
                 GameFacade.Instance.UIManager.UnloadWindow(gameObject);
             });
 
-            BtnRecord.onClick.AddListener(()=>{
-                GameFacade.Instance.DataManager.ClearRecord();
-
-                ToolUtility.ApplicationQuit();
+            BtnRank.onClick.AddListener(()=>{  
+                GameFacade.Instance.UIManager.LoadWindow("Prefab/UI/RankWindow", GameFacade.Instance.UIManager.RANK);
             });
         }
 

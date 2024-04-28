@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using CB;
 using Unity.VisualScripting;
 using UnityEngine;
+using WeChatWASM;
 
 public class GameFacade : MonoBehaviour
 {
@@ -129,20 +130,30 @@ public class GameFacade : MonoBehaviour
         DontDestroyOnLoad(gameObject);
         DontDestroyOnLoad(GameObject.Find("POOL"));
         DontDestroyOnLoad(GameObject.Find("Canvas"));
+        DontDestroyOnLoad(GameObject.Find("RankCanvas"));
         DontDestroyOnLoad(GameObject.Find("Camera"));
         DontDestroyOnLoad(GameObject.Find("EventSystem"));
 
 
+
+        #if WEIXINMINIGAME && !UNITY_EDITOR
+            WX.InitSDK((code) =>
+            {
+                Init();
+            });
+        #else
+            Init();
+        #endif
+    }
+
+    void Init()
+    {
         CsvManager.ReadCsvs();
 
         CONFIG.InitDatas();
         
-
         m_TipWindow = UIManager.LoadWindow("Prefab/UI/TipWindow", UIManager.TIP).GetComponent<TipWindow>();
-    }
 
-    void Start()
-    {
         NavigationController.GotoLoading();
     }
 

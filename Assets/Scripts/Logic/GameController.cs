@@ -147,9 +147,9 @@ namespace CB
             DOTransist(_C.FSMSTATE.GAME_START);   
         }
 
-        public void DOTransist(_C.FSMSTATE state)
+        public void DOTransist(_C.FSMSTATE state, params object[] values)
         {
-            m_FSM.Transist(state);   
+            m_FSM.Transist(state, values);   
         }
 
         public bool IsPlaying()
@@ -815,7 +815,7 @@ namespace CB
         {
         }
 
-        public override void Enter()
+        public override void Enter(params object[] values)
         {   
             m_FSM.Owner.m_StartFlag = true;
             m_FSM.Owner.Balls.Clear();
@@ -859,7 +859,7 @@ namespace CB
         {
         }
 
-        public override void Enter()
+        public override void Enter(params object[] values)
         {   
             if (GameFacade.Instance.DataManager.Score > 0)
             {
@@ -965,7 +965,7 @@ namespace CB
         {
         }
 
-        public override void Enter()
+        public override void Enter(params object[] values)
         {
             m_DelayTimer.Reset();
 
@@ -1128,7 +1128,7 @@ namespace CB
         {
         }
 
-        public override void Enter()
+        public override void Enter(params object[] values)
         {
             m_IsFinished = false;
             m_DelayTimer.Reset();
@@ -1203,14 +1203,14 @@ namespace CB
             }
 
             //场上清空后，不管还有没有剩余弹珠和积分够不够，直接胜利
-            if (m_FSM.Owner.Boxs.Count == 0 && m_FSM.Owner.Obstacles.Count == 0)
-            {
-                m_IsFinished = true;
-                ReceiveReward();
+            // if (m_FSM.Owner.Boxs.Count == 0 && m_FSM.Owner.Obstacles.Count == 0)
+            // {
+            //     m_IsFinished = true;
+            //     ReceiveReward();
 
-                m_FSM.Owner.Environment.OnEnd();
-                GameFacade.Instance.EventManager.SendEvent(new GameEvent(EVENT.ONPLAYEND));
-            }
+            //     m_FSM.Owner.Environment.OnEnd();
+            //     GameFacade.Instance.EventManager.SendEvent(new GameEvent(EVENT.ONPLAYEND));
+            // }
 
 
             if (m_FSM.Owner.IsSceneIdle() == true)
@@ -1221,6 +1221,8 @@ namespace CB
                     //积分结算
                     m_IsFinished = true;
                     ReceiveReward();
+                    //存储记录
+                    GameFacade.Instance.DataManager.SetScore(m_FSM.Owner.m_Stage);
 
                     m_FSM.Owner.Environment.OnEnd();
                     GameFacade.Instance.EventManager.SendEvent(new GameEvent(EVENT.ONPLAYEND));
@@ -1242,7 +1244,7 @@ namespace CB
                     
                 } else  {
                     if (m_FSM.Owner.ShootQueue.Count == 0) {
-                        m_FSM.Transist(_C.FSMSTATE.GAME_END);
+                        m_FSM.Transist(_C.FSMSTATE.GAME_END, m_FSM.Owner.m_Stage - 1);
                     }
                 }
             }
@@ -1345,7 +1347,7 @@ namespace CB
         {
         }
 
-        public override void Enter()
+        public override void Enter(params object[] values)
         {
             m_FSM.Owner.m_RefreshTimes = 0;
             m_FSM.Owner.RefreshCoin.PutADD(GameFacade.Instance.Game, m_FSM.Owner.m_RefreshTimes);
@@ -1384,7 +1386,7 @@ namespace CB
         {
         }
 
-        public override void Enter()
+        public override void Enter(params object[] values)
         {
             GameFacade.Instance.EventManager.SendEvent(new GameEvent(EVENT.UI_FLUSHBALLS));
 
@@ -1423,19 +1425,20 @@ namespace CB
         {
         }
 
-        public override void Enter()
+        public override void Enter(params object[] values)
         {
             GameFacade.Instance.Game.Pause();
 
-            bool is_new_score = GameFacade.Instance.DataManager.IsNewScore(m_FSM.Owner.m_Stage);
+            int real_score      = (int)values[0]; //m_FSM.Owner.m_Stage - 1;
+            bool is_new_score   = GameFacade.Instance.DataManager.IsNewScore(real_score);
             //记录分数
-            GameFacade.Instance.DataManager.SetScore(m_FSM.Owner.m_Stage);
+            GameFacade.Instance.DataManager.SetScore(real_score);
 
             GameFacade.Instance.SoundManager.StopBGM();
 
             var obj = GameFacade.Instance.UIManager.LoadWindow("Prefab/UI/ResultWindow", GameFacade.Instance.UIManager.BOARD);
             var ui  = obj.GetComponent<ResultWindow>();
-            ui.Init(m_FSM.Owner.m_Stage, is_new_score);
+            ui.Init(real_score, is_new_score);
         }
     }
 
