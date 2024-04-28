@@ -74,7 +74,7 @@ public class GhostWindow : MonoBehaviour
             if (GameFacade.Instance.Game.Balls.Count > 0) {
                 GameFacade.Instance.Game.DOTransist(_C.FSMSTATE.GAME_IDLE);
             } else {
-               GameFacade.Instance.Game.DOTransist(_C.FSMSTATE.GAME_END, GameFacade.Instance.Game.m_Score);
+               GameFacade.Instance.Game.DOTransist(_C.FSMSTATE.GAME_END, GameFacade.Instance.Game.m_Stage);
             }
         });
 

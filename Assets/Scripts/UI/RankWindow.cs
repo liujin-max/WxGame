@@ -25,7 +25,7 @@ namespace CB
         void Start()
         {
             WX.ShowOpenData(RankImg.texture, 200, 1360, 680, 860);
-            WXUtility.ShowFriendsRank();
+            WXUtility.ShowGroupRank();
         }
 
 

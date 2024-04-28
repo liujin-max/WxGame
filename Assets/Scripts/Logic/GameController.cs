@@ -1430,6 +1430,7 @@ namespace CB
             GameFacade.Instance.Game.Pause();
 
             int real_score      = (int)values[0]; //m_FSM.Owner.m_Stage - 1;
+            Debug.Log("结算：" + real_score);
             bool is_new_score   = GameFacade.Instance.DataManager.IsNewScore(real_score);
             //记录分数
             GameFacade.Instance.DataManager.SetScore(real_score);

@@ -59,11 +59,11 @@ namespace CB
         //层数记录
         public void SetScore(int value)
         {
-            if (value <= m_Score ) return;
+            // if (value <= m_Score ) return;
 
-            m_Score = value;
+            // m_Score = value;
 
-            PlayerPrefs.SetInt(KEY_SCORE, value);
+            // PlayerPrefs.SetInt(KEY_SCORE, value);
             WXUtility.UnloadRankScore(value);
         }
 
