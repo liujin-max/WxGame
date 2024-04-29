@@ -11,6 +11,18 @@ public class GameFacade : MonoBehaviour
 
     private TipWindow m_TipWindow;
 
+    private User m_User;
+    public User User
+    {
+        get {
+            if (m_User == null) {
+                m_User = new User();
+            }
+            return m_User;
+        }
+    }
+
+
     #region =====  Manager =====
     private OBJManager m_PoolManager = null;
     public OBJManager PoolManager
@@ -134,11 +146,15 @@ public class GameFacade : MonoBehaviour
         DontDestroyOnLoad(GameObject.Find("Camera"));
         DontDestroyOnLoad(GameObject.Find("EventSystem"));
 
-
-
+        
         #if WEIXINMINIGAME && !UNITY_EDITOR
             WX.InitSDK((code) =>
             {
+                //初始化云开发
+                CallFunctionInitParam param = new CallFunctionInitParam();
+                param.env = _C.CLOUD_ENV;
+                WX.cloud.Init(param);
+
                 WX.SetPreferredFramesPerSecond(_C.DEFAULT_FRAME);
                 WX.ReportGameStart();
                 Init();
@@ -152,9 +168,12 @@ public class GameFacade : MonoBehaviour
 
     void Init()
     {
+        //初始化配置文件
         CsvManager.ReadCsvs();
-
         CONFIG.InitDatas();
+
+        //加载账号数据
+        User.Init();
         
         m_TipWindow = UIManager.LoadWindow("Prefab/UI/TipWindow", UIManager.TIP).GetComponent<TipWindow>();
 

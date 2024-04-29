@@ -4,7 +4,9 @@ using UnityEngine;
 
 public static class _C
 {
+    public static int DEFAULT_FRAME = 60;   //默认帧数
 
+    public static string CLOUD_ENV = "cbcloud-6ght5vboe6f0f8c0";    //云开发环境ID
 
     public enum LAYER
     {
@@ -43,7 +45,9 @@ public static class _C
         BOMB    = 7,
     }
 
-    public static int DEFAULT_FRAME = 60;
+    
+
+
     public static int GLASSPRICE    = 2;    //碎片价格
     public static int DEFAULT_COIN  = 5;
     public static int DEFAULT_GLASS = 5;
@@ -73,7 +77,7 @@ public static class _C
     public static float BOARD_BOTTOM  = -8.2f;
 
     public static float OBSTACLE_ORIGIN_Y   = -7;
-    public static float OBSTACLE_OFFSET     = 1.5f;
+    public static float OBSTACLE_OFFSET     = 1.55f;
 
 
 

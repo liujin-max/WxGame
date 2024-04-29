@@ -15,7 +15,7 @@ if (typeof window !== 'undefined' && window.indexedDB) {
     });
 }
 const PotList = [1, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 2048, 4096];
-const UseDXT5 = true;
+const UseDXT5 = '$UseDXT5$';
 const pngPath = GameGlobal.unityNamespace.unityColorSpace && GameGlobal.unityNamespace.unityColorSpace === 'Linear' ? 'lpng' : 'png';
 let isStopDownloadTexture = false;
 const cachedDownloadTask = [];

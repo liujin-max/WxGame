@@ -722,13 +722,13 @@ namespace CB
         //根据当前记录可以得到的金币
         public int GetScoreCoin()
         {
-            return GameFacade.Instance.DataManager.Score;
+            return GameFacade.Instance.User.Score;
         }
 
         //根据当前记录可以得到的碎片
         public int GetScoreGlass()
         {
-            return _C.DEFAULT_GLASS + (int)(GameFacade.Instance.DataManager.Score / 5.0);
+            return _C.DEFAULT_GLASS + (int)(GameFacade.Instance.User.Score / 5.0);
         }
 
         //范围伤害
@@ -861,7 +861,7 @@ namespace CB
 
         public override void Enter(params object[] values)
         {   
-            if (GameFacade.Instance.DataManager.Score > 0)
+            if (GameFacade.Instance.User.Score > 0)
             {
                 m_RecordUI = GameFacade.Instance.UIManager.LoadWindow("Prefab/UI/RecordWindow", GameFacade.Instance.UIManager.BOTTOM).GetComponent<RecordWindow>();
                 m_RecordUI.Init();
@@ -992,7 +992,7 @@ namespace CB
             var obj = GameFacade.Instance.EffectManager.Load(EFFECT.ROUND, new Vector3(0, 2, 0));
             obj.GetComponent<RoundText>().Init(m_FSM.Owner.m_Stage);
 
-            if (GameFacade.Instance.DataManager.IsNewScore(m_FSM.Owner.m_Stage))
+            if (GameFacade.Instance.User.IsNewScore(m_FSM.Owner.m_Stage))
             {
                 GameFacade.Instance.EffectManager.Load(EFFECT.SCORETEXT, new Vector3(0, 5.5f, 0));
             }
@@ -1007,7 +1007,7 @@ namespace CB
                 //生成宝石
                 DrawObstables();
 
-                if (m_FSM.Owner.Stage == 1 && GameFacade.Instance.DataManager.Score == 0) {
+                if (m_FSM.Owner.Stage == 1 && GameFacade.Instance.User.Score == 0) {
                     _GuideUI = GameFacade.Instance.UIManager.LoadWindow("Prefab/UI/GuideWindow", GameFacade.Instance.UIManager.MAJOR).GetComponent<GuideWindow>();
                 } else {
                     m_FSM.Transist(_C.FSMSTATE.GAME_PLAY);
@@ -1222,7 +1222,7 @@ namespace CB
                     m_IsFinished = true;
                     ReceiveReward();
                     //存储记录
-                    GameFacade.Instance.DataManager.SetScore(m_FSM.Owner.m_Stage);
+                    GameFacade.Instance.User.SetScore(m_FSM.Owner.m_Stage);
 
                     m_FSM.Owner.Environment.OnEnd();
                     GameFacade.Instance.EventManager.SendEvent(new GameEvent(EVENT.ONPLAYEND));
@@ -1431,9 +1431,9 @@ namespace CB
 
             int real_score      = (int)values[0]; //m_FSM.Owner.m_Stage - 1;
             Debug.Log("结算：" + real_score);
-            bool is_new_score   = GameFacade.Instance.DataManager.IsNewScore(real_score);
+            bool is_new_score   = GameFacade.Instance.User.IsNewScore(real_score);
             //记录分数
-            GameFacade.Instance.DataManager.SetScore(real_score);
+            GameFacade.Instance.User.SetScore(real_score);
 
             GameFacade.Instance.SoundManager.StopBGM();
 

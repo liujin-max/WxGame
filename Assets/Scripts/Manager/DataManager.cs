@@ -6,16 +6,12 @@ namespace CB
     //全局数据类
     public class DataManager : MonoBehaviour
     {
-        public  const string KEY_SCORE = "KEY_SCORE";
-
 
         public const string KEY_MUSIC  = "KEY_MUSIC";  //音乐
         public const string KEY_SOUND  = "KEY_SOUND";  //音效
 
 
-        //最高分
-        private int m_Score;
-        public int Score { get {return m_Score;} }
+
 
 
         private float m_MusicVolume;
@@ -38,66 +34,10 @@ namespace CB
 
         void Awake()
         {
-            //清空记录
-            if (GameFacade.Instance.Reboot == true)
-            {
-                ClearRecord();
-            }
-
-
-            LoadRecord();
-
             m_MusicVolume   = PlayerPrefs.GetFloat(KEY_MUSIC, 1);
             m_SoundVolume   = PlayerPrefs.GetFloat(KEY_SOUND, 1);
         }
 
-        public void LoadRecord()
-        {
-            #if WEIXINMINIGAME && !UNITY_EDITOR
-                //加载存档
-
-            #else
-                m_Score = PlayerPrefs.GetInt(KEY_SCORE, 0);
-            #endif 
-        }
-
-        public void ClearRecord()
-        {
-            #if WEIXINMINIGAME && !UNITY_EDITOR
-                //清空排行榜
-                // WXUtility.UnloadRankScore(value);
-                //清空个人数据
-
-            #else
-                PlayerPrefs.SetInt(KEY_SCORE, 0);
-            #endif 
-            
-        }
-
-        //层数记录
-        public void SetScore(int value)
-        {
-            if (value <= m_Score ) return;
-
-            m_Score = value;
-
-
-            #if WEIXINMINIGAME && !UNITY_EDITOR
-                //存储个人数据
-
-                //上传排行榜
-                WXUtility.UnloadRankScore(value);
-            #else
-                PlayerPrefs.SetInt(KEY_SCORE, value);
-            #endif  
-        }
-
-        public bool IsNewScore(int score)
-        {
-            if (m_Score == 0) return false;
-
-            return score > m_Score;
-        }
 
         public int GetIntByKey(string key)
         {
