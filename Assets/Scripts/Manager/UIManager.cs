@@ -10,10 +10,10 @@ public class UIManager : MonoBehaviour
     public Transform TIP;
     public Transform BOARD;
     public Transform EFFECT;
-
-
-
     public Transform RANK;
+
+
+    private Dictionary<string, GameObject> WindowCaches = new Dictionary<string, GameObject>();
 
     void Awake()
     {
@@ -34,6 +34,32 @@ public class UIManager : MonoBehaviour
     public void UnloadWindow(GameObject window)
     {
         Destroy(window);
+    }
+
+    //显示界面
+    public GameObject ShowWindow(string name)
+    {
+        GameObject cache;
+        if (WindowCaches.TryGetValue(name, out cache)) {
+            // cache.SetActive(true);
+            cache.transform.localPosition = Vector3.zero;
+            WindowCaches.Remove(name);
+            return cache;
+        }
+        return null;
+    }
+
+    //隐藏界面(不销毁)
+    public void HideWindow(string name, GameObject obj)
+    {
+        GameObject cache;
+        if (WindowCaches.TryGetValue(name, out cache)) {
+            cache.SetActive(false);
+            return;
+        }
+
+        obj.transform.localPosition = new Vector3(9999, 9999, 0);
+        WindowCaches.Add(name, obj);
     }
 
     public GameObject LoadItem(string path, Transform parent)

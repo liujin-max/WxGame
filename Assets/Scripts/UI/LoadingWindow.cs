@@ -10,11 +10,10 @@ namespace CB
     public class LoadingWindow : MonoBehaviour
     {
         [SerializeField] private TextMeshProUGUI c_Score;
-        [SerializeField] private TextMeshProUGUI c_Coin;
 
         [SerializeField] private Button BtnEnter;
         [SerializeField] private Button BtnRank;
-
+        [SerializeField] private Button BtnAchievement;
 
         
         // Start is called before the first frame update
@@ -36,7 +35,15 @@ namespace CB
                 GameFacade.Instance.UIManager.LoadWindow("Prefab/UI/RankWindow", GameFacade.Instance.UIManager.BOARD);
             });
 
-
+            BtnAchievement.onClick.AddListener(()=>{  
+                var obj = GameFacade.Instance.UIManager.ShowWindow("AchievementWindow");
+                if (obj == null) {
+                    obj = GameFacade.Instance.UIManager.LoadWindow("Prefab/UI/AchievementWindow", GameFacade.Instance.UIManager.BOARD);
+                    var window = obj.GetComponent<AchievementWindow>();
+                    window.Init();
+                } 
+                
+            });
 
         }
 

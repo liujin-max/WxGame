@@ -21,11 +21,11 @@ public class GameSetWindow : MonoBehaviour
     void Awake()
     {
         c_MusicSlider.onValueChanged.AddListener((float value)=>{
-            GameFacade.Instance.DataManager.MusicVolume = value;
+            GameFacade.Instance.SystemManager.MusicVolume = value;
         });
 
         c_SoundSlider.onValueChanged.AddListener((float value)=>{
-            GameFacade.Instance.DataManager.SoundVolume = value;
+            GameFacade.Instance.SystemManager.SoundVolume = value;
         });
 
         c_BtnContinue.onClick.AddListener(()=>{
@@ -49,8 +49,8 @@ public class GameSetWindow : MonoBehaviour
     {
         c_Value.text = GameFacade.Instance.Game.Stage.ToString();
 
-        c_MusicSlider.value = GameFacade.Instance.DataManager.MusicVolume;
-        c_SoundSlider.value = GameFacade.Instance.DataManager.SoundVolume;
+        c_MusicSlider.value = GameFacade.Instance.SystemManager.MusicVolume;
+        c_SoundSlider.value = GameFacade.Instance.SystemManager.SoundVolume;
     }
 
 

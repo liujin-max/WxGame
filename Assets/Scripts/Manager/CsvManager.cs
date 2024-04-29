@@ -11,6 +11,7 @@ public class CsvManager: MonoBehaviour
     //表名
     public const string TableKey_Ball   = "Ball";
     public const string TableKey_Relics = "Relics";
+    public const string TableKey_Achievement = "Achievement";
 
     //表名与表结构
     private Dictionary<string, List<string[]>> m_DataLists = new Dictionary<string, List<string[]>>();
@@ -20,8 +21,9 @@ public class CsvManager: MonoBehaviour
 
     public void ReadCsvs()
     {
-        this.ReadCsv(CsvManager.TableKey_Ball,      "CSV/Ball");
-        this.ReadCsv(CsvManager.TableKey_Relics,    "CSV/Relics");
+        this.ReadCsv(CsvManager.TableKey_Ball,          "CSV/Ball");
+        this.ReadCsv(CsvManager.TableKey_Relics,        "CSV/Relics");
+        this.ReadCsv(CsvManager.TableKey_Achievement,   "CSV/Achievement");
     }
 
     public string[] GetStringArray(string excel_name, int id)

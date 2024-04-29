@@ -22,6 +22,17 @@ public class GameFacade : MonoBehaviour
         }
     }
 
+    private DataCenter m_DataCenter = null;
+    public DataCenter DataCenter
+    {
+        get {
+            if (m_DataCenter == null) {
+                m_DataCenter = new DataCenter();
+            }
+            return m_DataCenter;
+        }
+    }
+
 
     #region =====  Manager =====
     private OBJManager m_PoolManager = null;
@@ -91,17 +102,6 @@ public class GameFacade : MonoBehaviour
         }
     }
 
-    private DataManager m_DataManager = null;
-    public DataManager DataManager
-    {
-        get {
-            if (m_DataManager == null) {
-                m_DataManager = transform.AddComponent<DataManager>();
-            }
-            return m_DataManager;
-        }
-    }
-
     private UIManager m_UIManager = null;
     public UIManager UIManager
     {
@@ -121,6 +121,17 @@ public class GameFacade : MonoBehaviour
                 m_CsvManager = transform.AddComponent<CsvManager>();
             }
             return m_CsvManager;
+        }
+    }
+
+    private SystemManager m_SystemManager = null;
+    public SystemManager SystemManager
+    {
+        get {
+            if (m_SystemManager == null) {
+                m_SystemManager = transform.AddComponent<SystemManager>();
+            }
+            return m_SystemManager;
         }
     }
 
@@ -174,6 +185,8 @@ public class GameFacade : MonoBehaviour
 
         //加载账号数据
         User.Init();
+        //加载数据类
+        DataCenter.Init();
         
         m_TipWindow = UIManager.LoadWindow("Prefab/UI/TipWindow", UIManager.TIP).GetComponent<TipWindow>();
 

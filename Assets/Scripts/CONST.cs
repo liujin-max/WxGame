@@ -77,7 +77,7 @@ public static class _C
     public static float BOARD_BOTTOM  = -8.2f;
 
     public static float OBSTACLE_ORIGIN_Y   = -7;
-    public static float OBSTACLE_OFFSET     = 1.55f;
+    public static float OBSTACLE_OFFSET     = 1.6f;
 
 
 

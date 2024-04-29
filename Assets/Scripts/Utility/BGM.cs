@@ -14,11 +14,11 @@ public class BGM : MonoBehaviour
         m_AudioSource.Play();
 
         m_OriginVolume  = m_AudioSource.volume;
-        m_AudioSource.volume = m_OriginVolume * GameFacade.Instance.DataManager.MusicVolume;
+        m_AudioSource.volume = m_OriginVolume * GameFacade.Instance.SystemManager.MusicVolume;
     }
 
     void Update()
     {
-        m_AudioSource.volume = m_OriginVolume * GameFacade.Instance.DataManager.MusicVolume;
+        m_AudioSource.volume = m_OriginVolume * GameFacade.Instance.SystemManager.MusicVolume;
     }
 }

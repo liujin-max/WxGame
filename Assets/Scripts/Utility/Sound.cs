@@ -13,7 +13,7 @@ public class Sound : MonoBehaviour
         m_AudioSource = transform.GetComponent<AudioSource>();
 
         m_AudioSource.Play();
-        m_AudioSource.volume = m_AudioSource.volume * GameFacade.Instance.DataManager.SoundVolume;
+        m_AudioSource.volume = m_AudioSource.volume * GameFacade.Instance.SystemManager.SoundVolume;
     }
 
     void Update()
