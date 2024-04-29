@@ -69,14 +69,8 @@ public static class WXUtility
             {
                 Debug.Log("====存储账号数据成功====");
             },
-            fail = (res) =>
-            {
-                Debug.LogError("====存储账号数据失败====");
-            },
-            complete = (res) =>
-            {
-                Debug.Log("====存储账号数据结束====");
-            }
+            fail = (res) => { Debug.LogError("====存储账号数据失败====");},
+            complete = (res) => { Debug.Log("====存储账号数据结束====");}
         });
     }
 
@@ -96,20 +90,14 @@ public static class WXUtility
 
                 //云数据保存到本地
                 var data = JsonMapper.ToObject(res.result);
-                if (data.ContainsKey("data"))
+                if (data.ContainsKey("gamedata"))
                 {
-                    var gamedata    = data["data"];
-                    userData.Score  = (int)gamedata["Score"];
+                    var gamedata    = data["gamedata"];
+                    if (gamedata.ContainsKey("Score")) userData.Score  = (int)gamedata["Score"];
                 }
             },
-            fail = (res) =>
-            {
-                Debug.LogError("====获取账号数据失败====");
-            },
-            complete = (res) =>
-            {
-                Debug.Log("====获取账号数据结束====");
-            }
+            fail = (res) => { Debug.LogError("====获取账号数据失败====");},
+            complete = (res) => { Debug.Log("====获取账号数据结束====");}
         });
     }
 }

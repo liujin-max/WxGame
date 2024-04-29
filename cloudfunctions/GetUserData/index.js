@@ -23,7 +23,7 @@ exports.main = async (event,context)  => {
    }
    else{
     return {
-        data:data.data[0].gamedata
+      gamedata:data.data[0].gamedata
     };
    }
 };
