@@ -35,8 +35,9 @@ namespace CB
             this.TriggerEnter(collision);
             
             this.OnHitElement(collision);
+            bool is_hit = this.OnHitObstable(collision);
             
-            if (collision.transform.GetComponent<Obstacle>() != null)
+            if (is_hit == true)
             {
                 m_Count++;
 
@@ -46,8 +47,6 @@ namespace CB
                         m_Effect = null;
                     });
                 }
-
-                
 
                 if (m_Count >= 8)
                 {

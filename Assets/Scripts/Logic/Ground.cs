@@ -73,17 +73,14 @@ namespace CB
                     break;
 
                     case GroundType.Accelerator:
-                    ball.Recyle();
                     ball.Velocity = new Vector2(0, 25);
                     break;
 
                     case GroundType.BaffleLeft:
-                    ball.Recyle();
                     ball.Velocity = new Vector2(10, 0);
                     break;
 
                     case GroundType.BaffleRight:
-                    ball.Recyle();
                     ball.Velocity = new Vector2(-10, 0);
                     break;
 

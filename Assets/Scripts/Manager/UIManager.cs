@@ -64,6 +64,9 @@ public class UIManager : MonoBehaviour
 
     public GameObject LoadItem(string path, Transform parent)
     {
-        return Instantiate<GameObject>(Resources.Load<GameObject>(path), parent);
+        var obj = Instantiate<GameObject>(Resources.Load<GameObject>(path), parent);
+        obj.transform.localPosition = Vector3.zero;
+
+        return obj;
     }
 }

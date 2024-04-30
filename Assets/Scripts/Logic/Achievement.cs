@@ -10,6 +10,12 @@ namespace CB
     public class Achievement_FANG : Achievement
     {
         private int m_Count = 0;
+
+        public override string GetDescription()
+        {
+            return "单回合内未击落<sprite=2>";
+        }
+
         protected override void OnReponseHitAfter(GameEvent @event)
         {
             if (m_FinishFlag) return;
@@ -45,6 +51,12 @@ namespace CB
     public class Achievement_SANJIAO : Achievement
     {
         private int m_Count = 0;
+
+        public override string GetDescription()
+        {
+            return "单回合内未击落<sprite=3>";
+        }
+
         protected override void OnReponseHitAfter(GameEvent @event)
         {
             if (m_FinishFlag) return;
@@ -79,6 +91,12 @@ namespace CB
     public class Achievement_YUAN : Achievement
     {
         private int m_Count = 0;
+
+        public override string GetDescription()
+        {
+            return "单回合内未击落<sprite=4>";
+        }
+
         protected override void OnReponseHitAfter(GameEvent @event)
         {
             if (m_FinishFlag) return;
@@ -113,6 +131,11 @@ namespace CB
     public class Achievement_LING : Achievement
     {
         private int m_Count = 0;
+        public override string GetDescription()
+        {
+            return "单回合内未击落<sprite=5>";
+        }
+
         protected override void OnReponseHitAfter(GameEvent @event)
         {
             if (m_FinishFlag) return;
@@ -147,6 +170,12 @@ namespace CB
     public class Achievement_KILLFANG : Achievement
     {
         private int m_Count = 0;
+        private int m_Max   = 6;
+        public override string GetDescription()
+        {
+            return string.Format("单回合内击落<size=46><#FFCC4A>{0}</color></size>个<sprite=2>", m_Max);
+        }
+
         protected override void OnReponseHitAfter(GameEvent @event)
         {
             if (m_FinishFlag) return;
@@ -155,7 +184,7 @@ namespace CB
             if (obt.IsDead() == true && obt.Order == 0)
             {
                 m_Count++;
-                if (m_Count >= 6) this.Finish();
+                if (m_Count >= m_Max) this.Finish();
             }
         }  
 
@@ -173,6 +202,12 @@ namespace CB
     public class Achievement_KILLSANJIAO : Achievement
     {
         private int m_Count = 0;
+        private int m_Max   = 6;
+        public override string GetDescription()
+        {
+            return string.Format("单回合内击落<size=46><#FFCC4A>{0}</color></size>个<sprite=3>", m_Max);
+        }
+
         protected override void OnReponseHitAfter(GameEvent @event)
         {
             if (m_FinishFlag) return;
@@ -181,7 +216,7 @@ namespace CB
             if (obt.IsDead() == true && obt.Order == 1)
             {
                 m_Count++;
-                if (m_Count >= 6) this.Finish();
+                if (m_Count >= m_Max) this.Finish();
             }
         }  
 
@@ -199,6 +234,12 @@ namespace CB
     public class Achievement_KILLYUAN : Achievement
     {
         private int m_Count = 0;
+        private int m_Max   = 6;
+        public override string GetDescription()
+        {
+            return string.Format("单回合内击落<size=46><#FFCC4A>{0}</color></size>个<sprite=4>", m_Max);
+        }
+
         protected override void OnReponseHitAfter(GameEvent @event)
         {
             if (m_FinishFlag) return;
@@ -207,7 +248,7 @@ namespace CB
             if (obt.IsDead() == true && obt.Order == 3)
             {
                 m_Count++;
-                if (m_Count >= 6) this.Finish();
+                if (m_Count >= m_Max) this.Finish();
             }
         }  
 
@@ -225,6 +266,12 @@ namespace CB
     public class Achievement_KILLLING : Achievement
     {
         private int m_Count = 0;
+        private int m_Max   = 6;
+        public override string GetDescription()
+        {
+            return string.Format("单回合内击落<size=46><#FFCC4A>{0}</color></size>个<sprite=5>", m_Max);
+        }
+
         protected override void OnReponseHitAfter(GameEvent @event)
         {
             if (m_FinishFlag) return;
@@ -233,7 +280,7 @@ namespace CB
             if (obt.IsDead() == true && obt.Order == 2)
             {
                 m_Count++;
-                if (m_Count >= 6) this.Finish();
+                if (m_Count >= m_Max) this.Finish();
             }
         }  
 
@@ -250,15 +297,21 @@ namespace CB
     public class Achievement_KILLGLASS : Achievement
     {
         private int m_Count = 0;
+        private int m_Max   = 6;
+        public override string GetDescription()
+        {
+            return string.Format("单回合内击落<size=46><#FFCC4A>{0}</color></size>个<sprite=0>", m_Max);
+        }
+
         protected override void OnReponseHitBox(GameEvent @event)
         {
             if (m_FinishFlag) return;
 
-            Ghost ghost = (Ghost)@event.GetParam(1);
+            Ghost ghost = ((Box)@event.GetParam(1)).GetComponent<Ghost>();
             if (ghost != null && ghost.IsDead() == true)
             {
                 m_Count++;
-                if (m_Count >= 6) this.Finish();
+                if (m_Count >= m_Max) this.Finish();
             }
         }  
 
@@ -276,15 +329,21 @@ namespace CB
     public class Achievement_KILLBOMB : Achievement
     {
         private int m_Count = 0;
+        private int m_Max   = 3;
+        public override string GetDescription()
+        {
+            return string.Format("单回合内击落<size=46><#FFCC4A>{0}</color></size>个<sprite=7>", m_Max);
+        }
+
         protected override void OnReponseHitBox(GameEvent @event)
         {
             if (m_FinishFlag) return;
 
-            Bomb bomb = (Bomb)@event.GetParam(1);
+            Bomb bomb = ((Box)@event.GetParam(1)).GetComponent<Bomb>();
             if (bomb != null && bomb.IsDead() == true)
             {
                 m_Count++;
-                if (m_Count >= 3) this.Finish();
+                if (m_Count >= m_Max) this.Finish();
             }
         }  
 
@@ -302,6 +361,11 @@ namespace CB
     {
         private int m_Count = 0;
         private int m_Max   = 100;
+
+        public override string GetDescription()
+        {
+            return string.Format("单局游戏内累计获得<size=46><#FFCC4A>{0}</color></size><sprite=1>", m_Max);
+        }
 
         protected override void OnReponseCoinUpdate(GameEvent @event)
         {
@@ -326,6 +390,12 @@ namespace CB
     {
         private int m_Count = 0;
         private int m_Max   = 250;
+
+        public override string GetDescription()
+        {
+            return string.Format("单局游戏内累计获得<size=46><#FFCC4A>{0}</color></size><sprite=1>", m_Max);
+        }
+
         protected override void OnReponseCoinUpdate(GameEvent @event)
         {
             if (m_FinishFlag) return;
@@ -348,6 +418,12 @@ namespace CB
     {
         private int m_Count = 0;
         private int m_Max   = 500;
+
+        public override string GetDescription()
+        {
+            return string.Format("单局游戏内累计获得<size=46><#FFCC4A>{0}</color></size><sprite=1>", m_Max);
+        }
+
         protected override void OnReponseCoinUpdate(GameEvent @event)
         {
             if (m_FinishFlag) return;
@@ -370,6 +446,12 @@ namespace CB
     {
         private int m_Count = 0;
         private int m_Max   = 1000;
+
+        public override string GetDescription()
+        {
+            return string.Format("单局游戏内累计获得<size=46><#FFCC4A>{0}</color></size><sprite=1>", m_Max);
+        }
+
         protected override void OnReponseCoinUpdate(GameEvent @event)
         {
             if (m_FinishFlag) return;
@@ -392,6 +474,12 @@ namespace CB
     {
         private int m_Count = 0;
         private int m_Max   = 10;
+
+        public override string GetDescription()
+        {
+            return string.Format("单局游戏内累计击落<size=46><#FFCC4A>{0}</color></size>枚<sprite=0>", m_Max);
+        }
+
         protected override void OnReponseGlassUpdate(GameEvent @event)
         {
             if (m_FinishFlag) return;
@@ -414,6 +502,12 @@ namespace CB
     {
         private int m_Count = 0;
         private int m_Max   = 50;
+
+        public override string GetDescription()
+        {
+            return string.Format("单局游戏内累计击落<size=46><#FFCC4A>{0}</color></size>枚<sprite=0>", m_Max);
+        }
+
         protected override void OnReponseGlassUpdate(GameEvent @event)
         {
             if (m_FinishFlag) return;
@@ -436,6 +530,12 @@ namespace CB
     {
         private int m_Count = 0;
         private int m_Max   = 150;
+
+        public override string GetDescription()
+        {
+            return string.Format("单局游戏内累计击落<size=46><#FFCC4A>{0}</color></size>枚<sprite=0>", m_Max);
+        }
+
         protected override void OnReponseGlassUpdate(GameEvent @event)
         {
             if (m_FinishFlag) return;
@@ -460,6 +560,12 @@ namespace CB
     {
         private int m_Count = 0;
         private int m_Max   = 10;
+
+        public override string GetDescription()
+        {
+            return string.Format("单局游戏内累计击落<size=46><#FFCC4A>{0}</color></size>枚<sprite=7>", m_Max);
+        }
+
         protected override void OnReponseGameStart(GameEvent @event)
         {
             if (m_FinishFlag) return;
@@ -471,7 +577,7 @@ namespace CB
         {
             if (m_FinishFlag) return;
 
-            Bomb bomb = (Bomb)@event.GetParam(1);
+            Bomb bomb = ((Box)@event.GetParam(1)).GetComponent<Bomb>();
             if (bomb != null && bomb.IsDead() == true)
             {
                 m_Count++;
@@ -485,6 +591,11 @@ namespace CB
     public class Achievement_SCORE10 : Achievement
     {
         private int m_Max   = 10;
+
+        public override string GetDescription()
+        {
+            return string.Format("最高记录达到<size=46><#FFCC4A>{0}</color></size>层", m_Max);
+        }
 
         protected override void OnReponsePlayEnd(GameEvent @event)
         {
@@ -504,6 +615,11 @@ namespace CB
     {
         private int m_Max   = 25;
 
+        public override string GetDescription()
+        {
+            return string.Format("最高记录达到<size=46><#FFCC4A>{0}</color></size>层", m_Max);
+        }
+
         protected override void OnReponsePlayEnd(GameEvent @event)
         {
             if (m_FinishFlag) return;
@@ -521,6 +637,11 @@ namespace CB
     public class Achievement_SCORE50 : Achievement
     {
         private int m_Max   = 50;
+
+        public override string GetDescription()
+        {
+            return string.Format("最高记录达到<size=46><#FFCC4A>{0}</color></size>层", m_Max);
+        }
 
         protected override void OnReponsePlayEnd(GameEvent @event)
         {
@@ -540,6 +661,11 @@ namespace CB
     {
         private int m_Max   = 100;
 
+        public override string GetDescription()
+        {
+            return string.Format("最高记录达到<size=46><#FFCC4A>{0}</color></size>层", m_Max);
+        }
+
         protected override void OnReponsePlayEnd(GameEvent @event)
         {
             if (m_FinishFlag) return;
@@ -553,11 +679,124 @@ namespace CB
     }
     #endregion
 
-    #region 单次发射击落5枚碎片。
+    #region 单颗弹珠击落5枚碎片。
+    public class Achievement_BALLHITGLASS : Achievement
+    {
+        private int m_Max   = 5;
+        private Dictionary<Ball, int> m_Records = new Dictionary<Ball, int>();
 
+        public override string GetDescription()
+        {
+            return string.Format("单颗弹珠击落<size=46><#FFCC4A>{0}</color></size>枚<sprite=0>", m_Max);
+        }
+
+        protected override void OnReponseHitBox(GameEvent @event)
+        {
+            if (m_FinishFlag) return;
+
+            Ball ball = (Ball)@event.GetParam(0);
+            Ghost ghost = ((Box)@event.GetParam(1)).GetComponent<Ghost>();
+            if (ghost != null && ghost.IsDead() == true)
+            {
+                if (!m_Records.ContainsKey(ball)) {
+                    m_Records.Add(ball, 0);
+                } 
+
+                m_Records[ball] += 1;
+
+                if (m_Records[ball] >= m_Max) {
+                    this.Finish();
+                }
+            }
+        }
+
+        protected override void OnReponsePlayEnd(GameEvent @event)
+        {
+            if (m_FinishFlag) return;
+
+            m_Records.Clear();
+        }
+    }
     #endregion
 
+    #region 同一颗弹珠被回收3次。 
+    public class Achievement_BALLRECYCLE : Achievement
+    {
+        private int m_Max   = 3;
+        private Dictionary<Ball, int> m_Records = new Dictionary<Ball, int>();
 
+        public override string GetDescription()
+        {
+            return string.Format("同一颗弹珠被回收<size=46><#FFCC4A>{0}</color></size>次", m_Max);
+        }
+
+        protected override void OnReponseBallRecycle(GameEvent @event)
+        {
+            if (m_FinishFlag) return;
+
+            var ball = (Ball)@event.GetParam(0);
+
+            if (!m_Records.ContainsKey(ball)) {
+                m_Records.Add(ball, 0);
+            } 
+
+            m_Records[ball] += 1;
+
+            if (m_Records[ball] >= m_Max) {
+                this.Finish();
+            }
+        }
+    }
+    #endregion
+
+    #region 弹珠没有击中任何物体。
+    public class Achievement_BALLMISS : Achievement
+    {
+        private HashSet<Ball> m_Records = new HashSet<Ball>();
+
+        public override string GetDescription()
+        {
+            return string.Format("弹珠没有击中任何物体");
+        }
+
+        protected override void OnReponsePlayEnd(GameEvent @event)
+        {
+            if (m_FinishFlag) return;
+
+            m_Records.Clear();
+        }
+
+        protected override void OnReponseHitAfter(GameEvent @event)
+        {
+            if (m_FinishFlag) return;
+
+            Ball ball = (Ball)@event.GetParam(0);
+            if (!m_Records.Contains(ball)) {
+                m_Records.Add(ball);
+            }
+        }
+
+        protected override void OnReponseHitBox(GameEvent @event)
+        {
+            if (m_FinishFlag) return;
+
+            Ball ball = (Ball)@event.GetParam(0);
+            if (!m_Records.Contains(ball)) {
+                m_Records.Add(ball);
+            } 
+        }
+
+        protected override void OnReponseEnterGround(GameEvent @event)
+        {
+            if (m_FinishFlag) return;
+
+            Ball ball = (Ball)@event.GetParam(0);
+            if (!m_Records.Contains(ball)) {
+                this.Finish();
+            } 
+        }
+    }
+    #endregion
 
 
 
@@ -572,7 +811,7 @@ namespace CB
     {
         private AchievementData m_Data;
         public int ID { get{return m_Data.ID;}}
-        public string Description { get{return m_Data.Description;}}
+
 
         protected bool m_FinishFlag = false;
 
@@ -599,6 +838,11 @@ namespace CB
             { 10020, () => new Achievement_SCORE25()},
             { 10021, () => new Achievement_SCORE50()},
             { 10022, () => new Achievement_SCORE100()},
+            { 10023, () => new Achievement_BALLHITGLASS()},
+            { 10024, () => new Achievement_BALLRECYCLE()},
+            { 10025, () => new Achievement_BALLMISS()},
+
+
 
         };
 
@@ -615,6 +859,11 @@ namespace CB
             achievement.Init(data);
 
             return achievement;
+        }
+
+        public virtual string GetDescription()
+        {
+            return "";
         }
 
         public void Finish()
@@ -641,14 +890,31 @@ namespace CB
 
             GameFacade.Instance.EventManager.AddHandler(EVENT.ONGAMESTART,      OnReponseGameStart);
             GameFacade.Instance.EventManager.AddHandler(EVENT.ONGAMEEND,        OnReponseGameEnd);
-
             GameFacade.Instance.EventManager.AddHandler(EVENT.ONPLAYSTART,      OnReponsePlayStart);
             GameFacade.Instance.EventManager.AddHandler(EVENT.ONPLAYEND,        OnReponsePlayEnd);
             GameFacade.Instance.EventManager.AddHandler(EVENT.ONBALLHITAFTER,   OnReponseHitAfter);
             GameFacade.Instance.EventManager.AddHandler(EVENT.ONBALLHITBOX,     OnReponseHitBox);
             GameFacade.Instance.EventManager.AddHandler(EVENT.ONCOINUPDATE,     OnReponseCoinUpdate);
             GameFacade.Instance.EventManager.AddHandler(EVENT.ONGLASSUPDATE,    OnReponseGlassUpdate);
+            GameFacade.Instance.EventManager.AddHandler(EVENT.ONBALLSHOOT,      OnReponseBallShoot);
+            GameFacade.Instance.EventManager.AddHandler(EVENT.ONBALLRECYCLE,    OnReponseBallRecycle);
+            GameFacade.Instance.EventManager.AddHandler(EVENT.ONENTERGROUND,    OnReponseEnterGround);
             
+        }
+
+        protected virtual void OnReponseEnterGround(GameEvent @event)
+        {
+
+        }
+
+        protected virtual void OnReponseBallRecycle(GameEvent @event)
+        {
+
+        }
+
+        protected virtual void OnReponseBallShoot(GameEvent @event)
+        {
+
         }
 
         protected virtual void OnReponseGlassUpdate(GameEvent @event)

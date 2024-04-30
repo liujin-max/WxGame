@@ -43,6 +43,7 @@ public static class EVENT
     public static string ONENTERGROUND      = "ONENTERGROUND";      //撞击底部
     public static string ONBALLDEAD         = "ONBALLDEAD";         //弹珠死亡时
     public static string ONREFRESHEVENTS    = "ONREFRESHEVENTS";    //刷新弹珠列表时
+
     
 
 }

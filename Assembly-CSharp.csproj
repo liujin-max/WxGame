@@ -129,6 +129,7 @@
     <Compile Include="Assets\Scripts\Logic\Wall.cs" />
     <Compile Include="Assets\Scripts\SOUND.cs" />
     <Compile Include="Assets\Scripts\Logic\Ball\BallReflex.cs" />
+    <Compile Include="Assets\Scripts\UI\AchievementWindow.cs" />
     <Compile Include="Assets\Scripts\Effect\ButtonScale.cs" />
     <Compile Include="Assets\Scripts\Logic\GameController.cs" />
     <Compile Include="Assets\Scripts\Effect\ImageGray.cs" />
@@ -137,6 +138,8 @@
     <Compile Include="Assets\Scripts\Utility\WXUtility.cs" />
     <Compile Include="Assets\Scripts\Logic\Ball\BallFang.cs" />
     <Compile Include="Assets\Scripts\UI\RelicsDetailWindow.cs" />
+    <Compile Include="Assets\Scripts\Logic\User.cs" />
+    <Compile Include="Assets\Scripts\Manager\SystemManager.cs" />
     <Compile Include="Assets\Scripts\Utility\CameraUtility.cs" />
     <Compile Include="Assets\AllIn1SpriteShader\Demo\Scripts\DemoRandomColorSwap.cs" />
     <Compile Include="Assets\Scripts\CONST.cs" />
@@ -185,6 +188,7 @@
     <Compile Include="Assets\Scripts\UI\Item\GhostItem.cs" />
     <Compile Include="Assets\AllIn1SpriteShader\Scripts\RandomSeed.cs" />
     <Compile Include="Assets\Scripts\CONFIG.cs" />
+    <Compile Include="Assets\Scripts\Logic\Achievement.cs" />
     <Compile Include="Assets\Scripts\Logic\Environment\NOCoin.cs" />
     <Compile Include="Assets\Scripts\UI\GameSetWindow.cs" />
     <Compile Include="Assets\Scripts\Logic\Ball\BallSmall.cs" />
@@ -204,10 +208,7 @@
     <Compile Include="Assets\Scripts\UI\GhostWindow.cs" />
     <Compile Include="Assets\DOTween\Modules\DOTweenModuleUnityVersion.cs" />
     <Compile Include="Assets\Scripts\Logic\Relics.cs" />
-    <Compile Include="Assets\Scripts\Logic\User.cs" />
-    <Compile Include="Assets\Scripts\Logic\Achievement.cs" />
-    <Compile Include="Assets\Scripts\Manager\SystemManager.cs" />
-    <Compile Include="Assets\Scripts\UI\AchievementWindow.cs" />
+    <Compile Include="Assets\Scripts\UI\Item\ACHPopItem.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Resources\Shader\SpriteGray.shader" />
