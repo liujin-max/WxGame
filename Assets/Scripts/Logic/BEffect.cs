@@ -870,21 +870,6 @@ namespace CB
 
             ball.Demage.Pop(this);
         }
-
-        // public override void OnHitBefore(Ball ball, Obstacle obt, Collision2D collision)
-        // {
-        //     var value = (int)(ball.FlyTime / 5.0f);
-        //     if (value > 0) {
-        //         ball.Demage.PutADD(this, value);
-
-        //         GameFacade.Instance.EventManager.SendEvent(new GameEvent(EVENT.UI_TRIGGERRELICS, Belong));
-        //     }
-        // }
-
-        // public override void OnHitAfter(Ball ball, Obstacle obt, Collision2D collision)
-        // {
-        //     ball.Demage.Pop(this);
-        // }
     }
 
 
@@ -1257,6 +1242,57 @@ namespace CB
         }
     }
 
+    //变形弹珠伤害+1
+    public class BEffect_SHAPEBALL : BEffect
+    {
+        public override string GetDescription()
+        {
+            return string.Format("变形弹珠的伤害提高1点。");
+        }
+
+        public override void Execute()
+        {
+            GameFacade.Instance.Game.Balls.ForEach(b => {
+                if (b.Type == _C.BALLTYPE.FANG || b.Type == _C.BALLTYPE.YUAN || b.Type == _C.BALLTYPE.LING || b.Type == _C.BALLTYPE.SANJIAO) {
+                    b.Demage.PutADD(this, 1);
+                }
+            });
+        }
+
+        public override void Cancel()
+        {
+            GameFacade.Instance.Game.Balls.ForEach(b => {
+                b.Demage.Pop(this);
+            });
+        }
+
+        public override void OnPushBall(Ball ball)
+        {
+            if (ball.Type == _C.BALLTYPE.FANG || ball.Type == _C.BALLTYPE.YUAN || ball.Type == _C.BALLTYPE.LING || ball.Type == _C.BALLTYPE.SANJIAO) {
+                ball.Demage.PutADD(this, 1);
+            }
+        }
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
     public class BEffect
@@ -1382,6 +1418,9 @@ namespace CB
 
                 case 1039:
                     return new BEffect_GLASSRATE();
+
+                case 1040:
+                    return new BEffect_SHAPEBALL();
                     
                 
                 default:

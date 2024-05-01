@@ -8,6 +8,7 @@ using UnityEngine;
 public class GameUserData
 {
     public int Score = 0;   //通关记录
+    public string AchiveRecords = "";
 }
 
 

@@ -974,7 +974,7 @@ namespace CB
         private AchievementData m_Data;
         public int ID { get {return m_Data.ID;}}
 
-        protected bool m_FinishFlag = true;
+        protected bool m_FinishFlag = false;
         public bool IsFinished { get {return m_FinishFlag;}}
 
         private static Dictionary<int, Func<Achievement>> m_classDictionary = new Dictionary<int, Func<Achievement>> {
