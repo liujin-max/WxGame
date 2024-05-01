@@ -81,7 +81,7 @@ namespace CB
                 if((int)objs[1] > 0) {
                     ball.Demage.PutAUL(this, (int)objs[1]);
 
-                    GameFacade.Instance.EffectManager.FlyRate(collision.contacts[0].point, (int)objs[1] + 1);
+                    // GameFacade.Instance.EffectManager.FlyRate(collision.contacts[0].point, ball.Demage.ShowRate());
 
                     GameFacade.Instance.EventManager.SendEvent(new GameEvent(EVENT.UI_TRIGGERRELICS, Belong));
                 }
@@ -360,7 +360,7 @@ namespace CB
             if (m_Count == 0) {
                 ball.Demage.PutAUL(this, 3);
 
-                GameFacade.Instance.EffectManager.FlyRate(collision.contacts[0].point, 4);
+                // GameFacade.Instance.EffectManager.FlyRate(collision.contacts[0].point, ball.Demage.ShowRate());
 
                 GameFacade.Instance.EventManager.SendEvent(new GameEvent(EVENT.UI_TRIGGERRELICS, Belong));
             }
@@ -529,9 +529,12 @@ namespace CB
 
         public override void Execute()
         {
-            GameFacade.Instance.Game.Balls.ForEach(b => {
-                b.Demage.PutADD(this, Count);
-            });
+            int c = Count;
+            if (c > 0) {
+                GameFacade.Instance.Game.Balls.ForEach(b => {
+                    b.Demage.PutADD(this, c);
+                });
+            }
         }
 
         public override void Cancel()
@@ -543,16 +546,22 @@ namespace CB
 
         public override void OnPushBall(Ball ball)
         {
-            GameFacade.Instance.Game.Balls.ForEach(b => {
-                b.Demage.PutADD(this, Count);
-            });
+            int c = Count;
+            if (c > 0) {
+                GameFacade.Instance.Game.Balls.ForEach(b => {
+                    b.Demage.PutADD(this, c);
+                });
+            }
         }
 
         public override void OnCoinUpdate(int coin)
         {
-            GameFacade.Instance.Game.Balls.ForEach(b => {
-                b.Demage.PutADD(this, Count);
-            });
+            int c = Count;
+            if (c > 0) {
+                GameFacade.Instance.Game.Balls.ForEach(b => {
+                    b.Demage.PutADD(this, c);
+                });
+            }
         }
     }
 
@@ -582,7 +591,9 @@ namespace CB
             if (obt.Order == 2) {
                 m_Count--;
                 if (m_Count == 0) {
-                    GameFacade.Instance.EffectManager.FlyRate(collision.contacts[0].point, 2);
+                    ball.Demage.PutAUL(this, 1);
+
+                    // GameFacade.Instance.EffectManager.FlyRate(collision.contacts[0].point, ball.Demage.ShowRate());
 
                     GameFacade.Instance.EventManager.SendEvent(new GameEvent(EVENT.UI_TRIGGERRELICS, Belong));
                 }
@@ -644,7 +655,7 @@ namespace CB
 
                 var pos = collision.contacts[0].point;
                 GameFacade.Instance.EffectManager.Load(EFFECT.CRIT, pos);
-                GameFacade.Instance.EffectManager.FlyRate(pos, 2);
+                // GameFacade.Instance.EffectManager.FlyRate(pos, ball.Demage.ShowRate());
 
                 GameFacade.Instance.EventManager.SendEvent(new GameEvent(EVENT.UI_TRIGGERRELICS, Belong));
             }  
@@ -669,10 +680,11 @@ namespace CB
         public override void OnEnterCollision(Ball ball, Collision2D collision)
         {
             if (ball.IsSimulate == true) return;
+            if (ball.IsRecycle == true) return;
 
             if (collision.transform.GetComponent<Wall>() != null)
             {
-                GameFacade.Instance.Game.UpdateScore((int)ball.Demage.ToNumber());
+                GameFacade.Instance.Game.UpdateScore((int)ball.Demage.GetBase());
 
                 GameFacade.Instance.EffectManager.Load(EFFECT.BALLOON, collision.contacts[0].point);
                 GameFacade.Instance.EventManager.SendEvent(new GameEvent(EVENT.UI_TRIGGERRELICS, Belong));
@@ -777,6 +789,7 @@ namespace CB
         public override void OnEnterCollision(Ball ball, Collision2D collision)
         {
             // if (ball.IsSimulate == true) return;
+            if (ball.IsRecycle == true) return;
 
             if (collision.transform.GetComponent<Wall>() != null)
             {
@@ -804,6 +817,7 @@ namespace CB
         public override void OnEnterCollision(Ball ball, Collision2D collision)
         {
             // if (ball.IsSimulate == true) return;
+            if (ball.IsRecycle == true) return;
 
             if (collision.transform.GetComponent<Wall>() != null)
             {
@@ -1061,12 +1075,12 @@ namespace CB
 
         public override void OnPushBall(Ball ball)
         {
-            ball.Demage.PutAUL(this, 0.1f * m_Count);
+            if (m_Count > 0) ball.Demage.PutAUL(this, 0.1f * m_Count);
         }
 
         public override void OnBallShoot(Ball ball, bool is_real_shoot)
         {
-            ball.Demage.PutAUL(this, 0.1f * m_Count);
+            if (m_Count > 0) ball.Demage.PutAUL(this, 0.1f * m_Count);
         }
     }
 
@@ -1091,6 +1105,13 @@ namespace CB
 
             GameFacade.Instance.EventManager.SendEvent(new GameEvent(EVENT.UI_FLUSHBALLS));
             GameFacade.Instance.EventManager.SendEvent(new GameEvent(EVENT.UI_TRIGGERRELICS, Belong));
+        }
+
+        public override void Cancel()
+        {
+            GameFacade.Instance.Game.SeatCount.Pop(this);
+
+            GameFacade.Instance.EventManager.SendEvent(new GameEvent(EVENT.UI_FLUSHBALLS));
         }
 
         public override void OnPlayEnd()

@@ -18,12 +18,12 @@ namespace CB
         {
             base.UpgradeTo(level);
 
-            this.Demage.SetBase(0);
+            this.Demage.PutMUL(this, 0);
         }
 
         public override string GetDescription()
         {
-            var str = "弹珠没有伤害。击中宝石为自身蓄能，积攒能量后释放震荡波，对全场造成1点伤害";
+            var str = "弹珠无法造成伤害。击中宝石为自身蓄能，积攒能量后释放震荡波，对全场造成1点伤害";
 
             return str;
         }

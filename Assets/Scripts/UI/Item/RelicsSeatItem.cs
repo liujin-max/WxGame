@@ -68,6 +68,7 @@ public class RelicsSeatItem : MonoBehaviour
         Image imageComponent = obj.AddComponent<Image>();
         imageComponent.sprite = c_Icon.sprite;
         imageComponent.SetNativeSize();
+        imageComponent.raycastTarget = false;
         
         Sequence seq = DOTween.Sequence();
         seq.Join(imageComponent.transform.DOScale(1.8f, 0.4f));
@@ -76,7 +77,6 @@ public class RelicsSeatItem : MonoBehaviour
         }));
 
         seq.Play();
-
     }
 
     void OnRelicsTrigger(GameEvent gameEvent)

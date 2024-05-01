@@ -274,6 +274,12 @@ namespace CB
 
                 obt.OnHit(this, (int)Demage.ToNumber());
 
+                //暴击特效
+                var rate = this.Demage.ShowRate();
+                if (rate > 1) {
+                    GameFacade.Instance.EffectManager.FlyRate(collision.contacts[0].point, rate);
+                }
+
                 GameFacade.Instance.EventManager.SendEvent(new GameEvent(EVENT.ONBALLHITAFTER, this, obt, collision));
 
                 return true;

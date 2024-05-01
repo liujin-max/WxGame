@@ -162,7 +162,7 @@ namespace CB
             m_Coin += value;
 
             GameFacade.Instance.EventManager.SendEvent(new GameEvent(EVENT.UI_FLUSHCOIN, m_Coin, true));
-            GameFacade.Instance.EventManager.SendEvent(new GameEvent(EVENT.ONCOINUPDATE, m_Coin));
+            GameFacade.Instance.EventManager.SendEvent(new GameEvent(EVENT.ONCOINUPDATE, m_Coin, value));
         }
 
         public void UpdateScore(int value)
@@ -697,7 +697,10 @@ namespace CB
 
         public void ShowBallBubble(Ball ball)
         {
-            var des     = string.Format("<#3297FF>{0}<#FF6631>({1})</color>：</color>{2}", ball.Name, ball.Demage.ToNumber(), ball.GetDescription());
+            int demage  = (int)ball.Demage.ToADDNumber();
+            if (ball.Demage.ToNumber() == 0) demage = 0;
+
+            var des     = string.Format("<#3297FF>{0}<#FF6631>({1})</color>：</color>{2}", ball.Name, demage, ball.GetDescription());
             GameFacade.Instance.EventManager.SendEvent(new GameEvent(EVENT.UI_SHOWBUBBLE, true, des));
         }
 
@@ -844,10 +847,6 @@ namespace CB
             m_FSM.Owner.BreechBall(m_FSM.Owner.PushBall(_C.BALL_ORIGIN_POS, _C.BALLTYPE.NORMAL));
             // m_FSM.Owner.BreechBall(m_FSM.Owner.PushBall(_C.BALL_ORIGIN_POS, _C.BALLTYPE.POWER));
 
-            // m_FSM.Owner.Army.PushRelics(121);
-            // CONFIG.GetRelicsDatas().ForEach(x => {
-            //     if (x.Weight > 0) m_FSM.Owner.Army.PushRelics(x.ID);
-            // });
 
             GameFacade.Instance.EventManager.SendEvent(new GameEvent(EVENT.ONGAMESTART));
 
@@ -871,6 +870,7 @@ namespace CB
                 m_RecordUI = GameFacade.Instance.UIManager.LoadWindow("Prefab/UI/RecordWindow", GameFacade.Instance.UIManager.BOTTOM).GetComponent<RecordWindow>();
                 m_RecordUI.Init();
             }
+
         }
 
         public override void Update()
@@ -885,6 +885,11 @@ namespace CB
         {
             m_FSM.Owner.m_Coin  = GameFacade.Instance.Game.GetScoreCoin();
             m_FSM.Owner.m_Glass = GameFacade.Instance.Game.GetScoreGlass();
+
+            // m_FSM.Owner.Army.PushRelics(121);
+            // CONFIG.GetRelicsDatas().ForEach(x => {
+            //     if (x.Weight > 0) m_FSM.Owner.Army.PushRelics(x.ID);
+            // });
 
             GameFacade.Instance.EventManager.SendEvent(new GameEvent(EVENT.UI_FLUSHCOUNT, true));
             GameFacade.Instance.EventManager.SendEvent(new GameEvent(EVENT.UI_FLUSHCOIN, m_FSM.Owner.m_Coin, true));

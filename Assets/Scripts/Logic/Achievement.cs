@@ -371,7 +371,7 @@ namespace CB
         {
             if (m_FinishFlag) return;
 
-            int value = (int)@event.GetParam(0);
+            int value = (int)@event.GetParam(1);
             m_Count += value;
 
             if (m_Count >= m_Max) this.Finish();
@@ -400,7 +400,7 @@ namespace CB
         {
             if (m_FinishFlag) return;
 
-            int value = (int)@event.GetParam(0);
+            int value = (int)@event.GetParam(1);
             m_Count += value;
 
             if (m_Count >= m_Max) this.Finish();
@@ -428,7 +428,7 @@ namespace CB
         {
             if (m_FinishFlag) return;
 
-            int value = (int)@event.GetParam(0);
+            int value = (int)@event.GetParam(1);
             m_Count += value;
 
             if (m_Count >= m_Max) this.Finish();
@@ -456,7 +456,7 @@ namespace CB
         {
             if (m_FinishFlag) return;
 
-            int value = (int)@event.GetParam(0);
+            int value = (int)@event.GetParam(1);
             m_Count += value;
 
             if (m_Count >= m_Max) this.Finish();

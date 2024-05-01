@@ -72,11 +72,45 @@ public class AttributeValue
         }
     }
 
+    public float ShowRate()
+    {
+        var aul_value   = 1f;
+        var mul_value   = 1f;
+
+        foreach (var item in AULDic) {
+            aul_value += item.Value;
+        }
+
+        foreach (var item in MULDic) {
+            mul_value *= item.Value;
+        }
+
+        var rate = aul_value * mul_value;
+        var base_value = (float)Math.Round(rate, 1);
+
+        return base_value;
+    }
+
     public void Clear()
     {
         ADDDic.Clear();
         AULDic.Clear();
         MULDic.Clear();
+    }
+
+    public float ToADDNumber()
+    {
+        var base_value  = m_Base;
+
+        foreach (var item in ADDDic) {
+            base_value += item.Value;
+        }
+
+        if (m_IsInt == true) {
+            base_value = (float)Math.Floor(base_value);
+        }
+
+        return base_value;
     }
 
     public float ToNumber()
