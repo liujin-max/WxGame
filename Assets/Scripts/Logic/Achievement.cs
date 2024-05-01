@@ -1031,12 +1031,19 @@ namespace CB
             return "";
         }
 
+        public void Sync()
+        {
+            m_FinishFlag = true;
+        }
+
         public void Finish()
         {
             if (m_FinishFlag == true) return;
 
             //存储
             m_FinishFlag = true;
+
+            GameFacade.Instance.User.SetAchievement(ID);
 
             // Debug.Log("完成成就:" + ID);
 

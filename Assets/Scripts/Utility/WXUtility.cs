@@ -4,7 +4,7 @@ using LitJson;
 using UnityEngine;
 using WeChatWASM;
 
-[System.Serializable]
+
 public class OpenDataMessage
 {
     // type 用于表明时间类型

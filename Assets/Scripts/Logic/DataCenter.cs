@@ -26,6 +26,7 @@ namespace CB
             list_datas.ForEach(data => {
                 Achievement achievement = Achievement.Create(data);
                 m_Achievements.Add(achievement);
+                m_AchievementsDic[data.ID]  = achievement;
             });
         }
         

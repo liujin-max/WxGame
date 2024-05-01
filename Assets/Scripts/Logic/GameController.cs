@@ -1254,8 +1254,10 @@ namespace CB
                     //积分结算
                     m_IsFinished = true;
                     ReceiveReward();
+                    
                     //存储记录
                     GameFacade.Instance.User.SetScore(m_FSM.Owner.m_Stage);
+                    GameFacade.Instance.User.Save();
 
                     m_FSM.Owner.Environment.OnEnd();
                     GameFacade.Instance.EventManager.SendEvent(new GameEvent(EVENT.ONPLAYEND));
@@ -1465,8 +1467,10 @@ namespace CB
             int real_score      = (int)values[0]; //m_FSM.Owner.m_Stage - 1;
             Debug.Log("结算：" + real_score);
             bool is_new_score   = GameFacade.Instance.User.IsNewScore(real_score);
+
             //记录分数
             GameFacade.Instance.User.SetScore(real_score);
+            GameFacade.Instance.User.Save();
 
             GameFacade.Instance.SoundManager.StopBGM();
 

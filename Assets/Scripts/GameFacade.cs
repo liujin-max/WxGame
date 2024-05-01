@@ -16,7 +16,7 @@ public class GameFacade : MonoBehaviour
     {
         get {
             if (m_User == null) {
-                m_User = new User();
+                m_User = transform.AddComponent<User>();
             }
             return m_User;
         }
@@ -183,10 +183,11 @@ public class GameFacade : MonoBehaviour
         CsvManager.ReadCsvs();
         CONFIG.InitDatas();
 
-        //加载账号数据
-        User.Init();
         //加载数据类
         DataCenter.Init();
+
+        //加载账号数据
+        User.Sync();
         
         m_TipWindow = UIManager.LoadWindow("Prefab/UI/TipWindow", UIManager.TIP).GetComponent<TipWindow>();
 
