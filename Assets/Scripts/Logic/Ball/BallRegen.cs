@@ -37,7 +37,7 @@ namespace CB
                     obt.SetHP(obt.HP + value);
                     obt.OnShake();
 
-                    GameFacade.Instance.EventManager.SendEvent(new GameEvent(EVENT.ONOBSTACLEHIT, value, this));
+                    GameFacade.Instance.EventManager.SendEvent(new GameEvent(EVENT.ONHITOBSTACLE, obt, value, this));
 
                 } else {
                     this.OnHitObstable(collision);

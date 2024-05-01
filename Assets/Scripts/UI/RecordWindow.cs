@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Text;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -17,10 +18,21 @@ public class RecordWindow : MonoBehaviour
         });
     }
 
-    public void Init()
+    public void Init(int ach_coin, int ach_glass)
     {
-        var sb = string.Format("当前最高记录: {0}层\n\n获得<sprite=1>：{1}\n\n获得<sprite=0>：{2}", GameFacade.Instance.User.Score, GameFacade.Instance.Game.GetScoreCoin(), GameFacade.Instance.Game.GetScoreGlass());
+        StringBuilder sb = new StringBuilder();
+        sb.Append(string.Format("当前最高记录: {0}层", GameFacade.Instance.User.Score));
 
-        m_Description.GetComponent<ShakeText>().SetText(sb);
+        sb.Append(string.Format("\n\n获得<sprite=1>：{0}", GameFacade.Instance.Game.GetScoreCoin() + ach_coin));
+        if (ach_coin > 0) {
+            sb.Append(string.Format("({0}{1}</color> 成就奖励)", _C.GREENCOLOR2, ach_coin));
+        } 
+
+        sb.Append(string.Format("\n\n获得<sprite=0>：{0}", GameFacade.Instance.Game.GetScoreGlass() + ach_glass));
+        if (ach_glass > 0) {
+            sb.Append(string.Format("({0}{1}</color> 成就奖励)", _C.GREENCOLOR2, ach_glass));
+        } 
+
+        m_Description.GetComponent<ShakeText>().SetText(sb.ToString());
     }
 }

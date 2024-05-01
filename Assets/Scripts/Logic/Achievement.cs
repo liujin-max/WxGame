@@ -16,11 +16,11 @@ namespace CB
             return "单回合内未击落<sprite=2>";
         }
 
-        protected override void OnReponseHitAfter(GameEvent @event)
+        protected override void OnReponseHitObstacle(GameEvent @event)
         {
             if (m_FinishFlag) return;
 
-            Obstacle obt = (Obstacle)@event.GetParam(1);
+            Obstacle obt = (Obstacle)@event.GetParam(0);
             if (obt.IsDead() == true && obt.Order == 0)
             {
                 m_Count++;
@@ -57,11 +57,11 @@ namespace CB
             return "单回合内未击落<sprite=3>";
         }
 
-        protected override void OnReponseHitAfter(GameEvent @event)
+        protected override void OnReponseHitObstacle(GameEvent @event)
         {
             if (m_FinishFlag) return;
 
-            Obstacle obt = (Obstacle)@event.GetParam(1);
+            Obstacle obt = (Obstacle)@event.GetParam(0);
             if (obt.IsDead() == true && obt.Order == 1)
             {
                 m_Count++;
@@ -97,11 +97,11 @@ namespace CB
             return "单回合内未击落<sprite=4>";
         }
 
-        protected override void OnReponseHitAfter(GameEvent @event)
+        protected override void OnReponseHitObstacle(GameEvent @event)
         {
             if (m_FinishFlag) return;
 
-            Obstacle obt = (Obstacle)@event.GetParam(1);
+            Obstacle obt = (Obstacle)@event.GetParam(0);
             if (obt.IsDead() == true && obt.Order == 3)
             {
                 m_Count++;
@@ -136,11 +136,11 @@ namespace CB
             return "单回合内未击落<sprite=5>";
         }
 
-        protected override void OnReponseHitAfter(GameEvent @event)
+        protected override void OnReponseHitObstacle(GameEvent @event)
         {
             if (m_FinishFlag) return;
 
-            Obstacle obt = (Obstacle)@event.GetParam(1);
+            Obstacle obt = (Obstacle)@event.GetParam(0);
             if (obt.IsDead() == true && obt.Order == 2)
             {
                 m_Count++;
@@ -176,11 +176,11 @@ namespace CB
             return string.Format("单回合内击落<size=46><#FFCC4A>{0}</color></size>个<sprite=2>", m_Max);
         }
 
-        protected override void OnReponseHitAfter(GameEvent @event)
+        protected override void OnReponseHitObstacle(GameEvent @event)
         {
             if (m_FinishFlag) return;
 
-            Obstacle obt = (Obstacle)@event.GetParam(1);
+            Obstacle obt = (Obstacle)@event.GetParam(0);
             if (obt.IsDead() == true && obt.Order == 0)
             {
                 m_Count++;
@@ -208,17 +208,17 @@ namespace CB
             return string.Format("单回合内击落<size=46><#FFCC4A>{0}</color></size>个<sprite=3>", m_Max);
         }
 
-        protected override void OnReponseHitAfter(GameEvent @event)
+        protected override void OnReponseHitObstacle(GameEvent @event)
         {
             if (m_FinishFlag) return;
 
-            Obstacle obt = (Obstacle)@event.GetParam(1);
+            Obstacle obt = (Obstacle)@event.GetParam(0);
             if (obt.IsDead() == true && obt.Order == 1)
             {
                 m_Count++;
                 if (m_Count >= m_Max) this.Finish();
             }
-        }  
+        } 
 
         protected override void OnReponsePlayStart(GameEvent @event)
         {
@@ -240,11 +240,11 @@ namespace CB
             return string.Format("单回合内击落<size=46><#FFCC4A>{0}</color></size>个<sprite=4>", m_Max);
         }
 
-        protected override void OnReponseHitAfter(GameEvent @event)
+        protected override void OnReponseHitObstacle(GameEvent @event)
         {
             if (m_FinishFlag) return;
 
-            Obstacle obt = (Obstacle)@event.GetParam(1);
+            Obstacle obt = (Obstacle)@event.GetParam(0);
             if (obt.IsDead() == true && obt.Order == 3)
             {
                 m_Count++;
@@ -272,11 +272,11 @@ namespace CB
             return string.Format("单回合内击落<size=46><#FFCC4A>{0}</color></size>个<sprite=5>", m_Max);
         }
 
-        protected override void OnReponseHitAfter(GameEvent @event)
+        protected override void OnReponseHitObstacle(GameEvent @event)
         {
             if (m_FinishFlag) return;
 
-            Obstacle obt = (Obstacle)@event.GetParam(1);
+            Obstacle obt = (Obstacle)@event.GetParam(0);
             if (obt.IsDead() == true && obt.Order == 2)
             {
                 m_Count++;
@@ -679,10 +679,10 @@ namespace CB
     }
     #endregion
 
-    #region 单颗弹珠击落5枚碎片。
+    #region 单颗弹珠击落8枚碎片。
     public class Achievement_BALLHITGLASS : Achievement
     {
-        private int m_Max   = 5;
+        private int m_Max   = 8;
         private Dictionary<Ball, int> m_Records = new Dictionary<Ball, int>();
 
         public override string GetDescription()
@@ -799,9 +799,171 @@ namespace CB
     #endregion
 
 
+    #region 回合开始时，弹珠槽中拥有5颗普通弹珠
+    public class Achievement_NORMALBALL : Achievement
+    {
+        private int m_Max = 5;
+
+        public override string GetDescription()
+        {
+            return string.Format("回合开始时弹珠槽中拥有<size=46><#FFCC4A>{0}</color></size>颗<sprite={1}>", m_Max, (int)_C.SPRITEATLAS.BALL);
+        }
+
+        protected override void OnReponsePlayStart(GameEvent @event)
+        {
+            if (m_FinishFlag) return;
+
+            int count = 0;
+            GameFacade.Instance.Game.Balls.ForEach(ball => {
+                if (ball.Type == _C.BALLTYPE.NORMAL) {
+                    count++;
+                }
+            });
+
+            if (count >= m_Max) {
+                this.Finish();
+            }
+        }
+
+    }
+    #endregion
 
 
+    #region 回合开始时，弹珠槽中同时拥有(方/圆/三角/菱)四颗弹珠
+    public class Achievement_OBTBALL : Achievement
+    {
+        public override string GetDescription()
+        {
+            return string.Format("回合开始时弹珠槽中同时拥有(方/圆/三角/菱)四颗弹珠");
+        }
 
+        protected override void OnReponsePlayStart(GameEvent @event)
+        {
+            if (m_FinishFlag) return;
+
+            bool ball_sanjiao = false;
+            bool ball_yuan = false;
+            bool ball_fang = false;
+            bool ball_ling = false;
+
+            GameFacade.Instance.Game.Balls.ForEach(ball => {
+                if (ball.Type == _C.BALLTYPE.FANG) ball_fang = true; 
+                else if (ball.Type == _C.BALLTYPE.SANJIAO) ball_sanjiao = true;
+                else if (ball.Type == _C.BALLTYPE.YUAN) ball_yuan = true;
+                else if (ball.Type == _C.BALLTYPE.LING) ball_ling = true;
+            });
+
+            if (ball_sanjiao && ball_yuan && ball_fang && ball_ling) {
+                this.Finish();
+            }
+        }
+
+    }
+    #endregion
+
+
+    #region 黑洞弹珠首次命中宝石时就形成黑洞
+    public class Achievement_BLACKHOLE : Achievement
+    {
+        private Dictionary<Ball, int> m_Records = new Dictionary<Ball, int>();
+        public override string GetDescription()
+        {
+            return string.Format("黑洞弹珠首次命中宝石即形成黑洞");
+        }
+
+        protected override void OnReponseBlackHole(GameEvent @event)
+        {
+            if (m_FinishFlag) return;
+
+            Ball ball = (Ball)@event.GetParam(0);
+
+            if (!m_Records.ContainsKey(ball)) {
+                return;
+            }
+
+            if (m_Records[ball] == 1) this.Finish();
+        }
+
+        protected override void OnReponseHitAfter(GameEvent @event)
+        {
+            if (m_FinishFlag) return;
+
+            Ball ball = (Ball)@event.GetParam(0);
+            if (!m_Records.ContainsKey(ball)) {
+                m_Records.Add(ball, 0);
+            }
+
+            m_Records[ball] += 1;
+        }
+
+    }
+    #endregion
+
+
+    #region 单回合内未击落碎片
+    public class Achievement_GLASSMISS : Achievement
+    {
+        private int m_Count = 0;
+        public override string GetDescription()
+        {
+            return string.Format("单回合内未击落<sprite={0}>", (int)_C.SPRITEATLAS.GLASS);
+        }
+
+        protected override void OnReponseHitBox(GameEvent @event)
+        {
+            if (m_FinishFlag) return;
+
+            Ghost ghost = ((Box)@event.GetParam(1)).GetComponent<Ghost>();
+            if (ghost != null && ghost.IsDead() == true)
+            {
+                m_Count++;
+            }
+        }  
+
+        protected override void OnReponsePlayStart(GameEvent @event)
+        {
+            if (m_FinishFlag) return;
+
+            m_Count = 0;
+        }
+
+        protected override void OnReponsePlayEnd(GameEvent @event)
+        {
+            if (m_FinishFlag) return;
+
+            if (m_Count == 0)
+            {
+                this.Finish();
+            }
+        }
+
+    }
+    #endregion
+
+
+    #region 弹珠的飞行时间超过10秒
+    public class Achievement_FLYTIME : Achievement
+    {
+        private int m_Max = 10;
+        public override string GetDescription()
+        {
+            return string.Format("弹珠的飞行时间超过<size=46><#FFCC4A>{0}</color></size>秒", m_Max);
+        }
+
+        protected override void OnReponseBallFly(GameEvent @event)
+        {
+            if (m_FinishFlag) return;
+
+            Ball ball = (Ball)@event.GetParam(0);
+
+            if (ball.IsSimulate) return;
+
+            if (ball.FlyTime >= m_Max) {
+                this.Finish();
+            }
+        }
+    }
+    #endregion
 
 
 
@@ -810,10 +972,10 @@ namespace CB
     public class Achievement
     {
         private AchievementData m_Data;
-        public int ID { get{return m_Data.ID;}}
-
+        public int ID { get {return m_Data.ID;}}
 
         protected bool m_FinishFlag = false;
+        public bool IsFinished { get {return m_FinishFlag;}}
 
         private static Dictionary<int, Func<Achievement>> m_classDictionary = new Dictionary<int, Func<Achievement>> {
             { 10001, () => new Achievement_FANG()},
@@ -841,8 +1003,11 @@ namespace CB
             { 10023, () => new Achievement_BALLHITGLASS()},
             { 10024, () => new Achievement_BALLRECYCLE()},
             { 10025, () => new Achievement_BALLMISS()},
-
-
+            { 10026, () => new Achievement_NORMALBALL()},
+            { 10027, () => new Achievement_OBTBALL()},
+            { 10028, () => new Achievement_BLACKHOLE()},
+            { 10029, () => new Achievement_GLASSMISS()},
+            { 10030, () => new Achievement_FLYTIME()},
 
         };
 
@@ -873,15 +1038,88 @@ namespace CB
             //存储
             m_FinishFlag = true;
 
-            Debug.Log("完成成就:" + ID);
+            // Debug.Log("完成成就:" + ID);
 
             //通知UI 成就完成
             GameFacade.Instance.EventManager.SendEvent(new GameEvent(EVENT.UI_ACHIEVEMENTPOP, this));
         }
 
+        //金币奖励
+        public int GetCoin()
+        {
+            if (string.IsNullOrEmpty(m_Data.Effect)) return 0;
+
+            string[] str_array = m_Data.Effect.Split(':');
+            if (str_array[0] == "金币") {
+                return Convert.ToInt32(str_array[1]);
+            }
+
+            return 0;
+        }
+
+        //碎片奖励
+        public int GetGlass()
+        {
+            if (string.IsNullOrEmpty(m_Data.Effect)) return 0;
+
+            string[] str_array = m_Data.Effect.Split(':');
+            if (str_array[0] == "碎片") {
+                return Convert.ToInt32(str_array[1]);
+            }
+
+            return 0;
+        }
+
+        public void DoReward()
+        {
+            if (!m_FinishFlag) return;
+            if (string.IsNullOrEmpty(m_Data.Effect)) return;
+
+            string[] str_array = m_Data.Effect.Split(':');
+            string key  = str_array[0];
+            int value   = Convert.ToInt32(str_array[1]);
+
+
+            switch (key)
+            {
+                case "金币":
+                GameFacade.Instance.Game.UpdateCoin(value);
+                break;
+
+                case "碎片":
+                GameFacade.Instance.Game.PushGlass(value);
+                break;
+
+                case "弹珠":
+                GameFacade.Instance.Game.BreechBall(GameFacade.Instance.Game.PushBall(_C.BALL_ORIGIN_POS, (_C.BALLTYPE)value));
+                break;
+
+                case "道具":
+                GameFacade.Instance.Game.Army.PushRelics(value);
+                break;
+                
+                default:
+                    break;
+            }
+        }
+
         public void Dispose()
         {
-            
+            GameFacade.Instance.EventManager.DelHandler(EVENT.ONGAMESTART,      OnReponseGameStart);
+            GameFacade.Instance.EventManager.DelHandler(EVENT.ONGAMEEND,        OnReponseGameEnd);
+            GameFacade.Instance.EventManager.DelHandler(EVENT.ONPLAYSTART,      OnReponsePlayStart);
+            GameFacade.Instance.EventManager.DelHandler(EVENT.ONPLAYEND,        OnReponsePlayEnd);
+            GameFacade.Instance.EventManager.DelHandler(EVENT.ONHITOBSTACLE,    OnReponseHitObstacle);
+            GameFacade.Instance.EventManager.DelHandler(EVENT.ONBALLHITAFTER,   OnReponseHitAfter);
+            GameFacade.Instance.EventManager.DelHandler(EVENT.ONBALLHITBOX,     OnReponseHitBox);
+            GameFacade.Instance.EventManager.DelHandler(EVENT.ONCOINUPDATE,     OnReponseCoinUpdate);
+            GameFacade.Instance.EventManager.DelHandler(EVENT.ONGLASSUPDATE,    OnReponseGlassUpdate);
+            GameFacade.Instance.EventManager.DelHandler(EVENT.ONBALLSHOOT,      OnReponseBallShoot);
+            GameFacade.Instance.EventManager.DelHandler(EVENT.ONBALLRECYCLE,    OnReponseBallRecycle);
+            GameFacade.Instance.EventManager.DelHandler(EVENT.ONENTERGROUND,    OnReponseEnterGround);
+            GameFacade.Instance.EventManager.DelHandler(EVENT.ONCREATEBLACKHOLE,OnReponseBlackHole);
+            GameFacade.Instance.EventManager.DelHandler(EVENT.ONBALLDEAD,       OnReponseBallDead);
+            GameFacade.Instance.EventManager.DelHandler(EVENT.ONBALLFLY,        OnReponseBallFly);
         }
 
         void Init(AchievementData data)
@@ -892,6 +1130,7 @@ namespace CB
             GameFacade.Instance.EventManager.AddHandler(EVENT.ONGAMEEND,        OnReponseGameEnd);
             GameFacade.Instance.EventManager.AddHandler(EVENT.ONPLAYSTART,      OnReponsePlayStart);
             GameFacade.Instance.EventManager.AddHandler(EVENT.ONPLAYEND,        OnReponsePlayEnd);
+            GameFacade.Instance.EventManager.AddHandler(EVENT.ONHITOBSTACLE,    OnReponseHitObstacle);
             GameFacade.Instance.EventManager.AddHandler(EVENT.ONBALLHITAFTER,   OnReponseHitAfter);
             GameFacade.Instance.EventManager.AddHandler(EVENT.ONBALLHITBOX,     OnReponseHitBox);
             GameFacade.Instance.EventManager.AddHandler(EVENT.ONCOINUPDATE,     OnReponseCoinUpdate);
@@ -899,7 +1138,30 @@ namespace CB
             GameFacade.Instance.EventManager.AddHandler(EVENT.ONBALLSHOOT,      OnReponseBallShoot);
             GameFacade.Instance.EventManager.AddHandler(EVENT.ONBALLRECYCLE,    OnReponseBallRecycle);
             GameFacade.Instance.EventManager.AddHandler(EVENT.ONENTERGROUND,    OnReponseEnterGround);
+            GameFacade.Instance.EventManager.AddHandler(EVENT.ONCREATEBLACKHOLE,OnReponseBlackHole);
+            GameFacade.Instance.EventManager.AddHandler(EVENT.ONBALLDEAD,       OnReponseBallDead);
+            GameFacade.Instance.EventManager.AddHandler(EVENT.ONBALLFLY,        OnReponseBallFly);
             
+        }
+
+        protected virtual void OnReponseBallFly(GameEvent @event)
+        {
+
+        }
+
+        protected virtual void OnReponseBallDead(GameEvent @event)
+        {
+
+        }
+
+        protected virtual void OnReponseHitObstacle(GameEvent @event)
+        {
+
+        }
+
+        protected virtual void OnReponseBlackHole(GameEvent @event)
+        {
+
         }
 
         protected virtual void OnReponseEnterGround(GameEvent @event)

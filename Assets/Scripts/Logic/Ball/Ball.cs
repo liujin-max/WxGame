@@ -133,6 +133,8 @@ namespace CB
             if (this.IsActing)
             {
                 m_FlyTime += Time.deltaTime;
+
+                GameFacade.Instance.EventManager.SendEvent(new GameEvent(EVENT.ONBALLFLY, this));
             }
         }
 
@@ -169,8 +171,6 @@ namespace CB
         public void Dead()
         {
             m_DeadFlag = true;
-
-            GameFacade.Instance.EventManager.SendEvent(new GameEvent(EVENT.ONBALLDEAD, this));
         }
 
         public virtual void UpgradeTo(int level)
@@ -326,6 +326,8 @@ namespace CB
 
         public virtual void Dispose()
         {
+            GameFacade.Instance.EventManager.SendEvent(new GameEvent(EVENT.ONBALLDEAD, this));
+
             Destroy(gameObject);
         }
 

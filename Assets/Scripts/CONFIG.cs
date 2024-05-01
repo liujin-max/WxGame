@@ -34,9 +34,8 @@ public struct AchievementData
 {
     public int ID;
     public string Name;
+    public string Effect;
     public string Description;
-    public int Coin;
-    public int Glass;
 }
 
 
@@ -91,9 +90,8 @@ public static class CONFIG
             AchievementData config = new AchievementData();
             config.ID           = Convert.ToInt16(data[0]);
             config.Name         = data[1].ToString();
-            config.Coin         = Convert.ToInt16(data[2]);
-            config.Glass        = Convert.ToInt16(data[3]);
-            config.Description  = data[4].ToString();
+            config.Effect       = data[2].ToString();
+            config.Description  = data[3].ToString();
             
             AchievementDatas.Add(config);
             AchievementDataDic.Add(config.ID, config);

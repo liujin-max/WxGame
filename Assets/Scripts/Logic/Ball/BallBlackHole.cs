@@ -15,7 +15,6 @@ namespace CB
             return "击中宝石后有小概率形成黑洞，吸附并销毁周围的宝石";
         }
 
-
         public override void OnCollisionEnter2D(Collision2D collision)
         {
             base.OnCollisionEnter2D(collision);
@@ -28,7 +27,9 @@ namespace CB
                     this.Dead();
                 
                     //创建漩涡
-                    GameFacade.Instance.Game.PushElement("Prefab/Box/BlackHole", obt.transform.localPosition);
+                    var box = GameFacade.Instance.Game.PushElement("Prefab/Box/BlackHole", obt.transform.localPosition);
+
+                    GameFacade.Instance.EventManager.SendEvent(new GameEvent(EVENT.ONCREATEBLACKHOLE, this, box));
                 }
             }
         }

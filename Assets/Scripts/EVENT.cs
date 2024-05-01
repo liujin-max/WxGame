@@ -19,7 +19,7 @@ public static class EVENT
 
 
 
-    public static string ONOBSTACLEHIT      = "ONOBSTACLEHIT";
+    public static string ONHITOBSTACLE      = "ONHITOBSTACLE";
     public static string ONRECORDHIT        = "ONRECORDHIT";
 
     public static string ONBALLPUSH         = "ONBALLPUSH";         //获得弹珠
@@ -43,6 +43,8 @@ public static class EVENT
     public static string ONENTERGROUND      = "ONENTERGROUND";      //撞击底部
     public static string ONBALLDEAD         = "ONBALLDEAD";         //弹珠死亡时
     public static string ONREFRESHEVENTS    = "ONREFRESHEVENTS";    //刷新弹珠列表时
+    public static string ONCREATEBLACKHOLE  = "ONCREATEBLACKHOLE";   //创建黑洞
+    public static string ONBALLFLY          = "ONBALLFLY";
 
     
 

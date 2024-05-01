@@ -66,6 +66,7 @@ public static class _C
 
     public static string REDCOLOR   = "<#FF6631>";
     public static string GREENCOLOR = "<#45FF31>";
+    public static string GREENCOLOR2= "<#15CF00>";
 
 
     public static float CANCELHEIGHT    = 5.6f;

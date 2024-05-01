@@ -117,12 +117,12 @@ namespace CB
 
             m_Aim_Opos  = c_takeAim.transform.localPosition;
 
-            GameFacade.Instance.EventManager.AddHandler(EVENT.ONOBSTACLEHIT,        OnReponseObstacleHit);
+            GameFacade.Instance.EventManager.AddHandler(EVENT.ONHITOBSTACLE,        OnReponseObstacleHit);
         }
 
         void OnDestroy()
         {
-            GameFacade.Instance.EventManager.DelHandler(EVENT.ONOBSTACLEHIT,        OnReponseObstacleHit);
+            GameFacade.Instance.EventManager.DelHandler(EVENT.ONHITOBSTACLE,        OnReponseObstacleHit);
         }
 
 
@@ -502,11 +502,13 @@ namespace CB
 
         }
 
-        public void PushElement(string path, Vector3 pos)
+        public Box PushElement(string path, Vector3 pos)
         {
             var item    = Instantiate(Resources.Load<GameObject>(path), pos, Quaternion.identity, c_obtPivot);
             var script  = item.GetComponent<Box>();
             m_Elements.Add(script);
+
+            return script;
         }
 
         //重启战场
@@ -773,7 +775,7 @@ namespace CB
         //障碍物扣血
         public void OnReponseObstacleHit(GameEvent gameEvent)
         {
-            int value = (int)gameEvent.GetParam(0);
+            int value = (int)gameEvent.GetParam(1);
             this.UpdateScore(value);
             
             m_Hit  += 1;
@@ -859,16 +861,29 @@ namespace CB
     internal class State_RECORD<T> : State<GameController>
     {
         private RecordWindow m_RecordUI;
+
+
         public State_RECORD(_C.FSMSTATE id) : base(id)
         {
         }
 
         public override void Enter(params object[] values)
         {   
-            if (GameFacade.Instance.User.Score > 0)
+            //显示成就奖励
+            int m_ACH_Coin = 0;
+            int m_ACH_Glass= 0;
+
+            GameFacade.Instance.DataCenter.Achievements.ForEach(achievement => {
+                if (achievement.IsFinished == true) {
+                    m_ACH_Coin  += achievement.GetCoin();
+                    m_ACH_Glass += achievement.GetGlass();
+                }
+            });
+
+            if (GameFacade.Instance.User.Score > 0 || m_ACH_Coin > 0 || m_ACH_Glass > 0)
             {
                 m_RecordUI = GameFacade.Instance.UIManager.LoadWindow("Prefab/UI/RecordWindow", GameFacade.Instance.UIManager.BOTTOM).GetComponent<RecordWindow>();
-                m_RecordUI.Init();
+                m_RecordUI.Init(m_ACH_Coin, m_ACH_Glass);
             }
 
         }
@@ -885,6 +900,13 @@ namespace CB
         {
             m_FSM.Owner.m_Coin  = GameFacade.Instance.Game.GetScoreCoin();
             m_FSM.Owner.m_Glass = GameFacade.Instance.Game.GetScoreGlass();
+
+            //成就奖励
+            GameFacade.Instance.DataCenter.Achievements.ForEach(achievement => {
+                if (achievement.IsFinished == true) {
+                    achievement.DoReward();
+                }
+            });
 
             // m_FSM.Owner.Army.PushRelics(121);
             // CONFIG.GetRelicsDatas().ForEach(x => {
