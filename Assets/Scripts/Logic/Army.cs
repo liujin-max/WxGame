@@ -34,8 +34,10 @@ namespace CB
             GameFacade.Instance.EventManager.AddHandler(EVENT.ONBOMBBEFORE,     OnReponseBombBefore);
             GameFacade.Instance.EventManager.AddHandler(EVENT.ONWILLRECEIVECOIN,OnReponseReceiveCoin);
             GameFacade.Instance.EventManager.AddHandler(EVENT.ONREFRESHEVENTS,  OnReponseRefreshEvents);
-            
-            
+            GameFacade.Instance.EventManager.AddHandler(EVENT.ONBALLFLY,        OnReponseBallFly);
+            GameFacade.Instance.EventManager.AddHandler(EVENT.ONBALLRECYCLE,    OnReponseBallRecycle);
+
+
         }
 
         public void Dispose()
@@ -63,6 +65,8 @@ namespace CB
             GameFacade.Instance.EventManager.DelHandler(EVENT.ONBOMBBEFORE,     OnReponseBombBefore);
             GameFacade.Instance.EventManager.DelHandler(EVENT.ONWILLRECEIVECOIN,OnReponseReceiveCoin);
             GameFacade.Instance.EventManager.DelHandler(EVENT.ONREFRESHEVENTS,  OnReponseRefreshEvents);
+            GameFacade.Instance.EventManager.DelHandler(EVENT.ONBALLFLY,        OnReponseBallFly);
+            GameFacade.Instance.EventManager.DelHandler(EVENT.ONBALLRECYCLE,    OnReponseBallRecycle);
 
 
         }
@@ -252,6 +256,26 @@ namespace CB
             m_Relicses.ForEach(relics => {
                 relics.GetEffects().ForEach(e => {
                     e.OnRefreshEvents((List<ComplextEvent>)gameEvent.GetParam(0), (bool)gameEvent.GetParam(1));
+                });
+            });
+        }
+
+        //弹珠飞行中
+        void OnReponseBallFly(GameEvent gameEvent)
+        {
+            m_Relicses.ForEach(relics => {
+                relics.GetEffects().ForEach(e => {
+                    e.OnBallFly((Ball)gameEvent.GetParam(0));
+                });
+            });
+        }
+
+        //回收弹珠
+        void OnReponseBallRecycle(GameEvent gameEvent)
+        {
+            m_Relicses.ForEach(relics => {
+                relics.GetEffects().ForEach(e => {
+                    e.OnBallRecycle((Ball)gameEvent.GetParam(0));
                 });
             });
         }

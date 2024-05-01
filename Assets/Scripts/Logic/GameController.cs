@@ -908,7 +908,8 @@ namespace CB
                 }
             });
 
-            // m_FSM.Owner.Army.PushRelics(121);
+            // m_FSM.Owner.Army.PushRelics(124);
+            // m_FSM.Owner.Army.PushRelics(116);
             // CONFIG.GetRelicsDatas().ForEach(x => {
             //     if (x.Weight > 0) m_FSM.Owner.Army.PushRelics(x.ID);
             // });

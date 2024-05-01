@@ -941,10 +941,10 @@ namespace CB
     #endregion
 
 
-    #region 弹珠的飞行时间超过10秒
+    #region 弹珠的飞行时间超过15秒
     public class Achievement_FLYTIME : Achievement
     {
-        private int m_Max = 10;
+        private int m_Max = 15;
         public override string GetDescription()
         {
             return string.Format("弹珠的飞行时间超过<size=46><#FFCC4A>{0}</color></size>秒", m_Max);
@@ -974,7 +974,7 @@ namespace CB
         private AchievementData m_Data;
         public int ID { get {return m_Data.ID;}}
 
-        protected bool m_FinishFlag = false;
+        protected bool m_FinishFlag = true;
         public bool IsFinished { get {return m_FinishFlag;}}
 
         private static Dictionary<int, Func<Achievement>> m_classDictionary = new Dictionary<int, Func<Achievement>> {

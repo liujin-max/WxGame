@@ -835,7 +835,7 @@ namespace CB
     //每飞行5秒，伤害提高1
     public class BEffect_FLY : BEffect
     {
-        private HashSet<Ball> m_Balls = new HashSet<Ball>();
+        private Dictionary<Ball, int> m_Records = new Dictionary<Ball, int>();
 
         public BEffect_FLY() {}
 
@@ -844,20 +844,47 @@ namespace CB
             return string.Format("弹珠飞行时间越长，造成的伤害越高。");
         }
 
-        public override void OnHitBefore(Ball ball, Obstacle obt, Collision2D collision)
+        public override void OnBallFly(Ball ball)
         {
+            if (!m_Records.ContainsKey(ball)) {
+                m_Records.Add(ball, 0);
+            }
+
             var value = (int)(ball.FlyTime / 5.0f);
-            if (value > 0) {
+
+            if (value > m_Records[ball]) {
+                m_Records[ball] = value;
+
                 ball.Demage.PutADD(this, value);
 
                 GameFacade.Instance.EventManager.SendEvent(new GameEvent(EVENT.UI_TRIGGERRELICS, Belong));
             }
         }
 
-        public override void OnHitAfter(Ball ball, Obstacle obt, Collision2D collision)
+        public override void OnBallRecycle(Ball ball)
         {
+            if (m_Records.ContainsKey(ball)) {
+                m_Records.Remove(ball);
+            }
+            
+
             ball.Demage.Pop(this);
         }
+
+        // public override void OnHitBefore(Ball ball, Obstacle obt, Collision2D collision)
+        // {
+        //     var value = (int)(ball.FlyTime / 5.0f);
+        //     if (value > 0) {
+        //         ball.Demage.PutADD(this, value);
+
+        //         GameFacade.Instance.EventManager.SendEvent(new GameEvent(EVENT.UI_TRIGGERRELICS, Belong));
+        //     }
+        // }
+
+        // public override void OnHitAfter(Ball ball, Obstacle obt, Collision2D collision)
+        // {
+        //     ball.Demage.Pop(this);
+        // }
     }
 
 
@@ -1453,6 +1480,16 @@ namespace CB
         }
 
         public virtual void OnRefreshEvents(List<ComplextEvent> events, bool is_video_play)
+        {
+
+        }
+
+        public virtual void OnBallFly(Ball ball)
+        {
+
+        }
+
+        public virtual void OnBallRecycle(Ball ball)
         {
 
         }
