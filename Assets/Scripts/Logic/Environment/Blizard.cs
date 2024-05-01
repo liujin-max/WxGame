@@ -39,7 +39,7 @@ namespace CB
             base.OnEnter();
 
             GameFacade.Instance.Game.Obstacles.ForEach(obstacle =>{
-                obstacle.SetHP((int)(obstacle.HP * 1.5f));
+                obstacle.SetHP(obstacle.HP * 2);
             });
         }
 
@@ -47,7 +47,7 @@ namespace CB
         {
             List<int> lists = (List<int>)gameEvent.GetParam(0);
 
-            for (int i = 0; i < 8; i++)
+            for (int i = 0; i < 5; i++)
             {
                 lists.Add((int)_C.BOXTYPE.GHOST);
             }
