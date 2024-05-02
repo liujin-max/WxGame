@@ -71,4 +71,5 @@ MonoBehaviour:
     dstMinDir: 
     debugMode: 0
     force: 0
-  PlayerPrefsKeys: []
+  PlayerPrefsKeys:
+  - KEY_USER
