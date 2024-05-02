@@ -14,9 +14,8 @@ namespace CB
         private RelicsData m_Data;
         public int ID { get{return m_Data.ID;}}
         public string Name { get{return m_Data.Name;}}
-
         public int Price { get{return m_Data.Price;}}
-        
+
         
         private List<BEffect> m_Effects = new List<BEffect>();
 

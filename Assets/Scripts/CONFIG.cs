@@ -4,10 +4,10 @@ using System.Collections.Generic;
 using System.Data;
 using UnityEngine;
 
-//
+//结构体使用class而不是struct， struct在外部更改数据后不生效，不知道咋结局，所以改用class了
 
 //弹珠数据体
-public struct BallData
+public class BallData
 {
     public _C.BALLTYPE Type;
     public int Cost;
@@ -19,21 +19,22 @@ public struct BallData
 }
 
 //遗物数据体
-public struct RelicsData
+public class RelicsData
 {
     public int ID;
     public string Name;
     public string Effect;
-    public string Icon;
     public int Weight;
     public int Price;
+    public bool Unlock;
 }
 
 //成就数据体
-public struct AchievementData
+public class AchievementData
 {
     public int ID;
     public string Name;
+    public int Previous;
     public string Effect;
     public string Description;
 }
@@ -76,6 +77,7 @@ public static class CONFIG
             config.Weight   = Convert.ToInt16(data[2]);
             config.Effect   = data[3].ToString();
             config.Price    = Convert.ToInt16(data[5]);
+            config.Unlock   = Convert.ToInt16(data[6]) == 1;
 
             // Debug.Log(config.Name + ": " + config.Price);
             
@@ -90,8 +92,11 @@ public static class CONFIG
             AchievementData config = new AchievementData();
             config.ID           = Convert.ToInt16(data[0]);
             config.Name         = data[1].ToString();
-            config.Effect       = data[2].ToString();
-            config.Description  = data[3].ToString();
+            config.Previous     = string.IsNullOrEmpty(data[2]) == true ? default(int) : Convert.ToInt16(data[2]);
+            config.Effect       = data[3].ToString();
+            config.Description  = data[4].ToString();
+
+            // Debug.Log("Previous : " + config.Previous);
             
             AchievementDatas.Add(config);
             AchievementDataDic.Add(config.ID, config);

@@ -43,18 +43,6 @@ namespace CB
                 }
             }
         }
-
-        // public override void OnCollisionExit2D(Collision2D collision)
-        // {
-        //     Ground ground = collision.transform.GetComponent<Ground>();
-        //     if (ground != null) {
-        //         if (ground.GroundType == GroundType.Ground) {
-        //             if (m_Current <= 0) {
-        //                 m_GroundValid = true;
-        //             }
-        //         }
-        //     }  
-        // }
     }
 }
 

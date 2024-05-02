@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 
@@ -18,7 +19,7 @@ namespace CB
 
         protected override void OnReponseHitObstacle(GameEvent @event)
         {
-            if (m_FinishFlag) return;
+            if (!IsActive) return;
 
             Obstacle obt = (Obstacle)@event.GetParam(0);
             if (obt.IsDead() == true && obt.Order == 0)
@@ -29,14 +30,14 @@ namespace CB
 
         protected override void OnReponsePlayStart(GameEvent @event)
         {
-            if (m_FinishFlag) return;
+            if (!IsActive) return;
 
             m_Count = 0;
         }
 
         protected override void OnReponsePlayEnd(GameEvent @event)
         {
-            if (m_FinishFlag) return;
+            if (!IsActive) return;
 
             if (m_Count == 0)
             {
@@ -59,7 +60,7 @@ namespace CB
 
         protected override void OnReponseHitObstacle(GameEvent @event)
         {
-            if (m_FinishFlag) return;
+            if (!IsActive) return;
 
             Obstacle obt = (Obstacle)@event.GetParam(0);
             if (obt.IsDead() == true && obt.Order == 1)
@@ -70,14 +71,14 @@ namespace CB
 
         protected override void OnReponsePlayStart(GameEvent @event)
         {
-            if (m_FinishFlag) return;
+            if (!IsActive) return;
 
             m_Count = 0;
         }
 
         protected override void OnReponsePlayEnd(GameEvent @event)
         {
-            if (m_FinishFlag) return;
+            if (!IsActive) return;
 
             if (m_Count == 0)
             {
@@ -99,7 +100,7 @@ namespace CB
 
         protected override void OnReponseHitObstacle(GameEvent @event)
         {
-            if (m_FinishFlag) return;
+            if (!IsActive) return;
 
             Obstacle obt = (Obstacle)@event.GetParam(0);
             if (obt.IsDead() == true && obt.Order == 3)
@@ -110,14 +111,14 @@ namespace CB
 
         protected override void OnReponsePlayStart(GameEvent @event)
         {
-            if (m_FinishFlag) return;
+            if (!IsActive) return;
 
             m_Count = 0;
         }
 
         protected override void OnReponsePlayEnd(GameEvent @event)
         {
-            if (m_FinishFlag) return;
+            if (!IsActive) return;
 
             if (m_Count == 0)
             {
@@ -138,7 +139,7 @@ namespace CB
 
         protected override void OnReponseHitObstacle(GameEvent @event)
         {
-            if (m_FinishFlag) return;
+            if (!IsActive) return;
 
             Obstacle obt = (Obstacle)@event.GetParam(0);
             if (obt.IsDead() == true && obt.Order == 2)
@@ -149,14 +150,14 @@ namespace CB
 
         protected override void OnReponsePlayStart(GameEvent @event)
         {
-            if (m_FinishFlag) return;
+            if (!IsActive) return;
 
             m_Count = 0;
         }
 
         protected override void OnReponsePlayEnd(GameEvent @event)
         {
-            if (m_FinishFlag) return;
+            if (!IsActive) return;
 
             if (m_Count == 0)
             {
@@ -178,7 +179,7 @@ namespace CB
 
         protected override void OnReponseHitObstacle(GameEvent @event)
         {
-            if (m_FinishFlag) return;
+            if (!IsActive) return;
 
             Obstacle obt = (Obstacle)@event.GetParam(0);
             if (obt.IsDead() == true && obt.Order == 0)
@@ -190,7 +191,7 @@ namespace CB
 
         protected override void OnReponsePlayStart(GameEvent @event)
         {
-            if (m_FinishFlag) return;
+            if (!IsActive) return;
 
             m_Count = 0;
         }
@@ -210,7 +211,7 @@ namespace CB
 
         protected override void OnReponseHitObstacle(GameEvent @event)
         {
-            if (m_FinishFlag) return;
+            if (!IsActive) return;
 
             Obstacle obt = (Obstacle)@event.GetParam(0);
             if (obt.IsDead() == true && obt.Order == 1)
@@ -222,7 +223,7 @@ namespace CB
 
         protected override void OnReponsePlayStart(GameEvent @event)
         {
-            if (m_FinishFlag) return;
+            if (!IsActive) return;
 
             m_Count = 0;
         }
@@ -242,7 +243,7 @@ namespace CB
 
         protected override void OnReponseHitObstacle(GameEvent @event)
         {
-            if (m_FinishFlag) return;
+            if (!IsActive) return;
 
             Obstacle obt = (Obstacle)@event.GetParam(0);
             if (obt.IsDead() == true && obt.Order == 3)
@@ -254,7 +255,7 @@ namespace CB
 
         protected override void OnReponsePlayStart(GameEvent @event)
         {
-            if (m_FinishFlag) return;
+            if (!IsActive) return;
 
             m_Count = 0;
         }
@@ -274,7 +275,7 @@ namespace CB
 
         protected override void OnReponseHitObstacle(GameEvent @event)
         {
-            if (m_FinishFlag) return;
+            if (!IsActive) return;
 
             Obstacle obt = (Obstacle)@event.GetParam(0);
             if (obt.IsDead() == true && obt.Order == 2)
@@ -286,18 +287,18 @@ namespace CB
 
         protected override void OnReponsePlayStart(GameEvent @event)
         {
-            if (m_FinishFlag) return;
+            if (!IsActive) return;
 
             m_Count = 0;
         }
     }
     #endregion
 
-    #region 单回合内击落6个碎片。
+    #region 单回合内击落#个碎片。
     public class Achievement_KILLGLASS : Achievement
     {
         private int m_Count = 0;
-        private int m_Max   = 6;
+        private int m_Max   = 8;
         public override string GetDescription()
         {
             return string.Format("单回合内击落<size=46><#FFCC4A>{0}</color></size>个<sprite=0>", m_Max);
@@ -305,7 +306,7 @@ namespace CB
 
         protected override void OnReponseHitBox(GameEvent @event)
         {
-            if (m_FinishFlag) return;
+            if (!IsActive) return;
 
             Ghost ghost = ((Box)@event.GetParam(1)).GetComponent<Ghost>();
             if (ghost != null && ghost.IsDead() == true)
@@ -317,7 +318,7 @@ namespace CB
 
         protected override void OnReponsePlayStart(GameEvent @event)
         {
-            if (m_FinishFlag) return;
+            if (!IsActive) return;
 
             m_Count = 0;
         }
@@ -337,7 +338,7 @@ namespace CB
 
         protected override void OnReponseHitBox(GameEvent @event)
         {
-            if (m_FinishFlag) return;
+            if (!IsActive) return;
 
             Bomb bomb = ((Box)@event.GetParam(1)).GetComponent<Bomb>();
             if (bomb != null && bomb.IsDead() == true)
@@ -349,7 +350,7 @@ namespace CB
 
         protected override void OnReponsePlayStart(GameEvent @event)
         {
-            if (m_FinishFlag) return;
+            if (!IsActive) return;
 
             m_Count = 0;
         }
@@ -369,7 +370,7 @@ namespace CB
 
         protected override void OnReponseCoinUpdate(GameEvent @event)
         {
-            if (m_FinishFlag) return;
+            if (!IsActive) return;
 
             int value = (int)@event.GetParam(1);
             m_Count += value;
@@ -398,7 +399,7 @@ namespace CB
 
         protected override void OnReponseCoinUpdate(GameEvent @event)
         {
-            if (m_FinishFlag) return;
+            if (!IsActive) return;
 
             int value = (int)@event.GetParam(1);
             m_Count += value;
@@ -426,7 +427,7 @@ namespace CB
 
         protected override void OnReponseCoinUpdate(GameEvent @event)
         {
-            if (m_FinishFlag) return;
+            if (!IsActive) return;
 
             int value = (int)@event.GetParam(1);
             m_Count += value;
@@ -454,7 +455,7 @@ namespace CB
 
         protected override void OnReponseCoinUpdate(GameEvent @event)
         {
-            if (m_FinishFlag) return;
+            if (!IsActive) return;
 
             int value = (int)@event.GetParam(1);
             m_Count += value;
@@ -482,7 +483,7 @@ namespace CB
 
         protected override void OnReponseGlassUpdate(GameEvent @event)
         {
-            if (m_FinishFlag) return;
+            if (!IsActive) return;
 
             int value = (int)@event.GetParam(1);
             m_Count += value;
@@ -510,7 +511,7 @@ namespace CB
 
         protected override void OnReponseGlassUpdate(GameEvent @event)
         {
-            if (m_FinishFlag) return;
+            if (!IsActive) return;
 
             int value = (int)@event.GetParam(1);
             m_Count += value;
@@ -538,7 +539,7 @@ namespace CB
 
         protected override void OnReponseGlassUpdate(GameEvent @event)
         {
-            if (m_FinishFlag) return;
+            if (!IsActive) return;
 
             int value = (int)@event.GetParam(1);
             m_Count += value;
@@ -548,7 +549,7 @@ namespace CB
 
         protected override void OnReponseGameStart(GameEvent @event)
         {
-            if (m_FinishFlag) return;
+            if (!IsActive) return;
 
             m_Count = 0;
         }
@@ -568,14 +569,14 @@ namespace CB
 
         protected override void OnReponseGameStart(GameEvent @event)
         {
-            if (m_FinishFlag) return;
+            if (!IsActive) return;
 
             m_Count = 0;
         }
 
         protected override void OnReponseHitBox(GameEvent @event)
         {
-            if (m_FinishFlag) return;
+            if (!IsActive) return;
 
             Bomb bomb = ((Box)@event.GetParam(1)).GetComponent<Bomb>();
             if (bomb != null && bomb.IsDead() == true)
@@ -599,7 +600,7 @@ namespace CB
 
         protected override void OnReponsePlayEnd(GameEvent @event)
         {
-            if (m_FinishFlag) return;
+            if (!IsActive) return;
 
             if (GameFacade.Instance.User.Score >= m_Max)
             {
@@ -622,7 +623,7 @@ namespace CB
 
         protected override void OnReponsePlayEnd(GameEvent @event)
         {
-            if (m_FinishFlag) return;
+            if (!IsActive) return;
 
             if (GameFacade.Instance.User.Score >= m_Max)
             {
@@ -645,7 +646,7 @@ namespace CB
 
         protected override void OnReponsePlayEnd(GameEvent @event)
         {
-            if (m_FinishFlag) return;
+            if (!IsActive) return;
 
             if (GameFacade.Instance.User.Score >= m_Max)
             {
@@ -668,7 +669,7 @@ namespace CB
 
         protected override void OnReponsePlayEnd(GameEvent @event)
         {
-            if (m_FinishFlag) return;
+            if (!IsActive) return;
 
             if (GameFacade.Instance.User.Score >= m_Max)
             {
@@ -692,7 +693,7 @@ namespace CB
 
         protected override void OnReponseHitBox(GameEvent @event)
         {
-            if (m_FinishFlag) return;
+            if (!IsActive) return;
 
             Ball ball = (Ball)@event.GetParam(0);
             Ghost ghost = ((Box)@event.GetParam(1)).GetComponent<Ghost>();
@@ -712,7 +713,7 @@ namespace CB
 
         protected override void OnReponsePlayEnd(GameEvent @event)
         {
-            if (m_FinishFlag) return;
+            if (!IsActive) return;
 
             m_Records.Clear();
         }
@@ -732,7 +733,7 @@ namespace CB
 
         protected override void OnReponseBallRecycle(GameEvent @event)
         {
-            if (m_FinishFlag) return;
+            if (!IsActive) return;
 
             var ball = (Ball)@event.GetParam(0);
 
@@ -761,14 +762,14 @@ namespace CB
 
         protected override void OnReponsePlayEnd(GameEvent @event)
         {
-            if (m_FinishFlag) return;
+            if (!IsActive) return;
 
             m_Records.Clear();
         }
 
         protected override void OnReponseHitAfter(GameEvent @event)
         {
-            if (m_FinishFlag) return;
+            if (!IsActive) return;
 
             Ball ball = (Ball)@event.GetParam(0);
             if (!m_Records.Contains(ball)) {
@@ -778,7 +779,7 @@ namespace CB
 
         protected override void OnReponseHitBox(GameEvent @event)
         {
-            if (m_FinishFlag) return;
+            if (!IsActive) return;
 
             Ball ball = (Ball)@event.GetParam(0);
             if (!m_Records.Contains(ball)) {
@@ -788,7 +789,7 @@ namespace CB
 
         protected override void OnReponseEnterGround(GameEvent @event)
         {
-            if (m_FinishFlag) return;
+            if (!IsActive) return;
 
             Ball ball = (Ball)@event.GetParam(0);
             if (!m_Records.Contains(ball)) {
@@ -811,7 +812,7 @@ namespace CB
 
         protected override void OnReponsePlayStart(GameEvent @event)
         {
-            if (m_FinishFlag) return;
+            if (!IsActive) return;
 
             int count = 0;
             GameFacade.Instance.Game.Balls.ForEach(ball => {
@@ -839,7 +840,7 @@ namespace CB
 
         protected override void OnReponsePlayStart(GameEvent @event)
         {
-            if (m_FinishFlag) return;
+            if (!IsActive) return;
 
             bool ball_sanjiao = false;
             bool ball_yuan = false;
@@ -873,7 +874,7 @@ namespace CB
 
         protected override void OnReponseBlackHole(GameEvent @event)
         {
-            if (m_FinishFlag) return;
+            if (!IsActive) return;
 
             Ball ball = (Ball)@event.GetParam(0);
 
@@ -886,7 +887,7 @@ namespace CB
 
         protected override void OnReponseHitAfter(GameEvent @event)
         {
-            if (m_FinishFlag) return;
+            if (!IsActive) return;
 
             Ball ball = (Ball)@event.GetParam(0);
             if (!m_Records.ContainsKey(ball)) {
@@ -911,7 +912,7 @@ namespace CB
 
         protected override void OnReponseHitBox(GameEvent @event)
         {
-            if (m_FinishFlag) return;
+            if (!IsActive) return;
 
             Ghost ghost = ((Box)@event.GetParam(1)).GetComponent<Ghost>();
             if (ghost != null && ghost.IsDead() == true)
@@ -922,14 +923,14 @@ namespace CB
 
         protected override void OnReponsePlayStart(GameEvent @event)
         {
-            if (m_FinishFlag) return;
+            if (!IsActive) return;
 
             m_Count = 0;
         }
 
         protected override void OnReponsePlayEnd(GameEvent @event)
         {
-            if (m_FinishFlag) return;
+            if (!IsActive) return;
 
             if (m_Count == 0)
             {
@@ -952,7 +953,7 @@ namespace CB
 
         protected override void OnReponseBallFly(GameEvent @event)
         {
-            if (m_FinishFlag) return;
+            if (!IsActive) return;
 
             Ball ball = (Ball)@event.GetParam(0);
 
@@ -976,6 +977,23 @@ namespace CB
 
         protected bool m_FinishFlag = false;
         public bool IsFinished { get {return m_FinishFlag;}}
+
+        protected RewardEffect m_Effect = null;
+
+        //是否激活中
+        public bool IsActive {
+            get {
+                if (m_FinishFlag) return false;
+
+                //判断前置是否完成了
+                if (m_Data.Previous != default(int))
+                {
+                    var data = GameFacade.Instance.DataCenter.GetAchievement(m_Data.Previous);
+                    return data.IsFinished;
+                }
+                return true;
+            }
+        }
 
         private static Dictionary<int, Func<Achievement>> m_classDictionary = new Dictionary<int, Func<Achievement>> {
             { 10001, () => new Achievement_FANG()},
@@ -1054,11 +1072,8 @@ namespace CB
         //金币奖励
         public int GetCoin()
         {
-            if (string.IsNullOrEmpty(m_Data.Effect)) return 0;
-
-            string[] str_array = m_Data.Effect.Split(':');
-            if (str_array[0] == "金币") {
-                return Convert.ToInt32(str_array[1]);
+            if (m_Effect != null) {
+                return m_Effect.GetCoin();
             }
 
             return 0;
@@ -1067,46 +1082,19 @@ namespace CB
         //碎片奖励
         public int GetGlass()
         {
-            if (string.IsNullOrEmpty(m_Data.Effect)) return 0;
-
-            string[] str_array = m_Data.Effect.Split(':');
-            if (str_array[0] == "碎片") {
-                return Convert.ToInt32(str_array[1]);
+            if (m_Effect != null) {
+                return m_Effect.GetCoin();
             }
-
             return 0;
         }
 
         public void DoReward()
         {
             if (!m_FinishFlag) return;
-            if (string.IsNullOrEmpty(m_Data.Effect)) return;
 
-            string[] str_array = m_Data.Effect.Split(':');
-            string key  = str_array[0];
-            int value   = Convert.ToInt32(str_array[1]);
-
-
-            switch (key)
+            if (m_Effect != null)
             {
-                case "金币":
-                GameFacade.Instance.Game.UpdateCoin(value);
-                break;
-
-                case "碎片":
-                GameFacade.Instance.Game.PushGlass(value);
-                break;
-
-                case "弹珠":
-                GameFacade.Instance.Game.BreechBall(GameFacade.Instance.Game.PushBall(_C.BALL_ORIGIN_POS, (_C.BALLTYPE)value));
-                break;
-
-                case "道具":
-                GameFacade.Instance.Game.Army.PushRelics(value);
-                break;
-                
-                default:
-                    break;
+                m_Effect.DoReward();
             }
         }
 
@@ -1129,9 +1117,24 @@ namespace CB
             GameFacade.Instance.EventManager.DelHandler(EVENT.ONBALLFLY,        OnReponseBallFly);
         }
 
+        void ParseEffect()
+        {
+            if (string.IsNullOrEmpty(m_Data.Effect)) return;
+
+            string[] str_array = m_Data.Effect.Split(':');
+            string key  = str_array[0];
+            int value   = Convert.ToInt32(str_array[1]);
+
+            m_Effect    = RewardEffect.Create(key, value);
+        }
+
         void Init(AchievementData data)
         {
             m_Data = data;
+
+            ParseEffect();
+
+            
 
             GameFacade.Instance.EventManager.AddHandler(EVENT.ONGAMESTART,      OnReponseGameStart);
             GameFacade.Instance.EventManager.AddHandler(EVENT.ONGAMEEND,        OnReponseGameEnd);
@@ -1210,8 +1213,6 @@ namespace CB
         {
 
         }
-
-        
 
         protected virtual void OnReponsePlayStart(GameEvent @event)
         {

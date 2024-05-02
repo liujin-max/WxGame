@@ -75,7 +75,7 @@ namespace CB
         {
             if (m_Relicses.Count >= SeatCount.ToNumber()) return null;
 
-            RelicsData data = CONFIG.GetRelicsData(id);
+            RelicsData data = GameFacade.Instance.Game.GetRelicsData(id);
             Relics relics   = new Relics(data);
             relics.Equip();
             m_Relicses.Add(relics);

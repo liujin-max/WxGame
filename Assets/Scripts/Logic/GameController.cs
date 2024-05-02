@@ -103,6 +103,11 @@ namespace CB
         [HideInInspector] public AttributeValue SeatCount = new AttributeValue(5);     //可携带的弹珠数量上限
         [HideInInspector] public AttributeValue GlassRate = new AttributeValue(15);     //合成列表出现碎片的几率
 
+        //拷贝一份遗物基础数据
+        public List<RelicsData> m_RelicsDatas = new List<RelicsData>();
+        internal Dictionary<int, RelicsData> m_RelicsDataDic = new Dictionary<int, RelicsData>();
+
+
         public bool SwitchBanFlag = false;  //禁止切换弹珠
 
 
@@ -200,6 +205,16 @@ namespace CB
             }
 
             return null;
+        }
+
+        public RelicsData GetRelicsData(int id)
+        {
+            RelicsData data;
+            if (m_RelicsDataDic.TryGetValue(id, out data)) {
+                return data;
+            }
+
+            return data;
         }
 
         //场上没有发射中的弹珠，也没有正在运作的Element
@@ -676,8 +691,9 @@ namespace CB
             int count = 3;
 
             Dictionary<object, int> keyValuePairs = new Dictionary<object, int>();
-            foreach (RelicsData r in CONFIG.GetRelicsDatas())  {
-                if (r.Weight > 0 && m_FSM.Owner.Army.GetRelics(r.ID) == null) {
+            foreach (RelicsData r in m_RelicsDatas)  {
+                if (r.Weight > 0 && r.Unlock == true && m_FSM.Owner.Army.GetRelics(r.ID) == null) {
+                    Debug.Log("加入：" + r.Name);
                     keyValuePairs.Add(r, r.Weight);
                 }
             }
@@ -835,6 +851,14 @@ namespace CB
             m_FSM.Owner.m_Glass = 0;
             m_FSM.Owner.m_Score = 0;
             m_FSM.Owner.m_Stage = 0;
+
+            //拷贝遗物数据暂存至战场数据中
+            CONFIG.GetRelicsDatas().ForEach(data => {
+                var relics_data = data;
+
+                m_FSM.Owner.m_RelicsDatas.Add(relics_data);
+                m_FSM.Owner.m_RelicsDataDic[data.ID] = relics_data;
+            });
 
 
             m_FSM.Owner.GameUI = GameFacade.Instance.UIManager.LoadWindow("Prefab/UI/GameWindow", GameFacade.Instance.UIManager.BOTTOM).GetComponent<GameWindow>();
@@ -1224,12 +1248,12 @@ namespace CB
             if (m_IsFinished == true) {
                 m_DelayTimer.Update(Time.deltaTime);
                 if (m_DelayTimer.IsFinished() == true) {
-                    if (m_FSM.Owner.m_Stage % _C.STAGESTEP == 0) { //每3关
+                    // if (m_FSM.Owner.m_Stage % _C.STAGESTEP == 0) { //每3关
                         m_FSM.Transist(_C.FSMSTATE.GAME_SHOP);
-                    }
-                    else {
-                        m_FSM.Transist(_C.FSMSTATE.GAME_COMPLEX);
-                    }
+                    // }
+                    // else {
+                    //     m_FSM.Transist(_C.FSMSTATE.GAME_COMPLEX);
+                    // }
                     
                 }
                 return;
@@ -1254,7 +1278,7 @@ namespace CB
                     //积分结算
                     m_IsFinished = true;
                     ReceiveReward();
-                    
+
                     //存储记录
                     GameFacade.Instance.User.SetScore(m_FSM.Owner.m_Stage);
                     GameFacade.Instance.User.Save();

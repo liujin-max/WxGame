@@ -309,13 +309,20 @@ namespace CB
             if (collision.gameObject.GetComponent<Box>() != null || collision.gameObject.GetComponent<Obstacle>() != null)
             {
                 Vector2 direction = Quaternion.Euler(0, 0, RandomUtility.Random(0, 360)) * Vector2.right;
-                this.Crash(direction * 20);
+                this.Crash(direction * 16);
             }  
         }
 
         public virtual void OnCollisionExit2D(Collision2D collision)
         {
+            if (collision.gameObject.GetComponent<Obstacle>() == null) return;
 
+            //
+            if (this.Velocity.magnitude <= 3f) {
+                this.Velocity *= 5;
+
+                Debug.Log("长度：" + this.Velocity.magnitude);
+            }
         }
 
 
