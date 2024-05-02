@@ -10,17 +10,14 @@ namespace CB
     public class LoadingWindow : MonoBehaviour
     {
         [SerializeField] private TextMeshProUGUI c_Score;
-
+        [SerializeField] private UrlImageUtility c_Head;
         [SerializeField] private Button BtnEnter;
         [SerializeField] private Button BtnRank;
         [SerializeField] private Button BtnAchievement;
 
         
-        // Start is called before the first frame update
-        void Start()
+        void Awake()
         {
-            c_Score.text    = GameFacade.Instance.User.Score.ToString() + " 层";
-
             BtnEnter.onClick.AddListener(() => {
                 GameFacade.Instance.SoundManager.Load(SOUND.CLICK);
                 
@@ -32,7 +29,7 @@ namespace CB
             });
 
             BtnRank.onClick.AddListener(()=>{  
-                GameFacade.Instance.UIManager.LoadWindow("Prefab/UI/RankWindow", GameFacade.Instance.UIManager.BOARD);
+                GameFacade.Instance.UIManager.RANK.GetComponent<RankWindow>().Show();
             });
 
             BtnAchievement.onClick.AddListener(()=>{  
@@ -42,10 +39,32 @@ namespace CB
                     var window = obj.GetComponent<AchievementWindow>();
                     window.Init();
                 } 
-                
             });
 
+
+            GameFacade.Instance.EventManager.AddHandler(EVENT.UI_FLUSHUSER, OnReponseFlushUser);
         }
 
+        void OnDestroy()
+        {
+            GameFacade.Instance.EventManager.DelHandler(EVENT.UI_FLUSHUSER, OnReponseFlushUser);
+        }
+
+        // Start is called before the first frame update
+        void Start()
+        {
+            FlushUI();
+        }
+
+        void FlushUI()
+        {
+            c_Head.SetImage(GameFacade.Instance.User.HeadURL);
+            c_Score.text    = GameFacade.Instance.User.Score.ToString() + " 层";
+        }
+
+        void OnReponseFlushUser(GameEvent gameEvent)
+        {
+            FlushUI();
+        }
     }
 }

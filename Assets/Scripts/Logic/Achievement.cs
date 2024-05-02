@@ -943,10 +943,10 @@ namespace CB
     #endregion
 
 
-    #region 弹珠的飞行时间超过15秒
+    #region 弹珠的飞行时间超过#秒
     public class Achievement_FLYTIME : Achievement
     {
-        private int m_Max = 15;
+        private int m_Max = 25;
         public override string GetDescription()
         {
             return string.Format("弹珠的飞行时间超过<size=46><#FFCC4A>{0}</color></size>秒", m_Max);
@@ -975,7 +975,7 @@ namespace CB
         private int m_Max = 1;
         public override string GetDescription()
         {
-            return string.Format("合成{0}次弹珠", m_Max);
+            return string.Format("合成<size=46><#FFCC4A>{0}</color></size>次弹珠", m_Max);
         }
 
         protected override void OnReponseComplexBall(GameEvent @event)
@@ -998,7 +998,7 @@ namespace CB
         private int m_Max = 1;
         public override string GetDescription()
         {
-            return string.Format("购买{0}次道具", m_Max);
+            return string.Format("购买<size=46><#FFCC4A>{0}</color></size>次道具", m_Max);
         }
 
         protected override void OnReponseBuyRelics(GameEvent @event)
@@ -1014,15 +1014,15 @@ namespace CB
     #endregion
 
 
-    #region 连续5次击中相同类型的宝石
+    #region 连续#次击中相同类型的宝石
     public class Achievement_CONTINUEHIT : Achievement
     {
         private Dictionary<Ball, int> m_Records = new Dictionary<Ball, int>();
         private int m_Last = -1;
-        private int m_Max = 5;
+        private int m_Max = 6;
         public override string GetDescription()
         {
-            return string.Format("弹珠连续{0}次击中相同类型的宝石", m_Max);
+            return string.Format("弹珠连续<size=46><#FFCC4A>{0}</color></size>次击中相同类型的宝石", m_Max);
         }
 
         protected override void OnReponseBallShoot(GameEvent @event)
@@ -1080,10 +1080,10 @@ namespace CB
     public class Achievement_CONTINUEHITOBT : Achievement
     {
         private Dictionary<Ball, int> m_Records = new Dictionary<Ball, int>();
-        private int m_Max = 10;
+        private int m_Max = 15;
         public override string GetDescription()
         {
-            return string.Format("弹珠不中断的连续{0}次击中宝石", m_Max);
+            return string.Format("弹珠不中断的连续<size=46><#FFCC4A>{0}</color></size>次击中宝石", m_Max);
         }
 
         protected override void OnReponseHitAfter(GameEvent @event)
@@ -1174,7 +1174,7 @@ namespace CB
         private int m_Max   = 5;
         public override string GetDescription()
         {
-            return string.Format("单回合内累计发射{0}颗弹珠", m_Max);
+            return string.Format("单回合内累计发射<size=46><#FFCC4A>{0}</color></size>颗弹珠", m_Max);
         }
 
         protected override void OnReponseBallShoot(GameEvent @event)
@@ -1224,6 +1224,18 @@ namespace CB
             get {
                 if (m_FinishFlag) return false;
 
+                //判断前置是否完成了
+                if (m_Data.Previous != default(int))
+                {
+                    var data = GameFacade.Instance.DataCenter.GetAchievement(m_Data.Previous);
+                    return data.IsFinished;
+                }
+                return true;
+            }
+        }
+
+        public bool IsShow{
+            get {
                 //判断前置是否完成了
                 if (m_Data.Previous != default(int))
                 {
@@ -1336,6 +1348,11 @@ namespace CB
             {
                 m_Effect.DoReward();
             }
+        }
+
+        public string GetRewardString()
+        {
+            return "";
         }
 
         public void Dispose()

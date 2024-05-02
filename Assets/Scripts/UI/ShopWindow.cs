@@ -7,18 +7,12 @@ using UnityEngine.UI;
 
 public class ShopWindow : MonoBehaviour
 {
-    [SerializeField] Transform c_OurPivot;
-    [SerializeField] Transform c_SellPivot;
-    [SerializeField] Button c_BtnSelect;
-    [SerializeField] Button c_BtnCancel;
+    [SerializeField] Transform c_Pivot;
+    [SerializeField] Button c_BtnSkip;
     [SerializeField] Button c_BtnVideoRefresh;
-
-    [SerializeField] GameObject c_DescriptionPivot;
-
 
 
     private List<Relics> m_Relicses;
-    private RelicsItem m_SelectItem = null;
     private List<RelicsItem> m_Items = new List<RelicsItem>();
 
 
@@ -28,7 +22,7 @@ public class ShopWindow : MonoBehaviour
         if (m_Items.Count > order){
             item = m_Items[order];
         } else {
-            GameObject obj = GameFacade.Instance.UIManager.LoadItem("Prefab/UI/Item/RelicsItem", c_SellPivot);
+            GameObject obj = GameFacade.Instance.UIManager.LoadItem("Prefab/UI/Item/RelicsItem", c_Pivot);
             item = obj.GetComponent<RelicsItem>();
 
             m_Items.Add(item);
@@ -41,24 +35,7 @@ public class ShopWindow : MonoBehaviour
 
     void Start()
     {
-        c_DescriptionPivot.SetActive(false);
-        c_BtnSelect.gameObject.SetActive(false);
-
-        c_BtnSelect.onClick.AddListener(()=> {
-            GameFacade.Instance.SoundManager.Load(SOUND.CLICK);
-
-            if (GameFacade.Instance.Game.BuyRelics(m_SelectItem.m_Relics) != null)
-            {
-                GameFacade.Instance.SoundManager.Load(SOUND.COST);
-                // GameFacade.Instance.Game.DOTransist(_C.FSMSTATE.GAME_COMPLEX);
-
-                m_Relicses.Remove(m_SelectItem.m_Relics);
-                this.Init(m_Relicses);
-            }
-        });
-
-
-        c_BtnCancel.onClick.AddListener(()=> {
+        c_BtnSkip.onClick.AddListener(()=> {
             GameFacade.Instance.SoundManager.Load(SOUND.CLICK);
 
             GameFacade.Instance.Game.DOTransist(_C.FSMSTATE.GAME_COMPLEX);
@@ -82,14 +59,6 @@ public class ShopWindow : MonoBehaviour
 
     public void InitRelicses(List<Relics> relicses)
     {
-        c_DescriptionPivot.SetActive(false);
-        c_BtnSelect.gameObject.SetActive(false);
-
-        if (m_SelectItem != null) {
-            m_SelectItem.Select(false);
-        }
-        m_SelectItem = null;
-
         foreach (var item in m_Items) {
             item.gameObject.SetActive(false);
         }
@@ -99,32 +68,22 @@ public class ShopWindow : MonoBehaviour
         {
             var relics      = relicses[i];
             RelicsItem item = new_relics_item(i);
-            item.transform.localPosition = new Vector3((i - ((relicses.Count - 1) / 2.0f)) * 290, 0, 0); 
+            item.transform.localPosition = new Vector3((i - ((relicses.Count - 1) / 2.0f)) * 350, 0, 0); 
             item.Init(relics);
 
-            item.Touch.onClick.RemoveAllListeners();
-            item.Touch.onClick.AddListener(()=>{
-                GameFacade.Instance.SoundManager.Load(SOUND.BUBBLE);
-                
-                if (m_SelectItem != null) {
-                    m_SelectItem.Select(false);
+            item.BtnBuy.onClick.RemoveAllListeners();
+            item.BtnBuy.onClick.AddListener(()=>{
+                GameFacade.Instance.SoundManager.Load(SOUND.CLICK);
+
+                if (GameFacade.Instance.Game.BuyRelics(item.Relics) != null)
+                {
+                    GameFacade.Instance.SoundManager.Load(SOUND.COST);
+                    // GameFacade.Instance.Game.DOTransist(_C.FSMSTATE.GAME_COMPLEX);
+
+                    m_Relicses.Remove(item.Relics);
+                    this.Init(m_Relicses);
                 }
-
-                m_SelectItem = item;
-                m_SelectItem.Select(true);
-
-                c_BtnSelect.gameObject.SetActive(true);
-
-                this.ShowDescription(relics);
             });
         }
-    }
-
-    void ShowDescription(Relics relics)
-    {
-        c_DescriptionPivot.SetActive(true);
-
-        c_DescriptionPivot.transform.Find("Name").GetComponent<TextMeshProUGUI>().text = relics.Name;
-        c_DescriptionPivot.transform.Find("Description").GetComponent<TextMeshProUGUI>().text = relics.GetDescription();
     }
 }

@@ -135,6 +135,17 @@ public class GameFacade : MonoBehaviour
         }
     }
 
+    private Platform m_Platform = null;
+    public Platform Platform
+    {
+        get {
+            if (m_Platform == null) {
+                m_Platform = Platform.Create();
+            }
+            return m_Platform;
+        }
+    }
+
     #endregion
 
     private static GameFacade _instance = null;
@@ -157,28 +168,6 @@ public class GameFacade : MonoBehaviour
         DontDestroyOnLoad(GameObject.Find("Camera"));
         DontDestroyOnLoad(GameObject.Find("EventSystem"));
 
-        
-        #if WEIXINMINIGAME && !UNITY_EDITOR
-            WX.InitSDK((code) =>
-            {
-                //初始化云开发
-                CallFunctionInitParam param = new CallFunctionInitParam();
-                param.env = _C.CLOUD_ENV;
-                WX.cloud.Init(param);
-
-                WX.SetPreferredFramesPerSecond(_C.DEFAULT_FRAME);
-                WX.ReportGameStart();
-                Init();
-            });
-        #else
-            Application.targetFrameRate = _C.DEFAULT_FRAME;
-
-            Init();
-        #endif
-    }
-
-    void Init()
-    {
         //初始化配置文件
         CsvManager.ReadCsvs();
         CONFIG.InitDatas();
@@ -186,12 +175,14 @@ public class GameFacade : MonoBehaviour
         //加载数据类
         DataCenter.Init();
 
-        //加载账号数据
-        User.Sync();
-        
-        m_TipWindow = UIManager.LoadWindow("Prefab/UI/TipWindow", UIManager.TIP).GetComponent<TipWindow>();
+        Platform.Init(()=>{
+            //加载账号数据
+            User.Sync();
+            
+            m_TipWindow = UIManager.LoadWindow("Prefab/UI/TipWindow", UIManager.TIP).GetComponent<TipWindow>();
 
-        NavigationController.GotoLoading();
+            NavigationController.GotoLoading();
+        });
     }
 
     public void FlyTip(string text)

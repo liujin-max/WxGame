@@ -13,6 +13,7 @@ public static class EVENT
     public static string UI_SHOWBALLLIST    = "UI_SHOWBALLLIST";
     public static string UI_TRIGGERRELICS   = "UI_TRIGGERRELICS";
     public static string UI_ACHIEVEMENTPOP  = "UI_ACHIEVEMENTPOP";
+    public static string UI_FLUSHUSER       = "UI_FLUSHUSER";
 
 
 

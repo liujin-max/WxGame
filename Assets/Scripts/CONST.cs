@@ -8,6 +8,10 @@ public static class _C
 
     public static string CLOUD_ENV = "cbcloud-6ght5vboe6f0f8c0";    //云开发环境ID
 
+    public static string KEY_USER  = "KEY_USER";
+
+
+
     public enum LAYER
     {
         DEFAULT     = 0,
