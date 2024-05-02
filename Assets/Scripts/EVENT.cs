@@ -45,6 +45,8 @@ public static class EVENT
     public static string ONREFRESHEVENTS    = "ONREFRESHEVENTS";    //刷新弹珠列表时
     public static string ONCREATEBLACKHOLE  = "ONCREATEBLACKHOLE";   //创建黑洞
     public static string ONBALLFLY          = "ONBALLFLY";
+    public static string ONCOMPLEXBALL      = "ONCOMPLEXBALL";      //合成弹珠后
+    public static string ONBUYRELICS        = "ONBUYRELICS";        //购买道具后
 
     
 

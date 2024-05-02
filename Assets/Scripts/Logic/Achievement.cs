@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Burst.Intrinsics;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -967,6 +968,244 @@ namespace CB
     #endregion
 
 
+    #region 合成1次弹珠
+    public class Achievement_COMPLEX : Achievement
+    {
+        private int m_Count = 0;
+        private int m_Max = 1;
+        public override string GetDescription()
+        {
+            return string.Format("合成{0}次弹珠", m_Max);
+        }
+
+        protected override void OnReponseComplexBall(GameEvent @event)
+        {
+            if (!IsActive) return;
+
+            m_Count++;
+            if (m_Count >= m_Max) {
+                this.Finish();
+            }
+        }
+    }
+    #endregion
+
+
+    #region 购买1次道具
+    public class Achievement_BUYRELICS : Achievement
+    {
+        private int m_Count = 0;
+        private int m_Max = 1;
+        public override string GetDescription()
+        {
+            return string.Format("购买{0}次道具", m_Max);
+        }
+
+        protected override void OnReponseBuyRelics(GameEvent @event)
+        {
+            if (!IsActive) return;
+
+            m_Count++;
+            if (m_Count >= m_Max) {
+                this.Finish();
+            }
+        }
+    }
+    #endregion
+
+
+    #region 连续5次击中相同类型的宝石
+    public class Achievement_CONTINUEHIT : Achievement
+    {
+        private Dictionary<Ball, int> m_Records = new Dictionary<Ball, int>();
+        private int m_Last = -1;
+        private int m_Max = 5;
+        public override string GetDescription()
+        {
+            return string.Format("弹珠连续{0}次击中相同类型的宝石", m_Max);
+        }
+
+        protected override void OnReponseBallShoot(GameEvent @event)
+        {
+            if (!IsActive) return;
+
+            Ball ball = (Ball)@event.GetParam(0);
+
+            if (m_Records.ContainsKey(ball)) {
+                m_Records[ball] = 0;
+            }
+        }
+
+        protected override void OnReponseHitAfter(GameEvent @event)
+        {
+            if (!IsActive) return;
+
+            Ball ball = (Ball)@event.GetParam(0);
+            Obstacle obt = (Obstacle)@event.GetParam(1);
+
+            if (!m_Records.ContainsKey(ball)) {
+                m_Records.Add(ball, 0);
+            }
+
+            if (m_Last == -1) {
+                m_Last = obt.Order;
+                m_Records[ball] += 1;
+            } else {
+                if (m_Last == obt.Order) {
+                    m_Records[ball] += 1;
+                } else {
+                    m_Last = obt.Order;
+                    m_Records[ball] = 1;
+                }
+            }
+
+            
+
+            if (m_Records[ball] >= m_Max) {
+                this.Finish();
+            }
+        }
+
+        protected override void OnReponsePlayEnd(GameEvent @event)
+        {
+            if (!IsActive) return;
+
+            m_Records.Clear();
+        }
+    }
+    #endregion
+
+
+    #region 弹珠连续#次击中宝石
+    public class Achievement_CONTINUEHITOBT : Achievement
+    {
+        private Dictionary<Ball, int> m_Records = new Dictionary<Ball, int>();
+        private int m_Max = 10;
+        public override string GetDescription()
+        {
+            return string.Format("弹珠不中断的连续{0}次击中宝石", m_Max);
+        }
+
+        protected override void OnReponseHitAfter(GameEvent @event)
+        {
+            if (!IsActive) return;
+
+            Ball ball = (Ball)@event.GetParam(0);
+
+            if (!m_Records.ContainsKey(ball)) {
+                m_Records.Add(ball, 0);
+            }
+
+            m_Records[ball] += 1;
+
+            if (m_Records[ball] >= m_Max) {
+                this.Finish();
+            }
+        }
+
+        protected override void OnReponsePlayEnd(GameEvent @event)
+        {
+            if (!IsActive) return;
+
+            m_Records.Clear();
+        }
+
+        protected override void OnReponseEnterCollision(GameEvent @event)
+        {
+            if (!IsActive) return;
+
+            var ball = (Ball)@event.GetParam(0);
+            
+            if (ball.IsSimulate == true) return;
+            if (ball.IsRecycle == true) return;
+
+            var collision = (Collision2D)@event.GetParam(1);
+            if (collision.transform.GetComponent<Wall>() != null)
+            {
+                if (m_Records.ContainsKey(ball)) {
+                    m_Records[ball] = 0;
+                }
+            }
+        }
+
+        protected override void OnReponseHitBox(GameEvent @event)
+        {
+            if (!IsActive) return;
+
+            Ball ball = (Ball)@event.GetParam(0);
+            if (m_Records.ContainsKey(ball)) {
+                m_Records[ball] = 0;
+            }
+        }
+    }
+    #endregion
+
+
+    #region 清空场上所有宝石
+    public class Achievement_CLEAROTB : Achievement
+    {
+        public override string GetDescription()
+        {
+            return string.Format("清空场上所有宝石");
+        }
+
+        protected override void OnReponseHitObstacle(GameEvent @event)
+        {
+            if (!IsActive) return;
+
+            bool is_clear = true;
+            GameFacade.Instance.Game.Obstacles.ForEach(obstacle => {
+                if (obstacle.IsDead() == false) {
+                    is_clear = false;
+                }
+            });
+
+            if (is_clear) {
+                this.Finish();
+            }
+        }
+    }
+    #endregion
+
+    #region 单回合内累计发射5颗弹珠
+    public class Achievement_CUMHIT : Achievement
+    {
+        private int m_Count = 0;
+        private int m_Max   = 5;
+        public override string GetDescription()
+        {
+            return string.Format("单回合内累计发射{0}颗弹珠", m_Max);
+        }
+
+        protected override void OnReponseBallShoot(GameEvent @event)
+        {
+            if (!IsActive) return;
+
+            var ball = (Ball)@event.GetParam(0);
+
+            if (ball.IsSimulate) return;
+
+            var flag = (bool)@event.GetParam(1);
+            if (flag) {
+                m_Count++;
+
+                if (m_Count >= m_Max) {
+                    this.Finish();
+                }
+            }
+        }
+
+        protected override void OnReponsePlayStart(GameEvent @event)
+        {
+            if (!IsActive) return;
+
+            m_Count= 0;
+        }
+    }
+    #endregion
+
+
+
 
 
     //成就
@@ -1026,7 +1265,12 @@ namespace CB
             { 10028, () => new Achievement_BLACKHOLE()},
             { 10029, () => new Achievement_GLASSMISS()},
             { 10030, () => new Achievement_FLYTIME()},
-
+            { 10031, () => new Achievement_COMPLEX()},
+            { 10032, () => new Achievement_BUYRELICS()},
+            { 10033, () => new Achievement_CONTINUEHIT()},
+            { 10034, () => new Achievement_CONTINUEHITOBT()},
+            { 10035, () => new Achievement_CLEAROTB()},
+            { 10036, () => new Achievement_CUMHIT()},
         };
 
         public static Achievement Create(AchievementData data)
@@ -1057,13 +1301,9 @@ namespace CB
         public void Finish()
         {
             if (m_FinishFlag == true) return;
-
             //存储
             m_FinishFlag = true;
-
             GameFacade.Instance.User.SetAchievement(ID);
-
-            // Debug.Log("完成成就:" + ID);
 
             //通知UI 成就完成
             GameFacade.Instance.EventManager.SendEvent(new GameEvent(EVENT.UI_ACHIEVEMENTPOP, this));
@@ -1083,7 +1323,7 @@ namespace CB
         public int GetGlass()
         {
             if (m_Effect != null) {
-                return m_Effect.GetCoin();
+                return m_Effect.GetGlass();
             }
             return 0;
         }
@@ -1115,6 +1355,10 @@ namespace CB
             GameFacade.Instance.EventManager.DelHandler(EVENT.ONCREATEBLACKHOLE,OnReponseBlackHole);
             GameFacade.Instance.EventManager.DelHandler(EVENT.ONBALLDEAD,       OnReponseBallDead);
             GameFacade.Instance.EventManager.DelHandler(EVENT.ONBALLFLY,        OnReponseBallFly);
+            GameFacade.Instance.EventManager.DelHandler(EVENT.ONCOMPLEXBALL,    OnReponseComplexBall);
+            GameFacade.Instance.EventManager.DelHandler(EVENT.ONBUYRELICS,      OnReponseBuyRelics);
+            GameFacade.Instance.EventManager.DelHandler(EVENT.ONENTERCOLLISION, OnReponseEnterCollision);
+
         }
 
         void ParseEffect()
@@ -1151,7 +1395,25 @@ namespace CB
             GameFacade.Instance.EventManager.AddHandler(EVENT.ONCREATEBLACKHOLE,OnReponseBlackHole);
             GameFacade.Instance.EventManager.AddHandler(EVENT.ONBALLDEAD,       OnReponseBallDead);
             GameFacade.Instance.EventManager.AddHandler(EVENT.ONBALLFLY,        OnReponseBallFly);
+            GameFacade.Instance.EventManager.AddHandler(EVENT.ONCOMPLEXBALL,    OnReponseComplexBall);
+            GameFacade.Instance.EventManager.AddHandler(EVENT.ONBUYRELICS,      OnReponseBuyRelics);
+            GameFacade.Instance.EventManager.AddHandler(EVENT.ONENTERCOLLISION, OnReponseEnterCollision);
             
+        }
+
+        protected virtual void OnReponseEnterCollision(GameEvent @event)
+        {
+
+        }
+
+        protected virtual void OnReponseBuyRelics(GameEvent @event)
+        {
+
+        }
+
+        protected virtual void OnReponseComplexBall(GameEvent @event)
+        {
+
         }
 
         protected virtual void OnReponseBallFly(GameEvent @event)

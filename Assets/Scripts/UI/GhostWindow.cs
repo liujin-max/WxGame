@@ -54,7 +54,18 @@ public class GhostWindow : MonoBehaviour
         c_BtnVideoRefresh.gameObject.SetActive(false);
 
         c_BtnSelect.onClick.AddListener(()=> {
-            var flag = GameFacade.Instance.Game.ComplextBall(m_SelectGhost.m_Event);
+            var flag = false;
+
+            if (m_SelectGhost.m_Event.EventType == _C.COMPLEXTEVEMT.GLASS)
+            {
+                flag= GameFacade.Instance.Game.BuyGlass(m_SelectGhost.m_Event);
+            }
+            else
+            {
+                flag = GameFacade.Instance.Game.ComplextBall(m_SelectGhost.m_Event);
+            }
+
+
             if (flag == true) {
                 GameFacade.Instance.SoundManager.Load(SOUND.COST);
 

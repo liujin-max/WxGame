@@ -49,6 +49,7 @@ public class ShopWindow : MonoBehaviour
 
             if (GameFacade.Instance.Game.BuyRelics(m_SelectItem.m_Relics) != null)
             {
+                GameFacade.Instance.SoundManager.Load(SOUND.COST);
                 // GameFacade.Instance.Game.DOTransist(_C.FSMSTATE.GAME_COMPLEX);
 
                 m_Relicses.Remove(m_SelectItem.m_Relics);

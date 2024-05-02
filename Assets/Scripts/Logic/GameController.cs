@@ -400,51 +400,44 @@ namespace CB
             ball.Breech();
         }
 
+        public bool BuyGlass(ComplextEvent evt)
+        {
+            //判断是否足够
+            int price = (int)evt.Cost.ToNumber();
+            if (m_Coin < price) {
+                GameFacade.Instance.FlyTip("<sprite=1> 金币不足");
+                return false;
+            }
+
+            this.UpdateCoin(-price);
+
+            GameFacade.Instance.Game.PushGlass(1);
+
+            return true;
+        }
+
         //合成球
         public bool ComplextBall(ComplextEvent evt)
         {
-            Ball ball = null;
-
-            if(evt.EventType == _C.COMPLEXTEVEMT.GLASS)
-            {
-                //判断是否足够
-                int price = (int)evt.Cost.ToNumber();
-                if (m_Coin < price) {
-                    GameFacade.Instance.FlyTip("<sprite=1> 金币不足");
-                    return false;
-                }
-
-                this.UpdateCoin(-price);
-
-                GameFacade.Instance.Game.PushGlass(1);
+            if (m_Balls.Count >= this.SeatCount.ToNumber()) {
+                GameFacade.Instance.FlyTip("弹珠已满");
+                return false;
             }
-            else
-            {
-                int cost_need = (int)evt.Cost.ToNumber(); //(int)config.Cost.ToNumber();
 
-                //判断是否足够
-                if (Glass < cost_need) {
-                    GameFacade.Instance.FlyTip("<sprite=0> 碎片不足");
-                    return false;
-                }
+            int cost_need = (int)evt.Cost.ToNumber();
 
-                if (evt.EventType == _C.COMPLEXTEVEMT.UPGRADE) {
-                    GameFacade.Instance.Game.PushGlass(-cost_need);
-
-                    ball = this.GetBall(evt.Type);
-                    ball.UpgradeTo(ball.Level + 1);
-                } else {
-                    if (m_Balls.Count >= this.SeatCount.ToNumber()) {
-                        GameFacade.Instance.FlyTip("弹珠已满");
-                        return false;
-                    }
-
-                    GameFacade.Instance.Game.PushGlass(-cost_need);
-
-                    ball = GameFacade.Instance.Game.PushBall(_C.BALL_ORIGIN_POS, evt.Type);
-                    GameFacade.Instance.Game.BreechBall(ball);
-                }
+            //判断是否足够
+            if (Glass < cost_need) {
+                GameFacade.Instance.FlyTip("<sprite=0> 碎片不足");
+                return false;
             }
+
+            GameFacade.Instance.Game.PushGlass(-cost_need);
+
+            Ball ball = GameFacade.Instance.Game.PushBall(_C.BALL_ORIGIN_POS, evt.Type);
+            GameFacade.Instance.Game.BreechBall(ball);
+
+            GameFacade.Instance.EventManager.SendEvent(new GameEvent(EVENT.ONCOMPLEXBALL, ball));
 
             return true;
         }
@@ -537,6 +530,8 @@ namespace CB
             m_Stage = 0;
             m_Glass = 0;
 
+            m_RelicsDatas.Clear();
+            m_RelicsDataDic.Clear();
 
             //清理小球
             foreach (var ball in m_Balls) {
@@ -693,7 +688,6 @@ namespace CB
             Dictionary<object, int> keyValuePairs = new Dictionary<object, int>();
             foreach (RelicsData r in m_RelicsDatas)  {
                 if (r.Weight > 0 && r.Unlock == true && m_FSM.Owner.Army.GetRelics(r.ID) == null) {
-                    Debug.Log("加入：" + r.Name);
                     keyValuePairs.Add(r, r.Weight);
                 }
             }
@@ -735,11 +729,11 @@ namespace CB
                 return null;
             }
 
-            GameFacade.Instance.SoundManager.Load(SOUND.COST);
-
             this.UpdateCoin(-relics.Price);
 
             Relics new_relics = m_Army.PushRelics(relics.ID);
+
+            GameFacade.Instance.EventManager.SendEvent(new GameEvent(EVENT.ONBUYRELICS, relics));
 
             return new_relics;
         }
@@ -1248,12 +1242,12 @@ namespace CB
             if (m_IsFinished == true) {
                 m_DelayTimer.Update(Time.deltaTime);
                 if (m_DelayTimer.IsFinished() == true) {
-                    // if (m_FSM.Owner.m_Stage % _C.STAGESTEP == 0) { //每3关
+                    if (m_FSM.Owner.m_Stage % _C.STAGESTEP == 0) { //每3关
                         m_FSM.Transist(_C.FSMSTATE.GAME_SHOP);
-                    // }
-                    // else {
-                    //     m_FSM.Transist(_C.FSMSTATE.GAME_COMPLEX);
-                    // }
+                    }
+                    else {
+                        m_FSM.Transist(_C.FSMSTATE.GAME_COMPLEX);
+                    }
                     
                 }
                 return;
@@ -1279,12 +1273,12 @@ namespace CB
                     m_IsFinished = true;
                     ReceiveReward();
 
+                    m_FSM.Owner.Environment.OnEnd();
+                    GameFacade.Instance.EventManager.SendEvent(new GameEvent(EVENT.ONPLAYEND));
+
                     //存储记录
                     GameFacade.Instance.User.SetScore(m_FSM.Owner.m_Stage);
                     GameFacade.Instance.User.Save();
-
-                    m_FSM.Owner.Environment.OnEnd();
-                    GameFacade.Instance.EventManager.SendEvent(new GameEvent(EVENT.ONPLAYEND));
 
                     Camera.main.GetComponent<CameraUtility>().DoShake();
 

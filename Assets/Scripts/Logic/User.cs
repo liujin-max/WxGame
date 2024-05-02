@@ -25,6 +25,11 @@ public class User : MonoBehaviour
     //从本地存档里同步数据
     public void Sync()
     {
+        if (GameFacade.Instance.Reboot == true) {
+            //重置本地存档
+            return;
+        }
+
         #if WEIXINMINIGAME && !UNITY_EDITOR
             //从云数据库加载存档
             WXUtility.Cloud_GetUserData(m_Data);
