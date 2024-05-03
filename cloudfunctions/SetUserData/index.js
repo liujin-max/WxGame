@@ -19,7 +19,7 @@ exports.main = async (event,context)  => {
   let _isHas = sql_data.get();
  
    //如果没有，首次保存
-   if(_isHas.data.length==0){
+   if(_isHas.data == null || _isHas.data.length==0){
        let _isAdd = null;
        let addData = {
            openid:wxContext.OPENID,

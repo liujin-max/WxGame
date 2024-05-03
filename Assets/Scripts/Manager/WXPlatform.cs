@@ -89,18 +89,24 @@ public class WXPlatform : Platform
             data = JsonUtility.ToJson(""),
             success = (res) =>
             {
-                Debug.Log("====获取账号数据成功====");
+                Debug.Log("====获取账号数据成功==== : " + res.result);
                 //云数据保存到本地
                 var data = JsonMapper.ToObject(res.result);
-                if (data.ContainsKey("gamedata"))
+                if (data.ContainsKey("data"))
                 {
-                    var gamedata    = data["gamedata"];
+                    var gamedata    = data["data"];
+   
+                    //将Json转换成临时的GameUserData
+                    GameUserData tempData = JsonUtility.FromJson<GameUserData>(JsonMapper.ToJson(gamedata));
 
                     //读取存档数据
-                    if (gamedata.ContainsKey("Score")) userData.Score  = (int)gamedata["Score"];
+                    userData.Score  = tempData.Score;
 
                     //读取成就数据
+                    userData.AchiveRecords  = tempData.AchiveRecords;
 
+
+                    GameFacade.Instance.EventManager.SendEvent(new GameEvent(EVENT.UI_FLUSHUSER));
                 }
             },
             fail = (res) =>
@@ -117,10 +123,34 @@ public class WXPlatform : Platform
 
     public override void UPLOAD(GameUserData userData)
     {
-        //存储分数
-        WXUtility.Cloud_SetUserData(userData);
+        Debug.Log("====开始存储账号数据====");
+        string json = JsonUtility.ToJson(userData);
+        Debug.Log("Json : " + json);
+
+        //存储账号数据
+        WX.cloud.CallFunction(new CallFunctionParam()
+        {
+            name = "SetUserData",
+            data = json,
+            success = (res) =>
+            {
+                Debug.Log("====存储账号数据成功====");
+            },
+            fail = (res) =>
+            {
+                Debug.LogError("====存储账号数据失败====" + res.errMsg);
+                Debug.Log(res.result);
+
+            },
+            complete = (res) =>
+            {
+                Debug.Log("====存储账号数据结束====");
+            }
+        });
+
+
         //上传排行榜
-        WXUtility.UnloadRankScore(userData.Score);
+        // WXUtility.UnloadRankScore(userData.Score);
     }
 
     //设备振动

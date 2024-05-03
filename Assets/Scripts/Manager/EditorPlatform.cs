@@ -29,6 +29,7 @@ public class EditorPlatform : Platform
         
         userData    = JsonUtility.FromJson<GameUserData>(json);
 
+
         callback.Invoke(userData);
 
         return userData;
@@ -45,6 +46,8 @@ public class EditorPlatform : Platform
                 ach.Sync();
             }
         });
+
+        GameFacade.Instance.EventManager.SendEvent(new GameEvent(EVENT.UI_FLUSHUSER));
     }
 
     public override void UPLOAD(GameUserData userData)

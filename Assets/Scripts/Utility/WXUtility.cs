@@ -43,30 +43,4 @@ public static class WXUtility
             WX.GetOpenDataContext().PostMessage(msg);
         #endif
     }
-
-
-
-    //云开发：上传账号数据
-    public static void Cloud_SetUserData(GameUserData gameUserData)
-    {
-        Debug.Log("====开始存储账号数据====");
-
-        WX.cloud.CallFunction(new CallFunctionParam()
-        {
-            name = "SetUserData",
-            data = JsonUtility.ToJson(gameUserData),
-            success = (res) =>
-            {
-                Debug.Log("====存储账号数据成功====");
-            },
-            fail = (res) =>
-            {
-                Debug.LogError("====存储账号数据失败====");
-            },
-            complete = (res) =>
-            {
-                Debug.Log("====存储账号数据结束====");
-            }
-        });
-    }
 }

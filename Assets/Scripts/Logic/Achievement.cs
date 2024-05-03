@@ -1072,7 +1072,7 @@ namespace CB
     {
         private Dictionary<Ball, int> m_Records = new Dictionary<Ball, int>();
         private int m_Last = -1;
-        private int m_Max = 6;
+        private int m_Max = 10;
         public override string GetDescription()
         {
             return string.Format("弹珠连续<size=46><#FFCC4A>{0}</color></size>次击中相同类型的宝石", m_Max);
