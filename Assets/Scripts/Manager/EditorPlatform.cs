@@ -20,12 +20,13 @@ public class EditorPlatform : Platform
 
     public override GameUserData LOGIN(GameUserData userData, Action<GameUserData> callback)
     {
-        if (GameFacade.Instance.Reboot == true) {
-            //重置本地存档
+        string json = PlayerPrefs.GetString(SystemManager.KEY_USER);
+
+        if (string.IsNullOrEmpty(json)) {
+            callback.Invoke(userData);
             return userData;
         }
-
-        string json = PlayerPrefs.GetString(SystemManager.KEY_USER);
+        
         userData    = JsonUtility.FromJson<GameUserData>(json);
 
         callback.Invoke(userData);
@@ -37,11 +38,6 @@ public class EditorPlatform : Platform
     //编辑器模式下 存档数据在Login的时候直接都从本地获取到了
     public override void SYNC(GameUserData userData)
     {
-        if (GameFacade.Instance.Reboot == true) {
-            //重置本地存档
-            return;
-        }
-
         //同步成就完成记录
         userData.AchiveRecords.ForEach(id => {
             var ach = GameFacade.Instance.DataCenter.GetAchievement(id);

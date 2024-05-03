@@ -24,14 +24,14 @@ public class NumberTransition : MonoBehaviour
         m_TargetNumber = value;
         m_Offset    = m_TargetNumber - m_CurrentNumber;
 
-        m_Text.text = m_CurrentNumber.ToString();
+        m_Text.text = ((int)m_CurrentNumber).ToString();
     }
 
     public void ForceValue(int value)
     {
         m_TargetNumber = value;
         m_CurrentNumber = value;
-        m_Text.text = m_CurrentNumber.ToString();
+        m_Text.text = ((int)m_CurrentNumber).ToString();
     }
 
     void Update()

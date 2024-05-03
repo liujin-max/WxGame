@@ -285,10 +285,11 @@ namespace CB
         private void OnReponseFlushCount(GameEvent gameEvent)
         {
             // c_countText.text = GameFacade.Instance.Game.Glass.ToString();
-            if ((bool)gameEvent.GetParam(0) == true)
+            if ((bool)gameEvent.GetParam(0) == true) {
                 c_countText.GetComponent<NumberTransition>().SetValue(GameFacade.Instance.Game.Glass);
-            else
+            } else {
                 c_countText.GetComponent<NumberTransition>().ForceValue(GameFacade.Instance.Game.Glass);
+            }
         }
 
         private void OnReponseFlushBalls(GameEvent gameEvent)

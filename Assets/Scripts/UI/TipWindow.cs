@@ -46,6 +46,8 @@ public class TipWindow : MonoBehaviour
 
     public void FlyTip(string text)
     {
+        Platform.Instance.VIBRATE(_C.VIBRATELEVEL.MEDIUM);
+        
         c_TipPivot.SetActive(true);
         c_TipPivot.transform.Find("Text").GetComponent<TextMeshProUGUI>().text = text;
         c_TipPivot.GetComponent<Animation>().Play("FlyTip");

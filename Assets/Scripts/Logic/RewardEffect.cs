@@ -17,7 +17,7 @@ namespace CB
 
         public override void DoReward()
         {
-            GameFacade.Instance.Game.UpdateCoin(m_Value);
+            GameFacade.Instance.Game.UpdateCoin(m_Value, false);
         }
     }
     #endregion

@@ -85,7 +85,7 @@ public class GhostWindow : MonoBehaviour
             if (GameFacade.Instance.Game.Balls.Count > 0) {
                 GameFacade.Instance.Game.DOTransist(_C.FSMSTATE.GAME_IDLE);
             } else {
-               GameFacade.Instance.Game.DOTransist(_C.FSMSTATE.GAME_END, GameFacade.Instance.Game.m_Stage);
+               GameFacade.Instance.Game.DOTransist(_C.FSMSTATE.GAME_END, GameFacade.Instance.Game.Stage);
             }
         });
 
@@ -101,7 +101,7 @@ public class GhostWindow : MonoBehaviour
 
         //看广告，获取碎片
         c_BtnGlass.onClick.AddListener(()=>{
-            GameFacade.Instance.Game.PushGlass(1);
+            GameFacade.Instance.Game.PushGlass(1, false);
             GameFacade.Instance.EffectManager.LoadUIEffect(EFFECT.FLYGLASS, c_BtnGlass.transform.position);
         });
 

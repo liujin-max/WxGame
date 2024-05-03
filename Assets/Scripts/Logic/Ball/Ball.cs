@@ -321,7 +321,7 @@ namespace CB
             if (this.Velocity.magnitude <= 3f) {
                 this.Velocity *= 5;
 
-                Debug.Log("长度：" + this.Velocity.magnitude);
+                // Debug.Log("长度：" + this.Velocity.magnitude);
             }
         }
 

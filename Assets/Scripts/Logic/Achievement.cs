@@ -8,14 +8,14 @@ using UnityEngine;
 
 namespace CB
 {
-    #region 单回合内未击落方块。
+    #region 单回合内未击中方块。
     public class Achievement_FANG : Achievement
     {
         private int m_Count = 0;
 
         public override string GetDescription()
         {
-            return "单回合内未击落<sprite=2>";
+            return "单回合内未击中<sprite=2>";
         }
 
         protected override void OnReponseHitObstacle(GameEvent @event)
@@ -23,7 +23,7 @@ namespace CB
             if (!IsActive) return;
 
             Obstacle obt = (Obstacle)@event.GetParam(0);
-            if (obt.IsDead() == true && obt.Order == 0)
+            if (obt.Order == 0)
             {
                 m_Count++;
             }
@@ -49,14 +49,14 @@ namespace CB
     #endregion
 
 
-    #region 单回合内未击落三角。
+    #region 单回合内未击中三角。
     public class Achievement_SANJIAO : Achievement
     {
         private int m_Count = 0;
 
         public override string GetDescription()
         {
-            return "单回合内未击落<sprite=3>";
+            return "单回合内未击中<sprite=3>";
         }
 
         protected override void OnReponseHitObstacle(GameEvent @event)
@@ -64,7 +64,7 @@ namespace CB
             if (!IsActive) return;
 
             Obstacle obt = (Obstacle)@event.GetParam(0);
-            if (obt.IsDead() == true && obt.Order == 1)
+            if (obt.Order == 1)
             {
                 m_Count++;
             }
@@ -89,14 +89,15 @@ namespace CB
     }
     #endregion
 
-    #region 单回合内未击落圆。
+
+    #region 单回合内未击中圆。
     public class Achievement_YUAN : Achievement
     {
         private int m_Count = 0;
 
         public override string GetDescription()
         {
-            return "单回合内未击落<sprite=4>";
+            return "单回合内未击中<sprite=4>";
         }
 
         protected override void OnReponseHitObstacle(GameEvent @event)
@@ -104,7 +105,7 @@ namespace CB
             if (!IsActive) return;
 
             Obstacle obt = (Obstacle)@event.GetParam(0);
-            if (obt.IsDead() == true && obt.Order == 3)
+            if (obt.Order == 3)
             {
                 m_Count++;
             }
@@ -129,13 +130,14 @@ namespace CB
     }
     #endregion
 
-    #region 单回合内未击落菱形。
+
+    #region 单回合内未击中菱形。
     public class Achievement_LING : Achievement
     {
         private int m_Count = 0;
         public override string GetDescription()
         {
-            return "单回合内未击落<sprite=5>";
+            return "单回合内未击中<sprite=5>";
         }
 
         protected override void OnReponseHitObstacle(GameEvent @event)
@@ -143,7 +145,7 @@ namespace CB
             if (!IsActive) return;
 
             Obstacle obt = (Obstacle)@event.GetParam(0);
-            if (obt.IsDead() == true && obt.Order == 2)
+            if (obt.Order == 2)
             {
                 m_Count++;
             }
@@ -168,11 +170,12 @@ namespace CB
     }
     #endregion
 
-    #region 单回合击落6方块。
+
+    #region 单回合击落#方块。
     public class Achievement_KILLFANG : Achievement
     {
         private int m_Count = 0;
-        private int m_Max   = 6;
+        private int m_Max   = 8;
         public override string GetDescription()
         {
             return string.Format("单回合内击落<size=46><#FFCC4A>{0}</color></size>个<sprite=2>", m_Max);
@@ -200,11 +203,11 @@ namespace CB
     #endregion
 
 
-    #region 单回合击落6三角。
+    #region 单回合击落#三角。
     public class Achievement_KILLSANJIAO : Achievement
     {
         private int m_Count = 0;
-        private int m_Max   = 6;
+        private int m_Max   = 8;
         public override string GetDescription()
         {
             return string.Format("单回合内击落<size=46><#FFCC4A>{0}</color></size>个<sprite=3>", m_Max);
@@ -232,11 +235,11 @@ namespace CB
     #endregion
 
 
-    #region 单回合击落6圆。
+    #region 单回合击落#圆。
     public class Achievement_KILLYUAN : Achievement
     {
         private int m_Count = 0;
-        private int m_Max   = 6;
+        private int m_Max   = 8;
         public override string GetDescription()
         {
             return string.Format("单回合内击落<size=46><#FFCC4A>{0}</color></size>个<sprite=4>", m_Max);
@@ -264,11 +267,11 @@ namespace CB
     #endregion
 
 
-    #region 单回合击落6菱形。
+    #region 单回合击落#菱形。
     public class Achievement_KILLLING : Achievement
     {
         private int m_Count = 0;
-        private int m_Max   = 6;
+        private int m_Max   = 8;
         public override string GetDescription()
         {
             return string.Format("单回合内击落<size=46><#FFCC4A>{0}</color></size>个<sprite=5>", m_Max);
@@ -295,6 +298,7 @@ namespace CB
     }
     #endregion
 
+
     #region 单回合内击落#个碎片。
     public class Achievement_KILLGLASS : Achievement
     {
@@ -302,7 +306,7 @@ namespace CB
         private int m_Max   = 8;
         public override string GetDescription()
         {
-            return string.Format("单回合内击落<size=46><#FFCC4A>{0}</color></size>个<sprite=0>", m_Max);
+            return string.Format("单回合内击落<size=46><#FFCC4A>{0}</color></size>枚<sprite=0>", m_Max);
         }
 
         protected override void OnReponseHitBox(GameEvent @event)
@@ -358,11 +362,12 @@ namespace CB
     }
     #endregion
 
-    #region 单局游戏内累计获得100金币
+
+    #region 单局游戏内累计获得50金币
     public class Achievement_COIN100 : Achievement
     {
         private int m_Count = 0;
-        private int m_Max   = 100;
+        private int m_Max   = 50;
 
         public override string GetDescription()
         {
@@ -373,10 +378,15 @@ namespace CB
         {
             if (!IsActive) return;
 
-            int value = (int)@event.GetParam(1);
-            m_Count += value;
+            bool is_reward = (bool)@event.GetParam(2);
+            if (!is_reward) return;
 
-            if (m_Count >= m_Max) this.Finish();
+            int value = (int)@event.GetParam(1);
+            if (value > 0) {
+                m_Count += value;
+
+                if (m_Count >= m_Max) this.Finish();
+            }
         }
 
         protected override void OnReponseGameStart(GameEvent @event)
@@ -402,10 +412,15 @@ namespace CB
         {
             if (!IsActive) return;
 
-            int value = (int)@event.GetParam(1);
-            m_Count += value;
+            bool is_reward = (bool)@event.GetParam(2);
+            if (!is_reward) return;
 
-            if (m_Count >= m_Max) this.Finish();
+            int value = (int)@event.GetParam(1);
+            if (value > 0) {
+                m_Count += value;
+
+                if (m_Count >= m_Max) this.Finish();
+            }
         }
 
         protected override void OnReponseGameStart(GameEvent @event)
@@ -414,6 +429,7 @@ namespace CB
         }
     }
     #endregion
+
 
     #region 单局游戏内累计获得500金币
     public class Achievement_COIN500 : Achievement
@@ -430,10 +446,15 @@ namespace CB
         {
             if (!IsActive) return;
 
-            int value = (int)@event.GetParam(1);
-            m_Count += value;
+            bool is_reward = (bool)@event.GetParam(2);
+            if (!is_reward) return;
 
-            if (m_Count >= m_Max) this.Finish();
+            int value = (int)@event.GetParam(1);
+            if (value > 0) {
+                m_Count += value;
+
+                if (m_Count >= m_Max) this.Finish();
+            }
         }
 
         protected override void OnReponseGameStart(GameEvent @event)
@@ -442,6 +463,7 @@ namespace CB
         }
     }
     #endregion
+
 
     #region 单局游戏内累计获得1000金币
     public class Achievement_COIN1000 : Achievement
@@ -458,10 +480,15 @@ namespace CB
         {
             if (!IsActive) return;
 
-            int value = (int)@event.GetParam(1);
-            m_Count += value;
+            bool is_reward = (bool)@event.GetParam(2);
+            if (!is_reward) return;
 
-            if (m_Count >= m_Max) this.Finish();
+            int value = (int)@event.GetParam(1);
+            if (value > 0) {
+                m_Count += value;
+
+                if (m_Count >= m_Max) this.Finish();
+            }
         }
 
         protected override void OnReponseGameStart(GameEvent @event)
@@ -471,11 +498,12 @@ namespace CB
     }
     #endregion
 
-    #region 单局游戏内累计击落10枚碎片
+
+    #region 单局游戏内累计击落#枚碎片
     public class Achievement_GLASS10 : Achievement
     {
         private int m_Count = 0;
-        private int m_Max   = 10;
+        private int m_Max   = 15;
 
         public override string GetDescription()
         {
@@ -486,10 +514,15 @@ namespace CB
         {
             if (!IsActive) return;
 
-            int value = (int)@event.GetParam(1);
-            m_Count += value;
+            bool is_reward = (bool)@event.GetParam(2);
+            if (!is_reward) return;
 
-            if (m_Count >= m_Max) this.Finish();
+            int value = (int)@event.GetParam(1);
+            if (value > 0) {
+                m_Count += value;
+
+                if (m_Count >= m_Max) this.Finish();
+            }
         }
 
         protected override void OnReponseGameStart(GameEvent @event)
@@ -498,6 +531,7 @@ namespace CB
         }
     }
     #endregion
+
 
     #region 单局游戏内累计击落50枚碎片
     public class Achievement_GLASS50 : Achievement
@@ -514,10 +548,15 @@ namespace CB
         {
             if (!IsActive) return;
 
-            int value = (int)@event.GetParam(1);
-            m_Count += value;
+            bool is_reward = (bool)@event.GetParam(2);
+            if (!is_reward) return;
 
-            if (m_Count >= m_Max) this.Finish();
+            int value = (int)@event.GetParam(1);
+            if (value > 0) {
+                m_Count += value;
+
+                if (m_Count >= m_Max) this.Finish();
+            }
         }
 
         protected override void OnReponseGameStart(GameEvent @event)
@@ -526,6 +565,7 @@ namespace CB
         }
     }
     #endregion
+
 
     #region 单局游戏内累计击落150枚碎片
     public class Achievement_GLASS150 : Achievement
@@ -542,10 +582,15 @@ namespace CB
         {
             if (!IsActive) return;
 
-            int value = (int)@event.GetParam(1);
-            m_Count += value;
+            bool is_reward = (bool)@event.GetParam(2);
+            if (!is_reward) return;
 
-            if (m_Count >= m_Max) this.Finish();
+            int value = (int)@event.GetParam(1);
+            if (value > 0) {
+                m_Count += value;
+
+                if (m_Count >= m_Max) this.Finish();
+            }
         }
 
         protected override void OnReponseGameStart(GameEvent @event)
@@ -556,6 +601,7 @@ namespace CB
         }
     }
     #endregion
+
 
     #region 单局游戏内累计击落10枚炸弹(开局赠送炸弹弹珠)
     public class Achievement_REVERSEBOMB : Achievement
@@ -589,6 +635,7 @@ namespace CB
     }
     #endregion
 
+
     #region 最高记录达到10层
     public class Achievement_SCORE10 : Achievement
     {
@@ -611,6 +658,7 @@ namespace CB
 
     }
     #endregion
+
 
     #region 最高记录达到25层
     public class Achievement_SCORE25 : Achievement
@@ -635,6 +683,7 @@ namespace CB
     }
     #endregion
 
+
     #region 最高记录达到50层
     public class Achievement_SCORE50 : Achievement
     {
@@ -657,6 +706,7 @@ namespace CB
 
     }
     #endregion
+
 
     #region 最高记录达到100层
     public class Achievement_SCORE100 : Achievement
@@ -681,10 +731,11 @@ namespace CB
     }
     #endregion
 
-    #region 单颗弹珠击落8枚碎片。
+
+    #region 单颗弹珠击落#枚碎片。
     public class Achievement_BALLHITGLASS : Achievement
     {
-        private int m_Max   = 8;
+        private int m_Max   = 6;
         private Dictionary<Ball, int> m_Records = new Dictionary<Ball, int>();
 
         public override string GetDescription()
@@ -721,6 +772,7 @@ namespace CB
     }
     #endregion
 
+
     #region 同一颗弹珠被回收3次。 
     public class Achievement_BALLRECYCLE : Achievement
     {
@@ -750,6 +802,7 @@ namespace CB
         }
     }
     #endregion
+
 
     #region 弹珠没有击中任何物体。
     public class Achievement_BALLMISS : Achievement
@@ -1166,6 +1219,7 @@ namespace CB
         }
     }
     #endregion
+
 
     #region 单回合内累计发射5颗弹珠
     public class Achievement_CUMHIT : Achievement
