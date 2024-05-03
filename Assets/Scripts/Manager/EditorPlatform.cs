@@ -1,10 +1,14 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using CB;
 using UnityEngine;
 
 public class EditorPlatform : Platform
 {
+
+
+
     public override void INIT(Action callback)
     {
         Application.targetFrameRate = _C.DEFAULT_FRAME;
@@ -21,7 +25,7 @@ public class EditorPlatform : Platform
             return userData;
         }
 
-        string json = PlayerPrefs.GetString(_C.KEY_USER);
+        string json = PlayerPrefs.GetString(SystemManager.KEY_USER);
         userData    = JsonUtility.FromJson<GameUserData>(json);
 
         callback.Invoke(userData);
@@ -50,7 +54,7 @@ public class EditorPlatform : Platform
     public override void UPLOAD(GameUserData userData)
     {
         string json = JsonUtility.ToJson(userData);
-        PlayerPrefs.SetString(_C.KEY_USER, json);
+        PlayerPrefs.SetString(SystemManager.KEY_USER, json);
         PlayerPrefs.Save();
     }
 

@@ -6,10 +6,10 @@ namespace CB
     //系统类
     public class SystemManager : MonoBehaviour
     {
-
-        public const string KEY_MUSIC  = "KEY_MUSIC";  //音乐
-        public const string KEY_SOUND  = "KEY_SOUND";  //音效
-
+        //存储键
+        public static string KEY_USER   = "KEY_USER";
+        public static string KEY_MUSIC  = "KEY_MUSIC";  //音乐
+        public static string KEY_SOUND  = "KEY_SOUND";  //音效
 
         private float m_MusicVolume;
         public float MusicVolume {
