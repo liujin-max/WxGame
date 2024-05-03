@@ -36,6 +36,7 @@ public class BlackHole : Box
         if (m_LifeTimer.IsFinished() == true)
         {
             GameFacade.Instance.EffectManager.Load(EFFECT.BLACKHOLEBOOM, transform.localPosition);
+            Platform.Instance.VIBRATE(_C.VIBRATELEVEL.HEAVY);
             this.Dead();
         }
     }

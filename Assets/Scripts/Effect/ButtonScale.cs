@@ -17,6 +17,8 @@ public class ButtonScale : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 
     public void OnPointerDown(PointerEventData eventData)
     {
+        Platform.Instance.VIBRATE(_C.VIBRATELEVEL.LIGHT);
+
         if (m_Tweener != null) {
             m_Tweener.Kill();
         }

@@ -53,6 +53,7 @@ namespace CB
         public void Boom()
         {
             GameFacade.Instance.EventManager.SendEvent(new GameEvent(EVENT.ONBOMBBEFORE, this));
+            Platform.Instance.VIBRATE(_C.VIBRATELEVEL.HEAVY);
 
             //产生爆炸
             float radius = Radius.ToNumber();

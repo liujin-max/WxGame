@@ -166,6 +166,7 @@ public class GhostWindow : MonoBehaviour
 
             item.Touch.GetComponent<MouseClickHandler>().Init(()=>{
                 GameFacade.Instance.SoundManager.Load(SOUND.BUBBLE);
+                Platform.Instance.VIBRATE(_C.VIBRATELEVEL.LIGHT);
                 
                 if (m_SelectGhost != null) {
                     m_SelectGhost.Select(false);

@@ -5,19 +5,29 @@ using UnityEngine;
 
 public abstract class Platform
 {
-    public static Platform Create()
-    {
-        #if UNITY_EDITOR
-            return new EditorPlatform();
-        #elif WEIXINMINIGAME
-            return new WXPlatform();
-        #else
-            return new EditorPlatform();
-        #endif 
+    private static Platform m_Platform;
+    public static Platform Instance {
+        get {
+            if (m_Platform == null)
+            {
+                #if UNITY_EDITOR
+                    m_Platform = new EditorPlatform();
+                #elif WEIXINMINIGAME
+                    m_Platform = new WXPlatform();
+                #else
+                    m_Platform = new EditorPlatform();
+                #endif 
+            }
+
+            return m_Platform;
+        }
     }
 
-    public abstract void Init(Action callback);
-    public abstract GameUserData Login(GameUserData userData, Action<GameUserData> callback);
-    public abstract void Sync(GameUserData userData, Action<GameUserData> callback);
-    public abstract void Upload(GameUserData userData);
+    public abstract void INIT(Action callback);
+    public abstract GameUserData LOGIN(GameUserData userData, Action<GameUserData> callback);
+    public abstract void SYNC(GameUserData userData);
+    public abstract void UPLOAD(GameUserData userData);
+
+    //设备振动
+    public abstract void VIBRATE(string level);
 }

@@ -28,6 +28,7 @@ public class ACHPopItem : MonoBehaviour
     void DoAnim()
     {
         GameFacade.Instance.SoundManager.Load(SOUND.ACHIEVEMENT);
+        Platform.Instance.VIBRATE(_C.VIBRATELEVEL.MEDIUM);
         
         transform.localScale = new Vector3(1.5f, 1.5f, 1.5f);
         m_CanvasGroup.DOFade(1, 0f);

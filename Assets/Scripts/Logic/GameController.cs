@@ -446,6 +446,7 @@ namespace CB
         public void ShootBall(Ball ball, Vector3 pos)
         {
             GameFacade.Instance.SoundManager.Load(SOUND.SHOOT);
+            Platform.Instance.VIBRATE(_C.VIBRATELEVEL.HEAVY);
 
             c_takeAim.transform.DOShakeScale(0.2f, new Vector3(0, 0.2f, 0), 8, 30).OnComplete(()=>{
                 c_takeAim.transform.localScale = Vector3.one;

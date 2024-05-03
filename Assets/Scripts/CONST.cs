@@ -142,4 +142,12 @@ public static class _C
         UPGRADE = 1,
         GLASS   = 2
     }
+
+    public class VIBRATELEVEL
+    {
+        public static string HEAVY  = "heavy";
+        public static string MEDIUM = "medium";
+        public static string LIGHT  = "light";
+
+    }
 }

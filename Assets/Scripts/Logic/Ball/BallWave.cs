@@ -56,6 +56,7 @@ namespace CB
                     GameFacade.Instance.EffectManager.Load(EFFECT.NOVA, transform.localPosition);
                     
                     Camera.main.transform.DOShakePosition(0.3f, 0.2f, 15, 50);
+                    Platform.Instance.VIBRATE(_C.VIBRATELEVEL.HEAVY);
 
                     GameFacade.Instance.Game.Obstacles.ForEach(obt => {
                         obt.OnHit(null, 1);

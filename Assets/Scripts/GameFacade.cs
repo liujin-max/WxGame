@@ -135,16 +135,16 @@ public class GameFacade : MonoBehaviour
         }
     }
 
-    private Platform m_Platform = null;
-    public Platform Platform
-    {
-        get {
-            if (m_Platform == null) {
-                m_Platform = Platform.Create();
-            }
-            return m_Platform;
-        }
-    }
+    // private Platform m_Platform = null;
+    // public Platform Platform
+    // {
+    //     get {
+    //         if (m_Platform == null) {
+    //             m_Platform = Platform.Create();
+    //         }
+    //         return m_Platform;
+    //     }
+    // }
 
     #endregion
 
@@ -167,7 +167,10 @@ public class GameFacade : MonoBehaviour
         DontDestroyOnLoad(GameObject.Find("RankCanvas"));
         DontDestroyOnLoad(GameObject.Find("Camera"));
         DontDestroyOnLoad(GameObject.Find("EventSystem"));
+    }
 
+    void Start()
+    {
         //初始化配置文件
         CsvManager.ReadCsvs();
         CONFIG.InitDatas();
@@ -175,7 +178,7 @@ public class GameFacade : MonoBehaviour
         //加载数据类
         DataCenter.Init();
 
-        Platform.Init(()=>{
+        Platform.Instance.INIT(()=>{
             //加载账号数据
             User.Sync();
             

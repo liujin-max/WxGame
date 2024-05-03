@@ -29,26 +29,18 @@ public class User : MonoBehaviour
     public void Sync()
     {
         //同步账号基础数据(头像、名字)
-        m_Data = GameFacade.Instance.Platform.Login(m_Data, (m_Data)=>{
+        m_Data = Platform.Instance.LOGIN(m_Data, (m_Data)=>{
             GameFacade.Instance.EventManager.SendEvent(new GameEvent(EVENT.UI_FLUSHUSER));
         });
 
         //同步账号游玩数据(记录、成就等)
-        GameFacade.Instance.Platform.Sync(m_Data, (m_Data)=>{
-            //同步成就完成记录
-            m_Data.AchiveRecords.ForEach(id => {
-                var ach = GameFacade.Instance.DataCenter.GetAchievement(id);
-                if (ach != null) {
-                    ach.Sync();
-                }
-            });
-        });
+        Platform.Instance.SYNC(m_Data);
     }
 
     //在失败或成功时统一调用
     public void Save()
     {
-        GameFacade.Instance.Platform.Upload(m_Data);
+        Platform.Instance.UPLOAD(m_Data);
     }
 
 

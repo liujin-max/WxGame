@@ -7,7 +7,7 @@ using WeChatWASM;
 
 public class WXPlatform : Platform
 {
-    public override void Init(Action callback)
+    public override void INIT(Action callback)
     {
         WX.InitSDK((code) => {
             //设置帧率
@@ -27,7 +27,7 @@ public class WXPlatform : Platform
         });
     }
 
-    public override GameUserData Login(GameUserData userData, Action<GameUserData> callback)
+    public override GameUserData LOGIN(GameUserData userData, Action<GameUserData> callback)
     {
         GetSettingOption info = new GetSettingOption();
         info.complete = (aa) => { /*获取完成*/ };
@@ -78,7 +78,7 @@ public class WXPlatform : Platform
         return userData;
     }
 
-    public override void Sync(GameUserData userData, Action<GameUserData> callback)
+    public override void SYNC(GameUserData userData)
     {
         Debug.Log("====开始获取账号数据====");
         
@@ -110,17 +110,24 @@ public class WXPlatform : Platform
             complete = (res) =>
             {
                 Debug.Log("====获取账号数据结束====");
-                callback.Invoke(userData);
             }
         });
         
     }
 
-    public override void Upload(GameUserData userData)
+    public override void UPLOAD(GameUserData userData)
     {
         //存储分数
         WXUtility.Cloud_SetUserData(userData);
         //上传排行榜
         WXUtility.UnloadRankScore(userData.Score);
+    }
+
+    //设备振动
+    public override void VIBRATE(string level)
+    {
+        VibrateShortOption op = new VibrateShortOption();
+        op.type = level;
+        WX.VibrateShort(op);
     }
 }

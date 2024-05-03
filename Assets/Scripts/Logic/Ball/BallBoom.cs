@@ -60,6 +60,8 @@ namespace CB
                 float rate = this.m_Radius / 100f;
                 var obj = GameFacade.Instance.EffectManager.Load(EFFECT.BOOM, collision_point);
                 obj.transform.localScale = new Vector3(rate, rate, rate);
+
+                Platform.Instance.VIBRATE(_C.VIBRATELEVEL.MEDIUM);
             }
         }
     }
