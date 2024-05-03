@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using LitJson;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using UnityEngine;
 using WeChatWASM;
 
@@ -43,4 +45,5 @@ public static class WXUtility
             WX.GetOpenDataContext().PostMessage(msg);
         #endif
     }
+
 }

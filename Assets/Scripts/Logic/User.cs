@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Newtonsoft.Json;
 using UnityEngine;
 
 
@@ -13,6 +14,22 @@ public class GameUserData
     public List<int> AchiveRecords = new List<int>();
 }
 
+//排行榜数据
+[System.Serializable]
+public class RankData
+{
+    public string Name;
+    public string Head;
+    public int Score;
+
+}
+
+[System.Serializable]
+public class RankDatas
+{
+    public RankData[] data;
+}
+
 
 //负责管理账号的各种数据
 public class User : MonoBehaviour
@@ -24,6 +41,12 @@ public class User : MonoBehaviour
     public string HeadURL{ 
         get{ return m_Data.HeadUrl;}
     }
+
+    private bool m_scoreUpdate = false; //记录变动标记
+    public bool IsScoreUpdate {get { return m_scoreUpdate;}}
+
+    private bool m_userUpdate = false;  //账号数据变动标记
+    public bool IsDirty {get { return m_userUpdate || m_scoreUpdate;}}
     
     //从本地存档里同步数据
     public void Sync()
@@ -39,8 +62,11 @@ public class User : MonoBehaviour
     public void Save()
     {
         Platform.Instance.UPLOAD(m_Data);
-    }
 
+        //重置标记
+        m_scoreUpdate   = false;
+        m_userUpdate    = false;
+    }
 
 
 
@@ -49,12 +75,16 @@ public class User : MonoBehaviour
     {
         if (value <= m_Data.Score ) return;
 
+        m_scoreUpdate   = true;
+        m_userUpdate    = true;
+
         m_Data.Score = value;
     }
 
     public void SetAchievement(int id)
     {
         if (!m_Data.AchiveRecords.Contains(id)) {
+            m_userUpdate    = true;
             m_Data.AchiveRecords.Add(id);
         }
     }

@@ -57,6 +57,11 @@ public class EditorPlatform : Platform
         PlayerPrefs.Save();
     }
 
+    public override void PULLRANK()
+    {
+        GameFacade.Instance.FlyTip("获取排行榜失败");
+    }
+
     public override void VIBRATE(string level)
     {
 

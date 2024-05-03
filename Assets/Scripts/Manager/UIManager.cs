@@ -10,7 +10,7 @@ public class UIManager : MonoBehaviour
     public Transform TIP;
     public Transform BOARD;
     public Transform EFFECT;
-    public Transform RANK;
+
 
 
     private Dictionary<string, GameObject> WindowCaches = new Dictionary<string, GameObject>();
@@ -22,8 +22,6 @@ public class UIManager : MonoBehaviour
         BOARD   = GameObject.Find("Canvas/BOARD").transform;
         EFFECT  = GameObject.Find("Canvas/EFFECT").transform;
         TIP     = GameObject.Find("Canvas/TIP").transform;
-
-        RANK    = GameObject.Find("RankCanvas").transform;
     }
 
     public GameObject LoadWindow(string path, Transform parent)

@@ -1,4 +1,5 @@
 using System.Collections;
+using LitJson;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -29,7 +30,7 @@ namespace CB
             });
 
             BtnRank.onClick.AddListener(()=>{  
-                GameFacade.Instance.UIManager.RANK.GetComponent<RankWindow>().Show();
+                Platform.Instance.PULLRANK();
             });
 
             BtnAchievement.onClick.AddListener(()=>{  

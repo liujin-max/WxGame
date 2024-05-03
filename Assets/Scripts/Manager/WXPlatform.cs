@@ -94,28 +94,24 @@ public class WXPlatform : Platform
                 var data = JsonMapper.ToObject(res.result);
                 if (data.ContainsKey("data"))
                 {
-                    var gamedata    = data["data"];
-   
                     //将Json转换成临时的GameUserData
-                    GameUserData tempData = JsonUtility.FromJson<GameUserData>(JsonMapper.ToJson(gamedata));
+                    GameUserData tempData = JsonUtility.FromJson<GameUserData>(JsonMapper.ToJson(data["data"]));
 
                     //读取存档数据
                     userData.Score  = tempData.Score;
-
                     //读取成就数据
                     userData.AchiveRecords  = tempData.AchiveRecords;
 
-
-                    GameFacade.Instance.EventManager.SendEvent(new GameEvent(EVENT.UI_FLUSHUSER));
                 }
             },
             fail = (res) =>
             {
-                Debug.LogError("====获取账号数据失败====");
+                Debug.LogError("====获取账号数据失败====" + res.errMsg);
             },
             complete = (res) =>
             {
                 Debug.Log("====获取账号数据结束====");
+                GameFacade.Instance.EventManager.SendEvent(new GameEvent(EVENT.UI_FLUSHUSER));
             }
         });
         
@@ -123,34 +119,56 @@ public class WXPlatform : Platform
 
     public override void UPLOAD(GameUserData userData)
     {
-        Debug.Log("====开始存储账号数据====");
-        string json = JsonUtility.ToJson(userData);
-        Debug.Log("Json : " + json);
+        //上传账号数据
+        {
+            if (GameFacade.Instance.User.IsDirty == true)
+            {
+                Debug.Log("====开始上传账号数据====");
+                WX.cloud.CallFunction(new CallFunctionParam()
+                {
+                    name = "SetUserData",
+                    data = JsonUtility.ToJson(userData),
+                    success = (res) =>
+                    {
+                        Debug.Log("====上传账号数据成功====");
+                    },
+                    fail = (res) =>
+                    {
+                        Debug.LogError("====上传账号数据失败====" + res.errMsg);
+                    },
+                    // complete = (res) =>
+                    // {
+                    //     Debug.Log("====存储账号数据结束====");
+                    // }
+                });
+            }
+        } 
+    }
 
-        //存储账号数据
+    //拉取排行榜
+    public override void PULLRANK()
+    {
+        Debug.Log("====开始获取排行数据====");
+        
+        //云开发：加载积分数据
         WX.cloud.CallFunction(new CallFunctionParam()
         {
-            name = "SetUserData",
-            data = json,
+            name = "GetRank",
+            data = JsonUtility.ToJson(""),
             success = (res) =>
             {
-                Debug.Log("====存储账号数据成功====");
+                Debug.Log("====获取排行数据成功==== : " + res.result);
+                var data = JsonMapper.ToObject(res.result);
+                if (data.ContainsKey("data"))
+                {
+                    RankDatas rank_list = JsonUtility.FromJson<RankDatas>(res.result);
+                }
             },
             fail = (res) =>
             {
-                Debug.LogError("====存储账号数据失败====" + res.errMsg);
-                Debug.Log(res.result);
-
+                GameFacade.Instance.FlyTip("获取排行榜失败");
             },
-            complete = (res) =>
-            {
-                Debug.Log("====存储账号数据结束====");
-            }
         });
-
-
-        //上传排行榜
-        // WXUtility.UnloadRankScore(userData.Score);
     }
 
     //设备振动
