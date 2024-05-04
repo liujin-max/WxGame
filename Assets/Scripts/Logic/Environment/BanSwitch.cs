@@ -37,7 +37,7 @@ namespace CB
             }
             imageGray.TurnGray(true);
 
-            GameFacade.Instance.EventManager.SendEvent(new GameEvent(EVENT.UI_SHOWBALLLIST, false));
+            EventManager.SendEvent(new GameEvent(EVENT.UI_SHOWBALLLIST, false));
         }
 
         public override void OnLeave()

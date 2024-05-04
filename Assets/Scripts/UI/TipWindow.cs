@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using CB;
+using DG.Tweening;
 using TMPro;
 using UnityEngine;
 
@@ -10,6 +11,9 @@ public class TipWindow : MonoBehaviour
     [SerializeField] GameObject c_ACHPivot;
 
     [SerializeField] List<ACHPopItem> m_ACHItems = new List<ACHPopItem>();
+
+
+    private Tweener m_Tweener = null;
 
     private ACHPopItem new_ach_item()
     {
@@ -29,7 +33,7 @@ public class TipWindow : MonoBehaviour
 
     void Awake()
     {
-        GameFacade.Instance.EventManager.AddHandler(EVENT.UI_ACHIEVEMENTPOP,    OnReponsePopupACH);
+        EventManager.AddHandler(EVENT.UI_ACHIEVEMENTPOP,    OnReponsePopupACH);
     }
 
     // Start is called before the first frame update
@@ -38,19 +42,19 @@ public class TipWindow : MonoBehaviour
         c_TipPivot.SetActive(false);
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     public void FlyTip(string text)
     {
         Platform.Instance.VIBRATE(_C.VIBRATELEVEL.MEDIUM);
+        GameFacade.Instance.SoundManager.Load(SOUND.TIP);
         
         c_TipPivot.SetActive(true);
         c_TipPivot.transform.Find("Text").GetComponent<TextMeshProUGUI>().text = text;
         c_TipPivot.GetComponent<Animation>().Play("FlyTip");
+
+        if (m_Tweener != null) {
+            m_Tweener.Kill();
+        }
+        m_Tweener = c_TipPivot.transform.DOShakePosition(0.25f, new Vector3(10, 0, 0), 40, 50);
     }
 
     void OnReponsePopupACH(GameEvent gameEvent)
@@ -64,6 +68,6 @@ public class TipWindow : MonoBehaviour
 
     void OnDestroy()
     {
-        GameFacade.Instance.EventManager.DelHandler(EVENT.UI_ACHIEVEMENTPOP,    OnReponsePopupACH);
+        EventManager.DelHandler(EVENT.UI_ACHIEVEMENTPOP,    OnReponsePopupACH);
     }
 }

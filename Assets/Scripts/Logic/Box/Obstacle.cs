@@ -205,7 +205,7 @@ namespace CB
                 GameFacade.Instance.SoundManager.Load(SOUND.DROP);
             }
 
-            GameFacade.Instance.EventManager.SendEvent(new GameEvent(EVENT.ONHITOBSTACLE, this, demage, ball));
+            EventManager.SendEvent(new GameEvent(EVENT.ONHITOBSTACLE, this, demage, ball));
 
         }
 

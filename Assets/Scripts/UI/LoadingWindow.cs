@@ -46,12 +46,12 @@ namespace CB
             });
 
 
-            GameFacade.Instance.EventManager.AddHandler(EVENT.UI_FLUSHUSER, OnReponseFlushUser);
+            EventManager.AddHandler(EVENT.UI_FLUSHUSER, OnReponseFlushUser);
         }
 
         void OnDestroy()
         {
-            GameFacade.Instance.EventManager.DelHandler(EVENT.UI_FLUSHUSER, OnReponseFlushUser);
+            EventManager.DelHandler(EVENT.UI_FLUSHUSER, OnReponseFlushUser);
         }
 
         // Start is called before the first frame update

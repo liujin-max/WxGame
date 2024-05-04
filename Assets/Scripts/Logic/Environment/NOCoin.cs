@@ -24,12 +24,12 @@ namespace CB
 
         void Awake()
         {
-            GameFacade.Instance.EventManager.AddHandler(EVENT.ONWILLRECEIVECOIN,   OnReponseReceiveCoin);
+            EventManager.AddHandler(EVENT.ONWILLRECEIVECOIN,   OnReponseReceiveCoin);
         }
 
         void OnDestroy()
         {
-            GameFacade.Instance.EventManager.DelHandler(EVENT.ONWILLRECEIVECOIN,   OnReponseReceiveCoin);
+            EventManager.DelHandler(EVENT.ONWILLRECEIVECOIN,   OnReponseReceiveCoin);
         }
 
         void OnReponseReceiveCoin(GameEvent gameEvent)

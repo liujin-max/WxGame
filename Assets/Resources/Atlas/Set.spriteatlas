@@ -21,14 +21,27 @@ SpriteAtlas:
       readable: 0
       crunchedCompression: 0
       sRGB: 1
-    platformSettings: []
+    platformSettings:
+    - serializedVersion: 3
+      m_BuildTarget: WebGL
+      m_MaxTextureSize: 1024
+      m_MaxPlaceholderSize: 32
+      m_ResizeAlgorithm: 0
+      m_TextureFormat: 51
+      m_TextureCompression: 1
+      m_CompressionQuality: 100
+      m_CrunchedCompression: 0
+      m_AllowsAlphaSplitting: 0
+      m_Overridden: 1
+      m_AndroidETC2FallbackOverride: 0
+      m_ForceMaximumCompressionQuality_BC6H_BC7: 0
     packingSettings:
       serializedVersion: 2
-      padding: 4
+      padding: 8
       blockOffset: 1
       allowAlphaSplitting: 0
-      enableRotation: 1
-      enableTightPacking: 1
+      enableRotation: 0
+      enableTightPacking: 0
       enableAlphaDilation: 0
     secondaryTextureSettings: {}
     transparentPlaceholder: 0
@@ -45,6 +58,7 @@ SpriteAtlas:
   - {fileID: 21300000, guid: cf3437a1fb5380e4bab85d5134b8a8dc, type: 3}
   - {fileID: 21300000, guid: d8c10e33b7e6f1a4c94e5f2af8a92dc2, type: 3}
   - {fileID: 21300000, guid: a238d98331dea3e4d8215f01600570ad, type: 3}
+  - {fileID: 21300000, guid: 31f7a795e77496f48a9e5b3fc4819db3, type: 3}
   - {fileID: 21300000, guid: 36c8c1f6f09d71a419907978e26d3b74, type: 3}
   - {fileID: 21300000, guid: 397a4a77f9c35aa468a64fa733f5c046, type: 3}
   - {fileID: 21300000, guid: 5331e9ca212646d4d9326b867749e20e, type: 3}
@@ -57,6 +71,7 @@ SpriteAtlas:
   - Set_btn_rank
   - Set_head_frame_square
   - Set_btn_achievement
+  - Set_shadow
   - Set_bar
   - Set_bar_bg
   - Set_head_frame

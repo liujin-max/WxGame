@@ -19,8 +19,8 @@ namespace CB
         {
             base.Init(type);
 
-            GameFacade.Instance.EventManager.AddHandler(EVENT.ONBALLSHOOT,      OnBallShoot);
-            GameFacade.Instance.EventManager.AddHandler(EVENT.ONBALLRECYCLE,    OnBallRecycle);
+            EventManager.AddHandler(EVENT.ONBALLSHOOT,      OnBallShoot);
+            EventManager.AddHandler(EVENT.ONBALLRECYCLE,    OnBallRecycle);
         }
 
         public override void UpgradeTo(int level)
@@ -84,8 +84,8 @@ namespace CB
 
         void OnDestroy()
         {
-            GameFacade.Instance.EventManager.DelHandler(EVENT.ONBALLSHOOT,      OnBallShoot);
-            GameFacade.Instance.EventManager.DelHandler(EVENT.ONBALLRECYCLE,    OnBallRecycle);
+            EventManager.DelHandler(EVENT.ONBALLSHOOT,      OnBallShoot);
+            EventManager.DelHandler(EVENT.ONBALLRECYCLE,    OnBallRecycle);
         }
     }
 }

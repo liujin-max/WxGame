@@ -58,6 +58,7 @@ public class WXPlatform : Platform
             }
             else
             {
+                EventManager.SendEvent(new GameEvent(EVENT.UI_NETUPDATE, true));
                 //《四、获取用户信息》
                 GetUserInfoOption userInfo = new GetUserInfoOption()
                 {
@@ -68,6 +69,7 @@ public class WXPlatform : Platform
                         userData.HeadUrl    = data.userInfo.avatarUrl;
                         
                         Debug.Log("222 : " + userData.Name);
+                        EventManager.SendEvent(new GameEvent(EVENT.UI_NETUPDATE, false));
                         callback.Invoke(userData);
                     }
                 };
@@ -82,7 +84,7 @@ public class WXPlatform : Platform
     public override void SYNC(GameUserData userData)
     {
         Debug.Log("====开始获取账号数据====");
-        
+        EventManager.SendEvent(new GameEvent(EVENT.UI_NETUPDATE, true));
         //云开发：加载积分数据
         WX.cloud.CallFunction(new CallFunctionParam()
         {
@@ -112,7 +114,8 @@ public class WXPlatform : Platform
             complete = (res) =>
             {
                 Debug.Log("====获取账号数据结束====");
-                GameFacade.Instance.EventManager.SendEvent(new GameEvent(EVENT.UI_FLUSHUSER));
+                EventManager.SendEvent(new GameEvent(EVENT.UI_FLUSHUSER));
+                EventManager.SendEvent(new GameEvent(EVENT.UI_NETUPDATE, false));
             }
         });
         
@@ -136,11 +139,7 @@ public class WXPlatform : Platform
                     fail = (res) =>
                     {
                         Debug.LogError("====上传账号数据失败====" + res.errMsg);
-                    },
-                    // complete = (res) =>
-                    // {
-                    //     Debug.Log("====存储账号数据结束====");
-                    // }
+                    }
                 });
             }
         } 
@@ -150,7 +149,8 @@ public class WXPlatform : Platform
     public override void PULLRANK()
     {
         Debug.Log("====开始获取排行数据====");
-        
+        EventManager.SendEvent(new GameEvent(EVENT.UI_NETUPDATE, true));
+
         //云开发：加载积分数据
         WX.cloud.CallFunction(new CallFunctionParam()
         {
@@ -160,8 +160,7 @@ public class WXPlatform : Platform
             {
                 Debug.Log("====获取排行数据成功==== : " + res.result);
                 var data = JsonMapper.ToObject(res.result);
-                if (data.ContainsKey("data"))
-                {
+                if (data.ContainsKey("data")) {
                     RankDataInfo data_info = JsonUtility.FromJson<RankDataInfo>(res.result);
 
                     //呼出排行榜
@@ -174,6 +173,10 @@ public class WXPlatform : Platform
             {
                 GameFacade.Instance.FlyTip("获取排行榜失败");
             },
+            complete = (res) =>
+            {
+                EventManager.SendEvent(new GameEvent(EVENT.UI_NETUPDATE, false));
+            }
         });
     }
 

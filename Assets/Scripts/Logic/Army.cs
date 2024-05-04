@@ -19,23 +19,23 @@ namespace CB
 
         public void Awake()
         {
-            GameFacade.Instance.EventManager.AddHandler(EVENT.ONPLAYSTART,      OnReponsePlayStart);
-            GameFacade.Instance.EventManager.AddHandler(EVENT.ONPLAYEND,        OnReponsePlayEnd);
-            GameFacade.Instance.EventManager.AddHandler(EVENT.ONBALLSHOOT,      OnReponseBallShoot);
-            GameFacade.Instance.EventManager.AddHandler(EVENT.ONBALLHITBEFORE,  OnReponseHitBefore);
-            GameFacade.Instance.EventManager.AddHandler(EVENT.ONBALLHITAFTER,   OnReponseHitAfter);
-            GameFacade.Instance.EventManager.AddHandler(EVENT.ONCOMPLEXINIT,    OnReponseComplextInit);
-            GameFacade.Instance.EventManager.AddHandler(EVENT.ONBALLPUSH,       OnReponseBallPush);
-            GameFacade.Instance.EventManager.AddHandler(EVENT.ONDRAWINGOBSTACLE,OnReponseDrawingObstacles);
-            GameFacade.Instance.EventManager.AddHandler(EVENT.ONGLASSUPDATE,    OnReponseGlassUpdate);
-            GameFacade.Instance.EventManager.AddHandler(EVENT.ONCOINUPDATE,     OnReponseCoinUpdate);
-            GameFacade.Instance.EventManager.AddHandler(EVENT.ONBALLHITBOX,     OnReponseHitBox);
-            GameFacade.Instance.EventManager.AddHandler(EVENT.ONENTERCOLLISION, OnReponseEnterCollision);
-            GameFacade.Instance.EventManager.AddHandler(EVENT.ONBOMBBEFORE,     OnReponseBombBefore);
-            GameFacade.Instance.EventManager.AddHandler(EVENT.ONWILLRECEIVECOIN,OnReponseReceiveCoin);
-            GameFacade.Instance.EventManager.AddHandler(EVENT.ONREFRESHEVENTS,  OnReponseRefreshEvents);
-            GameFacade.Instance.EventManager.AddHandler(EVENT.ONBALLFLY,        OnReponseBallFly);
-            GameFacade.Instance.EventManager.AddHandler(EVENT.ONBALLRECYCLE,    OnReponseBallRecycle);
+            EventManager.AddHandler(EVENT.ONPLAYSTART,      OnReponsePlayStart);
+            EventManager.AddHandler(EVENT.ONPLAYEND,        OnReponsePlayEnd);
+            EventManager.AddHandler(EVENT.ONBALLSHOOT,      OnReponseBallShoot);
+            EventManager.AddHandler(EVENT.ONBALLHITBEFORE,  OnReponseHitBefore);
+            EventManager.AddHandler(EVENT.ONBALLHITAFTER,   OnReponseHitAfter);
+            EventManager.AddHandler(EVENT.ONCOMPLEXINIT,    OnReponseComplextInit);
+            EventManager.AddHandler(EVENT.ONBALLPUSH,       OnReponseBallPush);
+            EventManager.AddHandler(EVENT.ONDRAWINGOBSTACLE,OnReponseDrawingObstacles);
+            EventManager.AddHandler(EVENT.ONGLASSUPDATE,    OnReponseGlassUpdate);
+            EventManager.AddHandler(EVENT.ONCOINUPDATE,     OnReponseCoinUpdate);
+            EventManager.AddHandler(EVENT.ONBALLHITBOX,     OnReponseHitBox);
+            EventManager.AddHandler(EVENT.ONENTERCOLLISION, OnReponseEnterCollision);
+            EventManager.AddHandler(EVENT.ONBOMBBEFORE,     OnReponseBombBefore);
+            EventManager.AddHandler(EVENT.ONWILLRECEIVECOIN,OnReponseReceiveCoin);
+            EventManager.AddHandler(EVENT.ONREFRESHEVENTS,  OnReponseRefreshEvents);
+            EventManager.AddHandler(EVENT.ONBALLFLY,        OnReponseBallFly);
+            EventManager.AddHandler(EVENT.ONBALLRECYCLE,    OnReponseBallRecycle);
 
 
         }
@@ -50,23 +50,23 @@ namespace CB
             SeatCount.Clear();
 
 
-            GameFacade.Instance.EventManager.DelHandler(EVENT.ONPLAYSTART,      OnReponsePlayStart);
-            GameFacade.Instance.EventManager.DelHandler(EVENT.ONPLAYEND,        OnReponsePlayEnd);
-            GameFacade.Instance.EventManager.DelHandler(EVENT.ONBALLSHOOT,      OnReponseBallShoot);
-            GameFacade.Instance.EventManager.DelHandler(EVENT.ONBALLHITBEFORE,  OnReponseHitBefore);
-            GameFacade.Instance.EventManager.DelHandler(EVENT.ONBALLHITAFTER,   OnReponseHitAfter);
-            GameFacade.Instance.EventManager.DelHandler(EVENT.ONCOMPLEXINIT,    OnReponseComplextInit);
-            GameFacade.Instance.EventManager.DelHandler(EVENT.ONBALLPUSH,       OnReponseBallPush);
-            GameFacade.Instance.EventManager.DelHandler(EVENT.ONDRAWINGOBSTACLE,OnReponseDrawingObstacles);
-            GameFacade.Instance.EventManager.DelHandler(EVENT.ONGLASSUPDATE,    OnReponseGlassUpdate);
-            GameFacade.Instance.EventManager.DelHandler(EVENT.ONCOINUPDATE,     OnReponseCoinUpdate);
-            GameFacade.Instance.EventManager.DelHandler(EVENT.ONBALLHITBOX,     OnReponseHitBox);
-            GameFacade.Instance.EventManager.DelHandler(EVENT.ONENTERCOLLISION, OnReponseEnterCollision);
-            GameFacade.Instance.EventManager.DelHandler(EVENT.ONBOMBBEFORE,     OnReponseBombBefore);
-            GameFacade.Instance.EventManager.DelHandler(EVENT.ONWILLRECEIVECOIN,OnReponseReceiveCoin);
-            GameFacade.Instance.EventManager.DelHandler(EVENT.ONREFRESHEVENTS,  OnReponseRefreshEvents);
-            GameFacade.Instance.EventManager.DelHandler(EVENT.ONBALLFLY,        OnReponseBallFly);
-            GameFacade.Instance.EventManager.DelHandler(EVENT.ONBALLRECYCLE,    OnReponseBallRecycle);
+            EventManager.DelHandler(EVENT.ONPLAYSTART,      OnReponsePlayStart);
+            EventManager.DelHandler(EVENT.ONPLAYEND,        OnReponsePlayEnd);
+            EventManager.DelHandler(EVENT.ONBALLSHOOT,      OnReponseBallShoot);
+            EventManager.DelHandler(EVENT.ONBALLHITBEFORE,  OnReponseHitBefore);
+            EventManager.DelHandler(EVENT.ONBALLHITAFTER,   OnReponseHitAfter);
+            EventManager.DelHandler(EVENT.ONCOMPLEXINIT,    OnReponseComplextInit);
+            EventManager.DelHandler(EVENT.ONBALLPUSH,       OnReponseBallPush);
+            EventManager.DelHandler(EVENT.ONDRAWINGOBSTACLE,OnReponseDrawingObstacles);
+            EventManager.DelHandler(EVENT.ONGLASSUPDATE,    OnReponseGlassUpdate);
+            EventManager.DelHandler(EVENT.ONCOINUPDATE,     OnReponseCoinUpdate);
+            EventManager.DelHandler(EVENT.ONBALLHITBOX,     OnReponseHitBox);
+            EventManager.DelHandler(EVENT.ONENTERCOLLISION, OnReponseEnterCollision);
+            EventManager.DelHandler(EVENT.ONBOMBBEFORE,     OnReponseBombBefore);
+            EventManager.DelHandler(EVENT.ONWILLRECEIVECOIN,OnReponseReceiveCoin);
+            EventManager.DelHandler(EVENT.ONREFRESHEVENTS,  OnReponseRefreshEvents);
+            EventManager.DelHandler(EVENT.ONBALLFLY,        OnReponseBallFly);
+            EventManager.DelHandler(EVENT.ONBALLRECYCLE,    OnReponseBallRecycle);
 
 
         }
@@ -81,7 +81,7 @@ namespace CB
             m_Relicses.Add(relics);
             m_RelicsDic.Add(id, relics);
 
-            GameFacade.Instance.EventManager.SendEvent(new GameEvent(EVENT.UI_FLUSHRELICS));
+            EventManager.SendEvent(new GameEvent(EVENT.UI_FLUSHRELICS));
 
             return relics;
         }
@@ -92,7 +92,7 @@ namespace CB
             m_Relicses.Remove(relics);
             m_RelicsDic.Remove(relics.ID);
 
-            GameFacade.Instance.EventManager.SendEvent(new GameEvent(EVENT.UI_FLUSHRELICS));
+            EventManager.SendEvent(new GameEvent(EVENT.UI_FLUSHRELICS));
         }
 
         public List<Relics> GetRelicses()

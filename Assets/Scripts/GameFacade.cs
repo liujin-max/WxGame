@@ -46,18 +46,6 @@ public class GameFacade : MonoBehaviour
         }
     }
 
-    private EventManager m_EventManager = null;
-    public EventManager EventManager
-    {
-        get {
-            if (m_EventManager == null) {
-                m_EventManager = transform.AddComponent<EventManager>();
-            }
-            return m_EventManager;
-        }
-    }
-
-
     private ScenePool m_ScenePool = null;
     public ScenePool ScenePool
     {
@@ -135,17 +123,6 @@ public class GameFacade : MonoBehaviour
         }
     }
 
-    // private Platform m_Platform = null;
-    // public Platform Platform
-    // {
-    //     get {
-    //         if (m_Platform == null) {
-    //             m_Platform = Platform.Create();
-    //         }
-    //         return m_Platform;
-    //     }
-    // }
-
     #endregion
 
     private static GameFacade _instance = null;
@@ -177,14 +154,23 @@ public class GameFacade : MonoBehaviour
         //加载数据类
         DataCenter.Init();
 
+        m_TipWindow = UIManager.LoadWindow("Prefab/UI/TipWindow", UIManager.TIP).GetComponent<TipWindow>();
+        UIManager.LoadWindow("Prefab/UI/NetWindow", UIManager.TIP).GetComponent<NetWindow>();
+
+        StartCoroutine("SYNC");
+    }
+
+    IEnumerator SYNC()
+    {
         Platform.Instance.INIT(()=>{
             //加载账号数据
             User.Sync();
-            
-            m_TipWindow = UIManager.LoadWindow("Prefab/UI/TipWindow", UIManager.TIP).GetComponent<TipWindow>();
-
-            NavigationController.GotoLoading();
         });
+
+
+        NavigationController.GotoLoading();
+        
+        yield return null; 
     }
 
     public void FlyTip(string text)

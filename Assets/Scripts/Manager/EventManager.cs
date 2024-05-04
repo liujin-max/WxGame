@@ -26,12 +26,12 @@ public class GameEvent
     }
 }
 
-public class EventManager : MonoBehaviour
+public static class EventManager
 {
-    private Dictionary<string, Action<GameEvent>> m_eventDictionary = new Dictionary<string, Action<GameEvent>>();
+    private static Dictionary<string, Action<GameEvent>> m_eventDictionary = new Dictionary<string, Action<GameEvent>>();
 
 
-    public void AddHandler(string eventName, Action<GameEvent> listener)
+    public static void AddHandler(string eventName, Action<GameEvent> listener)
     {
         if (!m_eventDictionary.ContainsKey(eventName))
         {
@@ -40,7 +40,7 @@ public class EventManager : MonoBehaviour
         m_eventDictionary[eventName] += listener;
     }
 
-    public void DelHandler(string eventName, Action<GameEvent> listener)
+    public static void DelHandler(string eventName, Action<GameEvent> listener)
     {
         if (m_eventDictionary.ContainsKey(eventName))
         {
@@ -48,7 +48,7 @@ public class EventManager : MonoBehaviour
         }
     }
 
-    public void SendEvent(GameEvent gameEvent)
+    public static void SendEvent(GameEvent gameEvent)
     {
         Action<GameEvent> thisEvent = null;
         if (m_eventDictionary.TryGetValue(gameEvent.eventName, out thisEvent))

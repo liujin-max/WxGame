@@ -83,7 +83,7 @@ namespace CB
 
                     // GameFacade.Instance.EffectManager.FlyRate(collision.contacts[0].point, ball.Demage.ShowRate());
 
-                    GameFacade.Instance.EventManager.SendEvent(new GameEvent(EVENT.UI_TRIGGERRELICS, Belong));
+                    EventManager.SendEvent(new GameEvent(EVENT.UI_TRIGGERRELICS, Belong));
                 }
                 
             }
@@ -225,7 +225,7 @@ namespace CB
             if (count > 0) {
                 GameFacade.Instance.Game.UpdateCoin(count);
 
-                GameFacade.Instance.EventManager.SendEvent(new GameEvent(EVENT.UI_TRIGGERRELICS, Belong));
+                EventManager.SendEvent(new GameEvent(EVENT.UI_TRIGGERRELICS, Belong));
             }
         }
     }
@@ -246,7 +246,7 @@ namespace CB
             {
                 ball.Velocity = ball.Velocity.normalized * (ball.Velocity.magnitude + 3);
 
-                GameFacade.Instance.EventManager.SendEvent(new GameEvent(EVENT.UI_TRIGGERRELICS, Belong));
+                EventManager.SendEvent(new GameEvent(EVENT.UI_TRIGGERRELICS, Belong));
             }
         }
     }
@@ -268,7 +268,7 @@ namespace CB
                     if (evt.Cost.ToNumber() > 1) {
                         evt.Cost.PutADD(this, -1);
 
-                        GameFacade.Instance.EventManager.SendEvent(new GameEvent(EVENT.UI_TRIGGERRELICS, Belong));
+                        EventManager.SendEvent(new GameEvent(EVENT.UI_TRIGGERRELICS, Belong));
                     }
                 }
             }
@@ -329,7 +329,7 @@ namespace CB
 
                 GameFacade.Instance.EffectManager.Load(EFFECT.FLYGLASS, ball.transform.localPosition);
 
-                GameFacade.Instance.EventManager.SendEvent(new GameEvent(EVENT.UI_TRIGGERRELICS, Belong));
+                EventManager.SendEvent(new GameEvent(EVENT.UI_TRIGGERRELICS, Belong));
             }
         }
     }
@@ -362,7 +362,7 @@ namespace CB
 
                 // GameFacade.Instance.EffectManager.FlyRate(collision.contacts[0].point, ball.Demage.ShowRate());
 
-                GameFacade.Instance.EventManager.SendEvent(new GameEvent(EVENT.UI_TRIGGERRELICS, Belong));
+                EventManager.SendEvent(new GameEvent(EVENT.UI_TRIGGERRELICS, Belong));
             }
         }
 
@@ -440,7 +440,7 @@ namespace CB
         {
             GameFacade.Instance.Game.SeatCount.PutADD(this, 1);
 
-            GameFacade.Instance.EventManager.SendEvent(new GameEvent(EVENT.UI_FLUSHBALLS));
+            EventManager.SendEvent(new GameEvent(EVENT.UI_FLUSHBALLS));
         }
 
         public override void Cancel()
@@ -454,7 +454,7 @@ namespace CB
                 ball.Dispose();
                 GameFacade.Instance.Game.Balls.Remove(ball);
 
-                GameFacade.Instance.EventManager.SendEvent(new GameEvent(EVENT.UI_FLUSHBALLS));
+                EventManager.SendEvent(new GameEvent(EVENT.UI_FLUSHBALLS));
             }
         }
     }
@@ -595,7 +595,7 @@ namespace CB
 
                     // GameFacade.Instance.EffectManager.FlyRate(collision.contacts[0].point, ball.Demage.ShowRate());
 
-                    GameFacade.Instance.EventManager.SendEvent(new GameEvent(EVENT.UI_TRIGGERRELICS, Belong));
+                    EventManager.SendEvent(new GameEvent(EVENT.UI_TRIGGERRELICS, Belong));
                 }
             }
         }
@@ -632,7 +632,7 @@ namespace CB
             {
                 ball.HP += 1;
 
-                GameFacade.Instance.EventManager.SendEvent(new GameEvent(EVENT.UI_TRIGGERRELICS, Belong));
+                EventManager.SendEvent(new GameEvent(EVENT.UI_TRIGGERRELICS, Belong));
             }
         }
     }
@@ -657,7 +657,7 @@ namespace CB
                 GameFacade.Instance.EffectManager.Load(EFFECT.CRIT, pos);
                 // GameFacade.Instance.EffectManager.FlyRate(pos, ball.Demage.ShowRate());
 
-                GameFacade.Instance.EventManager.SendEvent(new GameEvent(EVENT.UI_TRIGGERRELICS, Belong));
+                EventManager.SendEvent(new GameEvent(EVENT.UI_TRIGGERRELICS, Belong));
             }  
         }
 
@@ -687,7 +687,7 @@ namespace CB
                 GameFacade.Instance.Game.UpdateScore((int)ball.Demage.GetBase());
 
                 GameFacade.Instance.EffectManager.Load(EFFECT.BALLOON, collision.contacts[0].point);
-                GameFacade.Instance.EventManager.SendEvent(new GameEvent(EVENT.UI_TRIGGERRELICS, Belong));
+                EventManager.SendEvent(new GameEvent(EVENT.UI_TRIGGERRELICS, Belong));
             }
         }
     }
@@ -726,7 +726,7 @@ namespace CB
 
                 GameFacade.Instance.Game.PushBomb(collision.transform.localPosition);
 
-                GameFacade.Instance.EventManager.SendEvent(new GameEvent(EVENT.UI_TRIGGERRELICS, Belong));
+                EventManager.SendEvent(new GameEvent(EVENT.UI_TRIGGERRELICS, Belong));
             }
         }
     }
@@ -745,7 +745,7 @@ namespace CB
             var bomb = g.GetComponent<Bomb>();
             if (bomb != null) {
                 if (RandomUtility.IsHit(50) == true) {
-                    GameFacade.Instance.EventManager.SendEvent(new GameEvent(EVENT.UI_TRIGGERRELICS, Belong));
+                    EventManager.SendEvent(new GameEvent(EVENT.UI_TRIGGERRELICS, Belong));
 
                     bomb.Dead();
                 }
@@ -771,7 +771,7 @@ namespace CB
         {
             GameFacade.Instance.Game.UpdateScore(1);
 
-            GameFacade.Instance.EventManager.SendEvent(new GameEvent(EVENT.UI_TRIGGERRELICS, Belong));
+            EventManager.SendEvent(new GameEvent(EVENT.UI_TRIGGERRELICS, Belong));
         }
     }
 
@@ -797,7 +797,7 @@ namespace CB
                 ball.Velocity = new Vector2(ball.Velocity.x / Math.Abs(ball.Velocity.x) * Math.Abs(ball.Velocity.y), Math.Abs(ball.Velocity.x));
 
                 if (ball.IsSimulate != true) {
-                    GameFacade.Instance.EventManager.SendEvent(new GameEvent(EVENT.UI_TRIGGERRELICS, Belong));
+                    EventManager.SendEvent(new GameEvent(EVENT.UI_TRIGGERRELICS, Belong));
                 }
             }
         }
@@ -825,7 +825,7 @@ namespace CB
                 ball.Velocity = ball.Velocity.normalized * length * 1.1f;
 
                 if (ball.IsSimulate != true) {
-                    GameFacade.Instance.EventManager.SendEvent(new GameEvent(EVENT.UI_TRIGGERRELICS, Belong));
+                    EventManager.SendEvent(new GameEvent(EVENT.UI_TRIGGERRELICS, Belong));
                 }
             }
         }
@@ -857,7 +857,7 @@ namespace CB
 
                 ball.Demage.PutADD(this, value);
 
-                GameFacade.Instance.EventManager.SendEvent(new GameEvent(EVENT.UI_TRIGGERRELICS, Belong));
+                EventManager.SendEvent(new GameEvent(EVENT.UI_TRIGGERRELICS, Belong));
             }
         }
 
@@ -887,7 +887,7 @@ namespace CB
             {
                 bomb.Demage.PutAUL(this, 1);
 
-                GameFacade.Instance.EventManager.SendEvent(new GameEvent(EVENT.UI_TRIGGERRELICS, Belong));
+                EventManager.SendEvent(new GameEvent(EVENT.UI_TRIGGERRELICS, Belong));
             }
         }
     }
@@ -904,7 +904,7 @@ namespace CB
         {
             bomb.Radius.PutAUL(this, 0.2f);
 
-            GameFacade.Instance.EventManager.SendEvent(new GameEvent(EVENT.UI_TRIGGERRELICS, Belong));
+            EventManager.SendEvent(new GameEvent(EVENT.UI_TRIGGERRELICS, Belong));
         }
     }
 
@@ -924,7 +924,7 @@ namespace CB
                 var o = GameFacade.Instance.Game.PushObstacle(collision.transform.localPosition, 1);
                 o.DoScale();
 
-                GameFacade.Instance.EventManager.SendEvent(new GameEvent(EVENT.UI_TRIGGERRELICS, Belong));
+                EventManager.SendEvent(new GameEvent(EVENT.UI_TRIGGERRELICS, Belong));
             }
         }
     }
@@ -950,7 +950,7 @@ namespace CB
             if (is_exist == false) {
                 lists.Add((int)_C.BOXTYPE.BOMB);
 
-                GameFacade.Instance.EventManager.SendEvent(new GameEvent(EVENT.UI_TRIGGERRELICS, Belong));
+                EventManager.SendEvent(new GameEvent(EVENT.UI_TRIGGERRELICS, Belong));
             }
         }
     }
@@ -968,7 +968,7 @@ namespace CB
         {
             draw_count.PutADD(this, 3);
 
-            GameFacade.Instance.EventManager.SendEvent(new GameEvent(EVENT.UI_TRIGGERRELICS, Belong));
+            EventManager.SendEvent(new GameEvent(EVENT.UI_TRIGGERRELICS, Belong));
         }
     }
 
@@ -991,7 +991,7 @@ namespace CB
                 e.GetComponent<FlyCoin>().Fly(0, false); 
             }
 
-            GameFacade.Instance.EventManager.SendEvent(new GameEvent(EVENT.UI_TRIGGERRELICS, Belong));
+            EventManager.SendEvent(new GameEvent(EVENT.UI_TRIGGERRELICS, Belong));
         }
 
     }
@@ -1019,7 +1019,7 @@ namespace CB
                     seat_item.ShowFadeScale();
                 }
 
-                GameFacade.Instance.EventManager.SendEvent(new GameEvent(EVENT.UI_TRIGGERRELICS, Belong));
+                EventManager.SendEvent(new GameEvent(EVENT.UI_TRIGGERRELICS, Belong));
             }
         }
 
@@ -1048,14 +1048,14 @@ namespace CB
                 }
             }
 
-            GameFacade.Instance.EventManager.SendEvent(new GameEvent(EVENT.UI_TRIGGERRELICS, Belong));
+            EventManager.SendEvent(new GameEvent(EVENT.UI_TRIGGERRELICS, Belong));
         }
 
         public override void OnWillReceiveCoin(AttributeValue coin_number)
         {
             coin_number.PutAUL(this, 1);
 
-            GameFacade.Instance.EventManager.SendEvent(new GameEvent(EVENT.UI_TRIGGERRELICS, Belong));
+            EventManager.SendEvent(new GameEvent(EVENT.UI_TRIGGERRELICS, Belong));
         }
     }
 
@@ -1082,7 +1082,7 @@ namespace CB
                 b.Demage.PutAUL(this, 0.1f * m_Count);
             });
 
-            GameFacade.Instance.EventManager.SendEvent(new GameEvent(EVENT.UI_TRIGGERRELICS, Belong));
+            EventManager.SendEvent(new GameEvent(EVENT.UI_TRIGGERRELICS, Belong));
         }
 
         public override void OnPushBall(Ball ball)
@@ -1115,15 +1115,15 @@ namespace CB
         {
             GameFacade.Instance.Game.SeatCount.PutADD(this, m_Count);
 
-            GameFacade.Instance.EventManager.SendEvent(new GameEvent(EVENT.UI_FLUSHBALLS));
-            GameFacade.Instance.EventManager.SendEvent(new GameEvent(EVENT.UI_TRIGGERRELICS, Belong));
+            EventManager.SendEvent(new GameEvent(EVENT.UI_FLUSHBALLS));
+            EventManager.SendEvent(new GameEvent(EVENT.UI_TRIGGERRELICS, Belong));
         }
 
         public override void Cancel()
         {
             GameFacade.Instance.Game.SeatCount.Pop(this);
 
-            GameFacade.Instance.EventManager.SendEvent(new GameEvent(EVENT.UI_FLUSHBALLS));
+            EventManager.SendEvent(new GameEvent(EVENT.UI_FLUSHBALLS));
         }
 
         public override void OnPlayEnd()
@@ -1141,8 +1141,8 @@ namespace CB
                 GameFacade.Instance.Game.Balls.Remove(ball);
             }
 
-            GameFacade.Instance.EventManager.SendEvent(new GameEvent(EVENT.UI_FLUSHBALLS));
-            GameFacade.Instance.EventManager.SendEvent(new GameEvent(EVENT.UI_TRIGGERRELICS, Belong));
+            EventManager.SendEvent(new GameEvent(EVENT.UI_FLUSHBALLS));
+            EventManager.SendEvent(new GameEvent(EVENT.UI_TRIGGERRELICS, Belong));
         }
     }
 
@@ -1169,7 +1169,7 @@ namespace CB
                 }
             });
 
-            GameFacade.Instance.EventManager.SendEvent(new GameEvent(EVENT.UI_TRIGGERRELICS, Belong));
+            EventManager.SendEvent(new GameEvent(EVENT.UI_TRIGGERRELICS, Belong));
         }
     }
 
@@ -1188,7 +1188,7 @@ namespace CB
                     if (evt.Cost.ToNumber() > 1) {
                         evt.Cost.PutADD(this, -1);
 
-                        GameFacade.Instance.EventManager.SendEvent(new GameEvent(EVENT.UI_TRIGGERRELICS, Belong));
+                        EventManager.SendEvent(new GameEvent(EVENT.UI_TRIGGERRELICS, Belong));
                     }
                 }
             }
@@ -1207,7 +1207,7 @@ namespace CB
         {
             GameFacade.Instance.Game.RefreshCoin.PutADD(this, -1);
 
-            GameFacade.Instance.EventManager.SendEvent(new GameEvent(EVENT.UI_TRIGGERRELICS, Belong));
+            EventManager.SendEvent(new GameEvent(EVENT.UI_TRIGGERRELICS, Belong));
         }
 
         public override void Cancel()
@@ -1219,7 +1219,7 @@ namespace CB
         {
             if (is_video_play) return;
             
-            GameFacade.Instance.EventManager.SendEvent(new GameEvent(EVENT.UI_TRIGGERRELICS, Belong));
+            EventManager.SendEvent(new GameEvent(EVENT.UI_TRIGGERRELICS, Belong));
         }
     }
 

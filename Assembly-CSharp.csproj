@@ -166,7 +166,6 @@
     <Compile Include="Assets\Scripts\Logic\Environment\BBMachine.cs" />
     <Compile Include="Assets\Scripts\Logic\Ball\BallRise.cs" />
     <Compile Include="Assets\Scripts\Manager\CsvManager.cs" />
-    <Compile Include="Assets\Scripts\UI\WinWindow.cs" />
     <Compile Include="Assets\Scripts\Logic\Box\Obstacle.cs" />
     <Compile Include="Assets\Scripts\Utility\TextureImporterSettings.cs" />
     <Compile Include="Assets\Scripts\Manager\EffectManager.cs" />
@@ -218,6 +217,7 @@
     <Compile Include="Assets\Scripts\Logic\Relics.cs" />
     <Compile Include="Assets\Scripts\UI\Item\RankItem.cs" />
     <Compile Include="Assets\Scripts\UI\Item\HeadItem.cs" />
+    <Compile Include="Assets\Scripts\UI\NetWindow.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Resources\Shader\SpriteGray.shader" />

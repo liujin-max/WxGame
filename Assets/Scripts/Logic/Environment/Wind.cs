@@ -63,7 +63,6 @@ namespace CB
             {
                 m_Timer.Reset();
 
-                GameFacade.Instance.FlyTip("风向发生变化");
                 GenerateAngles();
             }
         }

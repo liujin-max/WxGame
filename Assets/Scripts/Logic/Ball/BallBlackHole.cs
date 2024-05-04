@@ -29,7 +29,7 @@ namespace CB
                     //创建漩涡
                     var box = GameFacade.Instance.Game.PushElement("Prefab/Box/BlackHole", obt.transform.localPosition);
 
-                    GameFacade.Instance.EventManager.SendEvent(new GameEvent(EVENT.ONCREATEBLACKHOLE, this, box));
+                    EventManager.SendEvent(new GameEvent(EVENT.ONCREATEBLACKHOLE, this, box));
                 }
             }
         }

@@ -68,7 +68,7 @@ namespace CB
                         ball.Velocity = new Vector2(10, 0);
                     }
                     
-                    GameFacade.Instance.EventManager.SendEvent(new GameEvent(EVENT.ONENTERGROUND, ball));
+                    EventManager.SendEvent(new GameEvent(EVENT.ONENTERGROUND, ball));
                     
                     break;
 

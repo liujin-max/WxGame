@@ -15,14 +15,14 @@ namespace CB
         {
             base.Init(type);
 
-            GameFacade.Instance.EventManager.AddHandler(EVENT.ONENTERGROUND,    OnReponseEnterGround);
-            GameFacade.Instance.EventManager.AddHandler(EVENT.ONBALLDEAD,       OnReponseBallDead);
+            EventManager.AddHandler(EVENT.ONENTERGROUND,    OnReponseEnterGround);
+            EventManager.AddHandler(EVENT.ONBALLDEAD,       OnReponseBallDead);
         }
 
         void OnDestroy()
         {
-            GameFacade.Instance.EventManager.DelHandler(EVENT.ONENTERGROUND,    OnReponseEnterGround);
-            GameFacade.Instance.EventManager.DelHandler(EVENT.ONBALLDEAD,       OnReponseBallDead);
+            EventManager.DelHandler(EVENT.ONENTERGROUND,    OnReponseEnterGround);
+            EventManager.DelHandler(EVENT.ONBALLDEAD,       OnReponseBallDead);
         }
 
         public override string GetDescription()

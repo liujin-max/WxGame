@@ -15,7 +15,9 @@ public static class EVENT
     public static string UI_ACHIEVEMENTPOP  = "UI_ACHIEVEMENTPOP";
     public static string UI_FLUSHUSER       = "UI_FLUSHUSER";
 
+    
 
+    public static string UI_NETUPDATE       = "UI_NETUPDATE";
 
 
 

@@ -31,8 +31,8 @@ public class GhostItem : MonoBehaviour
     {
         c_Light.SetActive(false);
 
-        GameFacade.Instance.EventManager.AddHandler(EVENT.UI_FLUSHCOIN,     OnReponseFlushCoin);
-        GameFacade.Instance.EventManager.AddHandler(EVENT.UI_FLUSHCOUNT,    OnReponseFlushGlass);
+        EventManager.AddHandler(EVENT.UI_FLUSHCOIN,     OnReponseFlushCoin);
+        EventManager.AddHandler(EVENT.UI_FLUSHCOUNT,    OnReponseFlushGlass);
     }
 
     public void Init(ComplextEvent evt)
@@ -151,7 +151,7 @@ public class GhostItem : MonoBehaviour
             Destroy(m_Ball.gameObject);
         }
 
-        GameFacade.Instance.EventManager.DelHandler(EVENT.UI_FLUSHCOIN,     OnReponseFlushCoin);
-        GameFacade.Instance.EventManager.DelHandler(EVENT.UI_FLUSHCOUNT,    OnReponseFlushGlass);
+        EventManager.DelHandler(EVENT.UI_FLUSHCOIN,     OnReponseFlushCoin);
+        EventManager.DelHandler(EVENT.UI_FLUSHCOUNT,    OnReponseFlushGlass);
     }
 }

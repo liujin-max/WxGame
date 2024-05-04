@@ -16,7 +16,7 @@ public class RelicsSeatItem : MonoBehaviour
 
     void Awake()
     {
-        GameFacade.Instance.EventManager.AddHandler(EVENT.UI_TRIGGERRELICS,    OnRelicsTrigger);
+        EventManager.AddHandler(EVENT.UI_TRIGGERRELICS,    OnRelicsTrigger);
 
         c_Icon.GetComponent<Button>().onClick.AddListener(()=>{
             var window = GameFacade.Instance.UIManager.LoadWindow("Prefab/UI/RelicsDetailWindow", GameFacade.Instance.UIManager.BOARD).GetComponent<RelicsDetailWindow>();
@@ -26,7 +26,7 @@ public class RelicsSeatItem : MonoBehaviour
 
     void OnDestroy()
     {
-        GameFacade.Instance.EventManager.DelHandler(EVENT.UI_TRIGGERRELICS,    OnRelicsTrigger);
+        EventManager.DelHandler(EVENT.UI_TRIGGERRELICS,    OnRelicsTrigger);
     }
 
     public void Init(Relics relics = null)

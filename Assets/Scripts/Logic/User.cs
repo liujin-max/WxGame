@@ -41,9 +41,9 @@ public class User : MonoBehaviour
     public int Score{ get{ return m_Data.Score;}}
     public string HeadURL{ get{ return m_Data.HeadUrl;}}
 
+
     private bool m_scoreUpdate = false; //记录变动标记
     public bool IsScoreUpdate {get { return m_scoreUpdate;}}
-
     private bool m_userUpdate = false;  //账号数据变动标记
     public bool IsDirty {get { return m_userUpdate || m_scoreUpdate;}}
     
@@ -66,9 +66,6 @@ public class User : MonoBehaviour
         m_scoreUpdate   = false;
         m_userUpdate    = false;
     }
-
-
-
 
     public void SetScore(int value)
     {

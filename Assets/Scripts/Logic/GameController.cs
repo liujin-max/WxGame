@@ -122,12 +122,12 @@ namespace CB
 
             m_Aim_Opos  = c_takeAim.transform.localPosition;
 
-            GameFacade.Instance.EventManager.AddHandler(EVENT.ONHITOBSTACLE,        OnReponseObstacleHit);
+            EventManager.AddHandler(EVENT.ONHITOBSTACLE,        OnReponseObstacleHit);
         }
 
         void OnDestroy()
         {
-            GameFacade.Instance.EventManager.DelHandler(EVENT.ONHITOBSTACLE,        OnReponseObstacleHit);
+            EventManager.DelHandler(EVENT.ONHITOBSTACLE,        OnReponseObstacleHit);
         }
 
 
@@ -166,15 +166,15 @@ namespace CB
         {
             m_Coin = Crypt.EN(Crypt.DE(m_Coin) + value);
 
-            GameFacade.Instance.EventManager.SendEvent(new GameEvent(EVENT.UI_FLUSHCOIN, Crypt.DE(m_Coin), true));
-            GameFacade.Instance.EventManager.SendEvent(new GameEvent(EVENT.ONCOINUPDATE, Crypt.DE(m_Coin), value, is_reward));
+            EventManager.SendEvent(new GameEvent(EVENT.UI_FLUSHCOIN, Crypt.DE(m_Coin), true));
+            EventManager.SendEvent(new GameEvent(EVENT.ONCOINUPDATE, Crypt.DE(m_Coin), value, is_reward));
         }
 
         public void UpdateScore(int value)
         {
             m_Score = Crypt.EN(Crypt.DE(m_Score) + value);
             
-            GameFacade.Instance.EventManager.SendEvent(new GameEvent(EVENT.UI_FLUSHSCORE, Crypt.DE(m_Score), GetTargetScore(), false));
+            EventManager.SendEvent(new GameEvent(EVENT.UI_FLUSHSCORE, Crypt.DE(m_Score), GetTargetScore(), false));
         }
 
         public List<Ball> ActingBalls()
@@ -294,7 +294,7 @@ namespace CB
                     ball.Dispose();
                 }
 
-                GameFacade.Instance.EventManager.SendEvent(new GameEvent(EVENT.UI_FLUSHBALLS));
+                EventManager.SendEvent(new GameEvent(EVENT.UI_FLUSHBALLS));
             }
             
             
@@ -384,10 +384,10 @@ namespace CB
             }  else {
                 m_Balls.Add(ball);
                 
-                GameFacade.Instance.EventManager.SendEvent(new GameEvent(EVENT.UI_FLUSHBALLS, ball));
+                EventManager.SendEvent(new GameEvent(EVENT.UI_FLUSHBALLS, ball));
             }
 
-            GameFacade.Instance.EventManager.SendEvent(new GameEvent(EVENT.ONBALLPUSH, ball));
+            EventManager.SendEvent(new GameEvent(EVENT.ONBALLPUSH, ball));
 
             return ball;
         }
@@ -437,7 +437,7 @@ namespace CB
             Ball ball = GameFacade.Instance.Game.PushBall(_C.BALL_ORIGIN_POS, evt.Type);
             GameFacade.Instance.Game.BreechBall(ball);
 
-            GameFacade.Instance.EventManager.SendEvent(new GameEvent(EVENT.ONCOMPLEXBALL, ball));
+            EventManager.SendEvent(new GameEvent(EVENT.ONCOMPLEXBALL, ball));
 
             return true;
         }
@@ -506,8 +506,8 @@ namespace CB
         {
             m_Glass = Crypt.EN(Crypt.DE(m_Glass) + value);
 
-            GameFacade.Instance.EventManager.SendEvent(new GameEvent(EVENT.UI_FLUSHCOUNT, true));
-            GameFacade.Instance.EventManager.SendEvent(new GameEvent(EVENT.ONGLASSUPDATE, this.Glass, value, is_reward));
+            EventManager.SendEvent(new GameEvent(EVENT.UI_FLUSHCOUNT, true));
+            EventManager.SendEvent(new GameEvent(EVENT.ONGLASSUPDATE, this.Glass, value, is_reward));
 
         }
 
@@ -650,7 +650,7 @@ namespace CB
                     keyValuePairs.Remove(config);
                 }
 
-                GameFacade.Instance.EventManager.SendEvent(new GameEvent(EVENT.ONCOMPLEXINIT, et));
+                EventManager.SendEvent(new GameEvent(EVENT.ONCOMPLEXINIT, et));
 
                 events.Add(et);
             }
@@ -675,7 +675,7 @@ namespace CB
 
             List<ComplextEvent> events = GameFacade.Instance.Game.GenerateEvents();
 
-            GameFacade.Instance.EventManager.SendEvent(new GameEvent(EVENT.ONREFRESHEVENTS, events, is_video_play));
+            EventManager.SendEvent(new GameEvent(EVENT.ONREFRESHEVENTS, events, is_video_play));
 
             return events;
         }
@@ -714,7 +714,7 @@ namespace CB
             if (ball.Demage.ToNumber() == 0) demage = 0;
 
             var des     = string.Format("<#3297FF>{0}<#FF6631>({1})</color>：</color>{2}", ball.Name, demage, ball.GetDescription());
-            GameFacade.Instance.EventManager.SendEvent(new GameEvent(EVENT.UI_SHOWBUBBLE, true, des));
+            EventManager.SendEvent(new GameEvent(EVENT.UI_SHOWBUBBLE, true, des));
         }
 
         public Relics BuyRelics(Relics relics)
@@ -734,7 +734,7 @@ namespace CB
 
             Relics new_relics = m_Army.PushRelics(relics.ID);
 
-            GameFacade.Instance.EventManager.SendEvent(new GameEvent(EVENT.ONBUYRELICS, relics));
+            EventManager.SendEvent(new GameEvent(EVENT.ONBUYRELICS, relics));
 
             return new_relics;
         }
@@ -790,7 +790,7 @@ namespace CB
             this.UpdateScore(value);
             
             m_Hit  += 1;
-            GameFacade.Instance.EventManager.SendEvent(new GameEvent(EVENT.UI_FLUSHHIT, m_Hit));
+            EventManager.SendEvent(new GameEvent(EVENT.UI_FLUSHHIT, m_Hit));
         }
 
         #endregion
@@ -859,10 +859,10 @@ namespace CB
 
             m_FSM.Owner.GameUI = GameFacade.Instance.UIManager.LoadWindow("Prefab/UI/GameWindow", GameFacade.Instance.UIManager.BOTTOM).GetComponent<GameWindow>();
 
-            GameFacade.Instance.EventManager.SendEvent(new GameEvent(EVENT.UI_FLUSHCOUNT, false));
-            GameFacade.Instance.EventManager.SendEvent(new GameEvent(EVENT.UI_FLUSHCOIN, Crypt.DE(m_FSM.Owner.m_Coin), false));
-            GameFacade.Instance.EventManager.SendEvent(new GameEvent(EVENT.UI_FLUSHRELICS));
-            GameFacade.Instance.EventManager.SendEvent(new GameEvent(EVENT.UI_FLUSHSCORE, Crypt.DE(m_FSM.Owner.m_Score), m_FSM.Owner.GetTargetScore(1), true));
+            EventManager.SendEvent(new GameEvent(EVENT.UI_FLUSHCOUNT, false));
+            EventManager.SendEvent(new GameEvent(EVENT.UI_FLUSHCOIN, Crypt.DE(m_FSM.Owner.m_Coin), false));
+            EventManager.SendEvent(new GameEvent(EVENT.UI_FLUSHRELICS));
+            EventManager.SendEvent(new GameEvent(EVENT.UI_FLUSHSCORE, Crypt.DE(m_FSM.Owner.m_Score), m_FSM.Owner.GetTargetScore(1), true));
         
             GameFacade.Instance.Game.Resume();
 
@@ -870,7 +870,7 @@ namespace CB
             // m_FSM.Owner.BreechBall(m_FSM.Owner.PushBall(_C.BALL_ORIGIN_POS, _C.BALLTYPE.POWER));
 
 
-            GameFacade.Instance.EventManager.SendEvent(new GameEvent(EVENT.ONGAMESTART));
+            EventManager.SendEvent(new GameEvent(EVENT.ONGAMESTART));
 
             m_FSM.Transist(_C.FSMSTATE.GAME_RECORD);
         }
@@ -934,8 +934,8 @@ namespace CB
             //     if (x.Weight > 0) m_FSM.Owner.Army.PushRelics(x.ID);
             // });
 
-            GameFacade.Instance.EventManager.SendEvent(new GameEvent(EVENT.UI_FLUSHCOUNT, true));
-            GameFacade.Instance.EventManager.SendEvent(new GameEvent(EVENT.UI_FLUSHCOIN, Crypt.DE(m_FSM.Owner.m_Coin), true));
+            EventManager.SendEvent(new GameEvent(EVENT.UI_FLUSHCOUNT, true));
+            EventManager.SendEvent(new GameEvent(EVENT.UI_FLUSHCOIN, Crypt.DE(m_FSM.Owner.m_Coin), true));
 
             m_RecordUI = null;
         }
@@ -980,7 +980,7 @@ namespace CB
                 temp_list.Add((int)_C.BOXTYPE.BOMB);
             }
 
-            GameFacade.Instance.EventManager.SendEvent(new GameEvent(EVENT.ONDRAWINGOBSTACLE, temp_list, random_count));
+            EventManager.SendEvent(new GameEvent(EVENT.ONDRAWINGOBSTACLE, temp_list, random_count));
 
             //生成宝石
             for (int i = 0; i < random_count.ToNumber(); i++)
@@ -990,7 +990,7 @@ namespace CB
                 hp_now += hp;
             }
 
-            GameFacade.Instance.EventManager.SendEvent(new GameEvent(EVENT.ONAFTERDRAWOBT, temp_list));
+            EventManager.SendEvent(new GameEvent(EVENT.ONAFTERDRAWOBT, temp_list));
 
 
             int numberOfPoints  = temp_list.Count; //25; 
@@ -1028,7 +1028,7 @@ namespace CB
             //
             m_FSM.Owner.Environment.OnInit(m_FSM.Owner.Stage);
 
-            GameFacade.Instance.EventManager.SendEvent(new GameEvent(EVENT.UI_FLUSHSCORE, Crypt.DE(m_FSM.Owner.m_Score), m_FSM.Owner.GetTargetScore(), true));
+            EventManager.SendEvent(new GameEvent(EVENT.UI_FLUSHSCORE, Crypt.DE(m_FSM.Owner.m_Score), m_FSM.Owner.GetTargetScore(), true));
 
 
             //重置弹珠
@@ -1132,7 +1132,7 @@ namespace CB
 
             m_IsPressDown = false;
             m_FSM.Owner.Simulator.SimulateEnd();
-            GameFacade.Instance.EventManager.SendEvent(new GameEvent(EVENT.UI_SHOWBUBBLE, false));
+            EventManager.SendEvent(new GameEvent(EVENT.UI_SHOWBUBBLE, false));
 
             m_FSM.Owner.AimStop();
 
@@ -1155,7 +1155,7 @@ namespace CB
                 m_FSM.Owner.CurrentBall.Show(true);
             }
 
-            GameFacade.Instance.EventManager.SendEvent(new GameEvent(EVENT.UI_FLUSHBALLS));
+            EventManager.SendEvent(new GameEvent(EVENT.UI_FLUSHBALLS));
         }
 
         void ReceiveReward()
@@ -1167,14 +1167,14 @@ namespace CB
 
             AttributeValue coin_number = new AttributeValue(coin);
 
-            GameFacade.Instance.EventManager.SendEvent(new GameEvent(EVENT.ONWILLRECEIVECOIN, coin_number));
+            EventManager.SendEvent(new GameEvent(EVENT.ONWILLRECEIVECOIN, coin_number));
 
             var real_number = (int)coin_number.ToNumber();
             GameFacade.Instance.Game.UpdateCoin(real_number);
   
 
-            GameFacade.Instance.EventManager.SendEvent(new GameEvent(EVENT.UI_FLUSHSCORE, 0, m_FSM.Owner.GetTargetScore(m_FSM.Owner.Stage + 1),false));
-            GameFacade.Instance.EventManager.SendEvent(new GameEvent(EVENT.UI_FLYCOIN, real_number));
+            EventManager.SendEvent(new GameEvent(EVENT.UI_FLUSHSCORE, 0, m_FSM.Owner.GetTargetScore(m_FSM.Owner.Stage + 1),false));
+            EventManager.SendEvent(new GameEvent(EVENT.UI_FLYCOIN, real_number));
         }
 
         public State_PLAY(_C.FSMSTATE id) : base(id)
@@ -1196,11 +1196,11 @@ namespace CB
 
             m_FSM.Owner.Environment.OnBegin();
 
-            GameFacade.Instance.EventManager.SendEvent(new GameEvent(EVENT.ONPLAYSTART));
+            EventManager.SendEvent(new GameEvent(EVENT.ONPLAYSTART));
 
-            GameFacade.Instance.EventManager.AddHandler(EVENT.UI_SHOWBALLLIST,  OnReponseBallList);
+            EventManager.AddHandler(EVENT.UI_SHOWBALLLIST,  OnReponseBallList);
             
-            GameFacade.Instance.EventManager.SendEvent(new GameEvent(EVENT.UI_FLUSHBALLS));
+            EventManager.SendEvent(new GameEvent(EVENT.UI_FLUSHBALLS));
         }
 
         public override void Update()
@@ -1221,7 +1221,7 @@ namespace CB
                     m_FSM.Owner.Simulator.SimulateEnd();
 
                     
-                    GameFacade.Instance.EventManager.SendEvent(new GameEvent(EVENT.UI_SHOWBUBBLE, true, "\n     <#0CA90D>取消发射</color>"));
+                    EventManager.SendEvent(new GameEvent(EVENT.UI_SHOWBUBBLE, true, "\n     <#0CA90D>取消发射</color>"));
 
                 } else {
                     m_FSM.Owner.FocusAim(m_FSM.Owner.FingerPos);
@@ -1262,7 +1262,7 @@ namespace CB
             //     ReceiveReward();
 
             //     m_FSM.Owner.Environment.OnEnd();
-            //     GameFacade.Instance.EventManager.SendEvent(new GameEvent(EVENT.ONPLAYEND));
+            //     EventManager.SendEvent(new GameEvent(EVENT.ONPLAYEND));
             // }
 
 
@@ -1276,7 +1276,7 @@ namespace CB
                     ReceiveReward();
 
                     m_FSM.Owner.Environment.OnEnd();
-                    GameFacade.Instance.EventManager.SendEvent(new GameEvent(EVENT.ONPLAYEND));
+                    EventManager.SendEvent(new GameEvent(EVENT.ONPLAYEND));
 
                     //存储记录
                     GameFacade.Instance.User.SetScore(m_FSM.Owner.Stage);
@@ -1307,9 +1307,9 @@ namespace CB
 
         public override void Exit()
         {
-            GameFacade.Instance.EventManager.SendEvent(new GameEvent(EVENT.UI_FLUSHBALLS));
+            EventManager.SendEvent(new GameEvent(EVENT.UI_FLUSHBALLS));
 
-            GameFacade.Instance.EventManager.DelHandler(EVENT.UI_SHOWBALLLIST,  OnReponseBallList);
+            EventManager.DelHandler(EVENT.UI_SHOWBALLLIST,  OnReponseBallList);
         }
 
 
@@ -1373,7 +1373,7 @@ namespace CB
 
                 GameFacade.Instance.Game.Resume();
 
-                GameFacade.Instance.EventManager.SendEvent(new GameEvent(EVENT.UI_FLUSHBALLS));
+                EventManager.SendEvent(new GameEvent(EVENT.UI_FLUSHBALLS));
             }
         }
     }
@@ -1407,7 +1407,7 @@ namespace CB
             m_FSM.Owner.m_RefreshTimes = 0;
             m_FSM.Owner.RefreshCoin.PutADD(GameFacade.Instance.Game, m_FSM.Owner.m_RefreshTimes);
 
-            GameFacade.Instance.EventManager.SendEvent(new GameEvent(EVENT.UI_FLUSHBALLS));
+            EventManager.SendEvent(new GameEvent(EVENT.UI_FLUSHBALLS));
 
             List<ComplextEvent> events = GameFacade.Instance.Game.GenerateEvents();
 
@@ -1443,7 +1443,7 @@ namespace CB
 
         public override void Enter(params object[] values)
         {
-            GameFacade.Instance.EventManager.SendEvent(new GameEvent(EVENT.UI_FLUSHBALLS));
+            EventManager.SendEvent(new GameEvent(EVENT.UI_FLUSHBALLS));
 
             List<Relics> datas = m_FSM.Owner.GenerateRelicses();
 
@@ -1497,7 +1497,7 @@ namespace CB
             var ui  = obj.GetComponent<ResultWindow>();
             ui.Init(real_score, is_new_score);
 
-            GameFacade.Instance.EventManager.SendEvent(new GameEvent(EVENT.ONGAMEEND));
+            EventManager.SendEvent(new GameEvent(EVENT.ONGAMEEND));
         }
     }
 

@@ -26,6 +26,7 @@ public static class SOUND
     public const string SPLIT       = "Prefab/Sound/Sound_split";
     public const string EXCHANGE    = "Prefab/Sound/Sound_exchange";
     public const string ACHIEVEMENT = "Prefab/Sound/Sound_achievement";
+    public const string TIP         = "Prefab/Sound/Sound_tip";
     
     
 }

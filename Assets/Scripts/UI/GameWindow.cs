@@ -86,14 +86,14 @@ namespace CB
 
         void Awake()
         {
-            GameFacade.Instance.EventManager.AddHandler(EVENT.UI_FLUSHSCORE,    OnReponseFlushScore);
-            GameFacade.Instance.EventManager.AddHandler(EVENT.UI_FLUSHCOUNT,    OnReponseFlushCount);
-            GameFacade.Instance.EventManager.AddHandler(EVENT.UI_FLUSHBALLS,    OnReponseFlushBalls);
-            GameFacade.Instance.EventManager.AddHandler(EVENT.UI_FLUSHHIT,      OnReponseFlushHit);
-            GameFacade.Instance.EventManager.AddHandler(EVENT.UI_FLUSHCOIN,     OnReponseFlushCoin);
-            GameFacade.Instance.EventManager.AddHandler(EVENT.UI_SHOWBUBBLE,    OnReponseBubble);
-            GameFacade.Instance.EventManager.AddHandler(EVENT.UI_FLYCOIN,       OnReponseFlyCoin);
-            GameFacade.Instance.EventManager.AddHandler(EVENT.UI_FLUSHRELICS,   OnReponseFlushRelics);
+            EventManager.AddHandler(EVENT.UI_FLUSHSCORE,    OnReponseFlushScore);
+            EventManager.AddHandler(EVENT.UI_FLUSHCOUNT,    OnReponseFlushCount);
+            EventManager.AddHandler(EVENT.UI_FLUSHBALLS,    OnReponseFlushBalls);
+            EventManager.AddHandler(EVENT.UI_FLUSHHIT,      OnReponseFlushHit);
+            EventManager.AddHandler(EVENT.UI_FLUSHCOIN,     OnReponseFlushCoin);
+            EventManager.AddHandler(EVENT.UI_SHOWBUBBLE,    OnReponseBubble);
+            EventManager.AddHandler(EVENT.UI_FLYCOIN,       OnReponseFlyCoin);
+            EventManager.AddHandler(EVENT.UI_FLUSHRELICS,   OnReponseFlushRelics);
             
 
             c_BtnSet.onClick.AddListener(()=>{
@@ -105,11 +105,11 @@ namespace CB
             
 
             c_ListPivot.GetComponent<Button>().onClick.AddListener(()=>{
-                GameFacade.Instance.EventManager.SendEvent(new GameEvent(EVENT.UI_SHOWBALLLIST, false));
+                EventManager.SendEvent(new GameEvent(EVENT.UI_SHOWBALLLIST, false));
             });
 
             c_SeatPivot.GetComponent<Button>().onClick.AddListener(()=>{
-                GameFacade.Instance.EventManager.SendEvent(new GameEvent(EVENT.UI_SHOWBALLLIST, true));
+                EventManager.SendEvent(new GameEvent(EVENT.UI_SHOWBALLLIST, true));
             });
         }
 
@@ -207,7 +207,7 @@ namespace CB
                 });
             } 
             else  {
-                GameFacade.Instance.EventManager.SendEvent(new GameEvent(EVENT.UI_SHOWBUBBLE, false));
+                EventManager.SendEvent(new GameEvent(EVENT.UI_SHOWBUBBLE, false));
             }
             
         }
@@ -369,14 +369,14 @@ namespace CB
 
         void OnDestroy()
         {
-            GameFacade.Instance.EventManager.DelHandler(EVENT.UI_FLUSHSCORE,    OnReponseFlushScore);
-            GameFacade.Instance.EventManager.DelHandler(EVENT.UI_FLUSHCOUNT,    OnReponseFlushCount);
-            GameFacade.Instance.EventManager.DelHandler(EVENT.UI_FLUSHBALLS,    OnReponseFlushBalls);
-            GameFacade.Instance.EventManager.DelHandler(EVENT.UI_FLUSHHIT,      OnReponseFlushHit);
-            GameFacade.Instance.EventManager.DelHandler(EVENT.UI_FLUSHCOIN,     OnReponseFlushCoin);
-            GameFacade.Instance.EventManager.DelHandler(EVENT.UI_SHOWBUBBLE,    OnReponseBubble);
-            GameFacade.Instance.EventManager.DelHandler(EVENT.UI_FLYCOIN,       OnReponseFlyCoin);
-            GameFacade.Instance.EventManager.DelHandler(EVENT.UI_FLUSHRELICS,   OnReponseFlushRelics);
+            EventManager.DelHandler(EVENT.UI_FLUSHSCORE,    OnReponseFlushScore);
+            EventManager.DelHandler(EVENT.UI_FLUSHCOUNT,    OnReponseFlushCount);
+            EventManager.DelHandler(EVENT.UI_FLUSHBALLS,    OnReponseFlushBalls);
+            EventManager.DelHandler(EVENT.UI_FLUSHHIT,      OnReponseFlushHit);
+            EventManager.DelHandler(EVENT.UI_FLUSHCOIN,     OnReponseFlushCoin);
+            EventManager.DelHandler(EVENT.UI_SHOWBUBBLE,    OnReponseBubble);
+            EventManager.DelHandler(EVENT.UI_FLYCOIN,       OnReponseFlyCoin);
+            EventManager.DelHandler(EVENT.UI_FLUSHRELICS,   OnReponseFlushRelics);
 
         }
     }

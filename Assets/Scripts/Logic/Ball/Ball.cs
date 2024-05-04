@@ -134,7 +134,7 @@ namespace CB
             {
                 m_FlyTime += Time.deltaTime;
 
-                GameFacade.Instance.EventManager.SendEvent(new GameEvent(EVENT.ONBALLFLY, this));
+                EventManager.SendEvent(new GameEvent(EVENT.ONBALLFLY, this));
             }
         }
 
@@ -160,7 +160,7 @@ namespace CB
 
             this.SetState((int)_C.LAYER.BALLRECYCLE);
 
-            GameFacade.Instance.EventManager.SendEvent(new GameEvent(EVENT.ONBALLRECYCLE, this));
+            EventManager.SendEvent(new GameEvent(EVENT.ONBALLRECYCLE, this));
         }
 
         public bool IsDead()
@@ -226,7 +226,7 @@ namespace CB
 
             c_rigidbody.AddForce(vec);
 
-            GameFacade.Instance.EventManager.SendEvent(new GameEvent(EVENT.ONBALLSHOOT, this, true));
+            EventManager.SendEvent(new GameEvent(EVENT.ONBALLSHOOT, this, true));
         }
 
         //碰撞
@@ -236,7 +236,7 @@ namespace CB
 
             c_rigidbody.velocity = force;
 
-            GameFacade.Instance.EventManager.SendEvent(new GameEvent(EVENT.ONBALLSHOOT, this, false));
+            EventManager.SendEvent(new GameEvent(EVENT.ONBALLSHOOT, this, false));
         }
 
         public void AddForce(Vector2 force)
@@ -256,7 +256,7 @@ namespace CB
                 box.OnHit(this);
                 box.OnShake();
 
-                GameFacade.Instance.EventManager.SendEvent(new GameEvent(EVENT.ONBALLHITBOX, this, box, collision));
+                EventManager.SendEvent(new GameEvent(EVENT.ONBALLHITBOX, this, box, collision));
 
                 return true;
             }
@@ -270,7 +270,7 @@ namespace CB
             if (obt != null) {
                 GameFacade.Instance.EffectManager.Load(EFFECT.BALLOON, collision.contacts[0].point);
 
-                GameFacade.Instance.EventManager.SendEvent(new GameEvent(EVENT.ONBALLHITBEFORE, this, obt, collision));
+                EventManager.SendEvent(new GameEvent(EVENT.ONBALLHITBEFORE, this, obt, collision));
 
                 obt.OnHit(this, (int)Demage.ToNumber());
 
@@ -280,7 +280,7 @@ namespace CB
                     GameFacade.Instance.EffectManager.FlyRate(collision.contacts[0].point, rate);
                 }
 
-                GameFacade.Instance.EventManager.SendEvent(new GameEvent(EVENT.ONBALLHITAFTER, this, obt, collision));
+                EventManager.SendEvent(new GameEvent(EVENT.ONBALLHITAFTER, this, obt, collision));
 
                 return true;
             }
@@ -292,7 +292,7 @@ namespace CB
             //碰撞后取消无视
             Physics2D.IgnoreCollision(c_collision, GameFacade.Instance.Game.c_borad, false);
 
-            GameFacade.Instance.EventManager.SendEvent(new GameEvent(EVENT.ONENTERCOLLISION, this, collision));
+            EventManager.SendEvent(new GameEvent(EVENT.ONENTERCOLLISION, this, collision));
         }
 
 
@@ -333,7 +333,7 @@ namespace CB
 
         public virtual void Dispose()
         {
-            GameFacade.Instance.EventManager.SendEvent(new GameEvent(EVENT.ONBALLDEAD, this));
+            EventManager.SendEvent(new GameEvent(EVENT.ONBALLDEAD, this));
 
             Destroy(gameObject);
         }

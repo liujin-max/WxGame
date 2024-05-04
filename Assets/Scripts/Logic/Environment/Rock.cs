@@ -21,12 +21,12 @@ namespace CB
 
         void Awake()
         {
-            GameFacade.Instance.EventManager.AddHandler(EVENT.ONAFTERDRAWOBT,   OnReponseAfterDrawObstacles);
+            EventManager.AddHandler(EVENT.ONAFTERDRAWOBT,   OnReponseAfterDrawObstacles);
         }
 
         void OnDestroy()
         {
-            GameFacade.Instance.EventManager.DelHandler(EVENT.ONAFTERDRAWOBT,   OnReponseAfterDrawObstacles);
+            EventManager.DelHandler(EVENT.ONAFTERDRAWOBT,   OnReponseAfterDrawObstacles);
         }
 
         public override string GetDescription()

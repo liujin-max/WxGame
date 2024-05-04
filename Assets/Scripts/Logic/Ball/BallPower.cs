@@ -15,12 +15,12 @@ namespace CB
         {
             base.Init(type);
 
-            GameFacade.Instance.EventManager.AddHandler(EVENT.ONPLAYEND,        OnReponsePlayEnd);
+            EventManager.AddHandler(EVENT.ONPLAYEND,        OnReponsePlayEnd);
         }
 
         void OnDestroy()
         {
-            GameFacade.Instance.EventManager.DelHandler(EVENT.ONPLAYEND,        OnReponsePlayEnd);
+            EventManager.DelHandler(EVENT.ONPLAYEND,        OnReponsePlayEnd);
         }
 
         public override string GetDescription()

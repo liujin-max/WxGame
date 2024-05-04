@@ -32,6 +32,7 @@ public class EditorPlatform : Platform
 
         callback.Invoke(userData);
 
+
         return userData;
     }
 
@@ -47,7 +48,7 @@ public class EditorPlatform : Platform
             }
         });
 
-        GameFacade.Instance.EventManager.SendEvent(new GameEvent(EVENT.UI_FLUSHUSER));
+        EventManager.SendEvent(new GameEvent(EVENT.UI_FLUSHUSER));
     }
 
     public override void UPLOAD(GameUserData userData)

@@ -52,7 +52,7 @@ namespace CB
 
         public void Boom()
         {
-            GameFacade.Instance.EventManager.SendEvent(new GameEvent(EVENT.ONBOMBBEFORE, this));
+            EventManager.SendEvent(new GameEvent(EVENT.ONBOMBBEFORE, this));
             Platform.Instance.VIBRATE(_C.VIBRATELEVEL.HEAVY);
 
             //产生爆炸
