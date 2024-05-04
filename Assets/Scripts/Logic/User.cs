@@ -71,17 +71,18 @@ public class User : MonoBehaviour
     {
         if (value <= m_Data.Score ) return;
 
+        m_Data.Score    = value;
+
         m_scoreUpdate   = true;
         m_userUpdate    = true;
-
-        m_Data.Score = value;
     }
 
     public void SetAchievement(int id)
     {
         if (!m_Data.AchiveRecords.Contains(id)) {
-            m_userUpdate    = true;
             m_Data.AchiveRecords.Add(id);
+
+            m_userUpdate    = true;
         }
     }
 
