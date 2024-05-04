@@ -14,6 +14,7 @@ public static class EVENT
     public static string UI_TRIGGERRELICS   = "UI_TRIGGERRELICS";
     public static string UI_ACHIEVEMENTPOP  = "UI_ACHIEVEMENTPOP";
     public static string UI_FLUSHUSER       = "UI_FLUSHUSER";
+    public static string UI_RANKINGUP       = "UI_RANKINGUP";       //排名上升
 
     
 

@@ -99,12 +99,12 @@ public class WXPlatform : Platform
                 {
                     //将Json转换成临时的GameUserData
                     GameUserData tempData = JsonUtility.FromJson<GameUserData>(JsonMapper.ToJson(data["data"]));
-
+                    //基础数据
+                    userData.userInfo = tempData.userInfo;
                     //读取存档数据
                     userData.Score  = tempData.Score;
                     //读取成就数据
                     userData.AchiveRecords  = tempData.AchiveRecords;
-
                 }
             },
             fail = (res) =>
@@ -162,6 +162,9 @@ public class WXPlatform : Platform
                 var data = JsonMapper.ToObject(res.result);
                 if (data.ContainsKey("data")) {
                     RankDataInfo data_info = JsonUtility.FromJson<RankDataInfo>(res.result);
+
+                    //记录在本地
+                    Rank.Instance.UpdateRankList(data_info.data);
 
                     //呼出排行榜
                     var obj = GameFacade.Instance.UIManager.LoadWindow("Prefab/UI/RankWindow", GameFacade.Instance.UIManager.BOARD);

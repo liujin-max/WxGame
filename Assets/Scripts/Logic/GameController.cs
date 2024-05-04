@@ -57,6 +57,8 @@ namespace CB
 
         internal bool m_StartFlag = false;
         public bool PauseFlag = false;
+
+        internal int m_ORank = 0;    //初始排名
         internal int m_Score = 0;
         internal int m_Stage = 0;
         public int Stage {get {return Crypt.DE(m_Stage);}}
@@ -846,6 +848,8 @@ namespace CB
             m_FSM.Owner.m_Coin  = Crypt.EN(0);
             m_FSM.Owner.m_Glass = Crypt.EN(0);
             m_FSM.Owner.m_Score = Crypt.EN(0);
+
+            m_FSM.Owner.m_ORank = Rank.Instance.GetMyRankOrder();
             
 
             //拷贝遗物数据暂存至战场数据中
@@ -1281,6 +1285,7 @@ namespace CB
                     //存储记录
                     GameFacade.Instance.User.SetScore(m_FSM.Owner.Stage);
                     GameFacade.Instance.User.Save();
+                    Rank.Instance.CheckRankingChanges(m_FSM.Owner.m_ORank, m_FSM.Owner.Stage);
 
                     Camera.main.GetComponent<CameraUtility>().DoShake();
 

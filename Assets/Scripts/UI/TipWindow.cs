@@ -9,8 +9,9 @@ public class TipWindow : MonoBehaviour
 {
     [SerializeField] GameObject c_TipPivot;
     [SerializeField] GameObject c_ACHPivot;
+    [SerializeField] GameObject c_RankPivot;
 
-    [SerializeField] List<ACHPopItem> m_ACHItems = new List<ACHPopItem>();
+    List<ACHPopItem> m_ACHItems = new List<ACHPopItem>();
 
 
     private Tweener m_Tweener = null;
@@ -34,6 +35,7 @@ public class TipWindow : MonoBehaviour
     void Awake()
     {
         EventManager.AddHandler(EVENT.UI_ACHIEVEMENTPOP,    OnReponsePopupACH);
+        EventManager.AddHandler(EVENT.UI_RANKINGUP,         OnReponseRankUp);
     }
 
     // Start is called before the first frame update
@@ -66,8 +68,18 @@ public class TipWindow : MonoBehaviour
         item.Init(ach);
     }
 
+    void OnReponseRankUp(GameEvent gameEvent)
+    {
+        RankData rankData = (RankData)gameEvent.GetParam(0);
+
+        GameObject obj = GameFacade.Instance.UIManager.LoadItem("Prefab/UI/Item/RankUPItem", c_RankPivot.transform);
+        var it = obj.GetComponent<RankUPItem>();
+        it.Init(rankData);
+    }
+
     void OnDestroy()
     {
         EventManager.DelHandler(EVENT.UI_ACHIEVEMENTPOP,    OnReponsePopupACH);
+        EventManager.DelHandler(EVENT.UI_RANKINGUP,         OnReponseRankUp);
     }
 }

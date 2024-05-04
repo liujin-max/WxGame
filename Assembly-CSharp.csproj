@@ -218,6 +218,8 @@
     <Compile Include="Assets\Scripts\UI\Item\RankItem.cs" />
     <Compile Include="Assets\Scripts\UI\Item\HeadItem.cs" />
     <Compile Include="Assets\Scripts\UI\NetWindow.cs" />
+    <Compile Include="Assets\Scripts\Logic\Rank.cs" />
+    <Compile Include="Assets\Scripts\UI\Item\RankUPItem.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Resources\Shader\SpriteGray.shader" />

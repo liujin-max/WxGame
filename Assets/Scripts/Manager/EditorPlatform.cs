@@ -6,9 +6,6 @@ using UnityEngine;
 
 public class EditorPlatform : Platform
 {
-
-
-
     public override void INIT(Action callback)
     {
         Application.targetFrameRate = _C.DEFAULT_FRAME;
@@ -29,9 +26,7 @@ public class EditorPlatform : Platform
         
         userData    = JsonUtility.FromJson<GameUserData>(json);
 
-
         callback.Invoke(userData);
-
 
         return userData;
     }

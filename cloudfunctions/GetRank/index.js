@@ -25,7 +25,8 @@ exports.main = async (event, context) => {
     let avatorURL = results.data[i].gamedata.HeadUrl;
     let userName = results.data[i].gamedata.Name;
     let score = results.data[i].gamedata.Score;
-    gameRankDatas.push({Head: avatorURL, Name: userName, Score: score});
+    let openid  = results.data[i].openid;
+    gameRankDatas.push({OpenID:openid, Head: avatorURL, Name: userName, Score: score});
   }
 
   return {
