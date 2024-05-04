@@ -10,11 +10,14 @@ namespace CB
 {
     public class LoadingWindow : MonoBehaviour
     {
+        [SerializeField] private Transform c_HeadPivot;
         [SerializeField] private TextMeshProUGUI c_Score;
-        [SerializeField] private UrlImageUtility c_Head;
         [SerializeField] private Button BtnEnter;
         [SerializeField] private Button BtnRank;
         [SerializeField] private Button BtnAchievement;
+
+
+        private HeadItem m_HeadItem = null;
 
         
         void Awake()
@@ -57,9 +60,18 @@ namespace CB
             FlushUI();
         }
 
+        void InitHead(string head_url)
+        {
+            if (m_HeadItem == null) {
+                m_HeadItem = GameFacade.Instance.UIManager.LoadItem("Prefab/UI/Item/HeadItem", c_HeadPivot).GetComponent<HeadItem>();
+            } 
+            m_HeadItem.Init(head_url);
+        }
+
         void FlushUI()
         {
-            c_Head.SetImage(GameFacade.Instance.User.HeadURL);
+            InitHead(GameFacade.Instance.User.HeadURL);
+            
             c_Score.text    = GameFacade.Instance.User.Score.ToString() + " 层";
         }
 

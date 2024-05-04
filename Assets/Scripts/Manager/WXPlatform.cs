@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using CB;
 using LitJson;
 using UnityEngine;
 using WeChatWASM;
@@ -161,7 +162,12 @@ public class WXPlatform : Platform
                 var data = JsonMapper.ToObject(res.result);
                 if (data.ContainsKey("data"))
                 {
-                    RankDatas rank_list = JsonUtility.FromJson<RankDatas>(res.result);
+                    RankDataInfo data_info = JsonUtility.FromJson<RankDataInfo>(res.result);
+
+                    //呼出排行榜
+                    var obj = GameFacade.Instance.UIManager.LoadWindow("Prefab/UI/RankWindow", GameFacade.Instance.UIManager.BOARD);
+                    var window = obj.GetComponent<RankWindow>();
+                    window.Init(data_info);
                 }
             },
             fail = (res) =>

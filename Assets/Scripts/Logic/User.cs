@@ -25,7 +25,7 @@ public class RankData
 }
 
 [System.Serializable]
-public class RankDatas
+public class RankDataInfo
 {
     public RankData[] data;
 }
@@ -37,10 +37,9 @@ public class User : MonoBehaviour
     //用户数据
     [SerializeField] private GameUserData m_Data = new GameUserData();
 
+    public string Name{ get{ return m_Data.Name;}}
     public int Score{ get{ return m_Data.Score;}}
-    public string HeadURL{ 
-        get{ return m_Data.HeadUrl;}
-    }
+    public string HeadURL{ get{ return m_Data.HeadUrl;}}
 
     private bool m_scoreUpdate = false; //记录变动标记
     public bool IsScoreUpdate {get { return m_scoreUpdate;}}

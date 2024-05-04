@@ -9,37 +9,40 @@ namespace CB
 {
     public class RankWindow : MonoBehaviour
     {
-        [SerializeField] private Button Mask;
-        [SerializeField] private RawImage RankImg;
-        [SerializeField] private GameObject Box;
+        [SerializeField] private Transform m_Content;
+        [SerializeField] private Transform m_OurPivot;
 
+        private HeadItem m_HeadItem = null;
 
-
-        public void Hide()
+        public void Init(RankDataInfo data_info)
         {
-            Mask.gameObject.SetActive(false);
-            Box.SetActive(false);
-
-            WX.HideOpenData();
+            InitOur();
+            InitRanks(data_info.data);
         }
 
-
-        public void Show()
+        void InitRanks(RankData[] rankDatas)
         {
-            Mask.gameObject.SetActive(true);
-            Box.SetActive(true);
+            for (int i = 0; i < rankDatas.Length; i++)
+            {
+                var item = GameFacade.Instance.UIManager.LoadItem("Prefab/UI/Item/RankItem", m_Content).GetComponent<RankItem>();
+                item.Init(rankDatas[i]);
+            }
+        }
 
-            // WX.ShowOpenData(RankImg.texture, 200, 480, 680, 860);
-            var referenceResolution = new Vector2(1080, 1920);
-            var p = RankImg.transform.position;
-            // 计算渲染的区域、大小，通知开放数据域初始化渲染
-            // 这里的计算效果不一定理想，需根据实际慢慢调试
-            // 此处设置的值可能影响排行榜单的滚动、点击等操作
-            WX.ShowOpenData(RankImg.texture, (int)p.x, Screen.height - (int)p.y, (int)((Screen.width / referenceResolution.x) * RankImg.rectTransform.rect.width), (int)((Screen.width / referenceResolution.x) * RankImg.rectTransform.rect.height));
+        void InitOur()
+        {
+            if (m_HeadItem == null) {
+                m_HeadItem = GameFacade.Instance.UIManager.LoadItem("Prefab/UI/Item/HeadItem", m_OurPivot.Find("HeadPivot")).GetComponent<HeadItem>();
+            } 
+            m_HeadItem.Init(GameFacade.Instance.User.HeadURL);
 
+            m_OurPivot.Find("Name").GetComponent<Text>().text = GameFacade.Instance.User.Name;
+            m_OurPivot.Find("Score").GetComponent<Text>().text = string.Format("{0} 层", GameFacade.Instance.User.Score);
+        }
 
-
-            WXUtility.ShowFriendsRank();
+        public void OnMask()
+        {
+            GameFacade.Instance.UIManager.UnloadWindow(gameObject);
         }
     }
 }
