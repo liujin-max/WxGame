@@ -81,6 +81,7 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 022d929c7e601d5448158d4f8e26c4f6, type: 3}
   - {fileID: 21300000, guid: 91de57edffd13094b83346514a3f6b31, type: 3}
   - {fileID: 21300000, guid: 721cea9ee9f09d541a1e53a8394825a5, type: 3}
+  - {fileID: 21300000, guid: 870ff66fd22ebd24d89448e01b43efe5, type: 3}
   m_PackedSpriteNamesToIndex:
   - Game_btn_return
   - Game_Btnconfirm
@@ -110,6 +111,7 @@ SpriteAtlas:
   - Game_text_score
   - Game_score_bar_bg
   - Game_ball_seat_item
+  - Game_btn_green
   m_RenderDataMap: {}
   m_Tag: Game
   m_IsVariant: 0

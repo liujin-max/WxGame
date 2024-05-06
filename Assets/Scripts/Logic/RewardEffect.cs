@@ -19,6 +19,11 @@ namespace CB
         {
             GameFacade.Instance.Game.UpdateCoin(m_Value, false);
         }
+
+        public override string GetString() 
+        {
+            return string.Format("开局获得：{0}<sprite={1}>", m_Value, (int)_C.SPRITEATLAS.COIN);
+        }
     }
     #endregion
 
@@ -35,6 +40,11 @@ namespace CB
         {
             GameFacade.Instance.Game.PushGlass(m_Value);
         }
+
+        public override string GetString() 
+        {
+            return string.Format("开局获得：{0}<sprite={1}>", m_Value, (int)_C.SPRITEATLAS.GLASS);
+        }
     }
     #endregion
 
@@ -45,6 +55,12 @@ namespace CB
         public override void DoReward()
         {
             GameFacade.Instance.Game.BreechBall(GameFacade.Instance.Game.PushBall(_C.BALL_ORIGIN_POS, (_C.BALLTYPE)m_Value));
+        }
+
+        public override string GetString() 
+        {
+            var config = CONFIG.GetBallData((_C.BALLTYPE)m_Value);
+            return string.Format("开局获得：{0}", config.Name);
         }
     }
     #endregion
@@ -57,6 +73,22 @@ namespace CB
         {
             GameFacade.Instance.Game.Army.PushRelics(m_Value);
         }
+
+        public override string GetString() 
+        {
+            var config = CONFIG.GetRelicsData(m_Value);
+            return string.Format("开局获得：{0}", config.Name);
+        }
+
+        public override void PopupWindow()
+        {
+            Relics relics   = new Relics(CONFIG.GetRelicsData(m_Value));
+
+            var window = GameFacade.Instance.UIManager.LoadWindow("Prefab/UI/RelicsDetailWindow", GameFacade.Instance.UIManager.BOARD).GetComponent<RelicsDetailWindow>();
+            window.Init(relics, ()=>{
+                GameFacade.Instance.UIManager.UnloadWindow(window.gameObject);
+            });
+        }
     }
     #endregion
 
@@ -68,6 +100,22 @@ namespace CB
         {
             RelicsData data = GameFacade.Instance.Game.GetRelicsData(m_Value);
             data.Unlock = true;
+        }
+
+        public override string GetString() 
+        {
+            var config = CONFIG.GetRelicsData(m_Value);
+            return string.Format("解锁道具：{0}", config.Name);
+        }
+
+        public override void PopupWindow()
+        {
+            Relics relics   = new Relics(CONFIG.GetRelicsData(m_Value));
+
+            var window = GameFacade.Instance.UIManager.LoadWindow("Prefab/UI/RelicsDetailWindow", GameFacade.Instance.UIManager.BOARD).GetComponent<RelicsDetailWindow>();
+            window.Init(relics, ()=>{
+                GameFacade.Instance.UIManager.UnloadWindow(window.gameObject);
+            });
         }
     }
     #endregion
@@ -115,19 +163,14 @@ namespace CB
             m_Value = value;
         }
 
-        public virtual int GetCoin()
-        {
-            return 0;
-        }
+        public virtual int GetCoin() {return 0; }
 
-        public virtual int GetGlass()
-        {
-            return 0;
-        }
+        public virtual int GetGlass() {return 0; }
 
-        public virtual void DoReward()
-        {
+        public virtual void DoReward() {}
 
-        }
+        public virtual string GetString() {return "";}
+
+        public virtual void PopupWindow() {}
     }
 }

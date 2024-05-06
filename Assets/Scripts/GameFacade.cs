@@ -84,7 +84,10 @@ public class GameFacade : MonoBehaviour
     {
         get {
             if (m_GameController == null) {
-                m_GameController = GameObject.Find("Game").transform.GetComponent<GameController>();
+                var game = GameObject.Find("Game");
+                if (game != null) {
+                    m_GameController = game.transform.GetComponent<GameController>();
+                }
             }
             return m_GameController;
         }

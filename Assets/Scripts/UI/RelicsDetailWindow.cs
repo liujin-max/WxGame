@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -14,26 +15,18 @@ namespace CB
         [SerializeField] RawImage c_Icon;
         [SerializeField] GameObject c_DescriptionPivot;
 
-        void Awake()
-        {
-            GameFacade.Instance.Game.Pause();
 
-            c_Mask.onClick.AddListener(()=>{
-                GameFacade.Instance.UIManager.UnloadWindow(gameObject);
-            });
-        }
-
-        void OnDestroy()
-        {
-            GameFacade.Instance.Game.Resume();
-        }
-
-        public void Init(Relics relics)
+        public void Init(Relics relics, Action callback)
         {
             c_Icon.texture   = Resources.Load<Texture>("UI/Relics/" + relics.ID);
             c_Icon.SetNativeSize();
 
             this.ShowDescription(relics);
+
+            c_Mask.onClick.AddListener(()=>{
+                if (callback != null)
+                    callback();
+            });
         }
 
         void ShowDescription(Relics relics)

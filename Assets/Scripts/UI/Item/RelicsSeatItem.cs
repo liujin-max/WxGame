@@ -19,8 +19,13 @@ public class RelicsSeatItem : MonoBehaviour
         EventManager.AddHandler(EVENT.UI_TRIGGERRELICS,    OnRelicsTrigger);
 
         c_Icon.GetComponent<Button>().onClick.AddListener(()=>{
+            GameFacade.Instance.Game.Pause();
+
             var window = GameFacade.Instance.UIManager.LoadWindow("Prefab/UI/RelicsDetailWindow", GameFacade.Instance.UIManager.BOARD).GetComponent<RelicsDetailWindow>();
-            window.Init(m_Relics);
+            window.Init(m_Relics, ()=>{
+                GameFacade.Instance.Game.Resume();
+                GameFacade.Instance.UIManager.UnloadWindow(window.gameObject);
+            });
         });
     }
 

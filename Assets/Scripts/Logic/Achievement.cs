@@ -1270,6 +1270,16 @@ namespace CB
 
         protected RewardEffect m_Effect = null;
 
+        public int SortOrder { 
+            get {
+                int base_order = m_Data.ID;
+                if (this.IsFinished) {
+                    base_order += 100000;
+                }
+                return base_order;
+            }
+        }
+
         //是否激活中
         public bool IsActive {
             get {
@@ -1395,15 +1405,24 @@ namespace CB
         {
             if (!m_FinishFlag) return;
 
-            if (m_Effect != null)
-            {
+            if (m_Effect != null) {
                 m_Effect.DoReward();
             }
         }
 
         public string GetRewardString()
         {
-            return "";
+            if (m_Effect != null) {
+                return m_Effect.GetString();
+            }
+            return "无";
+        }
+
+        public void PopupWindow()
+        {
+            if (m_Effect != null) {
+                m_Effect.PopupWindow();
+            }
         }
 
         public void Dispose()

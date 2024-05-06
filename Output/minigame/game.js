@@ -37,11 +37,11 @@ if (false) {
     checkUpdate();
 }
 const managerConfig = {
-    DATA_FILE_MD5: '9d27b550590ab1d7',
-    CODE_FILE_MD5: '9d04da978ff2f0a1',
+    DATA_FILE_MD5: '8633ac7fdafe7e6d',
+    CODE_FILE_MD5: '42a99c4a37e57d02',
     GAME_NAME: 'webgl',
     APPID: 'wx3eeae3a7e9821066',
-    DATA_FILE_SIZE: '8266293',
+    DATA_FILE_SIZE: '8932750',
     OPT_DATA_FILE_SIZE: '$OPT_DATA_FILE_SIZE',
     DATA_CDN: '',
     // 资源包是否作为小游戏分包加载

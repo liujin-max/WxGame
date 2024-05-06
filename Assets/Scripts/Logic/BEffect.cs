@@ -464,6 +464,8 @@ namespace CB
     {
         private int Rate{
             get {
+                if (GameFacade.Instance.Game == null) return 0;
+                
                 var count = GameFacade.Instance.Game.Balls.Count;
 
                 return Math.Max((int)(GameFacade.Instance.Game.SeatCount.ToNumber() + 1 - count), 1);

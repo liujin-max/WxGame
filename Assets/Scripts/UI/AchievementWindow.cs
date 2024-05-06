@@ -51,8 +51,12 @@ namespace CB
                 item.gameObject.SetActive(false);
             });
 
-            int count = 0;
-            GameFacade.Instance.DataCenter.Achievements.ForEach(ach => {
+            int count   = 0;
+            var list    = new List<Achievement>();
+            list.AddRange(GameFacade.Instance.DataCenter.Achievements);
+            list.Sort((a1, a2) => a1.SortOrder.CompareTo(a2.SortOrder));
+
+            list.ForEach(ach => {
                 if (ach.IsShow) {
                     var item = new_item(count);
                     item.Init(ach);
