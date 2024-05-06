@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -11,7 +12,7 @@ namespace CB
     /// 
     public class BallRebound : Ball
     {
-        private int m_Rate = 55;
+        private int m_Rate = 85;
 
         public override string GetDescription()
         {
@@ -29,6 +30,7 @@ namespace CB
             if (ground != null) {
                 if (ground.GroundType == GroundType.Ground) {
                     if (RandomUtility.IsHit(m_Rate)) {
+                        m_Rate = Math.Max(0, m_Rate - 25);
                         m_GroundValid = false;
 
                         Vector3 random_pos = new Vector3(RandomUtility.Random(-43, 44) / 10.0f, 6f, 0);

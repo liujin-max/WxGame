@@ -20,8 +20,9 @@ public class EnvironmentWindow : MonoBehaviour
 
     IEnumerator AutoDestroy()
     {
+        GameFacade.Instance.Game.Pause();
         yield return new WaitForSeconds(3);
-
+        GameFacade.Instance.Game.Resume();
         GameFacade.Instance.UIManager.UnloadWindow(gameObject);
 
         yield return null; 

@@ -68,37 +68,40 @@ namespace CB
         }
 
         //判断排行是否上升
-        public void CheckRankingChanges(int origin_order, int score)
+        public void CheckRankingChanges(ref int origin_order, int score)
         {
-            RankData rankData = new RankData();
-            rankData.OpenID = GameFacade.Instance.User.OpenID;
-            rankData.Name   = GameFacade.Instance.User.Name;
-            rankData.Head   = GameFacade.Instance.User.HeadURL;
-            rankData.Score  = GameFacade.Instance.User.Score;
-            rankData.Order  = 3;
+            // RankData rankData = new RankData();
+            // rankData.OpenID = GameFacade.Instance.User.OpenID;
+            // rankData.Name   = GameFacade.Instance.User.Name;
+            // rankData.Head   = GameFacade.Instance.User.HeadURL;
+            // rankData.Score  = GameFacade.Instance.User.Score;
+            // rankData.Order  = 3;
 
-            EventManager.SendEvent(new GameEvent(EVENT.UI_RANKINGUP, rankData));
+            // EventManager.SendEvent(new GameEvent(EVENT.UI_RANKINGUP, rankData));
 
 
-            // if (m_RankList.Count == 0) return;
+            if (m_RankList.Count == 0) return;
 
             //被超越的人
-            // RankData final = null;
+            RankData final = null;
 
-            // for (int i = 0; i < m_RankList.Count; i++)
-            // {
-            //     var rankData = m_RankList[i];
-            //     if (rankData.Order > origin_order) {
-            //         if (score > rankData.Score) {
-            //             final = rankData;
-            //         }
-            //     }
-            // }
+            //从高到低遍历，取最高的那个，所以可以直接break
+            for (int i = 0; i < m_RankList.Count; i++)
+            {
+                var rankData = m_RankList[i];
+                if (rankData.Order < origin_order) {
+                    if (score > rankData.Score) {
+                        final = rankData;
+                        break;
+                    }
+                }
+            }
 
-            // if (final != null) {
-            //     //呼出
-            //     EventManager.SendEvent(new GameEvent(EVENT.UI_RANKINGUP, final));
-            // }
+            if (final != null) {
+                origin_order = final.Order;
+                //呼出
+                EventManager.SendEvent(new GameEvent(EVENT.UI_RANKINGUP, final));
+            }
         }
     }
 

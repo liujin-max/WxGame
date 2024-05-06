@@ -220,8 +220,8 @@ namespace CB
 
             m_FlyTime = 0;
 
-            Vector2 force = pos - _C.BALL_SHOOT_POS;
-            Vector2 normal= Vector3.Normalize(force);
+            Vector2 force   = pos - _C.BALL_SHOOT_POS;
+            Vector2 normal  = Vector3.Normalize(force);
             Vector2 vec     = normal * 700;
 
             c_rigidbody.AddForce(vec);

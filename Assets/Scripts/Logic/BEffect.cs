@@ -509,7 +509,7 @@ namespace CB
     {
         private int Count{
             get {
-                var count = GameFacade.Instance.Game.m_Coin / 50;
+                var count = GameFacade.Instance.Game.Coin / 50;
 
                 return count;
             }

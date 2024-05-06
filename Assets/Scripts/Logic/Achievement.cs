@@ -1231,7 +1231,7 @@ namespace CB
             return string.Format("单回合内累计发射<size=46><#FFCC4A>{0}</color></size>颗弹珠", m_Max);
         }
 
-        protected override void OnReponseBallShoot(GameEvent @event)
+        protected override void OnReponseManualShoot(GameEvent @event)
         {
             if (!IsActive) return;
 
@@ -1239,13 +1239,10 @@ namespace CB
 
             if (ball.IsSimulate) return;
 
-            var flag = (bool)@event.GetParam(1);
-            if (flag) {
-                m_Count++;
+            m_Count++;
 
-                if (m_Count >= m_Max) {
-                    this.Finish();
-                }
+            if (m_Count >= m_Max) {
+                this.Finish();
             }
         }
 
@@ -1420,6 +1417,7 @@ namespace CB
             EventManager.DelHandler(EVENT.ONBALLHITBOX,     OnReponseHitBox);
             EventManager.DelHandler(EVENT.ONCOINUPDATE,     OnReponseCoinUpdate);
             EventManager.DelHandler(EVENT.ONGLASSUPDATE,    OnReponseGlassUpdate);
+            EventManager.DelHandler(EVENT.ONMANUALSHOOT,    OnReponseManualShoot);
             EventManager.DelHandler(EVENT.ONBALLSHOOT,      OnReponseBallShoot);
             EventManager.DelHandler(EVENT.ONBALLRECYCLE,    OnReponseBallRecycle);
             EventManager.DelHandler(EVENT.ONENTERGROUND,    OnReponseEnterGround);
@@ -1460,6 +1458,7 @@ namespace CB
             EventManager.AddHandler(EVENT.ONBALLHITBOX,     OnReponseHitBox);
             EventManager.AddHandler(EVENT.ONCOINUPDATE,     OnReponseCoinUpdate);
             EventManager.AddHandler(EVENT.ONGLASSUPDATE,    OnReponseGlassUpdate);
+            EventManager.AddHandler(EVENT.ONMANUALSHOOT,    OnReponseManualShoot);
             EventManager.AddHandler(EVENT.ONBALLSHOOT,      OnReponseBallShoot);
             EventManager.AddHandler(EVENT.ONBALLRECYCLE,    OnReponseBallRecycle);
             EventManager.AddHandler(EVENT.ONENTERGROUND,    OnReponseEnterGround);
@@ -1470,6 +1469,11 @@ namespace CB
             EventManager.AddHandler(EVENT.ONBUYRELICS,      OnReponseBuyRelics);
             EventManager.AddHandler(EVENT.ONENTERCOLLISION, OnReponseEnterCollision);
             
+        }
+
+        protected virtual void OnReponseManualShoot(GameEvent @event)
+        {
+
         }
 
         protected virtual void OnReponseEnterCollision(GameEvent @event)

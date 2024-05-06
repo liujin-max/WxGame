@@ -270,6 +270,8 @@ namespace CB
             if(m_Tscore < max && score >= max)  {
                 GameFacade.Instance.EffectManager.Load(EFFECT.SCORE, Vector3.zero, c_EffectPivot);
                 Platform.Instance.VIBRATE(_C.VIBRATELEVEL.HEAVY);
+
+                Rank.Instance.CheckRankingChanges(ref GameFacade.Instance.Game.m_ORank, GameFacade.Instance.Game.Stage);
             }
 
             c_scoreText.text    = score.ToString();

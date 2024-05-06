@@ -82,7 +82,7 @@ public class GhostItem : MonoBehaviour
 
         if (m_Event.EventType == _C.COMPLEXTEVEMT.GLASS)
         {
-            if (GameFacade.Instance.Game.m_Coin < evt.Cost.ToNumber()) {
+            if (GameFacade.Instance.Game.Coin < evt.Cost.ToNumber()) {
                 sb.Append(_C.REDCOLOR);
             } else if (evt.Cost.ToNumber() < evt.Cost.GetBase()) {
                 sb.Append(_C.GREENCOLOR);

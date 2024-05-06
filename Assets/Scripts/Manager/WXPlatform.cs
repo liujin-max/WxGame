@@ -10,6 +10,8 @@ public class WXPlatform : Platform
 {
     public override void INIT(Action callback)
     {
+        GameObject.Find("EventSystem").AddComponent<WXTouchInputOverride>();
+
         WX.InitSDK((code) => {
             //设置帧率
             WX.SetPreferredFramesPerSecond(_C.DEFAULT_FRAME);
@@ -81,6 +83,7 @@ public class WXPlatform : Platform
         return userData;
     }
 
+    //启动同步账号数据
     public override void SYNC(GameUserData userData)
     {
         Debug.Log("====开始获取账号数据====");
@@ -114,11 +117,31 @@ public class WXPlatform : Platform
             complete = (res) =>
             {
                 Debug.Log("====获取账号数据结束====");
+                GameFacade.Instance.User.SyncRecords(userData);
+                
                 EventManager.SendEvent(new GameEvent(EVENT.UI_FLUSHUSER));
                 EventManager.SendEvent(new GameEvent(EVENT.UI_NETUPDATE, false));
             }
         });
         
+        //云开发：加载积分数据
+        WX.cloud.CallFunction(new CallFunctionParam()
+        {
+            name = "GetRank",
+            data = JsonUtility.ToJson(""),
+            success = (res) =>
+            {
+                Debug.Log("====获取排行数据成功==== : " + res.result);
+                var data = JsonMapper.ToObject(res.result);
+                if (data.ContainsKey("data")) {
+                    RankDataInfo data_info = JsonUtility.FromJson<RankDataInfo>(res.result);
+
+                    //记录在本地
+                    Rank.Instance.UpdateRankList(data_info.data);
+                }
+            }
+        });
+
     }
 
     public override void UPLOAD(GameUserData userData)

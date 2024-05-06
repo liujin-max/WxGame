@@ -55,6 +55,17 @@ namespace CB
             });
         }
 
+        public void SyncRecords(GameUserData userData)
+        {
+            //同步成就完成记录
+            userData.AchiveRecords.ForEach(id => {
+                var ach = GameFacade.Instance.DataCenter.GetAchievement(id);
+                if (ach != null) {
+                    ach.Sync();
+                }
+            });
+        }
+
         //在失败或成功时统一调用
         public void Save()
         {

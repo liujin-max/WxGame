@@ -131,7 +131,7 @@ public class GhostWindow : MonoBehaviour
         c_Tip.text = string.Format("消耗 <sprite=0>（拥有{0}个）合成弹珠", GameFacade.Instance.Game.Glass);
 
         int cost = (int)GameFacade.Instance.Game.RefreshCoin.ToNumber();
-        if (GameFacade.Instance.Game.m_Coin >= cost) {
+        if (GameFacade.Instance.Game.Coin >= cost) {
             c_BtnRefresh.transform.Find("Text").GetComponent<TextMeshProUGUI>().text = cost + " <sprite=1>";
         } else {
             c_BtnRefresh.transform.Find("Text").GetComponent<TextMeshProUGUI>().text = _C.REDCOLOR + cost + " <sprite=1>";

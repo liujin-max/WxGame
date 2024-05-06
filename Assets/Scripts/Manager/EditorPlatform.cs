@@ -35,13 +35,7 @@ public class EditorPlatform : Platform
     //编辑器模式下 存档数据在Login的时候直接都从本地获取到了
     public override void SYNC(GameUserData userData)
     {
-        //同步成就完成记录
-        userData.AchiveRecords.ForEach(id => {
-            var ach = GameFacade.Instance.DataCenter.GetAchievement(id);
-            if (ach != null) {
-                ach.Sync();
-            }
-        });
+        GameFacade.Instance.User.SyncRecords(userData);
 
         EventManager.SendEvent(new GameEvent(EVENT.UI_FLUSHUSER));
     }

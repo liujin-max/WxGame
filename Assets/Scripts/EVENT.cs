@@ -27,6 +27,7 @@ public static class EVENT
     public static string ONRECORDHIT        = "ONRECORDHIT";
 
     public static string ONBALLPUSH         = "ONBALLPUSH";         //获得弹珠
+    public static string ONMANUALSHOOT      = "ONMANUALSHOOT";      //手动发射
     public static string ONBALLSHOOT        = "ONBALLSHOOT";
     public static string ONBALLRECYCLE      = "ONBALLRECYCLE";
     public static string ONBALLHITBEFORE    = "ONBALLHITBEFORE";    //击中宝石前

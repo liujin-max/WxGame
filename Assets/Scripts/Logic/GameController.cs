@@ -59,15 +59,26 @@ namespace CB
         public bool PauseFlag = false;
 
         internal int m_ORank = 0;    //初始排名
-        internal int m_Score = 0;
-        internal int m_Stage = 0;
-        public int Stage {get {return Crypt.DE(m_Stage);}}
-
+        internal bool m_IsNewScore = false;
         internal int m_Hit = 0;     //每轮的击打次数
-        internal int m_Coin = 0;    //本局获得的金币
-        internal int m_Glass = 0;   //获得的玻璃碎片
-        public int Glass
-        {
+
+        protected int m_Score = 0;
+        public int Score {
+            get {return Crypt.DE(m_Score);}
+            set { m_Score = Crypt.EN(value);}
+        }
+        protected int m_Stage = 0;
+        public int Stage {
+            get {return Crypt.DE(m_Stage);}
+            set { m_Stage = Crypt.EN(value);}
+        }
+        protected int m_Coin = 0;    //本局获得的金币
+        public int Coin {
+            get { return Crypt.DE(m_Coin); }
+            set { m_Coin = Crypt.EN(value);}
+        }
+        protected int m_Glass = 0;   //获得的玻璃碎片
+        public int Glass {
             get { return Crypt.DE(m_Glass); }
             set { m_Glass = Crypt.EN(value);}
         }
@@ -455,6 +466,7 @@ namespace CB
             });
 
             ball.Shoot(pos);
+            EventManager.SendEvent(new GameEvent(EVENT.ONMANUALSHOOT, ball));
         }
 
 
@@ -844,10 +856,10 @@ namespace CB
 
             m_FSM.Owner.Army.Awake();
 
-            m_FSM.Owner.m_Stage = Crypt.EN(0);
-            m_FSM.Owner.m_Coin  = Crypt.EN(0);
-            m_FSM.Owner.m_Glass = Crypt.EN(0);
-            m_FSM.Owner.m_Score = Crypt.EN(0);
+            m_FSM.Owner.Coin    = 0;
+            m_FSM.Owner.Glass   = 0;
+            m_FSM.Owner.Stage   = 0;
+            m_FSM.Owner.Score   = 0;
 
             m_FSM.Owner.m_ORank = Rank.Instance.GetMyRankOrder();
             
@@ -864,13 +876,17 @@ namespace CB
             m_FSM.Owner.GameUI = GameFacade.Instance.UIManager.LoadWindow("Prefab/UI/GameWindow", GameFacade.Instance.UIManager.BOTTOM).GetComponent<GameWindow>();
 
             EventManager.SendEvent(new GameEvent(EVENT.UI_FLUSHCOUNT, false));
-            EventManager.SendEvent(new GameEvent(EVENT.UI_FLUSHCOIN, Crypt.DE(m_FSM.Owner.m_Coin), false));
+            EventManager.SendEvent(new GameEvent(EVENT.UI_FLUSHCOIN, m_FSM.Owner.Coin, false));
             EventManager.SendEvent(new GameEvent(EVENT.UI_FLUSHRELICS));
-            EventManager.SendEvent(new GameEvent(EVENT.UI_FLUSHSCORE, Crypt.DE(m_FSM.Owner.m_Score), m_FSM.Owner.GetTargetScore(1), true));
+            EventManager.SendEvent(new GameEvent(EVENT.UI_FLUSHSCORE, m_FSM.Owner.Score, m_FSM.Owner.GetTargetScore(1), true));
         
             GameFacade.Instance.Game.Resume();
 
-            m_FSM.Owner.BreechBall(m_FSM.Owner.PushBall(_C.BALL_ORIGIN_POS, _C.BALLTYPE.NORMAL));
+            m_FSM.Owner.BreechBall(m_FSM.Owner.PushBall(_C.BALL_ORIGIN_POS, _C.BALLTYPE.BOOM));
+            m_FSM.Owner.BreechBall(m_FSM.Owner.PushBall(_C.BALL_ORIGIN_POS, _C.BALLTYPE.BOOM));
+            m_FSM.Owner.BreechBall(m_FSM.Owner.PushBall(_C.BALL_ORIGIN_POS, _C.BALLTYPE.BOOM));
+            m_FSM.Owner.BreechBall(m_FSM.Owner.PushBall(_C.BALL_ORIGIN_POS, _C.BALLTYPE.BOOM));
+            m_FSM.Owner.BreechBall(m_FSM.Owner.PushBall(_C.BALL_ORIGIN_POS, _C.BALLTYPE.BOOM));
             // m_FSM.Owner.BreechBall(m_FSM.Owner.PushBall(_C.BALL_ORIGIN_POS, _C.BALLTYPE.POWER));
 
 
@@ -922,8 +938,8 @@ namespace CB
 
         public override void Exit()
         {
-            m_FSM.Owner.m_Coin  = Crypt.EN(GameFacade.Instance.Game.GetScoreCoin());
-            m_FSM.Owner.m_Glass = Crypt.EN(GameFacade.Instance.Game.GetScoreGlass());
+            m_FSM.Owner.Coin  = GameFacade.Instance.Game.GetScoreCoin();
+            m_FSM.Owner.Glass = GameFacade.Instance.Game.GetScoreGlass();
 
             //成就奖励
             GameFacade.Instance.DataCenter.Achievements.ForEach(achievement => {
@@ -939,7 +955,7 @@ namespace CB
             // });
 
             EventManager.SendEvent(new GameEvent(EVENT.UI_FLUSHCOUNT, true));
-            EventManager.SendEvent(new GameEvent(EVENT.UI_FLUSHCOIN, Crypt.DE(m_FSM.Owner.m_Coin), true));
+            EventManager.SendEvent(new GameEvent(EVENT.UI_FLUSHCOIN, m_FSM.Owner.Coin, true));
 
             m_RecordUI = null;
         }
@@ -1026,13 +1042,13 @@ namespace CB
         {
             m_DelayTimer.Reset();
 
-            m_FSM.Owner.m_Score = Crypt.EN(0);
-            m_FSM.Owner.m_Stage = Crypt.EN(m_FSM.Owner.Stage + 1);
+            m_FSM.Owner.Score = 0;
+            m_FSM.Owner.Stage = m_FSM.Owner.Stage + 1;
 
             //
             m_FSM.Owner.Environment.OnInit(m_FSM.Owner.Stage);
 
-            EventManager.SendEvent(new GameEvent(EVENT.UI_FLUSHSCORE, Crypt.DE(m_FSM.Owner.m_Score), m_FSM.Owner.GetTargetScore(), true));
+            EventManager.SendEvent(new GameEvent(EVENT.UI_FLUSHSCORE, m_FSM.Owner.Score, m_FSM.Owner.GetTargetScore(), true));
 
 
             //重置弹珠
@@ -1049,7 +1065,7 @@ namespace CB
             var obj = GameFacade.Instance.EffectManager.Load(EFFECT.ROUND, new Vector3(0, 2, 0));
             obj.GetComponent<RoundText>().Init(m_FSM.Owner.Stage);
 
-            if (GameFacade.Instance.User.IsNewScore(m_FSM.Owner.Stage))
+            if (GameFacade.Instance.User.IsNewScore(m_FSM.Owner.Stage) == true)
             {
                 GameFacade.Instance.EffectManager.Load(EFFECT.SCORETEXT, new Vector3(0, 5.5f, 0));
             }
@@ -1105,7 +1121,8 @@ namespace CB
         void OnMouseDown()
         {
             //点击在UI上了
-            if (EventSystem.current.IsPointerOverGameObject()) {
+            // if (EventSystem.current.IsPointerOverGameObject()) {
+            if (m_FSM.Owner.PauseFlag == true) {
                 return;
             }
 
@@ -1167,7 +1184,7 @@ namespace CB
             //金币跟积分挂钩，最少也给1块钱
             int min = RandomUtility.Random(1, 4);
             int max = RandomUtility.Random(17, 24);
-            int coin = Mathf.Clamp((int)Mathf.Floor(Crypt.DE(m_FSM.Owner.m_Score) / 20.0f), min, max);
+            int coin = Mathf.Clamp((int)Mathf.Floor(m_FSM.Owner.Score / 20.0f), min, max);
 
             AttributeValue coin_number = new AttributeValue(coin);
 
@@ -1283,9 +1300,12 @@ namespace CB
                     EventManager.SendEvent(new GameEvent(EVENT.ONPLAYEND));
 
                     //存储记录
+                    if (GameFacade.Instance.User.IsNewScore(m_FSM.Owner.Stage)) {
+                        m_FSM.Owner.m_IsNewScore = true;
+                    }
                     GameFacade.Instance.User.SetScore(m_FSM.Owner.Stage);
                     GameFacade.Instance.User.Save();
-                    Rank.Instance.CheckRankingChanges(m_FSM.Owner.m_ORank, m_FSM.Owner.Stage);
+                    
 
                     Camera.main.GetComponent<CameraUtility>().DoShake();
 
@@ -1490,7 +1510,6 @@ namespace CB
             GameFacade.Instance.Game.Pause();
 
             int real_score      = (int)values[0];
-            bool is_new_score   = GameFacade.Instance.User.IsNewScore(real_score);
 
             //记录分数
             GameFacade.Instance.User.SetScore(real_score);
@@ -1500,7 +1519,7 @@ namespace CB
 
             var obj = GameFacade.Instance.UIManager.LoadWindow("Prefab/UI/ResultWindow", GameFacade.Instance.UIManager.BOARD);
             var ui  = obj.GetComponent<ResultWindow>();
-            ui.Init(real_score, is_new_score);
+            ui.Init(real_score, m_FSM.Owner.m_IsNewScore);
 
             EventManager.SendEvent(new GameEvent(EVENT.ONGAMEEND));
         }
