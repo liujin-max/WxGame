@@ -29,7 +29,7 @@ MonoBehaviour:
     HideAfterCallMain: 1
     preloadFiles: 
     Orientation: 0
-    bgImageSrc: Assets/Resources/Scape/ScreenLoading.png
+    bgImageSrc: Assets/Resources/UI/Scape/ScreenLoading.png
     dataFileSubPrefix: 
     maxStorage: 200
     defaultReleaseSize: 31457280
@@ -73,3 +73,5 @@ MonoBehaviour:
     force: 0
   PlayerPrefsKeys:
   - KEY_USER
+  - KEY_MUSIC
+  - KEY_SOUND

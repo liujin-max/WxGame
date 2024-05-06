@@ -52,6 +52,7 @@ public static class _C
     
 
 
+    public static int DEFAULT_RANK  = 999;
     public static int GLASSPRICE    = 2;    //碎片价格
     public static int DEFAULT_COIN  = 5;
     public static int DEFAULT_GLASS = 5;

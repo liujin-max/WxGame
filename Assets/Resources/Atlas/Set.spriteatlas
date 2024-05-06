@@ -54,30 +54,34 @@ SpriteAtlas:
   m_MasterAtlas: {fileID: 0}
   m_PackedSprites:
   - {fileID: 21300000, guid: 1a689c90715b3dd45a4b4aefb28a7f4e, type: 3}
+  - {fileID: 21300000, guid: 84cd601172adc91498831bf690c9fef0, type: 3}
   - {fileID: 21300000, guid: 7d6d597138ea34b4b986751d8f0ed6bf, type: 3}
   - {fileID: 21300000, guid: cf3437a1fb5380e4bab85d5134b8a8dc, type: 3}
   - {fileID: 21300000, guid: d8c10e33b7e6f1a4c94e5f2af8a92dc2, type: 3}
   - {fileID: 21300000, guid: a238d98331dea3e4d8215f01600570ad, type: 3}
   - {fileID: 21300000, guid: 31f7a795e77496f48a9e5b3fc4819db3, type: 3}
   - {fileID: 21300000, guid: 36c8c1f6f09d71a419907978e26d3b74, type: 3}
+  - {fileID: 21300000, guid: 96cfe957a5bd3ea4bb09ec1e39d12fd0, type: 3}
   - {fileID: 21300000, guid: 397a4a77f9c35aa468a64fa733f5c046, type: 3}
-  - {fileID: 21300000, guid: 5331e9ca212646d4d9326b867749e20e, type: 3}
-  - {fileID: 21300000, guid: b18ef9fa585552044989af87d920a660, type: 3}
-  - {fileID: 21300000, guid: 7fdf30ac04bdd904eb704aee5ea5978e, type: 3}
+  - {fileID: 21300000, guid: 6c6a3d8bc3c2c22488913c2a54706b64, type: 3}
   - {fileID: 21300000, guid: 1eb8339db12450d469c2143bb6d2bfd5, type: 3}
+  - {fileID: 21300000, guid: 8170025e5312c1d4a997953be9620dbc, type: 3}
+  - {fileID: 21300000, guid: a32e4d6fe36fc7442a9ed3cea51bdadc, type: 3}
   m_PackedSpriteNamesToIndex:
   - Set_default_head
+  - Set_rank_top3
   - Set_bar_point
   - Set_btn_rank
   - Set_head_frame_square
   - Set_btn_achievement
   - Set_shadow
   - Set_bar
+  - Set_rank_item_frame 1
   - Set_bar_bg
-  - Set_head_frame
-  - Set_circle_mask
-  - Set_rank_item_frame
+  - Set_rank_top2
   - Set_achievement_item_frame
+  - Set_rank_item_frame_our
+  - Set_rank_top1
   m_RenderDataMap: {}
   m_Tag: Set
   m_IsVariant: 0

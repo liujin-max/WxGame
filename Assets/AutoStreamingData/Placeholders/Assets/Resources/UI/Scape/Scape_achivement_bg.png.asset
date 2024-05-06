@@ -1,0 +1,52 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!28 &2800000
+Texture2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Scape_achivement_bg.png
+  m_ImageContentsHash:
+    serializedVersion: 2
+    Hash: 00000000000000000000000000000000
+  m_ForcedFallbackFormat: 4
+  m_DownscaleFallback: 0
+  m_IsAlphaChannelOptional: 0
+  serializedVersion: 3
+  m_Width: 21
+  m_Height: 32
+  m_CompleteImageSize: 192
+  m_MipsStripped: 0
+  m_TextureFormat: 51
+  m_MipCount: 1
+  m_IsReadable: 1
+  m_IsPreProcessed: 0
+  m_IgnoreMasterTextureLimit: 0
+  m_StreamingMipmaps: 0
+  m_StreamingMipmapsPriority: 0
+  m_VTOnly: 0
+  m_AlphaIsTransparency: 1
+  m_ImageCount: 1
+  m_TextureDimension: 2
+  m_TextureSettings:
+    serializedVersion: 2
+    m_FilterMode: 1
+    m_Aniso: 1
+    m_MipBias: 0
+    m_WrapU: 1
+    m_WrapV: 1
+    m_WrapW: 1
+  m_LightmapFormat: 6
+  m_ColorSpace: 1
+  m_PlatformBlob: 
+  image data: 192
+  _typelessdata: 69080f757f588748e97781ffffffc107040d0fb53d3facf09d80ffffff3ff00369080f75ff796328e17781de7bef8107342393f11730725d3dfdb18d2daca0013423d3f0063872ff7f75bd2bad0100003423f37cc3e4a0f85da8381ca0010c80342383f116b8ea500ffd7045f9b2510f3423cf4b1ff80000ac68a53f756efcb33423a3fc639000c4688038346006c3583e449d13e00d05a9193aafefebfbfabe6ec88eb11cfa57d2e837dca6feffffffdd903061f3020418ea4050400c797a76
+  m_StreamData:
+    serializedVersion: 2
+    offset: 0
+    size: 0
+    path: 
+  m_OriginalWidth: 0
+  m_OriginalHeight: 0
+  m_OriginalAssetGuid: 00000000000000000000000000000000

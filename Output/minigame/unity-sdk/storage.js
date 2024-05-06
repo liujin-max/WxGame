@@ -1,4 +1,4 @@
-﻿const PreLoadKeys = ["KEY_USER"]; 
+﻿const PreLoadKeys = ["KEY_USER","KEY_MUSIC","KEY_SOUND"]; 
 const storage = {
     _cacheData: {},
     _handleList: [],

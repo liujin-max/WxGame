@@ -9,35 +9,68 @@ namespace CB
 {
     public class RankWindow : MonoBehaviour
     {
-        [SerializeField] private Transform m_Content;
-        [SerializeField] private Transform m_OurPivot;
+        [SerializeField] private Transform c_TopPivot;
+        [SerializeField] private Transform c_Content;
+        [SerializeField] private Transform c_OurPivot;
 
-        private HeadItem m_HeadItem = null;
 
         public void Init(RankDataInfo data_info)
         {
             InitOur();
+            InitTop(data_info.data);
             InitRanks(data_info.data);
+        }
+
+        void InitTop(RankData[] rankDatas)
+        {
+            for (int i = 0; i < 3; i++)
+            {
+                var top     = c_TopPivot.Find((i + 1).ToString());
+
+                var head    = GameFacade.Instance.UIManager.LoadItem("Prefab/UI/Item/HeadItem", top.Find("HeadPivot")).GetComponent<HeadItem>();
+                var name    = top.Find("Name").GetComponent<Text>();
+                var score   = top.Find("Score").GetComponent<Text>();
+
+                c_OurPivot.Find("Score").GetComponent<Text>().text = string.Format("{0} 层", GameFacade.Instance.User.Score);
+
+                if (rankDatas.Length > i) {
+                    RankData rankData = rankDatas[i];
+
+                    head.Init(rankData.Head);
+                    name.text   = rankData.Name;
+                    score.text  = string.Format("{0} 层", rankData.Score);;
+                } else {
+                    name.text   = "虚位以待";
+                    score.text  = string.Empty;
+                }
+            }
         }
 
         void InitRanks(RankData[] rankDatas)
         {
-            for (int i = 0; i < rankDatas.Length; i++)
+            if (rankDatas.Length <= 3) return;
+
+            for (int i = 3; i < rankDatas.Length; i++)
             {
-                var item = GameFacade.Instance.UIManager.LoadItem("Prefab/UI/Item/RankItem", m_Content).GetComponent<RankItem>();
+                var item = GameFacade.Instance.UIManager.LoadItem("Prefab/UI/Item/RankItem", c_Content).GetComponent<RankItem>();
                 item.Init(rankDatas[i]);
             }
         }
 
         void InitOur()
         {
-            if (m_HeadItem == null) {
-                m_HeadItem = GameFacade.Instance.UIManager.LoadItem("Prefab/UI/Item/HeadItem", m_OurPivot.Find("HeadPivot")).GetComponent<HeadItem>();
-            } 
-            m_HeadItem.Init(GameFacade.Instance.User.HeadURL);
+            var item = GameFacade.Instance.UIManager.LoadItem("Prefab/UI/Item/HeadItem", c_OurPivot.Find("HeadPivot")).GetComponent<HeadItem>();
+            item.Init(GameFacade.Instance.User.HeadURL);
 
-            m_OurPivot.Find("Name").GetComponent<Text>().text = GameFacade.Instance.User.Name;
-            m_OurPivot.Find("Score").GetComponent<Text>().text = string.Format("{0} 层", GameFacade.Instance.User.Score);
+            int order = Rank.Instance.GetMyRankOrder();
+            if (order == _C.DEFAULT_RANK) {
+                c_OurPivot.Find("-/Order").GetComponent<Text>().text = "未上榜";
+            } else {
+                c_OurPivot.Find("-/Order").GetComponent<Text>().text = order.ToString();
+            }
+
+            c_OurPivot.Find("Name").GetComponent<Text>().text = GameFacade.Instance.User.Name;
+            c_OurPivot.Find("Score").GetComponent<Text>().text = string.Format("{0} 层", GameFacade.Instance.User.Score);
         }
 
         public void OnMask()

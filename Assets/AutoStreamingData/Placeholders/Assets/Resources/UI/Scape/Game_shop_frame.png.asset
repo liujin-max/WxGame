@@ -1,0 +1,52 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!28 &2800000
+Texture2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Game_shop_frame.png
+  m_ImageContentsHash:
+    serializedVersion: 2
+    Hash: 00000000000000000000000000000000
+  m_ForcedFallbackFormat: 4
+  m_DownscaleFallback: 0
+  m_IsAlphaChannelOptional: 0
+  serializedVersion: 3
+  m_Width: 29
+  m_Height: 32
+  m_CompleteImageSize: 256
+  m_MipsStripped: 0
+  m_TextureFormat: 51
+  m_MipCount: 1
+  m_IsReadable: 1
+  m_IsPreProcessed: 0
+  m_IgnoreMasterTextureLimit: 0
+  m_StreamingMipmaps: 0
+  m_StreamingMipmapsPriority: 0
+  m_VTOnly: 0
+  m_AlphaIsTransparency: 1
+  m_ImageCount: 1
+  m_TextureDimension: 2
+  m_TextureSettings:
+    serializedVersion: 2
+    m_FilterMode: 1
+    m_Aniso: 1
+    m_MipBias: 0
+    m_WrapU: 1
+    m_WrapV: 1
+    m_WrapW: 1
+  m_LightmapFormat: 6
+  m_ColorSpace: 1
+  m_PlatformBlob: 
+  image data: 256
+  _typelessdata: 3910244390d70080d7a4105bdb5045382ac816f552fa2a20e0847b6d01c0af02191024836b5c190060be862e62bf30c20a10240332b50c0064de858bee050f0ff30067319c24a66df02eba9ffdceff6c28c1b61af9d26bb6a98ab81a0da42aaa28c17a58299ae6b7654d4638f8a5fc9ff300215609138ba423abf1fcf94a5dbb6fc002b7844a4dfd7ba679ee9cb9e00c28c1363a7902faa9bc629866f78a3422d3c1ee3eaa67ad9463434216e997122608c3fe18a80a675006d4800eda2008a05d443fc7001826f00d90df9b7f7b7f7f3e447f6de2cd98f07369850c2af3eaaa3e449f0de00d188f7839964eabcbdaaa0ad84301c18b05bcc5401c210727bb55
+  m_StreamData:
+    serializedVersion: 2
+    offset: 0
+    size: 0
+    path: 
+  m_OriginalWidth: 0
+  m_OriginalHeight: 0
+  m_OriginalAssetGuid: 00000000000000000000000000000000

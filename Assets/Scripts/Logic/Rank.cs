@@ -64,7 +64,7 @@ namespace CB
                 }
             }
 
-            return 9999999;
+            return _C.DEFAULT_RANK;
         }
 
         //判断排行是否上升

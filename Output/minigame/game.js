@@ -37,11 +37,11 @@ if (false) {
     checkUpdate();
 }
 const managerConfig = {
-    DATA_FILE_MD5: '37bb9acb5b527039',
-    CODE_FILE_MD5: '2b2411bc2315f955',
+    DATA_FILE_MD5: '9d27b550590ab1d7',
+    CODE_FILE_MD5: '9d04da978ff2f0a1',
     GAME_NAME: 'webgl',
     APPID: 'wx3eeae3a7e9821066',
-    DATA_FILE_SIZE: '9186829',
+    DATA_FILE_SIZE: '8266293',
     OPT_DATA_FILE_SIZE: '$OPT_DATA_FILE_SIZE',
     DATA_CDN: '',
     // 资源包是否作为小游戏分包加载
@@ -79,10 +79,6 @@ checkVersion().then((enable) => {
             }).default;
         }
         catch (error) {
-            GameGlobal.realtimeLogManager.error(error);
-            // logManager不支持自动处理错误对象
-            GameGlobal.logmanager.warn(error.stack);
-            console.error('requirePlugin:', error);
             if (error.message.indexOf('not defined') !== -1) {
                 console.error('！！！插件需要申请才可使用\n请勿使用测试AppID，并登录 https://mp.weixin.qq.com/ 并前往：能力地图-开发提效包-快适配 开通\n阅读文档获取详情:https://github.com/wechat-miniprogram/minigame-unity-webgl-transform/blob/main/Design/Transform.md');
             }
@@ -103,29 +99,29 @@ checkVersion().then((enable) => {
                 scaleMode: scaleMode.default,
                 // 以下配置的样式，尺寸相对设计宽高
                 textConfig: {
-                    firstStartText: '首次加载请耐心等待',
-                    downloadingText: ['正在加载资源'],
-                    compilingText: '编译中',
-                    initText: '初始化中',
+                    firstStartText: '',
+                    downloadingText: ['正在进入弹珠世界'],
+                    compilingText: '生成弹珠...',
+                    initText: '生成宝石...',
                     completeText: '开始游戏',
                     textDuration: 1500,
                     // 文字样式
                     style: {
-                        bottom: 64,
+                        bottom: 400,
                         height: 24,
                         width: 240,
-                        lineHeight: 24,
-                        color: '#ffffff',
-                        fontSize: 12,
+                        lineHeight: 30,
+                        color: '#000000',
+                        fontSize: 16,
                     },
                 },
                 // 进度条样式
                 barConfig: {
                     style: {
-                        width: 240,
+                        width: 300,
                         height: 24,
                         padding: 2,
-                        bottom: 64,
+                        bottom: 450,
                         backgroundColor: '#07C160',
                     },
                 },
@@ -148,7 +144,6 @@ checkVersion().then((enable) => {
             },
         });
         GameGlobal.managerConfig = managerConfig;
-        // 显示启动封面
         const gameManager = new UnityManager(managerConfig);
         gameManager.onLaunchProgress((e) => {
             // interface LaunchEvent {
@@ -190,11 +185,30 @@ checkVersion().then((enable) => {
             gameManager.assetPath = `${(managerConfig.DATA_CDN || '').replace(/\/$/, '')}/Assets`;
             preloadWxCommonFont();
         });
-        // 插件捕获到引擎错误后，会通过此事件抛给游戏
+        // 上报初始化信息
+        const systeminfo = wx.getSystemInfoSync();
+        const bootinfo = {
+            renderer: systeminfo.renderer || '',
+            isH5Plus: GameGlobal.isIOSHighPerformanceModePlus || false,
+            abi: systeminfo.abi || '',
+            brand: systeminfo.brand,
+            model: systeminfo.model,
+            platform: systeminfo.platform,
+            system: systeminfo.system,
+            version: systeminfo.version,
+            SDKVersion: systeminfo.SDKVersion,
+            benchmarkLevel: systeminfo.benchmarkLevel,
+        };
+        wx.getRealtimeLogManager().info('game starting', bootinfo);
+        wx.getLogManager({ level: 0 }).info('game starting', bootinfo);
+        console.info('game starting', bootinfo);
+        // 默认上报小游戏实时日志与用户反馈日志(所有error日志+小程序框架异常)
+        wx.onError((result) => {
+            gameManager.printErr(result.message);
+        });
         gameManager.onLogError = function (err) {
             GameGlobal.realtimeLogManager.error(err);
-            const isErrorObj = err && err.stack;
-            GameGlobal.logmanager.warn(isErrorObj ? err.stack : err);
+            GameGlobal.logmanager.warn(err);
         };
         // iOS高性能模式定期GC
         if (GameGlobal.canUseiOSAutoGC && unityNamespace.iOSAutoGCInterval !== 0) {
@@ -202,7 +216,6 @@ checkVersion().then((enable) => {
                 wx.triggerGC();
             }, unityNamespace.iOSAutoGCInterval);
         }
-        // 开始执行游戏启动流程
         gameManager.startGame();
         GameGlobal.manager = gameManager;
         GameGlobal.events.on('launchOperaPushMsgToWasm', (callback, args) => GameGlobal.WXWASMSDK.WXLaunchOperaBridgeToC(callback, args));
