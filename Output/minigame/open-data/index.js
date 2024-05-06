@@ -6,11 +6,11 @@ import getTipsXML from './render/tpls/tips';
 import getTipsStyle from './render/styles/tips';
 import { showLoading } from './loading';
 const Layout = requirePlugin('Layout').default;
-const RANK_KEY = 'newscore';
+const RANK_KEY = 'user_rank';
 const sharedCanvas = wx.getSharedCanvas();
 const sharedContext = sharedCanvas.getContext('2d');
 // test
-// setUserRecord(RANK_KEY, Math.ceil(Math.random() * 1000));
+setUserRecord(RANK_KEY, Math.ceil(Math.random() * 1000));
 const MessageType = {
     WX_RENDER: 'WXRender',
     WX_DESTROY: 'WXDestroy',
@@ -31,7 +31,7 @@ const initShareEvents = () => {
                 if (item.dataset.isSelf === 'false') {
                     wx.shareMessageToFriend({
                         openId: item.dataset.id,
-                        title: '最高记录排行榜！谁是第一？',
+                        title: '最强战力排行榜！谁是第一？',
                         imageUrl: 'https://mmgame.qpic.cn/image/5f9144af9f0e32d50fb878e5256d669fa1ae6fdec77550849bfee137be995d18/0',
                     });
                 }
