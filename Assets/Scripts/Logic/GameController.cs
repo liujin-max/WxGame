@@ -795,6 +795,27 @@ namespace CB
             _GameUI = null;
         }
 
+        // 游戏进入后台时执行该方法 pause为true 切换回前台时pause为false
+        // 当应用程序暂停时调用此函数。这可能发生在用户切换到其他应用程序或将应用程序最小化时。
+        // 通常在这个事件中会处理需要在应用暂停时执行的逻辑，比如保存游戏状态、暂停游戏等。
+        void OnApplicationPause(bool pause){
+            // Debug.Log("OnApplicationPause : "  + pause);
+
+            if(pause) {
+                if (this.IsPlaying() && !PauseFlag) {
+                    GameFacade.Instance.Game.Pause();
+                    GameFacade.Instance.UIManager.LoadWindow("Prefab/UI/GameSetWindow", GameFacade.Instance.UIManager.BOARD);
+                }
+            }
+        }
+
+        // 游戏失去焦点也就是进入后台时 focus为false 切换回前台时 focus为true
+        // 当应用程序获得或失去焦点时调用此函数。焦点是指用户当前正在与应用程序交互的活动窗口。
+        // 可以在这个事件中处理应用程序获得或失去焦点时需要执行的逻辑，比如暂停声音、暂停视频播放等。
+        void OnApplicationFocus(bool focus)
+        {
+
+        }
 
         #region 监听事件
         //障碍物扣血
