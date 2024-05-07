@@ -20,3 +20,4 @@ Output/webgl/Build/webgl.data
 Output/minigame/webgl.wasm.symbols.unityweb
 Output/minigame/webgl.wasm.framework.unityweb.js
 Output/minigame/game.js
+*.wasm
