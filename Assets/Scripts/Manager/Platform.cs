@@ -27,7 +27,10 @@ public abstract class Platform
     public abstract void UPLOAD(GameUserData userData);
     //拉取排行榜
     public abstract void PULLRANK();
+    //分享
+    public abstract void SHARE();
 
     //设备振动
     public abstract void VIBRATE(string level);
+
 }

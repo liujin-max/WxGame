@@ -23,6 +23,7 @@ public class WXPlatform : Platform
 
             //上报启动
             WX.ReportGameStart();
+
             
             if (callback != null) {
                 callback.Invoke();
@@ -203,6 +204,16 @@ public class WXPlatform : Platform
             {
                 EventManager.SendEvent(new GameEvent(EVENT.UI_NETUPDATE, false));
             }
+        });
+    }
+
+    //分享
+    public override void SHARE()
+    {
+        WX.ShareAppMessage(new ShareAppMessageOption()
+        {
+            title = "分享标题xxx",
+            imageUrl = "https://inews.gtimg.com/newsapp_bt/0/12171811596_909/0",
         });
     }
 

@@ -61,6 +61,11 @@ public class EditorPlatform : Platform
 
     }
 
+    public override void SHARE()
+    {
+
+    }
+
     public override void VIBRATE(string level)
     {
 
