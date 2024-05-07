@@ -37,10 +37,7 @@ namespace CB
             });
 
             BtnAchievement.onClick.AddListener(()=>{  
-                var obj = GameFacade.Instance.UIManager.ShowWindow("AchievementWindow");
-                if (obj == null) {
-                    obj = GameFacade.Instance.UIManager.LoadWindow("Prefab/UI/AchievementWindow", GameFacade.Instance.UIManager.BOARD);
-                } 
+                var obj = GameFacade.Instance.UIManager.LoadWindow("Prefab/UI/AchievementWindow", GameFacade.Instance.UIManager.BOARD);
                 var window = obj.GetComponent<AchievementWindow>();
                 window.Init();
             });

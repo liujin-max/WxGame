@@ -12,6 +12,7 @@ namespace CB
         [SerializeField] private Transform c_TopPivot;
         [SerializeField] private Transform c_Content;
         [SerializeField] private Transform c_OurPivot;
+        [SerializeField] private SuperScrollView c_ScrollView;
 
 
         public void Init(RankDataInfo data_info)
@@ -48,13 +49,18 @@ namespace CB
 
         void InitRanks(RankData[] rankDatas)
         {
-            if (rankDatas.Length <= 3) return;
+            List<RankData> list = new List<RankData>();
 
-            for (int i = 3; i < rankDatas.Length; i++)
-            {
-                var item = GameFacade.Instance.UIManager.LoadItem("Prefab/UI/Item/RankItem", c_Content).GetComponent<RankItem>();
-                item.Init(rankDatas[i]);
+            if (rankDatas.Length > 3) {
+                for (int i = 3; i < rankDatas.Length; i++) {
+                    list.Add(rankDatas[i]);
+                }
             }
+
+            c_ScrollView.Init(list.Count, (obj, index, is_init)=>{
+                RankItem item = obj.transform.GetComponent<RankItem>();
+                item.Init(list[index]);
+            });
         }
 
         void InitOur()

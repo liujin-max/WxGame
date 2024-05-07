@@ -10,33 +10,15 @@ namespace CB
     public class AchievementWindow : MonoBehaviour
     {
         [SerializeField] Button Mask;
-        [SerializeField] Transform c_Content;
 
-
-        private List<AchievementItem> m_Items = new List<AchievementItem>();
-
-
-        AchievementItem new_item(int order)
-        {
-            AchievementItem item = null;
-            if (m_Items.Count > order){
-                item = m_Items[order];
-            } else {
-                GameObject obj = GameFacade.Instance.UIManager.LoadItem("Prefab/UI/Item/AchievementItem", c_Content);
-                item = obj.GetComponent<AchievementItem>();
-
-                m_Items.Add(item);
-            }
-            item.gameObject.SetActive(true);
-            return item;
-        }
-
+        [SerializeField] private SuperScrollView c_ScrollView;
+ 
 
         // Start is called before the first frame update
         void Start()
         {
             Mask.onClick.AddListener(()=>{
-                GameFacade.Instance.UIManager.HideWindow("AchievementWindow", gameObject);
+                GameFacade.Instance.UIManager.UnloadWindow(gameObject);
             });
         }
 
@@ -47,21 +29,18 @@ namespace CB
 
         void InitAchievements()
         {
-            m_Items.ForEach(item => {
-                item.gameObject.SetActive(false);
-            });
-
-            int count   = 0;
             var list    = new List<Achievement>();
-            list.AddRange(GameFacade.Instance.DataCenter.Achievements);
-            list.Sort((a1, a2) => a1.SortOrder.CompareTo(a2.SortOrder));
-
-            list.ForEach(ach => {
+            GameFacade.Instance.DataCenter.Achievements.ForEach(ach => {
                 if (ach.IsShow) {
-                    var item = new_item(count);
-                    item.Init(ach);
-                    count++;
+                    // list.Add(ach);
                 }
+            });
+            // list.Sort((a1, a2) => a1.SortOrder.CompareTo(a2.SortOrder));
+
+            c_ScrollView.Init(list.Count, (obj, index, is_init)=>{
+                AchievementItem item = obj.transform.GetComponent<AchievementItem>();
+                item.Init(list[index]);
+                if (!is_init) item.FadeIn();
             });
         }
     }

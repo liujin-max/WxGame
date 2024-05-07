@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using CB;
+using DG.Tweening;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -17,6 +18,15 @@ namespace CB
         [SerializeField] TextMeshProUGUI c_Reward;
         [SerializeField] GameObject c_FinishMask;
 
+        private Animation m_Anim;
+        
+        void Awake()
+        {
+            c_Touch.onClick.AddListener(()=>{
+                Debug.Log("onClick");
+                m_Achievement.PopupWindow();
+            });
+        }
 
         public void Init(Achievement achievement)
         {
@@ -28,14 +38,18 @@ namespace CB
             FlushUI();
         }
 
+        public void FadeIn()
+        {
+            if (m_Anim == null) {
+                m_Anim = transform.GetComponent<Animation>();
+            }
+
+            m_Anim.Play("ACHShow");
+        }
+
         void FlushUI()
         {
             c_FinishMask.SetActive(m_Achievement.IsFinished);
-        }
-
-        public void OnClick()
-        {
-            m_Achievement.PopupWindow();
         }
     }
 }

@@ -88,6 +88,7 @@
     <Compile Include="Assets\Scripts\Effect\ShakeText.cs" />
     <Compile Include="Assets\Scripts\Logic\Ball\BallThrough.cs" />
     <Compile Include="Assets\Scripts\UI\Item\RankUPItem.cs" />
+    <Compile Include="Assets\Scripts\Utility\DIYScrollView.cs" />
     <Compile Include="Assets\DOTween\Modules\DOTweenModulePhysics2D.cs" />
     <Compile Include="Assets\Scripts\Manager\UIManager.cs" />
     <Compile Include="Assets\Scripts\Logic\Ball\BallRegen.cs" />
@@ -208,6 +209,7 @@
     <Compile Include="Assets\Scripts\Logic\Ball\BallGrowth.cs" />
     <Compile Include="Assets\Scripts\Logic\Ball\BallYuan.cs" />
     <Compile Include="Assets\Scripts\Logic\DataCenter.cs" />
+    <Compile Include="Assets\Scripts\Utility\SuperScrollView.cs" />
     <Compile Include="Assets\Scripts\UI\GameWindow.cs" />
     <Compile Include="Assets\Scripts\Effect\Effect.cs" />
     <Compile Include="Assets\Scripts\Logic\BEffect.cs" />

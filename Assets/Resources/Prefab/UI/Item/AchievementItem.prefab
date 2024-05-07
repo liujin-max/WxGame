@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4239914017160009597}
   - component: {fileID: 4285787238803902510}
+  - component: {fileID: 4199240552289014326}
   m_Layer: 5
   m_Name: AchievementItem
   m_TagString: Untagged
@@ -50,10 +51,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 47c73b25fb0029340b96b9d83d00eeb0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  c_Touch: {fileID: 0}
+  c_Touch: {fileID: 6835523911388580463}
   c_Description: {fileID: 7816464802982397826}
   c_Reward: {fileID: 2793780411786023285}
   c_FinishMask: {fileID: 5048627766645725160}
+--- !u!111 &4199240552289014326
+Animation:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 504724252664701830}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Animation: {fileID: 7400000, guid: 26a4e2305919a4145879d35deb16e8ca, type: 2}
+  m_Animations:
+  - {fileID: 7400000, guid: 26a4e2305919a4145879d35deb16e8ca, type: 2}
+  m_WrapMode: 0
+  m_PlayAutomatically: 0
+  m_AnimatePhysics: 0
+  m_CullingType: 0
 --- !u!1 &1074934107384729556
 GameObject:
   m_ObjectHideFlags: 0
@@ -335,7 +352,7 @@ GameObject:
   - component: {fileID: 7109508376712696164}
   - component: {fileID: 1620609668884234536}
   - component: {fileID: 7138720678564474197}
-  - component: {fileID: 2431078441950512351}
+  - component: {fileID: 6835523911388580463}
   m_Layer: 5
   m_Name: Touch
   m_TagString: Untagged
@@ -404,7 +421,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &2431078441950512351
+--- !u!114 &6835523911388580463
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -447,19 +464,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 7138720678564474197}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 4285787238803902510}
-        m_TargetAssemblyTypeName: CB.AchievementItem, Assembly-CSharp
-        m_MethodName: OnClick
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!1 &4196357493142682811
 GameObject:
   m_ObjectHideFlags: 0
