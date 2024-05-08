@@ -19,7 +19,7 @@ MonoBehaviour:
     assetLoadType: 1
     compressDataPackage: 1
     VideoUrl: 
-    DST: D:/Work/WxGame/Output
+    DST: D:/Work/Output
     StreamCDN: 
     bundleHashLength: 32
     bundlePathIdentifier: StreamingAssets;

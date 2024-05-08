@@ -32,10 +32,10 @@ namespace CB
             var list    = new List<Achievement>();
             GameFacade.Instance.DataCenter.Achievements.ForEach(ach => {
                 if (ach.IsShow) {
-                    // list.Add(ach);
+                    list.Add(ach);
                 }
             });
-            // list.Sort((a1, a2) => a1.SortOrder.CompareTo(a2.SortOrder));
+            list.Sort((a1, a2) => a1.SortOrder.CompareTo(a2.SortOrder));
 
             c_ScrollView.Init(list.Count, (obj, index, is_init)=>{
                 AchievementItem item = obj.transform.GetComponent<AchievementItem>();
