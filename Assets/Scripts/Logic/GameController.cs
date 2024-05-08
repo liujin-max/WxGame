@@ -64,6 +64,7 @@ namespace CB
         internal bool m_IsNewScore = false;
         internal int m_Hit = 0;     //每轮的击打次数
 
+        
         protected int m_Score = 0;
         public int Score {
             get {return Crypt.DE(m_Score);}
@@ -168,6 +169,8 @@ namespace CB
             record.Order    = this.Stage;
             record.Coin     = this.Coin;
             record.Glass    = this.Glass;
+
+            //
 
 
             //存储弹珠数据
@@ -939,13 +942,13 @@ namespace CB
 
 
             EventManager.SendEvent(new GameEvent(EVENT.UI_FLUSHCOUNT, false));
-            EventManager.SendEvent(new GameEvent(EVENT.UI_FLUSHCOIN, m_FSM.Owner.Coin, false));
+            EventManager.SendEvent(new GameEvent(EVENT.UI_FLUSHCOIN,  m_FSM.Owner.Coin, false));
             EventManager.SendEvent(new GameEvent(EVENT.UI_FLUSHRELICS));
             EventManager.SendEvent(new GameEvent(EVENT.UI_FLUSHSCORE, m_FSM.Owner.Score, m_FSM.Owner.GetTargetScore(1), true));
         
 
             if (archiveRecord != null) {
-                m_FSM.Transist(_C.FSMSTATE.GAME_IDLE);
+                m_FSM.Transist(_C.FSMSTATE.GAME_IDLE, true);
             } else {
                 // EventManager.SendEvent(new GameEvent(EVENT.ONGAMESTART));
 
@@ -990,7 +993,7 @@ namespace CB
         {
             if (m_RecordUI == null)
             {
-                GameFacade.Instance.Game.DOTransist(_C.FSMSTATE.GAME_IDLE);
+                GameFacade.Instance.Game.DOTransist(_C.FSMSTATE.GAME_IDLE, false);
             }
         }
 
@@ -1099,7 +1102,7 @@ namespace CB
         public override void Enter(params object[] values)
         {
             m_DelayTimer.Reset();
-
+            
             //存储关卡存档
             if (m_FSM.Owner.Stage > 0) {
                 m_FSM.Owner.Export();
@@ -1107,6 +1110,7 @@ namespace CB
 
             m_FSM.Owner.Score = 0;
             m_FSM.Owner.Stage = m_FSM.Owner.Stage + 1;
+
 
             //
             m_FSM.Owner.Environment.OnInit(m_FSM.Owner.Stage);

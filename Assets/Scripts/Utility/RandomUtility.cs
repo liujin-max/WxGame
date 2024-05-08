@@ -8,6 +8,10 @@ public static class RandomUtility
 {
     private static System.Random _Random = new System.Random();
 
+    public static void InitSeed(int seed)
+    {
+        _Random = new System.Random(seed);
+    }
 
     // max最大值（不包含）
     public static int Random(int min, int max) 

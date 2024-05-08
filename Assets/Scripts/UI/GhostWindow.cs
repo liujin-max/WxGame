@@ -83,7 +83,7 @@ public class GhostWindow : MonoBehaviour
             GameFacade.Instance.SoundManager.Load(SOUND.CLICK);
 
             if (GameFacade.Instance.Game.Balls.Count > 0) {
-                GameFacade.Instance.Game.DOTransist(_C.FSMSTATE.GAME_IDLE);
+                GameFacade.Instance.Game.DOTransist(_C.FSMSTATE.GAME_IDLE, false);
             } else {
                GameFacade.Instance.Game.DOTransist(_C.FSMSTATE.GAME_END, GameFacade.Instance.Game.Stage);
             }

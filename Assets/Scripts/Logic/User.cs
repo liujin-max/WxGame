@@ -32,6 +32,7 @@ namespace CB
     public class ArchiveRecord
     {
         public bool Valid = false;  //是否有效
+
         public int Order;
         public int Coin;
         public int Glass;

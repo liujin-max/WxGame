@@ -40,6 +40,6 @@ public class RelicsItem : MonoBehaviour
         if (relics.Price > GameFacade.Instance.Game.Coin) {
             color   = _C.REDCOLOR;
         }
-        c_Cost.text = string.Format(" {0}{1}</color> <sprite=1>", color, relics.Price);
+        c_Cost.text = string.Format(" {0}<size=46>{1}</size></color> <sprite=1>", color, relics.Price);
     }
 }
