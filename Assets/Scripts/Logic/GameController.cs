@@ -183,7 +183,7 @@ namespace CB
             });
 
             string json = JsonMapper.ToJson(record);
-            Debug.Log("存储：" + json);
+            Debug.Log("存储关卡存档：" + json);
             PlayerPrefs.SetString(SystemManager.KEY_ARCHIVE, json);
         }
 

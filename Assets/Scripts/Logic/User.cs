@@ -122,7 +122,7 @@ namespace CB
                 return null;
             }
 
-            Debug.Log("读取：" + json);
+            Debug.Log("读取关卡存档：" + json);
             ArchiveRecord record = JsonUtility.FromJson<ArchiveRecord>(json);
             if (!record.Valid) {
                 return null;
