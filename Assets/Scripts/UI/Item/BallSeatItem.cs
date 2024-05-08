@@ -8,11 +8,19 @@ using UnityEngine.UI;
 public class BallSeatItem : MonoBehaviour
 {
     [SerializeField] private Image c_Icon;
+    [SerializeField] private GameObject c_Touch;
 
-    public Ball Ball;
+    [HideInInspector] public Ball Ball;
+
+    void Awake()
+    {
+        c_Touch.SetActive(false);
+    }
 
     public void Init(Ball ball)
     {
+        c_Touch.SetActive(false);
+
         Ball = ball;
         
         if (ball == null) {
@@ -25,6 +33,14 @@ public class BallSeatItem : MonoBehaviour
         c_Icon.sprite = Resources.Load<Sprite>(ball.Config.Icon);
         c_Icon.SetNativeSize();
         
+    }
+
+    public void InitADD()
+    {
+        Ball = null;
+
+        c_Touch.SetActive(true);
+        c_Icon.gameObject.SetActive(false); 
     }
 
     public void DoScale()

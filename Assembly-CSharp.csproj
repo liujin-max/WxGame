@@ -62,6 +62,7 @@
     <Analyzer Include="C:\Users\win\.vscode\extensions\visualstudiotoolsforunity.vstuc-1.0.1\Analyzers\Microsoft.Unity.Analyzers.dll" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Scripts\UI\PopUpWindow.cs" />
     <Compile Include="Assets\Scripts\Logic\Ball\BallPeng.cs" />
     <Compile Include="Assets\DOTween\Modules\DOTweenModuleSprite.cs" />
     <Compile Include="Assets\Scripts\Manager\EventManager.cs" />

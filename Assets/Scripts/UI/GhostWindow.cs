@@ -11,6 +11,7 @@ public class GhostWindow : MonoBehaviour
 {
     [SerializeField] private GameObject c_Mask;
     [SerializeField] private Transform c_Pivot;
+    [SerializeField] private Button c_SeatPivot;
     [SerializeField] private Button c_BtnSelect;
     [SerializeField] private Button c_BtnCancel;
     [SerializeField] private Button c_BtnRefresh;
@@ -22,9 +23,25 @@ public class GhostWindow : MonoBehaviour
 
     private GhostItem m_SelectGhost = null;
     private List<GhostItem> m_GhostItems = new List<GhostItem>();
-
+    private List<BallSeatItem> m_SeatItems = new List<BallSeatItem>();
     private CDTimer m_CDTimer = new CDTimer(0.6f);
 
+    BallSeatItem new_seat_item(int order)
+    {
+        BallSeatItem item = null;
+        if (m_SeatItems.Count > order){
+            item = m_SeatItems[order];
+        } else {
+            GameObject obj = GameFacade.Instance.UIManager.LoadItem("Prefab/UI/Item/BallSeatItem", c_SeatPivot.transform);
+            item = obj.GetComponent<BallSeatItem>();
+
+            m_SeatItems.Add(item);
+        }
+
+        item.gameObject.SetActive(true);
+
+        return item;
+    }
 
     GhostItem new_ghost_item(int order)
     {
@@ -41,6 +58,16 @@ public class GhostWindow : MonoBehaviour
         item.gameObject.SetActive(true);
 
         return item;
+    }
+
+    void Awake()
+    {
+        EventManager.AddHandler(EVENT.UI_FLUSHBALLS,    OnReponseFlushBalls);
+    }
+
+    void OnDestroy()
+    {
+        EventManager.DelHandler(EVENT.UI_FLUSHBALLS,    OnReponseFlushBalls);
     }
 
     void Start()
@@ -113,10 +140,18 @@ public class GhostWindow : MonoBehaviour
             }
         });
 
+        c_SeatPivot.onClick.AddListener(()=>{
+
+            GameFacade.Instance.Popup(string.Format("消耗 {0}<sprite=1>购买一个弹珠槽？", GameFacade.Instance.Game.AdditionPrice), ()=>{
+                if (GameFacade.Instance.Game.BuyBallSeat() == true) {
+                    GameFacade.Instance.SoundManager.Load(SOUND.COST);
+                }
+            });
+        });
 
         //适配遮罩高度
         var seat_pivot = GameFacade.Instance.Game.GameUI.SeatPivot;
-        var pos = new Vector3(seat_pivot.transform.position.x * 100, seat_pivot.transform.position.y * 100 + 5, 0);
+        var pos = new Vector3(seat_pivot.transform.position.x * 100, seat_pivot.transform.position.y * 100, 0);
         c_Mask.GetComponent<UIMaskUtility>().SetCenter(pos);
     }
 
@@ -124,6 +159,7 @@ public class GhostWindow : MonoBehaviour
     {
         FlushUI();
         InitEvents(events);
+        InitBalls();
     }
 
     void FlushUI()
@@ -202,6 +238,34 @@ public class GhostWindow : MonoBehaviour
         }
     }
 
+    void InitBalls(Ball add_ball = null)
+    {
+        foreach (var seat in m_SeatItems) {
+            seat.gameObject.SetActive(false);
+        }
+
+        var balls = GameFacade.Instance.Game.Balls;
+
+        int max = (int)GameFacade.Instance.Game.SeatCount.ToNumber() + 1;
+        for (int i = 0; i < max; i++)
+        {
+            var item = new_seat_item(i);
+
+            if(balls.Count > i) {
+                var ball = balls[i];
+                item.Init(ball);
+
+                if (add_ball != null && add_ball == ball) {
+                    item.DoScale();
+                }
+            } else if (i == max - 1) {
+                item.InitADD();
+            } else {
+                item.Init(null);
+            }
+        }
+    }
+
     void Update()
     {
         if (m_CDTimer == null) return;
@@ -215,5 +279,14 @@ public class GhostWindow : MonoBehaviour
             // c_BtnGlass.gameObject.SetActive(true);
             // c_BtnVideoRefresh.gameObject.SetActive(true);
         }
+    }
+
+
+
+    private void OnReponseFlushBalls(GameEvent gameEvent)
+    {
+        Ball add_ball = (Ball)gameEvent.GetParam(0);
+
+        InitBalls(add_ball);
     }
 }

@@ -38,6 +38,7 @@ namespace CB
         public int Glass;
         public List<string> BallRecords;    //弹珠不是唯一的，所以不能用Dictionary
         public List<string> RelicsRecords;
+        public int SeatAddition;
     }
 
 

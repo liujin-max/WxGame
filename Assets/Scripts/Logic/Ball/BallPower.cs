@@ -28,7 +28,7 @@ namespace CB
         public override void Sync(string record)
         {
             string[] elements = record.Split(',');
-            m_Count = Convert.ToInt32(elements[0]);
+            m_Count = Convert.ToInt32(elements[1]);
 
             Demage.PutADD(this, m_Count);
         }

@@ -14,9 +14,6 @@ namespace CB
         private Dictionary<int, Relics> m_RelicsDic = new Dictionary<int, Relics>();
 
 
-        public AttributeValue SeatCount = new AttributeValue(99);
-
-
         public void Awake()
         {
             EventManager.AddHandler(EVENT.ONPLAYSTART,      OnReponsePlayStart);
@@ -47,7 +44,6 @@ namespace CB
             });
             m_Relicses.Clear();
             m_RelicsDic.Clear();
-            SeatCount.Clear();
 
 
             EventManager.DelHandler(EVENT.ONPLAYSTART,      OnReponsePlayStart);
@@ -73,8 +69,6 @@ namespace CB
 
         public Relics PushRelics(int id)
         {
-            if (m_Relicses.Count >= SeatCount.ToNumber()) return null;
-
             RelicsData data = GameFacade.Instance.Game.GetRelicsData(id);
             Relics relics   = new Relics(data);
             relics.Equip();
@@ -107,11 +101,6 @@ namespace CB
                 return relics;
             }
             return null;
-        }
-
-        public bool IsFull()
-        {
-            return m_Relicses.Count >= SeatCount.ToNumber();
         }
 
 

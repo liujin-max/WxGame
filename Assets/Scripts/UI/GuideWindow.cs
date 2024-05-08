@@ -46,25 +46,6 @@ public class GuideWindow : MonoBehaviour
 
     void Update()
     {
-        if (m_Guides.Contains(c_GuideCoin) == false)
-        {
-            c_GuideCoin.gameObject.SetActive(true);
-
-            //适配遮罩高度
-            var seat_pivot = GameFacade.Instance.Game.GameUI.BarPivot;
-            var pos = new Vector3(seat_pivot.transform.position.x * 100, seat_pivot.transform.position.y * 100 + 50, 0);
-            c_GuideCoin.transform.GetComponent<UIMaskUtility>().SetCenter(pos);
-            
-            return;
-        }
-
-
-        if (m_Guides.Contains(c_GuideScore) == false)
-        {
-            c_GuideScore.gameObject.SetActive(true);
-            return;
-        }
-
         if (m_Guides.Contains(c_GuideBall) == false)
         {
             c_GuideBall.gameObject.SetActive(true);
@@ -85,6 +66,24 @@ public class GuideWindow : MonoBehaviour
             var pos = new Vector3(seat_pivot.transform.position.x * 100, seat_pivot.transform.position.y * 100 + 5, 0);
             c_GuideSwitch.transform.GetComponent<UIMaskUtility>().SetCenter(pos);
 
+            return;
+        }
+
+        if (m_Guides.Contains(c_GuideScore) == false)
+        {
+            c_GuideScore.gameObject.SetActive(true);
+            return;
+        }
+
+        if (m_Guides.Contains(c_GuideCoin) == false)
+        {
+            c_GuideCoin.gameObject.SetActive(true);
+
+            //适配遮罩高度
+            var seat_pivot = GameFacade.Instance.Game.GameUI.BarPivot;
+            var pos = new Vector3(seat_pivot.transform.position.x * 100, seat_pivot.transform.position.y * 100 + 50, 0);
+            c_GuideCoin.transform.GetComponent<UIMaskUtility>().SetCenter(pos);
+            
             return;
         }
 

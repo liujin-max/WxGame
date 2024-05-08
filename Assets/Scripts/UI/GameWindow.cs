@@ -307,8 +307,8 @@ namespace CB
                 balls = GameFacade.Instance.Game.ShootQueue;
             }
 
-
-            for (int i = 0; i < GameFacade.Instance.Game.SeatCount.ToNumber(); i++)
+            int max = (int)GameFacade.Instance.Game.SeatCount.ToNumber();
+            for (int i = 0; i < max; i++)
             {
                 var item = new_seat_item(i);
 
@@ -316,9 +316,9 @@ namespace CB
                     var ball = balls[i];
                     item.Init(ball);
 
-                    if (add_ball != null && (Ball)add_ball == ball) {
-                        item.DoScale();
-                    }
+                    // if (add_ball != null && (Ball)add_ball == ball) {
+                    //     item.DoScale();
+                    // }
                 } else {
                     item.Init(null);
                 }

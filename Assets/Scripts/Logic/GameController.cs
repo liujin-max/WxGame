@@ -116,8 +116,17 @@ namespace CB
         private List<Box> m_Elements = new List<Box>();
         [HideInInspector] public List<Box> Elements { get {return m_Elements;}}
 
-        [HideInInspector] public AttributeValue SeatCount = new AttributeValue(5);     //可携带的弹珠数量上限
+        [HideInInspector] public AttributeValue SeatCount = new AttributeValue(3);     //可携带的弹珠数量上限
         [HideInInspector] public AttributeValue GlassRate = new AttributeValue(15);     //合成列表出现碎片的几率
+
+        private int m_SeatAddition = 0;  //附加的弹珠槽数量
+        [HideInInspector] public int AdditionPrice      //随着附加数量的增加而递增
+        {
+            get { 
+                int cost = 5 * (int)Math.Pow((m_SeatAddition + 1), 2);
+                return cost; 
+            }
+        }
 
         //拷贝一份遗物基础数据
         public List<RelicsData> m_RelicsDatas = new List<RelicsData>();
@@ -169,7 +178,7 @@ namespace CB
             record.Order    = this.Stage;
             record.Coin     = this.Coin;
             record.Glass    = this.Glass;
-
+            record.SeatAddition = this.m_SeatAddition;
             //
 
 
@@ -222,6 +231,14 @@ namespace CB
             m_Score = Crypt.EN(Crypt.DE(m_Score) + value);
             
             EventManager.SendEvent(new GameEvent(EVENT.UI_FLUSHSCORE, Crypt.DE(m_Score), GetTargetScore(), false));
+        }
+
+        public void PushSeatAddition(int value)
+        {
+            m_SeatAddition += value;
+            SeatCount.PutADD(this, m_SeatAddition);
+
+            EventManager.SendEvent(new GameEvent(EVENT.UI_FLUSHBALLS));
         }
 
         public List<Ball> ActingBalls()
@@ -770,12 +787,6 @@ namespace CB
 
         public Relics BuyRelics(Relics relics)
         {
-            if (this.m_Army.IsFull() == true)
-            {
-                GameFacade.Instance.FlyTip("道具已满");
-                return null;
-            }
-
             if (Crypt.DE(m_Coin) < relics.Price) {
                 GameFacade.Instance.FlyTip("<sprite=1> 金币不足");
                 return null;
@@ -788,6 +799,20 @@ namespace CB
             EventManager.SendEvent(new GameEvent(EVENT.ONBUYRELICS, relics));
 
             return new_relics;
+        }
+
+        public bool BuyBallSeat()
+        {
+            int cost = this.AdditionPrice;
+            if (this.Coin < cost) {
+                GameFacade.Instance.FlyTip("<sprite=1> 金币不足");
+                return false;
+            }
+
+            this.UpdateCoin(-cost, false);
+
+            GameFacade.Instance.Game.PushSeatAddition(1);
+            return true;
         }
 
         //根据当前记录可以得到的金币
@@ -911,6 +936,8 @@ namespace CB
                 m_FSM.Owner.Coin    = archiveRecord.Coin;
                 m_FSM.Owner.Glass   = archiveRecord.Glass;
                 m_FSM.Owner.Stage   = archiveRecord.Order;
+
+                m_FSM.Owner.PushSeatAddition(archiveRecord.SeatAddition);
 
                 //读取弹珠数据
                 if (archiveRecord.BallRecords != null) {

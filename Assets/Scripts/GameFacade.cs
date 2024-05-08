@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using CB;
@@ -181,5 +182,11 @@ public class GameFacade : MonoBehaviour
         if (m_TipWindow != null) {
             m_TipWindow.FlyTip(text);
         }
+    }
+
+    public void Popup(string des, Action confirm_callback, Action cancel_callback = null)
+    {
+        var window = UIManager.LoadWindow("Prefab/UI/PopUpWindow", UIManager.BOARD).GetComponent<PopUpWindow>();
+        window.Init(des, confirm_callback, cancel_callback);
     }
 }
