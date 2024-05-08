@@ -13,6 +13,7 @@ namespace CB
         [SerializeField] private Transform c_HeadPivot;
         [SerializeField] private TextMeshProUGUI c_Score;
         [SerializeField] private Button BtnEnter;
+        [SerializeField] private Button BtnContinue;
         [SerializeField] private Button BtnRank;
         [SerializeField] private Button BtnAchievement;
 
@@ -27,6 +28,16 @@ namespace CB
                 
                 GameFacade.Instance.ScenePool.LoadSceneAsync("Game", () => {
                     GameFacade.Instance.Game.Enter();
+                });
+
+                GameFacade.Instance.UIManager.UnloadWindow(gameObject);
+            });
+
+            BtnContinue.onClick.AddListener(()=>{
+                GameFacade.Instance.SoundManager.Load(SOUND.CLICK);
+                
+                GameFacade.Instance.ScenePool.LoadSceneAsync("Game", () => {
+                    GameFacade.Instance.Game.Enter(GameFacade.Instance.User.GetArchiveRecord());
                 });
 
                 GameFacade.Instance.UIManager.UnloadWindow(gameObject);
@@ -54,6 +65,8 @@ namespace CB
         // Start is called before the first frame update
         void Start()
         {
+            BtnContinue.gameObject.SetActive(GameFacade.Instance.User.GetArchiveRecord() != null);
+
             FlushUI();
         }
 

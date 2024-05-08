@@ -12,6 +12,7 @@ public class OBJManager: MonoBehaviour
 
     //特效池
     private Dictionary<string, List<GameObject>> m_EffectPool = new Dictionary<string, List<GameObject>>();
+    private int m_EffectMax = 3;    //同种特效最多存3个
 
 
     void Awake()
@@ -66,8 +67,7 @@ public class OBJManager: MonoBehaviour
         }
 
 
-        if (effect_list.Count > 0)
-        {
+        if (effect_list.Count > 0) {
             effect = effect_list[0];
             effect.transform.SetParent(SceneManager.GetActiveScene().GetRootGameObjects()[0].transform);
             effect.transform.localPosition = pos;
@@ -90,7 +90,7 @@ public class OBJManager: MonoBehaviour
     public void RecycleEffect(Effect effect)
     {
         List<GameObject> list = m_EffectPool[effect.ResPath];
-        if (list.Count >= 3) {  //只存3个
+        if (list.Count >= m_EffectMax) {  //只存3个
             Destroy(effect.gameObject);
             return;
         }

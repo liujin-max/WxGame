@@ -7,9 +7,10 @@ namespace CB
     public class SystemManager : MonoBehaviour
     {
         //存储键
-        public static string KEY_USER   = "KEY_USER";
-        public static string KEY_MUSIC  = "KEY_MUSIC";  //音乐
-        public static string KEY_SOUND  = "KEY_SOUND";  //音效
+        public static string KEY_USER       = "KEY_USER";
+        public static string KEY_ARCHIVE    = "KEY_ARCHIVE";    //关卡进行中的存档
+        public static string KEY_MUSIC      = "KEY_MUSIC";  //音乐
+        public static string KEY_SOUND      = "KEY_SOUND";  //音效
 
         private float m_MusicVolume;
         public float MusicVolume {

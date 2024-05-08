@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Text;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -102,6 +103,21 @@ namespace CB
 
         #endregion 属性
 
+        //导出数据
+        public virtual string Export()
+        {
+            StringBuilder sb = new StringBuilder();
+
+            sb.Append((int)Type);
+
+            return sb.ToString();
+        }
+
+        //同步存档
+        public virtual void Sync(string record)
+        {
+
+        }
 
 
         void Awake()

@@ -75,7 +75,7 @@ namespace CB
             } else {
                 GameObject obj = GameFacade.Instance.UIManager.LoadItem("Prefab/UI/Item/RelicsSeatItem", c_RelicsPivot.transform);
                 item = obj.GetComponent<RelicsSeatItem>();
-                item.transform.localScale = new Vector3(0.8f, 0.8f, 0.8f);
+                item.transform.localScale = new Vector3(0.9f, 0.9f, 0.9f);
                 m_RelicsItems.Add(item);
             }
 

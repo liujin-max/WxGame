@@ -1,5 +1,7 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Text;
 using CB;
 using UnityEngine;
 
@@ -10,6 +12,26 @@ namespace CB
     public class BallPower : Ball
     {
         private int m_Count = 0;
+
+        //导出数据
+        public override string Export()
+        {
+            StringBuilder sb = new StringBuilder();
+            sb.Append((int)Type);
+            sb.Append(",");
+            sb.Append(m_Count);
+
+            return sb.ToString();
+        }
+
+        //同步存档
+        public override void Sync(string record)
+        {
+            string[] elements = record.Split(',');
+            m_Count = Convert.ToInt32(elements[0]);
+
+            Demage.PutADD(this, m_Count);
+        }
 
         public override void Init(_C.BALLTYPE type)
         {

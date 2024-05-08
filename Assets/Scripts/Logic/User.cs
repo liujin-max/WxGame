@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace CB
 {
-    //账号数据
+    //基础数据
     [System.Serializable]
     public class BaseInfo
     {
@@ -25,6 +25,18 @@ namespace CB
         public string HeadUrl;
         public int Score = 0;   //通关记录
         public List<int> AchiveRecords = new List<int>();
+    }
+
+    //临时关卡存档数据
+    [System.Serializable]
+    public class ArchiveRecord
+    {
+        public bool Valid = false;  //是否有效
+        public int Order;
+        public int Coin;
+        public int Glass;
+        public List<string> BallRecords;    //弹珠不是唯一的，所以不能用Dictionary
+        public List<string> RelicsRecords;
     }
 
 
@@ -100,6 +112,23 @@ namespace CB
             if (m_Data.Score == 0) return false;
 
             return score > m_Data.Score;
+        }
+
+        public ArchiveRecord GetArchiveRecord()
+        {
+            string json = PlayerPrefs.GetString(SystemManager.KEY_ARCHIVE);
+
+            if (string.IsNullOrEmpty(json) == true) {
+                return null;
+            }
+
+            Debug.Log("读取：" + json);
+            ArchiveRecord record = JsonUtility.FromJson<ArchiveRecord>(json);
+            if (!record.Valid) {
+                return null;
+            }
+
+            return record;
         }
     }
 

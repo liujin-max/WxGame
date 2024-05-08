@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using DG.Tweening;
+using LitJson;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using WeChatWASM;
@@ -144,7 +145,6 @@ namespace CB
             EventManager.DelHandler(EVENT.ONHITOBSTACLE,        OnReponseObstacleHit);
         }
 
-
         // Start is called before the first frame update
         void Start()
         {
@@ -161,9 +161,39 @@ namespace CB
             m_FSM = new FSM<GameController>(this,  array);
         }
 
-        public void Enter()
+        public void Export(bool is_valid = true)
         {
-            DOTransist(_C.FSMSTATE.GAME_START);   
+            ArchiveRecord record = new ArchiveRecord();
+            record.Valid    = is_valid;
+            record.Order    = this.Stage;
+            record.Coin     = this.Coin;
+            record.Glass    = this.Glass;
+
+
+            //存储弹珠数据
+            record.BallRecords =  new List<string>();
+            this.Balls.ForEach(b => {
+                record.BallRecords.Add(b.Export());
+            });
+
+            //存储道具数据
+            record.RelicsRecords = new List<string>();
+            this.Army.GetRelicses().ForEach(relics => {
+                record.RelicsRecords.Add(relics.ID.ToString());
+            });
+
+            string json = JsonMapper.ToJson(record);
+            Debug.Log("存储：" + json);
+            PlayerPrefs.SetString(SystemManager.KEY_ARCHIVE, json);
+        }
+
+        public void Enter(ArchiveRecord record = null)
+        {
+            if (record == null) {
+                DOTransist(_C.FSMSTATE.GAME_START);   
+            } else {
+                DOTransist(_C.FSMSTATE.GAME_START, record);   
+            }
         }
 
         public void DOTransist(_C.FSMSTATE state, params object[] values)
@@ -274,7 +304,6 @@ namespace CB
         {
             return Crypt.DE(m_Score) >= GetTargetScore();
         }
-
     
         void LateUpdate()
         {
@@ -407,11 +436,13 @@ namespace CB
         }
 
         //上膛
-        public void BreechBall(Ball ball)
+        public Ball BreechBall(Ball ball)
         {
             GameFacade.Instance.SoundManager.Load(SOUND.BREECH);
 
             ball.Breech();
+
+            return ball;
         }
 
         public bool BuyGlass(ComplextEvent evt)
@@ -853,18 +884,12 @@ namespace CB
 
         public override void Enter(params object[] values)
         {   
+            GameFacade.Instance.Game.Resume();
+
             m_FSM.Owner.m_StartFlag = true;
             m_FSM.Owner.Balls.Clear();
 
             m_FSM.Owner.Army.Awake();
-
-            m_FSM.Owner.Coin    = 0;
-            m_FSM.Owner.Glass   = 0;
-            m_FSM.Owner.Stage   = 0;
-            m_FSM.Owner.Score   = 0;
-
-            m_FSM.Owner.m_ORank = Rank.Instance.GetMyRankOrder();
-            
 
             //拷贝遗物数据暂存至战场数据中
             CONFIG.GetRelicsDatas().ForEach(data => {
@@ -874,23 +899,58 @@ namespace CB
                 m_FSM.Owner.m_RelicsDataDic[data.ID] = relics_data;
             });
 
-
             m_FSM.Owner.GameUI = GameFacade.Instance.UIManager.LoadWindow("Prefab/UI/GameWindow", GameFacade.Instance.UIManager.BOTTOM).GetComponent<GameWindow>();
+
+
+            ArchiveRecord archiveRecord = null;
+            if (values.Length > 0) {
+                archiveRecord       = (ArchiveRecord)values[0];
+                m_FSM.Owner.Coin    = archiveRecord.Coin;
+                m_FSM.Owner.Glass   = archiveRecord.Glass;
+                m_FSM.Owner.Stage   = archiveRecord.Order;
+
+                //读取弹珠数据
+                if (archiveRecord.BallRecords != null) {
+                    archiveRecord.BallRecords.ForEach(str => {
+                        string[] strings = str.Split(',');
+                        var ball = m_FSM.Owner.BreechBall(m_FSM.Owner.PushBall(_C.BALL_ORIGIN_POS, (_C.BALLTYPE)Convert.ToInt32(strings[0])));
+                        ball.Sync(str);
+                    });
+                }
+
+                //读取道具数据
+                if (archiveRecord.RelicsRecords != null) {
+                    archiveRecord.RelicsRecords.ForEach(str => {
+                        string[] strings = str.Split(',');
+                        m_FSM.Owner.Army.PushRelics(Convert.ToInt32(strings[0]));
+                    });
+                }
+            } else {
+                m_FSM.Owner.Coin    = 0;
+                m_FSM.Owner.Glass   = 0;
+                m_FSM.Owner.Stage   = 0;
+
+                m_FSM.Owner.BreechBall(m_FSM.Owner.PushBall(_C.BALL_ORIGIN_POS, _C.BALLTYPE.NORMAL));
+            }
+
+            m_FSM.Owner.Score   = 0;
+            m_FSM.Owner.m_ORank = Rank.Instance.GetMyRankOrder();
+
+
 
             EventManager.SendEvent(new GameEvent(EVENT.UI_FLUSHCOUNT, false));
             EventManager.SendEvent(new GameEvent(EVENT.UI_FLUSHCOIN, m_FSM.Owner.Coin, false));
             EventManager.SendEvent(new GameEvent(EVENT.UI_FLUSHRELICS));
             EventManager.SendEvent(new GameEvent(EVENT.UI_FLUSHSCORE, m_FSM.Owner.Score, m_FSM.Owner.GetTargetScore(1), true));
         
-            GameFacade.Instance.Game.Resume();
 
-            m_FSM.Owner.BreechBall(m_FSM.Owner.PushBall(_C.BALL_ORIGIN_POS, _C.BALLTYPE.NORMAL));
-            // m_FSM.Owner.BreechBall(m_FSM.Owner.PushBall(_C.BALL_ORIGIN_POS, _C.BALLTYPE.POWER));
+            if (archiveRecord != null) {
+                m_FSM.Transist(_C.FSMSTATE.GAME_IDLE);
+            } else {
+                // EventManager.SendEvent(new GameEvent(EVENT.ONGAMESTART));
 
-
-            EventManager.SendEvent(new GameEvent(EVENT.ONGAMESTART));
-
-            m_FSM.Transist(_C.FSMSTATE.GAME_RECORD);
+                m_FSM.Transist(_C.FSMSTATE.GAME_RECORD);
+            }
         }
     }
 
@@ -1039,6 +1099,11 @@ namespace CB
         public override void Enter(params object[] values)
         {
             m_DelayTimer.Reset();
+
+            //存储关卡存档
+            if (m_FSM.Owner.Stage > 0) {
+                m_FSM.Owner.Export();
+            }
 
             m_FSM.Owner.Score = 0;
             m_FSM.Owner.Stage = m_FSM.Owner.Stage + 1;
@@ -1506,6 +1571,8 @@ namespace CB
         public override void Enter(params object[] values)
         {
             GameFacade.Instance.Game.Pause();
+
+            m_FSM.Owner.Export(false);      //清空存档
 
             int real_score      = (int)values[0];
 
