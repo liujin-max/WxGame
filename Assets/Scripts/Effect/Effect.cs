@@ -6,13 +6,25 @@ using UnityEngine;
 public class Effect : MonoBehaviour
 {
     public float m_Time = 0;
+    private float m_TimeMax = 0;
     public bool m_IsLoop = false;
+    [HideInInspector]public string ResPath;
 
     private Action m_Callback;
+
+    void Awake()
+    {
+        m_TimeMax = m_Time;
+    }
 
     public void SetCallback(Action action)
     {
         m_Callback = action;
+    }
+
+    public void Restart()
+    {
+        m_Time = m_TimeMax;
     }
 
     // Update is called once per frame
@@ -28,7 +40,11 @@ public class Effect : MonoBehaviour
                 m_Callback.Invoke();
             }
 
-            Destroy(gameObject);
+            if (string.IsNullOrEmpty(ResPath)) {
+                Destroy(gameObject);
+            } else {
+                GameFacade.Instance.PoolManager.RecycleEffect(this);
+            }
         }
     }
 }

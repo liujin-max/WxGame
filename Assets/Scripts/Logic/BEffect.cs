@@ -81,8 +81,6 @@ namespace CB
                 if((int)objs[1] > 0) {
                     ball.Demage.PutAUL(this, (int)objs[1]);
 
-                    // GameFacade.Instance.EffectManager.FlyRate(collision.contacts[0].point, ball.Demage.ShowRate());
-
                     EventManager.SendEvent(new GameEvent(EVENT.UI_TRIGGERRELICS, Belong));
                 }
                 
@@ -360,8 +358,6 @@ namespace CB
             if (m_Count == 0) {
                 ball.Demage.PutAUL(this, 3);
 
-                // GameFacade.Instance.EffectManager.FlyRate(collision.contacts[0].point, ball.Demage.ShowRate());
-
                 EventManager.SendEvent(new GameEvent(EVENT.UI_TRIGGERRELICS, Belong));
             }
         }
@@ -595,8 +591,6 @@ namespace CB
                 if (m_Count == 0) {
                     ball.Demage.PutAUL(this, 1);
 
-                    // GameFacade.Instance.EffectManager.FlyRate(collision.contacts[0].point, ball.Demage.ShowRate());
-
                     EventManager.SendEvent(new GameEvent(EVENT.UI_TRIGGERRELICS, Belong));
                 }
             }
@@ -657,7 +651,6 @@ namespace CB
 
                 var pos = collision.contacts[0].point;
                 GameFacade.Instance.EffectManager.Load(EFFECT.CRIT, pos);
-                // GameFacade.Instance.EffectManager.FlyRate(pos, ball.Demage.ShowRate());
 
                 EventManager.SendEvent(new GameEvent(EVENT.UI_TRIGGERRELICS, Belong));
             }  
