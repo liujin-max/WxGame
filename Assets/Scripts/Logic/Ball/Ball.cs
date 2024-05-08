@@ -331,14 +331,12 @@ namespace CB
 
         public virtual void OnCollisionExit2D(Collision2D collision)
         {
-            if (collision.gameObject.GetComponent<Obstacle>() == null) return;
+            // if (collision.gameObject.GetComponent<Obstacle>() == null) return;
 
-            //
-            if (this.Velocity.magnitude <= 3f) {
-                this.Velocity *= 5;
-
-                // Debug.Log("长度：" + this.Velocity.magnitude);
-            }
+            // //
+            // if (this.Velocity.magnitude <= 3f) {
+            //     this.Velocity *= 5;
+            // }
         }
 
 
