@@ -11,6 +11,7 @@ public class RelicsItem : MonoBehaviour
 {
     public Relics Relics;
 
+    [SerializeField] private Transform c_Touch;
     [SerializeField] private TextMeshProUGUI c_Name;
     [SerializeField] private RawImage c_Icon;
     [SerializeField] private TextMeshProUGUI c_Description;
