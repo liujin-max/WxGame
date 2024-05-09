@@ -797,6 +797,7 @@ namespace CB
             Relics new_relics = m_Army.PushRelics(relics.ID);
 
             EventManager.SendEvent(new GameEvent(EVENT.ONBUYRELICS, relics));
+            EventManager.SendEvent(new GameEvent(EVENT.UI_FLUSHSHOP, relics));
 
             return new_relics;
         }

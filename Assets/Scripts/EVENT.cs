@@ -15,6 +15,7 @@ public static class EVENT
     public static string UI_ACHIEVEMENTPOP  = "UI_ACHIEVEMENTPOP";
     public static string UI_FLUSHUSER       = "UI_FLUSHUSER";
     public static string UI_RANKINGUP       = "UI_RANKINGUP";       //排名上升
+    public static string UI_FLUSHSHOP       = "UI_FLUSHSHOP";       
 
     
 

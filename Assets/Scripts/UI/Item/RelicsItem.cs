@@ -13,6 +13,7 @@ public class RelicsItem : MonoBehaviour
     public Relics Relics;
 
     [SerializeField] private GameObject c_Shadow;
+    [SerializeField] private GameObject c_Back;
     [SerializeField] private Transform c_Touch;
     [SerializeField] private TextMeshProUGUI c_Name;
     [SerializeField] private RawImage c_Icon;
@@ -21,12 +22,28 @@ public class RelicsItem : MonoBehaviour
     
     public Button BtnBuy;
 
+
+    void Awake()
+    {
+        EventManager.AddHandler(EVENT.UI_FLUSHSHOP,     OnReponseShop);
+    }
+
+    void OnDestroy()
+    {
+        EventManager.DelHandler(EVENT.UI_FLUSHSHOP,     OnReponseShop);
+    }
+
     public void Init(Relics data)
     {
         Relics  = data;
 
+        c_Touch.gameObject.SetActive(true);
         c_Shadow.SetActive(true);
-        c_Touch.localPosition = Vector3.zero;
+        c_Back.SetActive(false);
+        
+        c_Touch.localEulerAngles = Vector3.zero;
+        c_Touch.GetComponent<BalatroFloating>().enabled = true;
+        c_Back.transform.localEulerAngles = Vector3.zero;
 
         this.FlushUI();
     }
@@ -49,12 +66,36 @@ public class RelicsItem : MonoBehaviour
         c_Cost.text = string.Format(" {0}<size=46>{1}</size></color> <sprite=1>", color, relics.Price);
     }
 
-    public void MoveOut(Action callback)
+    public void TurnBack()
     {
+        StartCoroutine("FadeBack");
+    }
+
+    //翻面
+    IEnumerator FadeBack()
+    {
+        c_Touch.GetComponent<BalatroFloating>().enabled = false;
+        c_Touch.localEulerAngles = Vector3.zero;
+
+        c_Back.SetActive(false);
         c_Shadow.SetActive(false);
 
-        c_Touch.DOLocalMoveY(800, 0.15f).OnComplete(()=>{
-            callback();
-        });
+        float time = 0.13f;
+        c_Touch.DOLocalRotate(new Vector3(0, 90, 0), time, RotateMode.FastBeyond360);
+
+        yield return new WaitForSeconds(time);
+        c_Touch.gameObject.SetActive(false);
+
+        c_Back.SetActive(true);
+        c_Back.transform.localEulerAngles = new Vector3(0, 90, 0);
+        c_Back.transform.DOLocalRotate(new Vector3(0, 0, 0), time, RotateMode.FastBeyond360);
+
+
+        yield return null;
+    }
+
+    private void OnReponseShop(GameEvent @event)
+    {
+        this.FlushUI();
     }
 }

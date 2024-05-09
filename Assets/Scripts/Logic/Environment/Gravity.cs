@@ -36,7 +36,7 @@ namespace CB
             if (m_Timer.IsFinished() == true) {
                 m_Timer.Reset();
 
-                Physics2D.gravity = new Vector2(0, -RandomUtility.Random(500, 1600) / 100.0f);
+                Physics2D.gravity = new Vector2(0, -RandomUtility.Random(200, 1800) / 100.0f);
                 Debug.Log("当前重力：" + Physics2D.gravity);
                 //需要特效
             }

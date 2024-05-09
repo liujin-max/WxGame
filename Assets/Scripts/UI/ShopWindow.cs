@@ -75,14 +75,11 @@ public class ShopWindow : MonoBehaviour
             item.BtnBuy.onClick.AddListener(()=>{
                 GameFacade.Instance.SoundManager.Load(SOUND.CLICK);
 
-                if (GameFacade.Instance.Game.BuyRelics(item.Relics) != null)
-                {
+                if (GameFacade.Instance.Game.BuyRelics(item.Relics) != null) {
                     GameFacade.Instance.SoundManager.Load(SOUND.COST);
+                    item.BtnBuy.onClick.RemoveAllListeners();   //防止重复购买
 
-                    // item.MoveOut(()=>{
-                    m_Relicses.Remove(item.Relics);
-                    this.Init(m_Relicses);
-                    // });
+                    item.TurnBack();
                 }
             });
         }
