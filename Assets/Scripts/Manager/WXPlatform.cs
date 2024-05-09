@@ -49,8 +49,6 @@ public class WXPlatform : Platform
                         userData.Name       = res.userInfo.nickName;
                         userData.HeadUrl    = res.userInfo.avatarUrl;
 
-                        Debug.Log("111 : " + userData.Name);
-
                     } else {
                         Debug.Log("用户未允许获取个人信息");
                     }
@@ -71,7 +69,6 @@ public class WXPlatform : Platform
                         userData.Name       = data.userInfo.nickName;
                         userData.HeadUrl    = data.userInfo.avatarUrl;
                         
-                        Debug.Log("222 : " + userData.Name);
                         EventManager.SendEvent(new GameEvent(EVENT.UI_NETUPDATE, false));
                         callback.Invoke(userData);
                     }
@@ -85,7 +82,7 @@ public class WXPlatform : Platform
     }
 
     //启动同步账号数据
-    public override void SYNC(GameUserData userData)
+    public override void SYNC(BaseData baseData, GameUserData userData)
     {
         Debug.Log("====开始获取账号数据====");
         EventManager.SendEvent(new GameEvent(EVENT.UI_NETUPDATE, true));
@@ -104,11 +101,16 @@ public class WXPlatform : Platform
                     //将Json转换成临时的GameUserData
                     GameUserData tempData = JsonUtility.FromJson<GameUserData>(JsonMapper.ToJson(data["data"]));
                     //基础数据
-                    userData.userInfo = tempData.userInfo;
+                    // userData.userInfo = tempData.userInfo;
+
                     //读取存档数据
                     userData.Score  = tempData.Score;
                     //读取成就数据
                     userData.AchiveRecords  = tempData.AchiveRecords;
+
+                    //基础数据
+                    BaseData userInfo   = JsonUtility.FromJson<BaseData>(JsonMapper.ToJson(data["data"]["userInfo"]));
+                    baseData.openId     = userInfo.openId;
                 }
             },
             fail = (res) =>

@@ -60,6 +60,7 @@ namespace CB
             for (int i = 0; i < m_RankList.Count; i++) {
                 var rankData = m_RankList[i];
                 if (rankData.OpenID == GameFacade.Instance.User.OpenID) {
+                    Debug.Log("我的排名：" + rankData.Order);
                     return rankData.Order;
                 }
             }

@@ -9,9 +9,8 @@ namespace CB
 {
     //基础数据
     [System.Serializable]
-    public class BaseInfo
+    public class BaseData
     {
-        public string appId;
         public string openId;
     }
 
@@ -19,8 +18,6 @@ namespace CB
     [System.Serializable]
     public class GameUserData
     {
-        public BaseInfo userInfo;
-
         public string Name = "Unkown";
         public string HeadUrl;
         public int Score = 0;   //通关记录
@@ -46,9 +43,10 @@ namespace CB
     public class User : MonoBehaviour
     {
         //用户数据
+        [SerializeField] private BaseData m_Base = new BaseData();
         [SerializeField] private GameUserData m_Data = new GameUserData();
 
-        public string OpenID{ get{ return m_Data.userInfo.openId;}}
+        public string OpenID{ get{ return m_Base.openId;}}
         public string Name{ get{ return m_Data.Name;}}
         public int Score{ get{ return m_Data.Score;}}
         public string HeadURL{ get{ return m_Data.HeadUrl;}}
@@ -65,7 +63,7 @@ namespace CB
             //同步账号基础数据(头像、名字)
             m_Data = Platform.Instance.LOGIN(m_Data, (m_Data)=>{
                 //同步账号游玩数据(记录、成就等)
-                Platform.Instance.SYNC(m_Data);
+                Platform.Instance.SYNC(m_Base, m_Data);
             });
         }
 

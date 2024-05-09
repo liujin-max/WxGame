@@ -23,7 +23,7 @@ public abstract class Platform
 
     public abstract void INIT(Action callback);
     public abstract GameUserData LOGIN(GameUserData userData, Action<GameUserData> callback);
-    public abstract void SYNC(GameUserData userData);
+    public abstract void SYNC(BaseData baseData, GameUserData userData);
     public abstract void UPLOAD(GameUserData userData);
     //拉取排行榜
     public abstract void PULLRANK();
