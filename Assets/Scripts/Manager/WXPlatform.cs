@@ -212,9 +212,9 @@ public class WXPlatform : Platform
     {
         WX.ShareAppMessage(new ShareAppMessageOption()
         {
-            title       = "新的记录！！！",
-            // imageUrlId  = "",
-            // imageUrl    = "https://inews.gtimg.com/newsapp_bt/0/12171811596_909/0",
+            title       = "进入弹珠世界！",
+            imageUrlId  = "ha6CwV+bTPeClHQlbkrDqw==",
+            imageUrl    = "https://mmocgame.qpic.cn/wechatgame/3aU0WbWrP4x4zsIvWz14yOrRianJOLpSLPiaMVnv60FOBhFYabc7zNIjYI2z9FuicAn/0",
         });
     }
 

@@ -142,7 +142,7 @@ public class GhostWindow : MonoBehaviour
 
         c_SeatPivot.onClick.AddListener(()=>{
 
-            GameFacade.Instance.Popup(string.Format("消耗 {0}<sprite=1>购买一个弹珠槽？", GameFacade.Instance.Game.AdditionPrice), ()=>{
+            GameFacade.Instance.Popup(string.Format("花费 {0}<sprite=1> 购买一个弹珠槽？", GameFacade.Instance.Game.AdditionPrice), ()=>{
                 if (GameFacade.Instance.Game.BuyBallSeat() == true) {
                     GameFacade.Instance.SoundManager.Load(SOUND.COST);
                 }

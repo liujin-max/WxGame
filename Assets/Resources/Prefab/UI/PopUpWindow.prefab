@@ -414,7 +414,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\u6D88\u8017 5<sprite=1>\u8D2D\u4E70\u4E00\u4E2A\u5F39\u73E0\u69FD\uFF1F"
+  m_text: "\u82B1\u8D39 5<sprite=1> \u8D2D\u4E70\u4E00\u4E2A\u5F39\u73E0\u69FD\uFF1F"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 32c80d060003e7948a473f15dd09db7a, type: 2}
   m_sharedMaterial: {fileID: 2100000, guid: af9a12627dbbf504d8ff999d22fc5ce0, type: 2}
