@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 4003256146238528692}
   - component: {fileID: 2873262532226660515}
   - component: {fileID: 7275714658793880011}
-  - component: {fileID: 7678852127068566268}
   - component: {fileID: 4112078493300003694}
   m_Layer: 5
   m_Name: TipPivot
@@ -81,22 +80,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!111 &7678852127068566268
-Animation:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1293768041771505288}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Animation: {fileID: 7400000, guid: dbaacbf1e8d8e5e43a8fae8282d779a5, type: 2}
-  m_Animations:
-  - {fileID: 7400000, guid: dbaacbf1e8d8e5e43a8fae8282d779a5, type: 2}
-  m_WrapMode: 0
-  m_PlayAutomatically: 1
-  m_AnimatePhysics: 0
-  m_CullingType: 0
 --- !u!225 &4112078493300003694
 CanvasGroup:
   m_ObjectHideFlags: 0

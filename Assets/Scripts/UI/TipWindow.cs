@@ -14,7 +14,7 @@ public class TipWindow : MonoBehaviour
     List<ACHPopItem> m_ACHItems = new List<ACHPopItem>();
 
 
-    private Tweener m_Tweener = null;
+    private Sequence m_Sequence = null;
 
     private ACHPopItem new_ach_item()
     {
@@ -51,12 +51,19 @@ public class TipWindow : MonoBehaviour
         
         c_TipPivot.SetActive(true);
         c_TipPivot.transform.Find("Text").GetComponent<TextMeshProUGUI>().text = text;
-        c_TipPivot.GetComponent<Animation>().Play("FlyTip");
+        
 
-        if (m_Tweener != null) {
-            m_Tweener.Kill();
+        if (m_Sequence != null) {
+            m_Sequence.Kill();
         }
-        m_Tweener = c_TipPivot.transform.DOShakePosition(0.25f, new Vector3(10, 0, 0), 40, 50);
+        var group   = c_TipPivot.GetComponent<CanvasGroup>();
+        group.alpha = 1;
+
+        m_Sequence = DOTween.Sequence();
+        m_Sequence.Join(c_TipPivot.transform.DOShakePosition(0.25f, new Vector3(10, 0, 0), 40, 50));
+        m_Sequence.Join(group.DOFade(1f, 1.5f));
+        m_Sequence.Append(group.DOFade(0f, 0.5f));
+        m_Sequence.Play();
     }
 
     void OnReponsePopupACH(GameEvent gameEvent)

@@ -1,38 +1,83 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Text;
+using DG.Tweening;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class RecordWindow : MonoBehaviour 
 {
-    [SerializeField] private TextMeshProUGUI m_Description;
-    [SerializeField] private Button m_BtnReward;
+    [SerializeField] private Transform c_Frame;
+
+    [SerializeField] private TextMeshProUGUI c_Record;
+    [SerializeField] private GameObject c_CoinPivot;
+    [SerializeField] private TextMeshProUGUI c_Coin;
+    [SerializeField] private GameObject c_GlassPivot;
+    [SerializeField] private TextMeshProUGUI c_Glass;
+
+    [SerializeField] private Button c_BtnReward;
+
+    void Awake()
+    {
+        c_Frame.localScale = new Vector3(1.5f, 1.5f, 1.5f);
+
+        c_Frame.GetComponent<CanvasGroup>().DOFade(1, 0.15f);
+        c_Frame.DOScale(1, 0.15f);
+    }
 
     // Start is called before the first frame update
     void Start()
     {
-        m_BtnReward.onClick.AddListener(()=>{
-            GameFacade.Instance.UIManager.UnloadWindow(gameObject);
+        c_BtnReward.onClick.AddListener(()=>{
+            c_Frame.GetComponent<CanvasGroup>().DOFade(0, 0.15f);
+            c_Frame.DOScale(1.5f, 0.15f).OnComplete(()=>{
+                GameFacade.Instance.UIManager.UnloadWindow(gameObject);
+            });
+
         });
     }
 
     public void Init(int ach_coin, int ach_glass)
     {
-        StringBuilder sb = new StringBuilder();
-        sb.Append(string.Format("当前最高记录: {0}层", GameFacade.Instance.User.Score));
+        c_Record.text = string.Format("{0}层", GameFacade.Instance.User.Score);
 
-        sb.Append(string.Format("\n\n获得<sprite=1>：{0}", GameFacade.Instance.Game.GetScoreCoin() + ach_coin));
-        if (ach_coin > 0) {
-            sb.Append(string.Format("({0}{1}</color> 成就奖励)", _C.GREENCOLOR2, ach_coin));
-        } 
+        int coin_value = GameFacade.Instance.Game.GetScoreCoin() + ach_coin;
+        if (coin_value > 0)
+        {
+            c_CoinPivot.SetActive(true);
 
-        sb.Append(string.Format("\n\n获得<sprite=0>：{0}", GameFacade.Instance.Game.GetScoreGlass() + ach_glass));
-        if (ach_glass > 0) {
-            sb.Append(string.Format("({0}{1}</color> 成就奖励)", _C.GREENCOLOR2, ach_glass));
-        } 
+            StringBuilder coin_sb = new StringBuilder();
+            coin_sb.Append(string.Format("{0}{1}</color>", _C.GREENCOLOR, coin_value));
+            if (ach_coin > 0) {
+                coin_sb.Append(string.Format(" ( {0} 来自成就)", ach_coin));
+            } 
+            c_Coin.text = coin_sb.ToString();
+        }
+        else 
+        {
+            c_CoinPivot.SetActive(false);
+        }
 
-        m_Description.GetComponent<ShakeText>().SetText(sb.ToString());
+
+        int glass_value = GameFacade.Instance.Game.GetScoreGlass() + ach_glass;
+        if (glass_value > 0)
+        {
+            c_GlassPivot.SetActive(true);
+
+            StringBuilder glass_sb = new StringBuilder();
+            glass_sb.Append(string.Format("{0}{1}</color>", _C.GREENCOLOR, glass_value));
+            if (ach_glass > 0) {
+                glass_sb.Append(string.Format(" ( {0} 来自成就)", ach_glass));
+            } 
+            c_Glass.text = glass_sb.ToString();
+        }
+        else 
+        {
+            c_GlassPivot.SetActive(false);
+        }
+
+
+        // m_Description.GetComponent<ShakeText>().SetText(sb.ToString());
     }
 }
