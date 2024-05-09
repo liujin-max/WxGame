@@ -1131,9 +1131,8 @@ namespace CB
             m_DelayTimer.Reset();
             
             //存储关卡存档
-            if (m_FSM.Owner.Stage > 0) {
-                m_FSM.Owner.Export();
-            }
+            m_FSM.Owner.Export(m_FSM.Owner.Stage > 0);
+
 
             m_FSM.Owner.Score = 0;
             m_FSM.Owner.Stage = m_FSM.Owner.Stage + 1;

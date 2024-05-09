@@ -576,6 +576,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1da36ad330b2ae641b05b01508a646bd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  c_Shadow: {fileID: 72678063611783225}
   c_Touch: {fileID: 2188322188091390868}
   c_Name: {fileID: 656344887036522300}
   c_Icon: {fileID: 970256523618777153}

@@ -65,7 +65,10 @@ namespace CB
         // Start is called before the first frame update
         void Start()
         {
-            BtnContinue.gameObject.SetActive(GameFacade.Instance.User.GetArchiveRecord() != null);
+            ArchiveRecord archiveRecord = GameFacade.Instance.User.GetArchiveRecord();
+            
+            BtnEnter.gameObject.SetActive(archiveRecord == null);
+            BtnContinue.gameObject.SetActive(archiveRecord != null);
 
             FlushUI();
         }
