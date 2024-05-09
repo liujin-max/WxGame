@@ -212,14 +212,17 @@ public class WXPlatform : Platform
     {
         WX.ShareAppMessage(new ShareAppMessageOption()
         {
-            title = "分享标题xxx",
-            imageUrl = "https://inews.gtimg.com/newsapp_bt/0/12171811596_909/0",
+            title       = "新的记录！！！",
+            // imageUrlId  = "",
+            // imageUrl    = "https://inews.gtimg.com/newsapp_bt/0/12171811596_909/0",
         });
     }
 
     //设备振动
     public override void VIBRATE(string level)
     {
+        if (!GameFacade.Instance.SystemManager.VibrateFlag) return;
+        
         VibrateShortOption op = new VibrateShortOption();
         op.type = level;
         WX.VibrateShort(op);

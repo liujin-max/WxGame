@@ -14,6 +14,7 @@ namespace CB
         [SerializeField] private TextMeshProUGUI c_Score;
         [SerializeField] private Button BtnEnter;
         [SerializeField] private Button BtnContinue;
+        [SerializeField] private Button BtnSet;
         [SerializeField] private Button BtnRank;
         [SerializeField] private Button BtnAchievement;
 
@@ -41,6 +42,10 @@ namespace CB
                 });
 
                 GameFacade.Instance.UIManager.UnloadWindow(gameObject);
+            });
+
+            BtnSet.onClick.AddListener(()=>{
+                GameFacade.Instance.UIManager.LoadWindow("Prefab/UI/SettingWindow", GameFacade.Instance.UIManager.BOARD);
             });
 
             BtnRank.onClick.AddListener(()=>{  

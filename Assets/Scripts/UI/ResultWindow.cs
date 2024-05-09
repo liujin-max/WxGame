@@ -11,6 +11,7 @@ namespace CB
     {
 
         [SerializeField] private Button BtnRestart;
+        [SerializeField] private Button BtnShare;
         [SerializeField] private GameObject m_MainPivot;
         [SerializeField] private GameObject m_ScorePivot;
         [SerializeField] private TextMeshProUGUI ScoreText;
@@ -27,6 +28,10 @@ namespace CB
                 GameFacade.Instance.Game.Dispose();
                 NavigationController.GotoLoading();
                 GameFacade.Instance.UIManager.UnloadWindow(gameObject);
+            });
+
+            BtnShare.onClick.AddListener(()=>{
+                Platform.Instance.SHARE();
             });
         }
 

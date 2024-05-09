@@ -72,6 +72,7 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 1eb8339db12450d469c2143bb6d2bfd5, type: 3}
   - {fileID: 21300000, guid: 347ebd1e12d863d4685edb33e793569b, type: 3}
   - {fileID: 21300000, guid: 8170025e5312c1d4a997953be9620dbc, type: 3}
+  - {fileID: 21300000, guid: 5a12b65fafc536f4ab2ad7c45ca6732c, type: 3}
   - {fileID: 21300000, guid: a32e4d6fe36fc7442a9ed3cea51bdadc, type: 3}
   m_PackedSpriteNamesToIndex:
   - Set_default_head
@@ -93,6 +94,7 @@ SpriteAtlas:
   - Set_achievement_item_frame
   - Set_achievement_tag_finish
   - Set_rank_item_frame_our
+  - Set_btn_set
   - Set_rank_top1
   m_RenderDataMap: {}
   m_Tag: Set

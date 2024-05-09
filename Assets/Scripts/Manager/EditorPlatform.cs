@@ -68,6 +68,7 @@ public class EditorPlatform : Platform
 
     public override void VIBRATE(string level)
     {
+        if (!GameFacade.Instance.SystemManager.VibrateFlag) return;
 
     }
 }

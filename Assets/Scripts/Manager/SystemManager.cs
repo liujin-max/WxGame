@@ -9,8 +9,11 @@ namespace CB
         //存储键
         public static string KEY_USER       = "KEY_USER";
         public static string KEY_ARCHIVE    = "KEY_ARCHIVE";    //关卡进行中的存档
-        public static string KEY_MUSIC      = "KEY_MUSIC";  //音乐
-        public static string KEY_SOUND      = "KEY_SOUND";  //音效
+
+
+        public static string KEY_MUSIC      = "KEY_MUSIC";      //音乐
+        public static string KEY_SOUND      = "KEY_SOUND";      //音效
+        public static string KEY_VIBRATE    = "KEY_VIBRATE";    //振动开关
 
         private float m_MusicVolume;
         public float MusicVolume {
@@ -30,10 +33,21 @@ namespace CB
             }
         }
 
+        private bool m_VibrateFlag = true;
+        public bool VibrateFlag {
+            get { return m_VibrateFlag;}
+            set {
+                m_VibrateFlag = value;
+                PlayerPrefs.SetFloat(KEY_VIBRATE, m_VibrateFlag ? 1 : 0);
+            }
+        }
+
         void Awake()
         {
             m_MusicVolume   = PlayerPrefs.GetFloat(KEY_MUSIC, 1);
             m_SoundVolume   = PlayerPrefs.GetFloat(KEY_SOUND, 1);
+
+            m_VibrateFlag   = PlayerPrefs.GetFloat(KEY_VIBRATE, 1) == 1;
         }
 
 
