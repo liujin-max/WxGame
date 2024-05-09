@@ -1929,6 +1929,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5081477667711125936}
   - component: {fileID: 6790050255916004609}
+  - component: {fileID: 7012416058387316436}
   m_Layer: 5
   m_Name: GhostWindow
   m_TagString: Untagged
@@ -1983,6 +1984,18 @@ MonoBehaviour:
   c_ButtonPivot: {fileID: 8346292492006875932}
   c_DescriptionPivot: {fileID: 4368233801863263213}
   c_Tip: {fileID: 1082463788973405328}
+--- !u!114 &7012416058387316436
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8108287089282383141}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a8925cd925436284faa71ed257bf9db1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &8346292492006875932
 GameObject:
   m_ObjectHideFlags: 0

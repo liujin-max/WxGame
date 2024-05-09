@@ -12,6 +12,13 @@ public class Sound : MonoBehaviour
     {
         m_AudioSource = transform.GetComponent<AudioSource>();
 
+        // m_AudioSource.Play();
+        // m_AudioSource.volume = m_AudioSource.volume * GameFacade.Instance.SystemManager.SoundVolume;
+    }
+
+    //因为部分音效绑定在特效上，特效走的是缓存池，所以不能放在Awake里做播放
+    void OnEnable()
+    {
         m_AudioSource.Play();
         m_AudioSource.volume = m_AudioSource.volume * GameFacade.Instance.SystemManager.SoundVolume;
     }
