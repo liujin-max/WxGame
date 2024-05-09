@@ -74,6 +74,7 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 85a5d1d9e84a17245920d74312ef9689, type: 3}
   - {fileID: 21300000, guid: a3e243e966db59041b58c5f0750e94e4, type: 3}
   - {fileID: 21300000, guid: 1a23d44ac05fed44596c0036dd54d868, type: 3}
+  - {fileID: 21300000, guid: 5a8056aaa0dd9cd439b2f5877549eee2, type: 3}
   - {fileID: 21300000, guid: 737959bad3f0706408f083adf1cca224, type: 3}
   - {fileID: 21300000, guid: 8719516b3f43711459db3bd587a46153, type: 3}
   - {fileID: 21300000, guid: 8c518e0ce8fadb44693290bf3b7a2987, type: 3}
@@ -103,6 +104,7 @@ SpriteAtlas:
   - Game_score_bar
   - Game_text_stage_1
   - Game_btn_buy
+  - Game_shop_item_back
   - Game_add
   - Game_ball_seat_frame
   - Game_arrow

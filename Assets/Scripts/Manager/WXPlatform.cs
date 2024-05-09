@@ -147,26 +147,24 @@ public class WXPlatform : Platform
 
     public override void UPLOAD(GameUserData userData)
     {
-        //上传账号数据
+        if (GameFacade.Instance.User.IsDirty == true)
         {
-            if (GameFacade.Instance.User.IsDirty == true)
+            //上传账号数据
+            Debug.Log("====开始上传账号数据====");
+            WX.cloud.CallFunction(new CallFunctionParam()
             {
-                Debug.Log("====开始上传账号数据====");
-                WX.cloud.CallFunction(new CallFunctionParam()
+                name = "SetUserData",
+                data = JsonUtility.ToJson(userData),
+                success = (res) =>
                 {
-                    name = "SetUserData",
-                    data = JsonUtility.ToJson(userData),
-                    success = (res) =>
-                    {
-                        Debug.Log("====上传账号数据成功====");
-                    },
-                    fail = (res) =>
-                    {
-                        Debug.LogError("====上传账号数据失败====" + res.errMsg);
-                    }
-                });
-            }
-        } 
+                    Debug.Log("====上传账号数据成功====");
+                },
+                fail = (res) =>
+                {
+                    Debug.LogError("====上传账号数据失败====" + res.errMsg);
+                }
+            });
+        }
     }
 
     //拉取排行榜

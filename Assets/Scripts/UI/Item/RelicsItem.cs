@@ -37,12 +37,14 @@ public class RelicsItem : MonoBehaviour
     {
         Relics  = data;
 
-        c_Touch.gameObject.SetActive(true);
         c_Shadow.SetActive(true);
-        c_Back.SetActive(false);
         
+        c_Touch.gameObject.SetActive(true);
         c_Touch.localEulerAngles = Vector3.zero;
         c_Touch.GetComponent<BalatroFloating>().enabled = true;
+        c_Touch.GetComponent<Shine>().Restart();
+
+        c_Back.SetActive(false);
         c_Back.transform.localEulerAngles = Vector3.zero;
 
         this.FlushUI();

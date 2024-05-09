@@ -146,7 +146,6 @@
     <Compile Include="Assets\Scripts\Utility\ImageGray.cs" />
     <Compile Include="Assets\AllIn1SpriteShader\Demo\Scripts\Demo2AutoScroll.cs" />
     <Compile Include="Assets\Scripts\Utility\ToolUtility.cs" />
-    <Compile Include="Assets\Scripts\Utility\WXUtility.cs" />
     <Compile Include="Assets\Scripts\Logic\Ball\BallFang.cs" />
     <Compile Include="Assets\Scripts\UI\RelicsDetailWindow.cs" />
     <Compile Include="Assets\Scripts\Logic\User.cs" />

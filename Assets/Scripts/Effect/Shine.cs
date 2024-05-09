@@ -23,6 +23,12 @@ public class Shine : MonoBehaviour
         m_ShineTimer.Full();
     }
 
+    public void Restart()
+    {
+        m_LoopCount = 0;
+        m_ShineTimer.Full();
+    }
+
     // Update is called once per frame
     void Update()
     {
