@@ -16,6 +16,7 @@ public class RelicsItem : MonoBehaviour
     [SerializeField] private GameObject c_Back;
     [SerializeField] private Transform c_Touch;
     [SerializeField] private TextMeshProUGUI c_Name;
+    [SerializeField] private Image c_IconShadow;
     [SerializeField] private RawImage c_Icon;
     [SerializeField] private TextMeshProUGUI c_Description;
     [SerializeField] private TextMeshProUGUI c_Cost;
@@ -41,7 +42,6 @@ public class RelicsItem : MonoBehaviour
         
         c_Touch.gameObject.SetActive(true);
         c_Touch.localEulerAngles = Vector3.zero;
-        c_Touch.GetComponent<BalatroFloating>().enabled = true;
         c_Touch.GetComponent<Shine>().Restart();
 
         c_Back.SetActive(false);
@@ -58,6 +58,9 @@ public class RelicsItem : MonoBehaviour
 
         c_Icon.texture   = Resources.Load<Texture>("UI/Relics/" + relics.ID);
         c_Icon.SetNativeSize();
+
+        c_IconShadow.sprite = Resources.Load<Sprite>("UI/Relics/" + relics.ID);
+        c_IconShadow.SetNativeSize();
 
         c_Description.text = relics.GetDescription();
 
@@ -76,7 +79,6 @@ public class RelicsItem : MonoBehaviour
     //翻面
     IEnumerator FadeBack()
     {
-        c_Touch.GetComponent<BalatroFloating>().enabled = false;
         c_Touch.localEulerAngles = Vector3.zero;
 
         c_Back.SetActive(false);

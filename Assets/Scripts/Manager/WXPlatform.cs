@@ -100,8 +100,6 @@ public class WXPlatform : Platform
                 {
                     //将Json转换成临时的GameUserData
                     GameUserData tempData = JsonUtility.FromJson<GameUserData>(JsonMapper.ToJson(data["data"]));
-                    //基础数据
-                    // userData.userInfo = tempData.userInfo;
 
                     //读取存档数据
                     userData.Score  = tempData.Score;
