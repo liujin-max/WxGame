@@ -47,6 +47,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Time: 0.35
   m_IsLoop: 0
+  m_IsRecycle: 0
+  ResPath: 
 --- !u!1 &3784070332507827591
 GameObject:
   m_ObjectHideFlags: 0

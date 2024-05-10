@@ -545,6 +545,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Time: 1.2
   m_IsLoop: 0
+  m_IsRecycle: 0
+  ResPath: 
 --- !u!114 &2226592003031894797
 MonoBehaviour:
   m_ObjectHideFlags: 0

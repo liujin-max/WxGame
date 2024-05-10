@@ -14521,3 +14521,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Time: 0
   m_IsLoop: 1
+  m_IsRecycle: 0
+  ResPath: 
