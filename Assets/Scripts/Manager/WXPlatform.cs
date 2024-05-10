@@ -208,6 +208,8 @@ public class WXPlatform : Platform
     //分享
     public override void SHARE()
     {
+        EventManager.SendEvent(new GameEvent(EVENT.ONSHAREGAME));
+        
         WX.ShareAppMessage(new ShareAppMessageOption()
         {
             title       = "进入弹珠世界！",

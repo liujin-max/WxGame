@@ -63,7 +63,7 @@ public class EditorPlatform : Platform
 
     public override void SHARE()
     {
-
+        EventManager.SendEvent(new GameEvent(EVENT.ONSHAREGAME));
     }
 
     public override void VIBRATE(string level)

@@ -53,6 +53,7 @@ public static class EVENT
     public static string ONBALLFLY          = "ONBALLFLY";
     public static string ONCOMPLEXBALL      = "ONCOMPLEXBALL";      //合成弹珠后
     public static string ONBUYRELICS        = "ONBUYRELICS";        //购买道具后
+    public static string ONSHAREGAME        = "ONSHAREGAME";        //分享游戏
 
     
 

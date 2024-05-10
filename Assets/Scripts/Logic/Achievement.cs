@@ -8,6 +8,27 @@ using UnityEngine;
 
 namespace CB
 {
+    #region 分享一次游戏
+    public class Achievement_SHARE : Achievement
+    {
+        public override string GetDescription()
+        {
+            return "分享一次游戏";
+        }
+
+        protected override void OnReponseShareGame(GameEvent @event)
+        {
+            if (!IsActive) return;
+
+            this.Finish();
+
+            //在局外的特殊情况，需要单独调用存储
+            GameFacade.Instance.User.Save();
+        }
+    }
+    #endregion
+
+
     #region 单回合内未击中方块。
     public class Achievement_FANG : Achievement
     {
@@ -1308,6 +1329,7 @@ namespace CB
         }
 
         private static Dictionary<int, Func<Achievement>> m_classDictionary = new Dictionary<int, Func<Achievement>> {
+            { 10000, () => new Achievement_SHARE()},
             { 10001, () => new Achievement_FANG()},
             { 10002, () => new Achievement_SANJIAO()},
             { 10003, () => new Achievement_YUAN()},
@@ -1446,6 +1468,7 @@ namespace CB
             EventManager.DelHandler(EVENT.ONCOMPLEXBALL,    OnReponseComplexBall);
             EventManager.DelHandler(EVENT.ONBUYRELICS,      OnReponseBuyRelics);
             EventManager.DelHandler(EVENT.ONENTERCOLLISION, OnReponseEnterCollision);
+            EventManager.DelHandler(EVENT.ONSHAREGAME,      OnReponseShareGame);
 
         }
 
@@ -1487,7 +1510,12 @@ namespace CB
             EventManager.AddHandler(EVENT.ONCOMPLEXBALL,    OnReponseComplexBall);
             EventManager.AddHandler(EVENT.ONBUYRELICS,      OnReponseBuyRelics);
             EventManager.AddHandler(EVENT.ONENTERCOLLISION, OnReponseEnterCollision);
-            
+            EventManager.AddHandler(EVENT.ONSHAREGAME,      OnReponseShareGame);
+        }
+
+        protected virtual void OnReponseShareGame(GameEvent @event)
+        {
+
         }
 
         protected virtual void OnReponseManualShoot(GameEvent @event)
