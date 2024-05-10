@@ -47,7 +47,7 @@ AutoStreamingSettings:
     maxPlaceholderSize: 1114112
     width: 0
     height: 0
-    abSize: 81250
+    abSize: 81920
   - serializedVersion: 2
     onDemandDownload: 1
     assetPath: Assets/Resources/Atlas/Game.spriteatlas
@@ -60,7 +60,19 @@ AutoStreamingSettings:
     maxPlaceholderSize: 1114112
     width: 0
     height: 0
-    abSize: 141731
+    abSize: 159048
+  - serializedVersion: 2
+    onDemandDownload: 0
+    assetPath: Assets/Resources/Atlas/Universal.spriteatlas
+    localFileId: 4343727234628468602
+    rtMem: 0
+    warningFlag: 0
+    refs:
+    - res
+    maxPlaceholderSize: 1114112
+    width: 0
+    height: 0
+    abSize: 0
   - serializedVersion: 2
     onDemandDownload: 1
     assetPath: Assets/AllIn1SpriteShader/Textures/seamlessNoise.png
@@ -75,7 +87,7 @@ AutoStreamingSettings:
     height: 256
     abSize: 28388
   - serializedVersion: 2
-    onDemandDownload: 1
+    onDemandDownload: 0
     assetPath: Assets/AllIn1SpriteShader/Textures/fire2.png
     localFileId: 2800000
     rtMem: 131072
@@ -86,9 +98,9 @@ AutoStreamingSettings:
     maxPlaceholderSize: 196640
     width: 512
     height: 512
-    abSize: 117727
+    abSize: 0
   - serializedVersion: 2
-    onDemandDownload: 1
+    onDemandDownload: 0
     assetPath: Assets/AllIn1SpriteShader/Textures/rainbow.png
     localFileId: 2800000
     rtMem: 32768
@@ -99,7 +111,7 @@ AutoStreamingSettings:
     maxPlaceholderSize: 196640
     width: 256
     height: 256
-    abSize: 4994
+    abSize: 0
   - serializedVersion: 2
     onDemandDownload: 0
     assetPath: Assets/AllIn1SpriteShader/Textures/PaletteTextures/palette-downwell.png
@@ -125,7 +137,31 @@ AutoStreamingSettings:
     maxPlaceholderSize: 589856
     width: 1024
     height: 1024
-    abSize: 147465
+    abSize: 150019
+  - serializedVersion: 2
+    onDemandDownload: 0
+    assetPath: Packages/com.unity.render-pipelines.core/Runtime/Debugging/Prefabs/Textures/UIElement8px.png
+    localFileId: 2800000
+    rtMem: 256
+    warningFlag: 0
+    refs:
+    - res
+    maxPlaceholderSize: 196640
+    width: 8
+    height: 8
+    abSize: 0
+  - serializedVersion: 2
+    onDemandDownload: 0
+    assetPath: Packages/com.unity.render-pipelines.core/Runtime/Debugging/Prefabs/Textures/White1px.png
+    localFileId: 2800000
+    rtMem: 3
+    warningFlag: 0
+    refs:
+    - res
+    maxPlaceholderSize: 196640
+    width: 1
+    height: 1
+    abSize: 0
   - serializedVersion: 2
     onDemandDownload: 0
     assetPath: Assets/Resources/Element/Element_shield.png
@@ -139,7 +175,43 @@ AutoStreamingSettings:
     height: 64
     abSize: 0
   - serializedVersion: 2
-    onDemandDownload: 1
+    onDemandDownload: 0
+    assetPath: Packages/com.unity.render-pipelines.core/Runtime/Debugging/Prefabs/Textures/UICheckMark.png
+    localFileId: 2800000
+    rtMem: 484
+    warningFlag: 0
+    refs:
+    - res
+    maxPlaceholderSize: 196640
+    width: 11
+    height: 11
+    abSize: 0
+  - serializedVersion: 2
+    onDemandDownload: 0
+    assetPath: Packages/com.unity.render-pipelines.core/Runtime/Debugging/Prefabs/Textures/UIFoldoutClosed.png
+    localFileId: 2800000
+    rtMem: 484
+    warningFlag: 0
+    refs:
+    - res
+    maxPlaceholderSize: 196640
+    width: 11
+    height: 11
+    abSize: 0
+  - serializedVersion: 2
+    onDemandDownload: 0
+    assetPath: Packages/com.unity.render-pipelines.core/Runtime/Debugging/Prefabs/Textures/UIFoldoutOpened.png
+    localFileId: 2800000
+    rtMem: 484
+    warningFlag: 0
+    refs:
+    - res
+    maxPlaceholderSize: 196640
+    width: 11
+    height: 11
+    abSize: 0
+  - serializedVersion: 2
+    onDemandDownload: 0
     assetPath: Assets/Resources/UI/Scape/Game_achievement_bottom.png
     localFileId: 2800000
     rtMem: 25600
@@ -149,7 +221,7 @@ AutoStreamingSettings:
     maxPlaceholderSize: 196640
     width: 512
     height: 199
-    abSize: 17983
+    abSize: 0
   - serializedVersion: 2
     onDemandDownload: 1
     assetPath: Assets/Resources/UI/Scape/Scape_description_frame.png
@@ -164,12 +236,23 @@ AutoStreamingSettings:
     abSize: 10294
   - serializedVersion: 2
     onDemandDownload: 1
+    assetPath: Assets/Resources/UI/Scape/Scape_popup_frame.png
+    localFileId: 2800000
+    rtMem: 80352
+    warningFlag: 0
+    refs:
+    - res
+    maxPlaceholderSize: 196640
+    width: 968
+    height: 734
+    abSize: 50552
+  - serializedVersion: 2
+    onDemandDownload: 1
     assetPath: Assets/Resources/UI/Scape/Game_guide_frame.png
     localFileId: 2800000
     rtMem: 11264
     warningFlag: 0
     refs:
-    - 0
     - res
     maxPlaceholderSize: 196640
     width: 512
@@ -182,14 +265,13 @@ AutoStreamingSettings:
     rtMem: 16384
     warningFlag: 0
     refs:
-    - 0
     - res
     maxPlaceholderSize: 196640
     width: 256
     height: 256
     abSize: 12848
   - serializedVersion: 2
-    onDemandDownload: 1
+    onDemandDownload: 0
     assetPath: Assets/Resources/UI/Scape/Scape_stage_frame.png
     localFileId: 2800000
     rtMem: 29696
@@ -199,7 +281,7 @@ AutoStreamingSettings:
     maxPlaceholderSize: 196640
     width: 512
     height: 227
-    abSize: 17363
+    abSize: 0
   - serializedVersion: 2
     onDemandDownload: 1
     assetPath: Assets/Resources/UI/Scape/Game_bg.png
@@ -256,14 +338,38 @@ AutoStreamingSettings:
     onDemandDownload: 1
     assetPath: Assets/Resources/UI/Scape/Game_shop_frame.png
     localFileId: 2800000
-    rtMem: 241664
+    rtMem: 104576
     warningFlag: 0
     refs:
     - res
     maxPlaceholderSize: 196640
-    width: 940
+    width: 902
     height: 1024
-    abSize: 170421
+    abSize: 45076
+  - serializedVersion: 2
+    onDemandDownload: 0
+    assetPath: Assets/Resources/UI/Scape/Scape_popup_reward_title_text.png
+    localFileId: 2800000
+    rtMem: 7040
+    warningFlag: 0
+    refs:
+    - res
+    maxPlaceholderSize: 196640
+    width: 345
+    height: 77
+    abSize: 0
+  - serializedVersion: 2
+    onDemandDownload: 1
+    assetPath: Assets/Resources/UI/Scape/Scape_popup_reward_title.png
+    localFileId: 2800000
+    rtMem: 25600
+    warningFlag: 0
+    refs:
+    - res
+    maxPlaceholderSize: 196640
+    width: 512
+    height: 199
+    abSize: 14363
   - serializedVersion: 2
     onDemandDownload: 0
     assetPath: Assets/Resources/UI/Scape/Game_ball_description_bubble.png
@@ -302,6 +408,18 @@ AutoStreamingSettings:
     abSize: 63348
   - serializedVersion: 2
     onDemandDownload: 1
+    assetPath: Assets/Resources/UI/Scape/Scape_rank_bg.png
+    localFileId: 2800000
+    rtMem: 208800
+    warningFlag: 0
+    refs:
+    - res
+    maxPlaceholderSize: 196640
+    width: 1080
+    height: 1733
+    abSize: 59585
+  - serializedVersion: 2
+    onDemandDownload: 1
     assetPath: Assets/Resources/UI/Scape/Game_relics_item_light.png
     localFileId: 2800000
     rtMem: 16384
@@ -316,15 +434,27 @@ AutoStreamingSettings:
     onDemandDownload: 1
     assetPath: Assets/Resources/UI/Scape/Scape_achivement_bg.png
     localFileId: 2800000
-    rtMem: 174080
+    rtMem: 77056
+    warningFlag: 0
+    refs:
+    - res
+    maxPlaceholderSize: 196640
+    width: 668
+    height: 1024
+    abSize: 28273
+  - serializedVersion: 2
+    onDemandDownload: 0
+    assetPath: Assets/Resources/UI/Scape/Game_bubble.png
+    localFileId: 2800000
+    rtMem: 9728
     warningFlag: 0
     refs:
     - 0
     - res
     maxPlaceholderSize: 196640
-    width: 676
-    height: 1024
-    abSize: 47942
+    width: 256
+    height: 146
+    abSize: 0
   - serializedVersion: 2
     onDemandDownload: 1
     assetPath: Assets/Resources/UI/Scape/state_bar.png
@@ -352,7 +482,7 @@ AutoStreamingSettings:
     height: 140
     abSize: 20559
   - serializedVersion: 2
-    onDemandDownload: 1
+    onDemandDownload: 0
     assetPath: Assets/Resources/UI/Scape/ScreenLoading.png
     localFileId: 2800000
     rtMem: 202464
@@ -363,10 +493,10 @@ AutoStreamingSettings:
     maxPlaceholderSize: 196640
     width: 885
     height: 2048
-    abSize: 82096
+    abSize: 0
   - serializedVersion: 2
     onDemandDownload: 0
-    assetPath: Assets/Epic Toon FX/Textures/circle.png
+    assetPath: Assets/Epic Toon FX/Textures/wave3.png
     localFileId: 2800000
     rtMem: 5504
     warningFlag: 0
@@ -377,32 +507,20 @@ AutoStreamingSettings:
     height: 128
     abSize: 0
   - serializedVersion: 2
-    onDemandDownload: 0
-    assetPath: Assets/Epic Toon FX/Textures/cloud_2x2_hard.png
+    onDemandDownload: 1
+    assetPath: Assets/Font/RateNumber/RateNumber_0.png
     localFileId: 2800000
-    rtMem: 5504
+    rtMem: 32768
     warningFlag: 0
     refs:
     - res
     maxPlaceholderSize: 196640
-    width: 128
-    height: 128
-    abSize: 0
+    width: 512
+    height: 64
+    abSize: 15002
   - serializedVersion: 2
     onDemandDownload: 0
-    assetPath: Assets/Epic Toon FX/Textures/confetti.png
-    localFileId: 2800000
-    rtMem: 5504
-    warningFlag: 0
-    refs:
-    - res
-    maxPlaceholderSize: 196640
-    width: 128
-    height: 128
-    abSize: 0
-  - serializedVersion: 2
-    onDemandDownload: 0
-    assetPath: Assets/Epic Toon FX/Textures/etfx_shield.png
+    assetPath: Assets/Epic Toon FX/Textures/sparkle.png
     localFileId: 2800000
     rtMem: 3872
     warningFlag: 0
@@ -414,7 +532,31 @@ AutoStreamingSettings:
     abSize: 0
   - serializedVersion: 2
     onDemandDownload: 0
-    assetPath: Assets/Epic Toon FX/Textures/explosion_spritesheet_3x3.png
+    assetPath: Assets/Epic Toon FX/Textures/magic_line.png
+    localFileId: 2800000
+    rtMem: 3872
+    warningFlag: 0
+    refs:
+    - res
+    maxPlaceholderSize: 196640
+    width: 128
+    height: 128
+    abSize: 0
+  - serializedVersion: 2
+    onDemandDownload: 0
+    assetPath: Assets/Epic Toon FX/Textures/ring.png
+    localFileId: 2800000
+    rtMem: 2784
+    warningFlag: 0
+    refs:
+    - res
+    maxPlaceholderSize: 196640
+    width: 128
+    height: 128
+    abSize: 0
+  - serializedVersion: 2
+    onDemandDownload: 0
+    assetPath: Assets/Epic Toon FX/Textures/circle.png
     localFileId: 2800000
     rtMem: 5504
     warningFlag: 0
@@ -438,19 +580,7 @@ AutoStreamingSettings:
     abSize: 0
   - serializedVersion: 2
     onDemandDownload: 0
-    assetPath: Assets/Epic Toon FX/Textures/healing.png
-    localFileId: 2800000
-    rtMem: 2848
-    warningFlag: 0
-    refs:
-    - res
-    maxPlaceholderSize: 196640
-    width: 256
-    height: 32
-    abSize: 0
-  - serializedVersion: 2
-    onDemandDownload: 0
-    assetPath: Assets/Epic Toon FX/Textures/line_sharp.png
+    assetPath: Assets/OnQ Ultimate FX Pack 1 Cartoon/Textures/FX_Smoke_Poof_1.tga
     localFileId: 2800000
     rtMem: 5504
     warningFlag: 0
@@ -461,70 +591,23 @@ AutoStreamingSettings:
     height: 128
     abSize: 0
   - serializedVersion: 2
-    onDemandDownload: 0
-    assetPath: Assets/Epic Toon FX/Textures/magic_line.png
-    localFileId: 2800000
-    rtMem: 3872
-    warningFlag: 0
-    refs:
-    - res
-    maxPlaceholderSize: 196640
-    width: 128
-    height: 128
-    abSize: 0
-  - serializedVersion: 2
-    onDemandDownload: 0
-    assetPath: Assets/Epic Toon FX/Textures/magic_orb.png
-    localFileId: 2800000
-    rtMem: 3872
-    warningFlag: 0
-    refs:
-    - res
-    maxPlaceholderSize: 196640
-    width: 128
-    height: 128
-    abSize: 0
-  - serializedVersion: 2
-    onDemandDownload: 0
-    assetPath: Assets/Epic Toon FX/Textures/portal_glow.png
-    localFileId: 2800000
-    rtMem: 1168
-    warningFlag: 0
-    refs:
-    - res
-    maxPlaceholderSize: 196640
-    width: 64
-    height: 64
-    abSize: 0
-  - serializedVersion: 2
     onDemandDownload: 1
-    assetPath: Assets/Epic Toon FX/Textures/portal_stripes2.png
+    assetPath: Assets/Font/Number/Number_0.png
     localFileId: 2800000
-    rtMem: 14688
+    rtMem: 32768
     warningFlag: 0
     refs:
+    - 0
     - res
     maxPlaceholderSize: 196640
-    width: 256
-    height: 256
-    abSize: 9202
+    width: 512
+    height: 64
+    abSize: 6191
   - serializedVersion: 2
     onDemandDownload: 0
-    assetPath: Assets/Epic Toon FX/Textures/ring.png
+    assetPath: Assets/Epic Toon FX/Textures/explosion_spritesheet_3x3.png
     localFileId: 2800000
-    rtMem: 2784
-    warningFlag: 0
-    refs:
-    - res
-    maxPlaceholderSize: 196640
-    width: 128
-    height: 128
-    abSize: 0
-  - serializedVersion: 2
-    onDemandDownload: 0
-    assetPath: Assets/Epic Toon FX/Textures/sparkle.png
-    localFileId: 2800000
-    rtMem: 3872
+    rtMem: 5504
     warningFlag: 0
     refs:
     - res
@@ -546,15 +629,39 @@ AutoStreamingSettings:
     abSize: 0
   - serializedVersion: 2
     onDemandDownload: 0
-    assetPath: Assets/Epic Toon FX/Textures/wave3.png
+    assetPath: Assets/Epic Toon FX/Textures/etfx_shield.png
     localFileId: 2800000
-    rtMem: 5504
+    rtMem: 3872
     warningFlag: 0
     refs:
     - res
     maxPlaceholderSize: 196640
     width: 128
     height: 128
+    abSize: 0
+  - serializedVersion: 2
+    onDemandDownload: 0
+    assetPath: Assets/Epic Toon FX/Textures/healing.png
+    localFileId: 2800000
+    rtMem: 2848
+    warningFlag: 0
+    refs:
+    - res
+    maxPlaceholderSize: 196640
+    width: 256
+    height: 32
+    abSize: 0
+  - serializedVersion: 2
+    onDemandDownload: 0
+    assetPath: Assets/Epic Toon FX/Textures/portal_glow.png
+    localFileId: 2800000
+    rtMem: 1168
+    warningFlag: 0
+    refs:
+    - res
+    maxPlaceholderSize: 196640
+    width: 64
+    height: 64
     abSize: 0
   - serializedVersion: 2
     onDemandDownload: 0
@@ -569,33 +676,44 @@ AutoStreamingSettings:
     height: 64
     abSize: 0
   - serializedVersion: 2
-    onDemandDownload: 1
-    assetPath: Assets/Font/Number/Number_0.png
+    onDemandDownload: 0
+    assetPath: Assets/Epic Toon FX/Textures/cloud_2x2_hard.png
     localFileId: 2800000
-    rtMem: 32768
-    warningFlag: 0
-    refs:
-    - 0
-    - res
-    maxPlaceholderSize: 196640
-    width: 512
-    height: 64
-    abSize: 6191
-  - serializedVersion: 2
-    onDemandDownload: 1
-    assetPath: Assets/Font/RateNumber/RateNumber_0.png
-    localFileId: 2800000
-    rtMem: 32768
+    rtMem: 5504
     warningFlag: 0
     refs:
     - res
     maxPlaceholderSize: 196640
-    width: 512
-    height: 64
-    abSize: 15002
+    width: 128
+    height: 128
+    abSize: 0
   - serializedVersion: 2
     onDemandDownload: 0
-    assetPath: Assets/OnQ Ultimate FX Pack 1 Cartoon/Textures/FX_Smoke_Poof_1.tga
+    assetPath: Assets/Epic Toon FX/Textures/magic_orb.png
+    localFileId: 2800000
+    rtMem: 3872
+    warningFlag: 0
+    refs:
+    - res
+    maxPlaceholderSize: 196640
+    width: 128
+    height: 128
+    abSize: 0
+  - serializedVersion: 2
+    onDemandDownload: 1
+    assetPath: Assets/Epic Toon FX/Textures/portal_stripes2.png
+    localFileId: 2800000
+    rtMem: 14688
+    warningFlag: 0
+    refs:
+    - res
+    maxPlaceholderSize: 196640
+    width: 256
+    height: 256
+    abSize: 9202
+  - serializedVersion: 2
+    onDemandDownload: 0
+    assetPath: Assets/Epic Toon FX/Textures/confetti.png
     localFileId: 2800000
     rtMem: 5504
     warningFlag: 0
@@ -618,7 +736,19 @@ AutoStreamingSettings:
     height: 64
     abSize: 0
   - serializedVersion: 2
-    onDemandDownload: 1
+    onDemandDownload: 0
+    assetPath: Assets/Epic Toon FX/Textures/line_sharp.png
+    localFileId: 2800000
+    rtMem: 5504
+    warningFlag: 0
+    refs:
+    - res
+    maxPlaceholderSize: 196640
+    width: 128
+    height: 128
+    abSize: 0
+  - serializedVersion: 2
+    onDemandDownload: 0
     assetPath: Assets/TextMesh Pro/Sprites/EmojiOne.png
     localFileId: 2800000
     rtMem: 262144
@@ -628,32 +758,6 @@ AutoStreamingSettings:
     maxPlaceholderSize: 196640
     width: 512
     height: 512
-    abSize: 47052
-  - serializedVersion: 2
-    onDemandDownload: 1
-    assetPath: Assets/Resources/UI/Scape/Scape_rank_bg.png
-    localFileId: 2800000
-    rtMem: 208800
-    warningFlag: 0
-    refs:
-    - 0
-    - res
-    maxPlaceholderSize: 196640
-    width: 1080
-    height: 1733
-    abSize: 59585
-  - serializedVersion: 2
-    onDemandDownload: 0
-    assetPath: Assets/Resources/UI/Universal/Universal_circle_white.png
-    localFileId: 2800000
-    rtMem: 2704
-    warningFlag: 0
-    refs:
-    - 0
-    - res
-    maxPlaceholderSize: 196640
-    width: 100
-    height: 100
     abSize: 0
   mAudios:
   - onDemandDownload: 0
@@ -737,6 +841,13 @@ AutoStreamingSettings:
     assetPath: Assets/Resources/Audio/Sound/error_tip.mp3
     localFileId: 8300000
     rtMem: 3392
+    warningFlag: 0
+    refs:
+    - res
+  - onDemandDownload: 0
+    assetPath: Assets/Resources/Audio/Sound/popup_window.mp3
+    localFileId: 8300000
+    rtMem: 1888
     warningFlag: 0
     refs:
     - res
@@ -825,13 +936,6 @@ AutoStreamingSettings:
     refs:
     - res
   - onDemandDownload: 1
-    assetPath: Assets/Resources/Audio/Sound/ball_growth.mp3
-    localFileId: 8300000
-    rtMem: 7616
-    warningFlag: 0
-    refs:
-    - res
-  - onDemandDownload: 1
     assetPath: Assets/Resources/Audio/Sound/hit_shield.mp3
     localFileId: 8300000
     rtMem: 6048
@@ -839,9 +943,9 @@ AutoStreamingSettings:
     refs:
     - res
   - onDemandDownload: 1
-    assetPath: Assets/Resources/Audio/Sound/rounds_start.mp3
+    assetPath: Assets/Resources/Audio/Sound/ball_growth.mp3
     localFileId: 8300000
-    rtMem: 7584
+    rtMem: 7616
     warningFlag: 0
     refs:
     - res
@@ -849,6 +953,13 @@ AutoStreamingSettings:
     assetPath: Assets/Resources/Audio/Sound/click.mp3
     localFileId: 8300000
     rtMem: 1728
+    warningFlag: 0
+    refs:
+    - res
+  - onDemandDownload: 1
+    assetPath: Assets/Resources/Audio/Sound/rounds_start.mp3
+    localFileId: 8300000
+    rtMem: 7584
     warningFlag: 0
     refs:
     - res
@@ -932,12 +1043,11 @@ AutoStreamingSettings:
     refs:
     - res
   - onDemandDownload: 0
-    assetPath: Assets/Animation/FlyTip.anim:FlyTip
+    assetPath: Assets/Animation/ACHShow.anim:ACHShow
     localFileId: 7400000
     rtMem: 0
     warningFlag: 0
     refs:
-    - 0
     - res
   - onDemandDownload: 0
     assetPath: Assets/Animation/NetLoading.anim:NetLoading
@@ -1015,6 +1125,6 @@ AutoStreamingSettings:
     uosAppid: 7719cba4-84bc-44b4-a168-7ab871845c62
     bucketUuid: af9f455f-c0e4-49f5-ade7-cfbc976b74b8
     bucketName: ClickBall
-    badgeName: v1
+    badgeName: v2
     ttAppid: 
     targetPlatfrom: 

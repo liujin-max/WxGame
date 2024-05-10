@@ -6,7 +6,7 @@ Texture2D:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Scape_description_frame.png
+  m_Name: Scape_popup_reward_title.png
   m_ImageContentsHash:
     serializedVersion: 2
     Hash: 00000000000000000000000000000000
@@ -15,7 +15,7 @@ Texture2D:
   m_IsAlphaChannelOptional: 0
   serializedVersion: 3
   m_Width: 32
-  m_Height: 9
+  m_Height: 12
   m_CompleteImageSize: 128
   m_MipsStripped: 0
   m_TextureFormat: 51
@@ -41,7 +41,7 @@ Texture2D:
   m_ColorSpace: 1
   m_PlatformBlob: 
   image data: 128
-  _typelessdata: fe80008046902d242526ee311752b2124b800000792ad28a24ea79cd3a29282bef800040f6c5b0aac7b73f1f5f286a75fe800000c40e4c230dc6d507e54006d317828081103300400010666fc692836534830200f476010000000000000060bc34830200fc7c0100000000000000a0b41782808104778c200820004cf99843bd
+  _typelessdata: f184bd102cc80d48df81df03f10b04001a84ede9c5e1f946aab6aaad290400c61a84ede9c5e139f8aab66add2a0400c67d0887c7a49647cf7100a7767472ca80ee80db4fdf7c0000000000ffffff3ff479284b4507dc0987acacacac74614ff8e2484ab4f50afeff0d402595fc3290fc6988b6f5ff1da0938d07000000f0ff39
   m_StreamData:
     serializedVersion: 2
     offset: 0
