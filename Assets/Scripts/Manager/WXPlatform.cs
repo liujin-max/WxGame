@@ -226,3 +226,4 @@ public class WXPlatform : Platform
         WX.VibrateShort(op);
     }
 }
+

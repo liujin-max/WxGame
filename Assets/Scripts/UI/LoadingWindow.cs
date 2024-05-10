@@ -53,29 +53,9 @@ namespace CB
             });
 
             BtnAchievement.onClick.AddListener(()=>{  
-                // var obj = GameFacade.Instance.UIManager.LoadWindow("Prefab/UI/AchievementWindow", GameFacade.Instance.UIManager.BOARD);
-                // var window = obj.GetComponent<AchievementWindow>();
-                // window.Init();
-
-                
-                //云开发：加载积分数据
-                WX.cloud.CallFunction(new CallFunctionParam()
-                {
-                    name = "ClearRank",
-                    data = JsonUtility.ToJson(""),
-                    success = (res) =>
-                    {
-                        Debug.Log("====清空排行数据成功==== : " + res.result);
-                    },
-                    fail = (res) =>
-                    {
-                        GameFacade.Instance.FlyTip("清空排行榜失败");
-                    },
-                    complete = (res) =>
-                    {
-
-                    }
-                });
+                var obj = GameFacade.Instance.UIManager.LoadWindow("Prefab/UI/AchievementWindow", GameFacade.Instance.UIManager.BOARD);
+                var window = obj.GetComponent<AchievementWindow>();
+                window.Init();
             });
 
 
