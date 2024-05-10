@@ -22,11 +22,14 @@ exports.main = async (event, context) => {
   // 遍历每个 resolved promise 的结果
   for (let i = 0; i < results.data.length; i++) {
     // 将结果添加到 rankDatas 数组中
-    let avatorURL = results.data[i].gamedata.HeadUrl;
-    let userName = results.data[i].gamedata.Name;
     let score = results.data[i].gamedata.Score;
-    let openid  = results.data[i].openid;
-    gameRankDatas.push({OpenID:openid, Head: avatorURL, Name: userName, Score: score});
+    if (score > 0) {
+      let avatorURL = results.data[i].gamedata.HeadUrl;
+      let userName = results.data[i].gamedata.Name;
+      
+      let openid  = results.data[i].openid;
+      gameRankDatas.push({OpenID:openid, Head: avatorURL, Name: userName, Score: score});
+    }
   }
 
   return {

@@ -170,7 +170,7 @@ public class WXPlatform : Platform
     //拉取排行榜
     public override void PULLRANK()
     {
-        Debug.Log("====开始获取排行数据====");
+        Debug.Log("====开始清空排行数据====");
         EventManager.SendEvent(new GameEvent(EVENT.UI_NETUPDATE, true));
 
         //云开发：加载积分数据
