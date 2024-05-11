@@ -45,14 +45,20 @@ namespace CB
             });
 
             BtnSet.onClick.AddListener(()=>{
+                GameFacade.Instance.SoundManager.Load(SOUND.CLICK);
+                
                 GameFacade.Instance.UIManager.LoadWindow("Prefab/UI/SettingWindow", GameFacade.Instance.UIManager.BOARD);
             });
 
             BtnRank.onClick.AddListener(()=>{  
+                GameFacade.Instance.SoundManager.Load(SOUND.CLICK);
+                
                 Platform.Instance.PULLRANK();
             });
 
             BtnAchievement.onClick.AddListener(()=>{  
+                GameFacade.Instance.SoundManager.Load(SOUND.CLICK);
+
                 var obj = GameFacade.Instance.UIManager.LoadWindow("Prefab/UI/AchievementWindow", GameFacade.Instance.UIManager.BOARD);
                 var window = obj.GetComponent<AchievementWindow>();
                 window.Init();

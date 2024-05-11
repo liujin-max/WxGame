@@ -19,6 +19,8 @@ public class RelicsSeatItem : MonoBehaviour
         EventManager.AddHandler(EVENT.UI_TRIGGERRELICS,    OnRelicsTrigger);
 
         c_Icon.GetComponent<Button>().onClick.AddListener(()=>{
+            GameFacade.Instance.SoundManager.Load(SOUND.CLICK);
+            
             GameFacade.Instance.Game.Pause();
 
             var window = GameFacade.Instance.UIManager.LoadWindow("Prefab/UI/RelicsDetailWindow", GameFacade.Instance.UIManager.BOARD).GetComponent<RelicsDetailWindow>();

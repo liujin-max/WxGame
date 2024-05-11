@@ -13,7 +13,7 @@ namespace CB
     /// 
     public class BallRise : Ball
     {
-        private int m_Rate = 60;    //几率
+        private int m_Rate = 65;    //几率
 
 
         public override string GetDescription()
