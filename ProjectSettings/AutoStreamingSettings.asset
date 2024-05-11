@@ -10,7 +10,7 @@ AutoStreamingSettings:
   mMeshSearchString: 
   mTextures:
   - serializedVersion: 2
-    onDemandDownload: 0
+    onDemandDownload: 1
     assetPath: Assets/Resources/Atlas/Set.spriteatlas
     localFileId: 4343727234628468602
     rtMem: 0
@@ -21,9 +21,9 @@ AutoStreamingSettings:
     maxPlaceholderSize: 1114112
     width: 0
     height: 0
-    abSize: 0
+    abSize: 177631
   - serializedVersion: 2
-    onDemandDownload: 0
+    onDemandDownload: 1
     assetPath: Assets/Resources/Atlas/Texture.spriteatlas
     localFileId: 4343727234628468602
     rtMem: 0
@@ -35,9 +35,9 @@ AutoStreamingSettings:
     maxPlaceholderSize: 1114112
     width: 0
     height: 0
-    abSize: 0
+    abSize: 72298
   - serializedVersion: 2
-    onDemandDownload: 0
+    onDemandDownload: 1
     assetPath: Assets/Resources/Atlas/Relics.spriteatlas
     localFileId: 4343727234628468602
     rtMem: 0
@@ -47,9 +47,9 @@ AutoStreamingSettings:
     maxPlaceholderSize: 1114112
     width: 0
     height: 0
-    abSize: 0
+    abSize: 81920
   - serializedVersion: 2
-    onDemandDownload: 0
+    onDemandDownload: 1
     assetPath: Assets/Resources/Atlas/Game.spriteatlas
     localFileId: 4343727234628468602
     rtMem: 0
@@ -60,9 +60,9 @@ AutoStreamingSettings:
     maxPlaceholderSize: 1114112
     width: 0
     height: 0
-    abSize: 0
+    abSize: 159048
   - serializedVersion: 2
-    onDemandDownload: 0
+    onDemandDownload: 1
     assetPath: Assets/Resources/Atlas/Universal.spriteatlas
     localFileId: 4343727234628468602
     rtMem: 0
@@ -72,9 +72,9 @@ AutoStreamingSettings:
     maxPlaceholderSize: 1114112
     width: 0
     height: 0
-    abSize: 0
+    abSize: 30239
   - serializedVersion: 2
-    onDemandDownload: 0
+    onDemandDownload: 1
     assetPath: Assets/AllIn1SpriteShader/Textures/seamlessNoise.png
     localFileId: 2800000
     rtMem: 65536
@@ -85,9 +85,9 @@ AutoStreamingSettings:
     maxPlaceholderSize: 196640
     width: 256
     height: 256
-    abSize: 0
+    abSize: 28388
   - serializedVersion: 2
-    onDemandDownload: 0
+    onDemandDownload: 1
     assetPath: Assets/AllIn1SpriteShader/Textures/fire2.png
     localFileId: 2800000
     rtMem: 131072
@@ -98,9 +98,9 @@ AutoStreamingSettings:
     maxPlaceholderSize: 196640
     width: 512
     height: 512
-    abSize: 0
+    abSize: 117727
   - serializedVersion: 2
-    onDemandDownload: 0
+    onDemandDownload: 1
     assetPath: Assets/AllIn1SpriteShader/Textures/rainbow.png
     localFileId: 2800000
     rtMem: 32768
@@ -111,7 +111,7 @@ AutoStreamingSettings:
     maxPlaceholderSize: 196640
     width: 256
     height: 256
-    abSize: 0
+    abSize: 4994
   - serializedVersion: 2
     onDemandDownload: 0
     assetPath: Assets/AllIn1SpriteShader/Textures/PaletteTextures/palette-downwell.png
@@ -211,7 +211,7 @@ AutoStreamingSettings:
     height: 11
     abSize: 0
   - serializedVersion: 2
-    onDemandDownload: 0
+    onDemandDownload: 1
     assetPath: Assets/Resources/UI/Scape/Game_achievement_bottom.png
     localFileId: 2800000
     rtMem: 25600
@@ -221,9 +221,9 @@ AutoStreamingSettings:
     maxPlaceholderSize: 196640
     width: 512
     height: 199
-    abSize: 0
+    abSize: 17983
   - serializedVersion: 2
-    onDemandDownload: 0
+    onDemandDownload: 1
     assetPath: Assets/Resources/UI/Scape/Scape_description_frame.png
     localFileId: 2800000
     rtMem: 19456
@@ -233,7 +233,7 @@ AutoStreamingSettings:
     maxPlaceholderSize: 196640
     width: 512
     height: 150
-    abSize: 0
+    abSize: 10294
   - serializedVersion: 2
     onDemandDownload: 1
     assetPath: Assets/Resources/UI/Scape/Scape_popup_frame.png
@@ -259,7 +259,7 @@ AutoStreamingSettings:
     height: 84
     abSize: 1445
   - serializedVersion: 2
-    onDemandDownload: 0
+    onDemandDownload: 1
     assetPath: Assets/Resources/UI/Scape/Game_btn_enter.png
     localFileId: 2800000
     rtMem: 16384
@@ -269,9 +269,9 @@ AutoStreamingSettings:
     maxPlaceholderSize: 196640
     width: 256
     height: 256
-    abSize: 0
+    abSize: 12848
   - serializedVersion: 2
-    onDemandDownload: 0
+    onDemandDownload: 1
     assetPath: Assets/Resources/UI/Scape/Scape_stage_frame.png
     localFileId: 2800000
     rtMem: 29696
@@ -281,7 +281,7 @@ AutoStreamingSettings:
     maxPlaceholderSize: 196640
     width: 512
     height: 227
-    abSize: 0
+    abSize: 17363
   - serializedVersion: 2
     onDemandDownload: 0
     assetPath: Assets/Resources/UI/Scape/Game_bg.png
@@ -309,7 +309,7 @@ AutoStreamingSettings:
     height: 1024
     abSize: 45216
   - serializedVersion: 2
-    onDemandDownload: 0
+    onDemandDownload: 1
     assetPath: Assets/Resources/UI/Scape/Gane_flower.png
     localFileId: 2800000
     rtMem: 19952
@@ -320,9 +320,9 @@ AutoStreamingSettings:
     maxPlaceholderSize: 196640
     width: 512
     height: 344
-    abSize: 0
+    abSize: 16314
   - serializedVersion: 2
-    onDemandDownload: 0
+    onDemandDownload: 1
     assetPath: Assets/Resources/UI/Scape/Paotai.png
     localFileId: 2800000
     rtMem: 11264
@@ -333,7 +333,7 @@ AutoStreamingSettings:
     maxPlaceholderSize: 196640
     width: 175
     height: 256
-    abSize: 0
+    abSize: 9872
   - serializedVersion: 2
     onDemandDownload: 1
     assetPath: Assets/Resources/UI/Scape/Game_shop_frame.png
@@ -443,7 +443,7 @@ AutoStreamingSettings:
     height: 1024
     abSize: 28273
   - serializedVersion: 2
-    onDemandDownload: 0
+    onDemandDownload: 1
     assetPath: Assets/Resources/UI/Scape/Game_bubble.png
     localFileId: 2800000
     rtMem: 9728
@@ -454,9 +454,9 @@ AutoStreamingSettings:
     maxPlaceholderSize: 196640
     width: 256
     height: 146
-    abSize: 0
+    abSize: 3463
   - serializedVersion: 2
-    onDemandDownload: 0
+    onDemandDownload: 1
     assetPath: Assets/Resources/UI/Scape/state_bar.png
     localFileId: 2800000
     rtMem: 11008
@@ -467,9 +467,9 @@ AutoStreamingSettings:
     maxPlaceholderSize: 196640
     width: 512
     height: 46
-    abSize: 0
+    abSize: 8663
   - serializedVersion: 2
-    onDemandDownload: 0
+    onDemandDownload: 1
     assetPath: Assets/Font/SpriteAtlas.png
     localFileId: 2800000
     rtMem: 39168
@@ -480,7 +480,7 @@ AutoStreamingSettings:
     maxPlaceholderSize: 196640
     width: 1088
     height: 140
-    abSize: 0
+    abSize: 20559
   - serializedVersion: 2
     onDemandDownload: 1
     assetPath: Assets/Resources/UI/Scape/ScreenLoading.png
@@ -510,14 +510,14 @@ AutoStreamingSettings:
     onDemandDownload: 1
     assetPath: Assets/Font/RateNumber/RateNumber_0.png
     localFileId: 2800000
-    rtMem: 32768
+    rtMem: 15136
     warningFlag: 0
     refs:
     - res
     maxPlaceholderSize: 196640
     width: 512
     height: 64
-    abSize: 15002
+    abSize: 14171
   - serializedVersion: 2
     onDemandDownload: 0
     assetPath: Assets/Epic Toon FX/Textures/sparkle.png
@@ -594,7 +594,7 @@ AutoStreamingSettings:
     onDemandDownload: 1
     assetPath: Assets/Font/Number/Number_0.png
     localFileId: 2800000
-    rtMem: 32768
+    rtMem: 15136
     warningFlag: 0
     refs:
     - 0
@@ -602,7 +602,7 @@ AutoStreamingSettings:
     maxPlaceholderSize: 196640
     width: 512
     height: 64
-    abSize: 6191
+    abSize: 7555
   - serializedVersion: 2
     onDemandDownload: 0
     assetPath: Assets/Epic Toon FX/Textures/explosion_spritesheet_3x3.png
@@ -667,7 +667,7 @@ AutoStreamingSettings:
     onDemandDownload: 0
     assetPath: Assets/Field/dds.png
     localFileId: 2800000
-    rtMem: 1024
+    rtMem: 784
     warningFlag: 0
     refs:
     - res
@@ -700,7 +700,7 @@ AutoStreamingSettings:
     height: 128
     abSize: 0
   - serializedVersion: 2
-    onDemandDownload: 0
+    onDemandDownload: 1
     assetPath: Assets/Epic Toon FX/Textures/portal_stripes2.png
     localFileId: 2800000
     rtMem: 14688
@@ -710,7 +710,7 @@ AutoStreamingSettings:
     maxPlaceholderSize: 196640
     width: 256
     height: 256
-    abSize: 0
+    abSize: 9202
   - serializedVersion: 2
     onDemandDownload: 0
     assetPath: Assets/Epic Toon FX/Textures/confetti.png
@@ -774,7 +774,7 @@ AutoStreamingSettings:
     warningFlag: 0
     refs:
     - res
-  - onDemandDownload: 0
+  - onDemandDownload: 1
     assetPath: Assets/Resources/Audio/Sound/gravite.mp3
     localFileId: 8300000
     rtMem: 9664
@@ -1125,6 +1125,6 @@ AutoStreamingSettings:
     uosAppid: 7719cba4-84bc-44b4-a168-7ab871845c62
     bucketUuid: af9f455f-c0e4-49f5-ade7-cfbc976b74b8
     bucketName: ClickBall
-    badgeName: v2
+    badgeName: v3
     ttAppid: 
     targetPlatfrom: 

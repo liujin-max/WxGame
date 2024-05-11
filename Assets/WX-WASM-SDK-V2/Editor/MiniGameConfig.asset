@@ -15,9 +15,9 @@ MonoBehaviour:
   ProjectConf:
     projectName: "\u5408\u6210\u5F39\u73E0"
     Appid: wx3eeae3a7e9821066
-    CDN: https://a.unity.cn/client_api/v1/buckets/af9f455f-c0e4-49f5-ade7-cfbc976b74b8/release_by_badge/v2/content
+    CDN: https://a.unity.cn/client_api/v1/buckets/af9f455f-c0e4-49f5-ade7-cfbc976b74b8/release_by_badge/v3/content
     assetLoadType: 1
-    compressDataPackage: 1
+    compressDataPackage: 0
     VideoUrl: 
     DST: D:/Work/Output
     StreamCDN: 
@@ -41,7 +41,7 @@ MonoBehaviour:
     disableHighPerformanceFallback: 0
     IOSDevicePixelRatio: 0
   SDKOptions:
-    UseFriendRelation: 1
+    UseFriendRelation: 0
     UseCompressedTexture: 0
     UseMiniGameChat: 0
     PreloadWXFont: 0

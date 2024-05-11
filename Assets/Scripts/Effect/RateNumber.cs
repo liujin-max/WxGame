@@ -26,7 +26,7 @@ public class RateNumber : MonoBehaviour
 
     void Shake()
     {
-        m_Text.transform.localPosition = Vector3.zero;
+        m_Text.transform.localPosition  = Vector3.zero;
         m_Text2.transform.localPosition = Vector3.zero;
         m_Text3.transform.localPosition = Vector3.zero;
         m_Text4.transform.localPosition = Vector3.zero;

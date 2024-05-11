@@ -96,7 +96,7 @@ PlayerSettings:
   cacheASTextureAB: 1
   maxCacheSize: 0
   maxConcurrentLoad: 0
-  autoStreamingId: /v1/buckets/af9f455f-c0e4-49f5-ade7-cfbc976b74b8/release_by_badge/v2/content
+  autoStreamingId: /v1/buckets/af9f455f-c0e4-49f5-ade7-cfbc976b74b8/release_by_badge/v3/content
   instantGameAppId: 7719cba4-84bc-44b4-a168-7ab871845c62
   bakeCollisionMeshes: 0
   forceSingleInstance: 0

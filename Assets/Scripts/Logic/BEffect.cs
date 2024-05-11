@@ -332,11 +332,11 @@ namespace CB
         }
     }
 
-    //之后的第#次碰撞，弹珠造成的伤害提高4倍
+    //之后的第#次碰撞，弹珠造成的伤害提高3倍
     public class BEffect_HITRATE : BEffect
     {
         private int m_Count;
-        private const int m_CountMax = 30;
+        private const int m_CountMax = 15;
         public BEffect_HITRATE() 
         {
             m_Count = m_CountMax;
@@ -344,7 +344,7 @@ namespace CB
 
         public override string GetDescription()
         {
-            return string.Format("之后的第{0}次碰撞，弹珠造成的伤害X4。", m_Count);
+            return string.Format("之后的第{0}次碰撞，弹珠造成的伤害X3。", m_Count);
         }
 
         public override string ShowString()
@@ -356,7 +356,7 @@ namespace CB
         {
             m_Count--;
             if (m_Count == 0) {
-                ball.Demage.PutAUL(this, 3);
+                ball.Demage.PutAUL(this, 2);
 
                 EventManager.SendEvent(new GameEvent(EVENT.UI_TRIGGERRELICS, Belong));
             }
