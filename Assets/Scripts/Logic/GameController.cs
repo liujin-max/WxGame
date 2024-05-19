@@ -315,14 +315,14 @@ namespace CB
             }
 
             //每#关，分数要求提升一个台阶
-            int step = (int)(stage / (3 * _C.STAGESTEP + 1));
+            int step = (int)(stage / (2 * _C.STAGESTEP + 1));
 
-            return count * 3 * (step + 1);
+            return count * 2 * (step + 1);
         }
 
         public bool IsScoreReach()
         {
-            return Crypt.DE(m_Score) >= GetTargetScore();
+            return Score >= GetTargetScore();
         }
     
         void LateUpdate()
@@ -930,6 +930,10 @@ namespace CB
 
             m_FSM.Owner.GameUI = GameFacade.Instance.UIManager.LoadWindow("Prefab/UI/GameWindow", GameFacade.Instance.UIManager.BOTTOM).GetComponent<GameWindow>();
 
+            // for (int i = 0; i < 30; i++)
+            // {
+            //     Debug.Log("关卡 ：  " + (i + 1) + ", "+ m_FSM.Owner.GetTargetScore(i+1));
+            // }
 
             ArchiveRecord archiveRecord = null;
             if (values.Length > 0) {
@@ -1037,8 +1041,8 @@ namespace CB
                 }
             });
 
-            // m_FSM.Owner.Army.PushRelics(124);
-            // m_FSM.Owner.Army.PushRelics(116);
+
+            // m_FSM.Owner.Army.PushRelics(140);
             // CONFIG.GetRelicsDatas().ForEach(x => {
             //     if (x.Weight > 0) m_FSM.Owner.Army.PushRelics(x.ID);
             // });

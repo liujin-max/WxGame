@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Sound : MonoBehaviour
 {
+    private float m_OriginVolume;
     private AudioSource m_AudioSource;
     public bool AutoDestroy = true;
 
@@ -12,6 +13,7 @@ public class Sound : MonoBehaviour
     {
         m_AudioSource = transform.GetComponent<AudioSource>();
 
+        m_OriginVolume= m_AudioSource.volume;
         // m_AudioSource.Play();
         // m_AudioSource.volume = m_AudioSource.volume * GameFacade.Instance.SystemManager.SoundVolume;
     }
@@ -20,7 +22,7 @@ public class Sound : MonoBehaviour
     void OnEnable()
     {
         m_AudioSource.Play();
-        m_AudioSource.volume = m_AudioSource.volume * GameFacade.Instance.SystemManager.SoundVolume;
+        m_AudioSource.volume = m_OriginVolume * GameFacade.Instance.SystemManager.SoundVolume;
     }
 
     void Update()
