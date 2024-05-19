@@ -671,7 +671,7 @@ namespace CB
         {
             if (!IsActive) return;
 
-            if (GameFacade.Instance.User.Score >= m_Max)
+            if (GameFacade.Instance.Game.Stage >= m_Max)
             {
                 this.Finish();
             }
@@ -695,7 +695,7 @@ namespace CB
         {
             if (!IsActive) return;
 
-            if (GameFacade.Instance.User.Score >= m_Max)
+            if (GameFacade.Instance.Game.Stage >= m_Max)
             {
                 this.Finish();
             }
@@ -719,7 +719,7 @@ namespace CB
         {
             if (!IsActive) return;
 
-            if (GameFacade.Instance.User.Score >= m_Max)
+            if (GameFacade.Instance.Game.Stage >= m_Max)
             {
                 this.Finish();
             }
@@ -743,7 +743,7 @@ namespace CB
         {
             if (!IsActive) return;
 
-            if (GameFacade.Instance.User.Score >= m_Max)
+            if (GameFacade.Instance.Game.Stage >= m_Max)
             {
                 this.Finish();
             }
