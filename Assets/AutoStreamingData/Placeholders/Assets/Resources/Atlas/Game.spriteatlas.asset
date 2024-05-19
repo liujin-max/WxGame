@@ -54,11 +54,8 @@ SpriteAtlas:
   m_MasterAtlas: {fileID: 4343727234628468602, guid: 0b0f36b0b3c35074783d4f3aa4131f32, type: 2}
   m_PackedSprites:
   - {fileID: 21300000, guid: 6cc5ff00ca22e24478db58b9a4eecf87, type: 3}
-  - {fileID: 21300000, guid: b22aea40dd231e1408d40a70676db30f, type: 3}
   - {fileID: 21300000, guid: f00ddb919f165c048a9d0d805944cdf7, type: 3}
   - {fileID: 21300000, guid: f96393a184c24784fb03f94fff44f3f6, type: 3}
-  - {fileID: 21300000, guid: 9350a2e15fe689d4591a1e35c6f98c03, type: 3}
-  - {fileID: 21300000, guid: aa18c892dfcf928449ae25baa81f8442, type: 3}
   - {fileID: 21300000, guid: fd14edf2feea4dc4dac38a4541e8e256, type: 3}
   - {fileID: 21300000, guid: c57e1523c153abb4988948eb40115524, type: 3}
   - {fileID: 21300000, guid: 6d926c23a743f124196ad06a696dfead, type: 3}
@@ -74,7 +71,6 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 187164397907e274cb6f493d846d65c4, type: 3}
   - {fileID: 21300000, guid: 85a5d1d9e84a17245920d74312ef9689, type: 3}
   - {fileID: 21300000, guid: a3e243e966db59041b58c5f0750e94e4, type: 3}
-  - {fileID: 21300000, guid: 1a23d44ac05fed44596c0036dd54d868, type: 3}
   - {fileID: 21300000, guid: 737959bad3f0706408f083adf1cca224, type: 3}
   - {fileID: 21300000, guid: 53a157fae100a814180c49a92f89f92f, type: 3}
   - {fileID: 21300000, guid: 8719516b3f43711459db3bd587a46153, type: 3}
@@ -82,14 +78,10 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 022d929c7e601d5448158d4f8e26c4f6, type: 3}
   - {fileID: 21300000, guid: 91de57edffd13094b83346514a3f6b31, type: 3}
   - {fileID: 21300000, guid: 721cea9ee9f09d541a1e53a8394825a5, type: 3}
-  - {fileID: 21300000, guid: 870ff66fd22ebd24d89448e01b43efe5, type: 3}
   m_PackedSpriteNamesToIndex:
   - Game_btn_return
-  - Game_Btnconfirm
   - Btn_button_video
   - Game_text_score_max
-  - Game_btn_cost
-  - Game_BtnCancel
   - Game_BtnSet
   - Game_Btnskip
   - Game_black_frame
@@ -105,7 +97,6 @@ SpriteAtlas:
   - Game_btn_select
   - Game_score_bar
   - Game_text_stage_1
-  - Game_btn_buy
   - Game_add
   - Game_shop_item_frame_circle
   - Game_ball_seat_frame
@@ -113,7 +104,6 @@ SpriteAtlas:
   - Game_text_score
   - Game_score_bar_bg
   - Game_ball_seat_item
-  - Game_btn_green
   m_RenderDataMap: {}
   m_Tag: Game
   m_IsVariant: 1
