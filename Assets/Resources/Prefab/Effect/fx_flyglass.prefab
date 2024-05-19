@@ -50,6 +50,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Time: 1.5
   m_IsLoop: 0
+  m_IsRecycle: 0
+  ResPath: 
 --- !u!82 &3078410724207452483
 AudioSource:
   m_ObjectHideFlags: 0

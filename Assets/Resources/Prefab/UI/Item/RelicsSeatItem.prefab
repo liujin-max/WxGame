@@ -53,7 +53,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   c_Icon: {fileID: 4161790309807120952}
   c_Value: {fileID: 1526773882183932921}
-  c_Touch: {fileID: 0}
 --- !u!1 &4545418819579806564
 GameObject:
   m_ObjectHideFlags: 0

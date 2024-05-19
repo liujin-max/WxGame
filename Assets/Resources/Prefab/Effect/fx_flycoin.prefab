@@ -133,6 +133,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Time: 1.5
+  m_IsLoop: 0
+  m_IsRecycle: 0
+  ResPath: 
 --- !u!114 &5493110601075529422
 MonoBehaviour:
   m_ObjectHideFlags: 0

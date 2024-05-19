@@ -1340,7 +1340,7 @@ namespace CB
                     m_FSM.Owner.Simulator.SimulateEnd();
 
                     
-                    EventManager.SendEvent(new GameEvent(EVENT.UI_SHOWBUBBLE, true, "\n     <#0CA90D>取消发射</color>"));
+                    EventManager.SendEvent(new GameEvent(EVENT.UI_SHOWBUBBLE, true, "     <#0CA90D>取消发射</color>"));
 
                 } else {
                     m_FSM.Owner.FocusAim(m_FSM.Owner.FingerPos);

@@ -291,7 +291,7 @@ AutoStreamingSettings:
     refs:
     - 1
     - res
-    maxPlaceholderSize: 196640
+    maxPlaceholderSize: 0
     width: 442
     height: 1024
     abSize: 0
