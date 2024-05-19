@@ -20,7 +20,7 @@ public class RateNumber : MonoBehaviour
         m_Text3.text = m_Text.text;
         m_Text4.text = m_Text.text;
 
-        Platform.Instance.VIBRATE(_C.VIBRATELEVEL.LIGHT);
+        // Platform.Instance.VIBRATE(_C.VIBRATELEVEL.LIGHT);
         Shake();
     }
 
