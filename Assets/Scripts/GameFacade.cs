@@ -8,7 +8,8 @@ using WeChatWASM;
 
 public class GameFacade : MonoBehaviour
 {
-    public bool Reboot = false;
+
+    public string Version = "1.0.5";
 
     private TipWindow m_TipWindow;
 

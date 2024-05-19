@@ -75,3 +75,5 @@ MonoBehaviour:
   - KEY_USER
   - KEY_MUSIC
   - KEY_SOUND
+  - KEY_VIBRATE
+  - KEY_ARCHIVE

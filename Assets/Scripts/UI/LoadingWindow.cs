@@ -17,6 +17,7 @@ namespace CB
         [SerializeField] private Button BtnSet;
         [SerializeField] private Button BtnRank;
         [SerializeField] private Button BtnAchievement;
+        [SerializeField] private TextMeshProUGUI c_Version;
 
 
         private HeadItem m_HeadItem = null;
@@ -24,6 +25,8 @@ namespace CB
         
         void Awake()
         {
+            c_Version.text = GameFacade.Instance.Version;
+
             BtnEnter.onClick.AddListener(() => {
                 GameFacade.Instance.SoundManager.Load(SOUND.CLICK);
                 
