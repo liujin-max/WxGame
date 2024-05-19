@@ -55,6 +55,7 @@ SpriteAtlas:
   m_PackedSprites:
   - {fileID: 21300000, guid: 6cc5ff00ca22e24478db58b9a4eecf87, type: 3}
   - {fileID: 21300000, guid: b22aea40dd231e1408d40a70676db30f, type: 3}
+  - {fileID: 21300000, guid: f00ddb919f165c048a9d0d805944cdf7, type: 3}
   - {fileID: 21300000, guid: f96393a184c24784fb03f94fff44f3f6, type: 3}
   - {fileID: 21300000, guid: 9350a2e15fe689d4591a1e35c6f98c03, type: 3}
   - {fileID: 21300000, guid: aa18c892dfcf928449ae25baa81f8442, type: 3}
@@ -85,6 +86,7 @@ SpriteAtlas:
   m_PackedSpriteNamesToIndex:
   - Game_btn_return
   - Game_Btnconfirm
+  - Btn_button_video
   - Game_text_score_max
   - Game_btn_cost
   - Game_BtnCancel

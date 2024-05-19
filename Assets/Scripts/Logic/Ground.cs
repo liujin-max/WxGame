@@ -61,12 +61,7 @@ namespace CB
                         }
                     }
                     
-
-                    if (ball.RunningDirection < 0) {
-                        ball.Velocity = new Vector2(-10, 0);
-                    } else {
-                        ball.Velocity = new Vector2(10, 0);
-                    }
+                    ball.Velocity = new Vector2(-10, 0);
                     
                     EventManager.SendEvent(new GameEvent(EVENT.ONENTERGROUND, ball));
                     

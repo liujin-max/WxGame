@@ -71,6 +71,7 @@
     <Compile Include="Assets\codeandweb.com\Editor\UIImageSetSizeAndPivot.cs" />
     <Compile Include="Assets\AllIn1SpriteShader\Editor\AllIn1SpriteShader.cs" />
     <Compile Include="Assets\Editor\Unity-Resource-Checker-master\ResourceChecker.cs" />
+    <Compile Include="Assets\Editor\Tool\FindReferences.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\DOTween\Editor\DOTweenEditor.dll" />

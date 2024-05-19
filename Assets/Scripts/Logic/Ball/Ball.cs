@@ -95,11 +95,6 @@ namespace CB
             get {return gameObject.layer == (int)_C.LAYER.BALLACTING;}
         }
 
-        //滚动方向
-        public float RunningDirection
-        {
-            get {return transform.localPosition.x - m_LastPos.x;}
-        }
 
         #endregion 属性
 
