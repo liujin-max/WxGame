@@ -982,7 +982,7 @@ namespace CB
         private int m_Count = 0;
         public override string GetDescription()
         {
-            return string.Format("单回合内未击落<sprite={0}>", (int)_C.SPRITEATLAS.GLASS);
+            return string.Format("单回合内未击中<sprite={0}>", (int)_C.SPRITEATLAS.GLASS);
         }
 
         protected override void OnReponseHitBox(GameEvent @event)

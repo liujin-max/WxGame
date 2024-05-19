@@ -86,7 +86,7 @@ SpriteAtlas:
   - Set_achivement_text
   - Set_rank_item_frame 1
   - Set_bar_bg
-  - Set_btn_rank 1
+  - Set_btn_rank
   - Set_btn_share
   - Set_achievement_item_mask
   - Set_rank_top2
