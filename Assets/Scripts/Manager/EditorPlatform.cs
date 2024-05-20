@@ -66,6 +66,12 @@ public class EditorPlatform : Platform
         EventManager.SendEvent(new GameEvent(EVENT.ONSHAREGAME));
     }
 
+    //激励广告
+    public override void REWARDVIDEO()
+    {
+
+    }
+
     public override void VIBRATE(string level)
     {
         if (!GameFacade.Instance.SystemManager.VibrateFlag) return;

@@ -305,6 +305,18 @@ namespace CB
             return true;
         }
 
+        public int FibonacciRecursive(int n)
+        {
+            if (n <= 1)
+            {
+                return n;
+            }
+            else
+            {
+                return FibonacciRecursive(n - 1) + FibonacciRecursive(n - 2);
+            }
+        }
+
         public int GetTargetScore(int stage = -1)
         {
             if (stage == -1) stage = this.Stage;
@@ -315,9 +327,13 @@ namespace CB
             }
 
             //每#关，分数要求提升一个台阶
-            int step = (int)(stage / (2 * _C.STAGESTEP + 1));
+            // int step = (int)(stage / (2 * _C.STAGESTEP + 1));
 
-            return count * 2 * (step + 1);
+            // return count * 2 * (step + 1);
+
+            int step = (int)(stage / (_C.STAGESTEP + 1));
+
+            return count * FibonacciRecursive(step + 1);
         }
 
         public bool IsScoreReach()
@@ -930,10 +946,10 @@ namespace CB
 
             m_FSM.Owner.GameUI = GameFacade.Instance.UIManager.LoadWindow("Prefab/UI/GameWindow", GameFacade.Instance.UIManager.BOTTOM).GetComponent<GameWindow>();
 
-            // for (int i = 0; i < 30; i++)
-            // {
-            //     Debug.Log("关卡 ：  " + (i + 1) + ", "+ m_FSM.Owner.GetTargetScore(i+1));
-            // }
+            for (int i = 0; i < 30; i++)
+            {
+                Debug.Log("关卡 ：  " + (i + 1) + ", "+ m_FSM.Owner.GetTargetScore(i+1));
+            }
 
             ArchiveRecord archiveRecord = null;
             if (values.Length > 0) {

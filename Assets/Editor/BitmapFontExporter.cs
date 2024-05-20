@@ -6,7 +6,7 @@ using System;
 
 public class BitmapFontExporter : ScriptableWizard
 {
-    [MenuItem("BitmapFontExporter/Create")]
+    [MenuItem("Tools/BitmapFontExporter")]
     private static void CreateFont()
     {
         ScriptableWizard.DisplayWizard<BitmapFontExporter>("Create Font");

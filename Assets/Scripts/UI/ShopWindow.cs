@@ -43,9 +43,9 @@ public class ShopWindow : MonoBehaviour
 
         c_BtnVideoRefresh.gameObject.SetActive(false);
         c_BtnVideoRefresh.onClick.AddListener(()=>{
-            List<Relics> datas = GameFacade.Instance.Game.GenerateRelicses();
+            // List<Relics> datas = GameFacade.Instance.Game.GenerateRelicses();
             
-            Init(datas);
+            // Init(datas);
         });
 
     }

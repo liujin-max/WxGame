@@ -29,6 +29,8 @@ public abstract class Platform
     public abstract void PULLRANK();
     //分享
     public abstract void SHARE();
+    //激励广告
+    public abstract void REWARDVIDEO();
 
     //设备振动
     public abstract void VIBRATE(string level);

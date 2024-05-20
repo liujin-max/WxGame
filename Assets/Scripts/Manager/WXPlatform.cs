@@ -218,6 +218,12 @@ public class WXPlatform : Platform
         });
     }
 
+    //激励广告
+    public override void REWARDVIDEO()
+    {
+
+    }
+
     //设备振动
     public override void VIBRATE(string level)
     {
