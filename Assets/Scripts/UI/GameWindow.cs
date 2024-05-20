@@ -315,10 +315,6 @@ namespace CB
                 if(balls.Count > i) {
                     var ball = balls[i];
                     item.Init(ball);
-
-                    // if (add_ball != null && (Ball)add_ball == ball) {
-                    //     item.DoScale();
-                    // }
                 } else {
                     item.Init(null);
                 }

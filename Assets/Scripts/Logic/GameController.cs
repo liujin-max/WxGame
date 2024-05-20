@@ -463,7 +463,7 @@ namespace CB
             }  else {
                 m_Balls.Add(ball);
                 
-                EventManager.SendEvent(new GameEvent(EVENT.UI_FLUSHBALLS, ball));
+                EventManager.SendEvent(new GameEvent(EVENT.UI_FLUSHBALLS));
             }
 
             EventManager.SendEvent(new GameEvent(EVENT.ONBALLPUSH, ball));
@@ -517,6 +517,10 @@ namespace CB
 
             Ball ball = GameFacade.Instance.Game.PushBall(_C.BALL_ORIGIN_POS, evt.Type);
             GameFacade.Instance.Game.BreechBall(ball);
+
+            m_Balls.Remove(ball);
+            m_Balls.Insert(0, ball);
+            EventManager.SendEvent(new GameEvent(EVENT.UI_FLUSHBALLS, ball));
 
             EventManager.SendEvent(new GameEvent(EVENT.ONCOMPLEXBALL, ball));
 
@@ -946,10 +950,10 @@ namespace CB
 
             m_FSM.Owner.GameUI = GameFacade.Instance.UIManager.LoadWindow("Prefab/UI/GameWindow", GameFacade.Instance.UIManager.BOTTOM).GetComponent<GameWindow>();
 
-            for (int i = 0; i < 30; i++)
-            {
-                Debug.Log("关卡 ：  " + (i + 1) + ", "+ m_FSM.Owner.GetTargetScore(i+1));
-            }
+            // for (int i = 0; i < 30; i++)
+            // {
+            //     Debug.Log("关卡 ：  " + (i + 1) + ", "+ m_FSM.Owner.GetTargetScore(i+1));
+            // }
 
             ArchiveRecord archiveRecord = null;
             if (values.Length > 0) {

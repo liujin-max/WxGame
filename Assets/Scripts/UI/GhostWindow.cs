@@ -112,7 +112,11 @@ public class GhostWindow : MonoBehaviour
             if (GameFacade.Instance.Game.Balls.Count > 0) {
                 GameFacade.Instance.Game.DOTransist(_C.FSMSTATE.GAME_IDLE, false);
             } else {
-               GameFacade.Instance.Game.DOTransist(_C.FSMSTATE.GAME_END, GameFacade.Instance.Game.Stage);
+                GameFacade.Instance.FlyTip("请选择合成一颗弹珠");
+                m_GhostItems.ForEach(item => {
+                    item.Shake();
+                });
+            //    GameFacade.Instance.Game.DOTransist(_C.FSMSTATE.GAME_END, GameFacade.Instance.Game.Stage);
             }
         });
 
@@ -141,7 +145,6 @@ public class GhostWindow : MonoBehaviour
         });
 
         c_SeatPivot.onClick.AddListener(()=>{
-
             GameFacade.Instance.Popup(string.Format("花费 {0}<sprite=1> 购买一个弹珠槽？", GameFacade.Instance.Game.AdditionPrice), ()=>{
                 if (GameFacade.Instance.Game.BuyBallSeat() == true) {
                     GameFacade.Instance.SoundManager.Load(SOUND.COST);

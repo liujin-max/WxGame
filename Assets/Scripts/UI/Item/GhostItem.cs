@@ -116,6 +116,16 @@ public class GhostItem : MonoBehaviour
         sequence.Play();
     }
 
+    public void Shake()
+    {
+        if (m_Tweener != null) {
+            m_Tweener.Kill();
+            m_Tweener = null;
+        }
+        
+        // 创建抖动和缩放效果
+        m_Tweener = Touch.transform.DOShakeScale(0.3f, 0.5f, vibrato: 15, randomness: 50, fadeOut: true);
+    }
 
     public void Select(bool flag)
     {
