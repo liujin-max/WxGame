@@ -77,4 +77,10 @@ public class EditorPlatform : Platform
         if (!GameFacade.Instance.SystemManager.VibrateFlag) return;
 
     }
+
+    //适配UI
+    public override void ADAPTATION(RectTransform rectTransform)
+    {
+
+    }
 }

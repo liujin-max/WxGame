@@ -4,7 +4,10 @@ using System.Collections.Generic;
 using CB;
 using LitJson;
 using UnityEngine;
+
+#if !UNITY_EDITOR && WEIXINMINIGAME
 using WeChatWASM;
+
 
 public class WXPlatform : Platform
 {
@@ -233,5 +236,25 @@ public class WXPlatform : Platform
         op.type = level;
         WX.VibrateShort(op);
     }
+
+    //适配UI
+    public override void ADAPTATION(RectTransform rectTransform)
+    {
+        var info = WX.GetSystemInfoSync();
+        float py = (float)info.safeArea.top / (float)info.windowHeight;
+
+        // Debug.Log("safeArea : " + info.safeArea.top);
+        // Debug.Log("windowHeight : " + info.windowHeight);
+        // Rootrect初始时设置其Anchor，使其与父节点一样大，也就是屏幕的大小
+        // 调整屏幕移到刘海屏下面, 
+        float rate = (float)info.safeArea.top / (float)info.windowHeight;
+        rectTransform.anchorMin = new Vector2(0,  rate);
+
+        rectTransform.anchorMax = new Vector2(1, 1 - rate);
+
+        rectTransform.offsetMin = Vector2.zero;
+        rectTransform.offsetMax = Vector2.zero;
+    }
 }
 
+#endif

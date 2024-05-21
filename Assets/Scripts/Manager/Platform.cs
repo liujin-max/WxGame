@@ -1,5 +1,6 @@
 using System;
 using CB;
+using UnityEngine;
 
 public abstract class Platform
 {
@@ -34,5 +35,7 @@ public abstract class Platform
 
     //设备振动
     public abstract void VIBRATE(string level);
+    //适配UI
+    public abstract void ADAPTATION(RectTransform rectTransform);
 
 }

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using CB;
 using Unity.VisualScripting;
 using UnityEngine;
-using WeChatWASM;
+
 
 public class GameFacade : MonoBehaviour
 {

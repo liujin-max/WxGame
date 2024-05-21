@@ -6,7 +6,7 @@ using DG.Tweening;
 using LitJson;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using WeChatWASM;
+
 
 
 
