@@ -46,96 +46,13 @@ SpriteAtlas:
     secondaryTextureSettings: {}
     transparentPlaceholder: 0
     variantMultiplier: 1
-    packables:
-    - {fileID: 102900000, guid: d58c0fcef61acd04aace3ccf80bbe447, type: 3}
+    packables: []
     bindAsDefault: 1
     isAtlasV2: 0
     cachedData: {fileID: 0}
   m_MasterAtlas: {fileID: 0}
-  m_PackedSprites:
-  - {fileID: 21300000, guid: a6a4302086c23554aa4f7a506a1250ab, type: 3}
-  - {fileID: 21300000, guid: f4e27b60bed61dd4fa12d43248961806, type: 3}
-  - {fileID: 21300000, guid: 14e762d0a8590ea498ad94389d86c1d5, type: 3}
-  - {fileID: 21300000, guid: 7a3853e0a5b009740a5085bf8c324458, type: 3}
-  - {fileID: 21300000, guid: a61d97e01e8255547a96672cdb41c40e, type: 3}
-  - {fileID: 21300000, guid: 4d8dac8147f390a488272b635a9b9b42, type: 3}
-  - {fileID: 21300000, guid: 654580d1843e2a04e941d4bce28e5b82, type: 3}
-  - {fileID: 21300000, guid: fd9c0702ddd53a742a8095ae246f7d50, type: 3}
-  - {fileID: 21300000, guid: 3ddccb839bb30f541803080ac66bcbcf, type: 3}
-  - {fileID: 21300000, guid: 96be59e33c0f03f4c9e214955b83b495, type: 3}
-  - {fileID: 21300000, guid: 03aa1bd43977bc948ae866aaba9c9349, type: 3}
-  - {fileID: 21300000, guid: 623dcc25e5c330c498426dc405d8aed5, type: 3}
-  - {fileID: 21300000, guid: 5ce4413509a88884ca61befa15f9cd4a, type: 3}
-  - {fileID: 21300000, guid: ad3d2475cbe46d949846b2ebadb43071, type: 3}
-  - {fileID: 21300000, guid: 264352a560b98e04192e7dd1eb1fc94b, type: 3}
-  - {fileID: 21300000, guid: c78934c5574315f43a16b1d3debe0b40, type: 3}
-  - {fileID: 21300000, guid: ea31b4264858bfb41932423fe26f0700, type: 3}
-  - {fileID: 21300000, guid: dd183d674bed19841816d8aefff0c5bd, type: 3}
-  - {fileID: 21300000, guid: 0721e2a7291f49241beaa2e906c217a7, type: 3}
-  - {fileID: 21300000, guid: 944f0a28087872341ae1f37c3f65c1d5, type: 3}
-  - {fileID: 21300000, guid: 343c1a3893019154e9a17ea7d5f66d0d, type: 3}
-  - {fileID: 21300000, guid: 7267d948b000254468cd883092d29418, type: 3}
-  - {fileID: 21300000, guid: c5a02488e997ab94c8ac869bc068e94a, type: 3}
-  - {fileID: 21300000, guid: 6f8debe86c474ea4b915a13da20e6e1b, type: 3}
-  - {fileID: 21300000, guid: 3d28a3d93873c17459dd528c4290b8f0, type: 3}
-  - {fileID: 21300000, guid: 6a51930a02f077748bc50f53a68112f7, type: 3}
-  - {fileID: 21300000, guid: c135253a7e455bf4ea37b684450aa41b, type: 3}
-  - {fileID: 21300000, guid: 8e435f6a5cafc704a97e156405d5f58b, type: 3}
-  - {fileID: 21300000, guid: 8b42123bbd862374fa0c76158847561b, type: 3}
-  - {fileID: 21300000, guid: f8567d6b33ff31b4d8a508f53a05c85e, type: 3}
-  - {fileID: 21300000, guid: 6c71fb1c4f21e0e46b4f31cd0fc63756, type: 3}
-  - {fileID: 21300000, guid: e471494cb92d9ee42baa1c7174492c71, type: 3}
-  - {fileID: 21300000, guid: 5474d37cb96624448aa77b7107c3128f, type: 3}
-  - {fileID: 21300000, guid: 454857ecb6b2cde4ea369f963222f81c, type: 3}
-  - {fileID: 21300000, guid: 468cebfc2b7db7140bd27586a6d4a34f, type: 3}
-  - {fileID: 21300000, guid: 861063dd702300d45872c07f640c8ca2, type: 3}
-  - {fileID: 21300000, guid: 10d6915e48e446c4099bc5f78e5dfd60, type: 3}
-  - {fileID: 21300000, guid: 80c7787e584bce541854e44ed7d17eb3, type: 3}
-  - {fileID: 21300000, guid: 40e9d79e95d305143be9c5c21d4f9ca9, type: 3}
-  - {fileID: 21300000, guid: 113ae43f8e9f1ec43a61a847f30d89cb, type: 3}
-  - {fileID: 21300000, guid: 8683dc7fa33643a45b6e3e0d76601558, type: 3}
-  m_PackedSpriteNamesToIndex:
-  - coin
-  - ball_focus
-  - ball_fenlie
-  - polygon3
-  - ball_speed
-  - ball_sanjiao
-  - Glass
-  - ball_expand
-  - ball_random
-  - ball_manli
-  - polygon1
-  - Hit
-  - ball_yuan
-  - ball_growth
-  - ball_crazy
-  - ball_fang
-  - ball_strong
-  - ball_ling
-  - ball_regen
-  - ball_fantan
-  - ball_glass
-  - ball_blackhole
-  - ball
-  - ball_boom
-  - polygon4
-  - ball_wave
-  - ball_power
-  - ball_mass
-  - ball_coin
-  - ball_scale
-  - Bomb
-  - polygon5
-  - fx_focus
-  - ball_focusbomb
-  - ball_yinli
-  - ball_rise
-  - ball_peng
-  - ball_reflex
-  - fx_complex
-  - ball_small
-  - ball_ring
+  m_PackedSprites: []
+  m_PackedSpriteNamesToIndex: []
   m_RenderDataMap: {}
   m_Tag: Texture
   m_IsVariant: 0

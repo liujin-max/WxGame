@@ -26,6 +26,8 @@ public class UIManager : MonoBehaviour
 
     public GameObject LoadWindow(string path, Transform parent)
     {
+        path    = "Prefab/UI/Window/" + path;
+
         return Instantiate<GameObject>(Resources.Load<GameObject>(path), parent);
     }
 
@@ -62,6 +64,8 @@ public class UIManager : MonoBehaviour
 
     public GameObject LoadItem(string path, Transform parent)
     {
+        path    = "Prefab/UI/Item/" + path;
+
         var obj = Instantiate<GameObject>(Resources.Load<GameObject>(path), parent);
         obj.transform.localPosition = Vector3.zero;
 

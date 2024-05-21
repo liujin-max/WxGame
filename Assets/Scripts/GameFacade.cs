@@ -1,7 +1,6 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using CB;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -9,9 +8,8 @@ using UnityEngine;
 public class GameFacade : MonoBehaviour
 {
 
-    public string Version = "1.0.5";
+    public string Version = "1.0.0";
 
-    private TipWindow m_TipWindow;
 
     private User m_User;
     public User User
@@ -81,20 +79,6 @@ public class GameFacade : MonoBehaviour
         }
     }
 
-    private GameController m_GameController = null;
-    public GameController Game
-    {
-        get {
-            if (m_GameController == null) {
-                var game = GameObject.Find("Game");
-                if (game != null) {
-                    m_GameController = game.transform.GetComponent<GameController>();
-                }
-            }
-            return m_GameController;
-        }
-    }
-
     private UIManager m_UIManager = null;
     public UIManager UIManager
     {
@@ -154,13 +138,11 @@ public class GameFacade : MonoBehaviour
     {
         //初始化配置文件
         CsvManager.ReadCsvs();
-        CONFIG.InitDatas();
+        // CONFIG.InitDatas();
 
         //加载数据类
         DataCenter.Init();
 
-        m_TipWindow = UIManager.LoadWindow("Prefab/UI/TipWindow", UIManager.TIP).GetComponent<TipWindow>();
-        UIManager.LoadWindow("Prefab/UI/NetWindow", UIManager.TIP).GetComponent<NetWindow>();
 
         StartCoroutine("SYNC");
     }
@@ -172,22 +154,11 @@ public class GameFacade : MonoBehaviour
             User.Sync();
         });
 
+        //进入游戏
+        NavigationController.GotoGame();
 
-        NavigationController.GotoLoading();
         
         yield return null; 
     }
 
-    public void FlyTip(string text)
-    {
-        if (m_TipWindow != null) {
-            m_TipWindow.FlyTip(text);
-        }
-    }
-
-    public void Popup(string des, Action confirm_callback, Action cancel_callback = null)
-    {
-        var window = UIManager.LoadWindow("Prefab/UI/PopUpWindow", UIManager.BOARD).GetComponent<PopUpWindow>();
-        window.Init(des, confirm_callback, cancel_callback);
-    }
 }

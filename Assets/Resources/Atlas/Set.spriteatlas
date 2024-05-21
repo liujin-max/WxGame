@@ -46,56 +46,13 @@ SpriteAtlas:
     secondaryTextureSettings: {}
     transparentPlaceholder: 0
     variantMultiplier: 1
-    packables:
-    - {fileID: 102900000, guid: e5356340a1e1ab341bf6795349333941, type: 3}
+    packables: []
     bindAsDefault: 1
     isAtlasV2: 0
     cachedData: {fileID: 0}
   m_MasterAtlas: {fileID: 0}
-  m_PackedSprites:
-  - {fileID: 21300000, guid: 1a689c90715b3dd45a4b4aefb28a7f4e, type: 3}
-  - {fileID: 21300000, guid: 69e095a032c3508458de2c73a44105c0, type: 3}
-  - {fileID: 21300000, guid: 84cd601172adc91498831bf690c9fef0, type: 3}
-  - {fileID: 21300000, guid: 7d6d597138ea34b4b986751d8f0ed6bf, type: 3}
-  - {fileID: 21300000, guid: d8c10e33b7e6f1a4c94e5f2af8a92dc2, type: 3}
-  - {fileID: 21300000, guid: 95593a445078f7f4b85e16dd6437b229, type: 3}
-  - {fileID: 21300000, guid: 31f7a795e77496f48a9e5b3fc4819db3, type: 3}
-  - {fileID: 21300000, guid: 36c8c1f6f09d71a419907978e26d3b74, type: 3}
-  - {fileID: 21300000, guid: f1f6d9f6a8167874cb1b2d3db77a2382, type: 3}
-  - {fileID: 21300000, guid: 96cfe957a5bd3ea4bb09ec1e39d12fd0, type: 3}
-  - {fileID: 21300000, guid: 397a4a77f9c35aa468a64fa733f5c046, type: 3}
-  - {fileID: 21300000, guid: 9c0910281a20ff046a2639b7c0224285, type: 3}
-  - {fileID: 21300000, guid: 5796f528ef12be443b27ebd386a463b3, type: 3}
-  - {fileID: 21300000, guid: 2639750ba63c0de488e0aee51f34c22b, type: 3}
-  - {fileID: 21300000, guid: 6c6a3d8bc3c2c22488913c2a54706b64, type: 3}
-  - {fileID: 21300000, guid: 4b7cb20ccbeade844903394e5c714b88, type: 3}
-  - {fileID: 21300000, guid: 1eb8339db12450d469c2143bb6d2bfd5, type: 3}
-  - {fileID: 21300000, guid: 347ebd1e12d863d4685edb33e793569b, type: 3}
-  - {fileID: 21300000, guid: 8170025e5312c1d4a997953be9620dbc, type: 3}
-  - {fileID: 21300000, guid: 5a12b65fafc536f4ab2ad7c45ca6732c, type: 3}
-  - {fileID: 21300000, guid: a32e4d6fe36fc7442a9ed3cea51bdadc, type: 3}
-  m_PackedSpriteNamesToIndex:
-  - Set_default_head
-  - Set_btn_continue_game
-  - Set_rank_top3
-  - Set_bar_point
-  - Set_head_frame_square
-  - Set_btn_achivement
-  - Set_shadow
-  - Set_bar
-  - Set_achivement_text
-  - Set_rank_item_frame 1
-  - Set_bar_bg
-  - Set_btn_rank
-  - Set_btn_share
-  - Set_achievement_item_mask
-  - Set_rank_top2
-  - Set_btn_enter_game
-  - Set_achievement_item_frame
-  - Set_achievement_tag_finish
-  - Set_rank_item_frame_our
-  - Set_btn_set
-  - Set_rank_top1
+  m_PackedSprites: []
+  m_PackedSpriteNamesToIndex: []
   m_RenderDataMap: {}
   m_Tag: Set
   m_IsVariant: 0

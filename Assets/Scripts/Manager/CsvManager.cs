@@ -9,9 +9,8 @@ using UnityEngine;
 public class CsvManager: MonoBehaviour
 {
     //表名
-    public const string TableKey_Ball   = "Ball";
-    public const string TableKey_Relics = "Relics";
-    public const string TableKey_Achievement = "Achievement";
+    public const string TableKey_Animal   = "Animal";
+
 
     //表名与表结构
     private Dictionary<string, List<string[]>> m_DataLists = new Dictionary<string, List<string[]>>();
@@ -21,9 +20,8 @@ public class CsvManager: MonoBehaviour
 
     public void ReadCsvs()
     {
-        this.ReadCsv(CsvManager.TableKey_Ball,          "CSV/Ball");
-        this.ReadCsv(CsvManager.TableKey_Relics,        "CSV/Relics");
-        this.ReadCsv(CsvManager.TableKey_Achievement,   "CSV/Achievement");
+        this.ReadCsv(CsvManager.TableKey_Animal,          "CSV/Animal");
+
     }
 
     public string[] GetStringArray(string excel_name, int id)
@@ -79,7 +77,7 @@ public class CsvManager: MonoBehaviour
             // 处理每个字段的数据...
             // 在这里，你可以访问 fields 数组中的每个元素，以获取每行数据的每个字段
             // 举例：输出每行数据的第一个字段
-            if (fields.Length > 0)
+            if (fields.Length > 0 && string.IsNullOrEmpty(fields[0]) != true)
             {
                 // Debug.Log(fields[0]);
                 int id = Convert.ToInt32(fields[0]);
