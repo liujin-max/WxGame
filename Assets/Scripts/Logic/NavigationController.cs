@@ -23,6 +23,7 @@ public static class NavigationController
         GameFacade.Instance.SoundManager.PlayBGM(SOUND.BGM);
 
         GameFacade.Instance.ScenePool.LoadSceneAsync("Game", () => {
+            GameObject.Find("Entity").AddComponent<Field>();
             Field.Instance.Enter();
         });
     }

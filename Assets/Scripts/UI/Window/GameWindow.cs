@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 
 namespace PC
@@ -8,39 +10,36 @@ namespace PC
     public class GameWindow : MonoBehaviour
     {
         [SerializeField] private Transform m_CardPivot;
+        [SerializeField] private TextMeshProUGUI m_OurScore;
+        [SerializeField] private TextMeshProUGUI m_EnemyScore;
+        [SerializeField] private Button m_BtnSettle;
 
 
-        Card[,] m_Cards = new Card[5, 5];
-
-
+        Card[,] m_Cards = new Card[_C.DEFAULT_WEIGHT, _C.DEFAULT_HEIGHT];
 
         void Awake()
         {
-            InitCards();
+            m_BtnSettle.onClick.AddListener(()=>{
+                Field.Instance.Settle();
+            });
         }
 
         // Update is called once per frame
         void Update()
         {
-            
+            m_OurScore.text     = Field.Instance.GetScore(_C.SIDE.OUR).ToString();
+            m_EnemyScore.text   = Field.Instance.GetScore(_C.SIDE.ENEMY).ToString();
         }
 
-        void InitCards()
-        {
-            for (int i = 0; i < 5; i++) {
-                for (int j = 0; j < 5; j++) {
-                    m_Cards[i, j] = GameFacade.Instance.UIManager.LoadItem("Card", m_CardPivot).GetComponent<Card>();
-                }
-            }
-        }
 
-        public void InitAnimals(Animal[,] animals)
+        public void InitCards(Animal[,] animals)
         {
-            for (int i = 0; i < 5; i++) {
-                for (int j = 0; j < 5; j++) {
-                    var animal = animals[i, j];
-                    Debug.Log("InitAnimals : " + i + "," + j + ", " + animal.Name);
-                    m_Cards[i, j].Init(animal);
+            for (int i = 0; i < _C.DEFAULT_WEIGHT; i++) {
+                for (int j = 0; j < _C.DEFAULT_HEIGHT; j++) {
+                    var animal  = animals[i, j];
+                    var item    = GameFacade.Instance.UIManager.LoadItem("Card", m_CardPivot).GetComponent<Card>();
+                    item.Init(animal);
+                    m_Cards[i, j] = item;
                 }
             }
         }

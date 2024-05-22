@@ -32,10 +32,18 @@ public static class _C
         MOUSE   = 3 
     }
 
+    public enum SIDE
+    {
+        OUR = 1,
+        ENEMY,
+        NEUTRAL
+    }
 
 
 
-    public static int DEFAULT_RANK  = 999;
+
+    public static int DEFAULT_WEIGHT  = 5;
+    public static int DEFAULT_HEIGHT = 5;
 
 
 
