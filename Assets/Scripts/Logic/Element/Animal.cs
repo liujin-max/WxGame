@@ -19,11 +19,22 @@ namespace PC
 
         public _C.SIDE SIDE;
         public int m_Angle;
+        public int X;
+        public int Y;
+
+
+        public bool ValidFlag = true;
 
         public Animal(AnimalData data, _C.SIDE side = _C.SIDE.NEUTRAL)
         {
             m_Data  = data;
             SIDE    = side;
+        }
+
+        public void SetPos(int x, int y)
+        {
+            X = x;
+            Y = y;
         }
     }
 
@@ -67,10 +78,10 @@ namespace PC
             foreach (Vector2 direction in m_Directions[this.ID])
             {
                 // 将原始向量旋转90度
-                Quaternion rotation = Quaternion.Euler(0, 0, m_Angle);
-                Vector2 rotatedVector = rotation * direction;
+                // Quaternion rotation = Quaternion.Euler(0, 0, m_Angle);
+                // Vector2 rotatedVector = rotation * direction;
 
-                result.Add(rotatedVector);
+                result.Add(direction);
             }
 
             return result;

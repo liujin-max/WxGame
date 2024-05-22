@@ -23,9 +23,6 @@ namespace PC
         {
             // m_Back.SetActive(true);
             // m_Front.SetActive(false);
-
-            //2 6 4 4
-            //5 3 3 4
         }
         
 
@@ -54,9 +51,23 @@ namespace PC
             FlushUI();
         }
 
+        //翻到背面
+        public void TurnBack()
+        {
+            m_Back.SetActive(true);
+            m_Front.SetActive(false);
+        }
+
+        //翻到正面
+        public void TurnFront()
+        {
+            m_Back.SetActive(false);
+            m_Front.SetActive(true);
+        }
+
         void FlushUI()
         {
-            m_Text.text = m_Animal.Name;
+            m_Text.text = m_Animal.Name + string.Format("\n({0},{1})", m_Animal.X, m_Animal.Y);
 
             if (m_Animal.Value > 0)  m_Value.text = m_Animal.Value.ToString();
             else m_Value.text = "";
@@ -77,8 +88,8 @@ namespace PC
             directions.ForEach(direction => {
                 var arrow = GameFacade.Instance.UIManager.LoadItem("CardArrow", m_ArrowPivot);
 
-                int angle_radians = (int)(Mathf.Atan2(direction.x, direction.y)  * (180 / Mathf.PI));
-                arrow.transform.localEulerAngles = new Vector3(0, 0, angle_radians);
+                float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+                arrow.transform.localEulerAngles = new Vector3(0, 0, angle);
             });
         }
     } 

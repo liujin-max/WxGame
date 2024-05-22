@@ -65,9 +65,11 @@ namespace PC
             RandomUtility.Shuffle(animals);
 
             for (int i = 0; i < animals.Count; i++) {
-                int x = i % 5;
-                int y = i / 5;
-                m_Animals[x, y] = animals[i];
+                int x   = i % 5;
+                int y   = i / 5;
+                var anim= animals[i];
+                anim.SetPos(x, y);
+                m_Animals[x, y] = anim;
             }
 
         }
@@ -85,16 +87,35 @@ namespace PC
         //结算分数
         IEnumerator  Settlement()
         {
+            //先遍历一遍，把狗的效果走完
             for (int i = 0; i < _C.DEFAULT_WEIGHT; i++) {
                 for (int j = 0; j < _C.DEFAULT_HEIGHT; j++) {
-                    var animal = m_Animals[i, j];
-
+                    var animal  = m_Animals[i, j];
                     //根据狗的朝向，盖上猫牌
                     if (animal.Type == _C.ANIMAL.DOG) 
                     {
+                        var dog = animal as Dog;
+                        List<Vector2> vector2s = dog.GetFocusDirections();
+                        Debug.Log(dog.Name);
 
+                        List<Animal> target_animals = this.GetDirectionAnimals(new Vector2(i, j), vector2s);
+                        if (target_animals.Count > 0) {
+                            foreach (Animal target in target_animals) {
+                                if (target.Type == _C.ANIMAL.CAT && target.ValidFlag == true) {
+                                    target.ValidFlag = false;
+
+                                    EventManager.SendEvent(new GameEvent(EVENT.UI_CARDTURNBACK, target));
+                                }
+                            }
+                        }
                     }
+                }
+            }
 
+            //再次遍历 结算老鼠分数
+            for (int i = 0; i < _C.DEFAULT_WEIGHT; i++) {
+                for (int j = 0; j < _C.DEFAULT_HEIGHT; j++) {
+                    var animal  = m_Animals[i, j];
                     //结算老鼠
                     if (animal.Type == _C.ANIMAL.MOUSE)
                     {
@@ -110,7 +131,7 @@ namespace PC
                             int temp_our_score  = 0;
                             int temp_enemy_score= 0;
                             foreach (Animal round in round_animals) {
-                                if (round.Type == _C.ANIMAL.CAT) {
+                                if (round.Type == _C.ANIMAL.CAT && round.ValidFlag == true) {
                                     if (round.SIDE == _C.SIDE.OUR) temp_our_score += round.Value;
                                     else temp_enemy_score += round.Value;
                                 }
@@ -130,17 +151,22 @@ namespace PC
             yield return null;
         }
 
+
+        //根据向量找到对应位子上的目标
         private List<Animal> GetDirectionAnimals(Vector2 pos, List<Vector2> directions)
         {
             List<Animal> animals = new List<Animal>();
 
             foreach (var vector2 in directions)
             {
-                if (vector2.x + pos.x < 0 || vector2.x + pos.x > 4) continue;
-                if (vector2.y + pos.y < 0 || vector2.y + pos.y > 4) continue;
+                if (pos.x - vector2.y < 0 || pos.x - vector2.y > 4) continue;
+                if (pos.y + vector2.x < 0 || pos.y + vector2.x > 4) continue;
 
-                Vector2 t_pos = pos + vector2;
-                var animal = m_Animals[(int)t_pos.x, (int)t_pos.y];
+                Vector2 t_pos = new Vector2(pos.x - vector2.y, pos.y + vector2.x);
+                int pos_x = (int)t_pos.x;
+                int pos_y = (int)t_pos.y;
+                // Debug.Log("寻找：" + pos_x + "," + pos_y);
+                var animal = m_Animals[pos_x, pos_y];
                 animals.Add(animal);
             }
 

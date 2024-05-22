@@ -36,7 +36,7 @@ public class EditorPlatform : Platform
     {
         GameFacade.Instance.User.SyncRecords(userData);
 
-        EventManager.SendEvent(new GameEvent(EVENT.UI_FLUSHUSER));
+
     }
 
     public override void UPLOAD(GameUserData userData)
@@ -54,7 +54,7 @@ public class EditorPlatform : Platform
 
     public override void SHARE()
     {
-        EventManager.SendEvent(new GameEvent(EVENT.ONSHAREGAME));
+
     }
 
     //激励广告

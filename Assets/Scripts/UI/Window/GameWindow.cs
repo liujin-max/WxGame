@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -22,6 +23,17 @@ namespace PC
             m_BtnSettle.onClick.AddListener(()=>{
                 Field.Instance.Settle();
             });
+
+
+            EventManager.AddHandler(EVENT.UI_CARDTURNFRONT,     OnReponseCardTurnFront);
+            EventManager.AddHandler(EVENT.UI_CARDTURNBACK,      OnReponseCardTurnBack);
+        }
+
+
+        void OnDestroy()
+        {
+            EventManager.DelHandler(EVENT.UI_CARDTURNFRONT,     OnReponseCardTurnFront);
+            EventManager.DelHandler(EVENT.UI_CARDTURNBACK,      OnReponseCardTurnBack);
         }
 
         // Update is called once per frame
@@ -43,6 +55,26 @@ namespace PC
                 }
             }
         }
+
+
+        #region 监听事件
+        private void OnReponseCardTurnBack(GameEvent @event)
+        {
+            var animal  = (Animal)@event.GetParam(0);
+            var card    = m_Cards[animal.X, animal.Y];
+
+            card.TurnBack();
+        }
+
+        private void OnReponseCardTurnFront(GameEvent @event)
+        {
+            var animal  = (Animal)@event.GetParam(0);
+            var card    = m_Cards[animal.X, animal.Y];
+
+            card.TurnFront();
+        }
+
+        #endregion
     }
 }
 
