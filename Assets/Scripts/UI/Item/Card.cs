@@ -2,12 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 
 namespace PC
 {
-   public class Card : MonoBehaviour
+   public class Card : MonoBehaviour , IPointerClickHandler , IDragHandler, IBeginDragHandler, IEndDragHandler
     {
         [SerializeField] private GameObject m_Back;
 
@@ -19,12 +20,6 @@ namespace PC
 
         private Animal m_Animal;
 
-        void Start()
-        {
-            // m_Back.SetActive(true);
-            // m_Front.SetActive(false);
-        }
-        
 
         public void Init(Animal animal)
         {
@@ -92,6 +87,28 @@ namespace PC
                 arrow.transform.localEulerAngles = new Vector3(0, 0, angle);
             });
         }
+
+        #region 交互逻辑
+        public void OnBeginDrag(PointerEventData eventData)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public void OnDrag(PointerEventData eventData)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public void OnEndDrag(PointerEventData eventData)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public void OnPointerClick(PointerEventData eventData)
+        {
+            this.TurnFront();
+        }
+        #endregion
     } 
 }
 

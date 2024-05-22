@@ -78,10 +78,10 @@ namespace PC
             foreach (Vector2 direction in m_Directions[this.ID])
             {
                 // 将原始向量旋转90度
-                // Quaternion rotation = Quaternion.Euler(0, 0, m_Angle);
-                // Vector2 rotatedVector = rotation * direction;
+                Quaternion rotation = Quaternion.Euler(0, 0, m_Angle);
+                Vector2 rotatedVector = rotation * direction;
 
-                result.Add(direction);
+                result.Add(rotatedVector);
             }
 
             return result;

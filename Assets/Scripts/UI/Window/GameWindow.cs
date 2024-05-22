@@ -51,6 +51,7 @@ namespace PC
                     var animal  = animals[i, j];
                     var item    = GameFacade.Instance.UIManager.LoadItem("Card", m_CardPivot).GetComponent<Card>();
                     item.Init(animal);
+                    item.TurnBack();
                     m_Cards[i, j] = item;
                 }
             }
