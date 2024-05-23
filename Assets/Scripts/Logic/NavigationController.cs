@@ -13,7 +13,7 @@ public static class NavigationController
 
         //加载loading界面
         GameFacade.Instance.ScenePool.LoadSceneAsync("Loading", () => {
-            GameFacade.Instance.UIManager.LoadWindow("LoadingWindow", GameFacade.Instance.UIManager.BOTTOM);
+            GameFacade.Instance.UIManager.LoadWindow("LoadingWindow", UIManager.BOTTOM);
         });
     }
 
@@ -22,7 +22,8 @@ public static class NavigationController
         GameFacade.Instance.SoundManager.PlayBGM(SOUND.BGM);
 
         GameFacade.Instance.ScenePool.LoadSceneAsync("Game", () => {
-
+            GameObject.Find("Field").AddComponent<Field>();
+            Field.Instance.Enter();
         });
     }
 }

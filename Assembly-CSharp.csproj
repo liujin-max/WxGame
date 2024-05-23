@@ -92,6 +92,7 @@
     <Compile Include="Assets\DOTween\Modules\DOTweenModulePhysics.cs" />
     <Compile Include="Assets\AllIn1SpriteShader\Demo\Scripts\DemoCamera.cs" />
     <Compile Include="Assets\Scripts\Effect\RateNumber.cs" />
+    <Compile Include="Assets\Scripts\Logic\Field.cs" />
     <Compile Include="Assets\Scripts\SOUND.cs" />
     <Compile Include="Assets\Scripts\Effect\ButtonScale.cs" />
     <Compile Include="Assets\Scripts\Utility\ImageGray.cs" />
@@ -128,6 +129,7 @@
     <Compile Include="Assets\Scripts\FSM\State.cs" />
     <Compile Include="Assets\Scripts\Logic\DataCenter.cs" />
     <Compile Include="Assets\Scripts\Utility\SuperScrollView.cs" />
+    <Compile Include="Assets\Scripts\UI\Window\GameWindow.cs" />
     <Compile Include="Assets\Scripts\Manager\Effect.cs" />
     <Compile Include="Assets\AllIn1SpriteShader\Demo\Scripts\DemoCircleExpositor.cs" />
     <Compile Include="Assets\Scripts\Effect\Shine.cs" />
