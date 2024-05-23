@@ -4,66 +4,60 @@ using System.Collections.Generic;
 
 
 //数据体
-public class AnimalData
+public class GoodsData
 {
     public int ID;
     public string Name;
-    public int Belong;
-    public int Value;
-
-    public _C.ANIMAL Type;
+    public int Price_Min;
+    public int Price_Normal;
+    public int Price_Max;
+    
+    //描述
+    public string Increase;
+    public string Reduction;
 }
 
 //全局数据类
 public class DataCenter
 {
-    //动物数据
-    //根据Belong分类
-    private static Dictionary<int, List<AnimalData>> AnimalBelongDic = new Dictionary<int, List<AnimalData>>();
-    //根据Type分类
-    private static Dictionary<_C.ANIMAL, List<AnimalData>> AnimalTypeDic = new Dictionary<_C.ANIMAL, List<AnimalData>>();
+    private static List<GoodsData> GoodsDatas = new List<GoodsData>();
+    private static Dictionary<int, GoodsData> GoodsDic = new Dictionary<int, GoodsData>();
 
     public void Init()
     {
         //弹珠数据
-        List<string[]> list = GameFacade.Instance.CsvManager.GetStringArrays(CsvManager.TableKey_Animal);
+        List<string[]> list = GameFacade.Instance.CsvManager.GetStringArrays(CsvManager.TableKey_Goods);
         foreach (string[] data in list)
         {
-            AnimalData config = new AnimalData();
-            config.ID       = Convert.ToInt32(data[0]);
-            config.Name     = data[1];
-            config.Value    = Convert.ToInt32(data[2]);
-            config.Type     = (_C.ANIMAL)Convert.ToInt32(data[3]);
-            config.Belong   = Convert.ToInt32(data[4]);
+            GoodsData config    = new GoodsData();
+            config.ID           = Convert.ToInt32(data[0]);
+            config.Name         = data[1];
+            config.Increase     = data[3];
+            config.Reduction    = data[4];
+
+            string[] price_info = data[2].Split('|');
+            config.Price_Min    = Convert.ToInt32(price_info[0]);
+            config.Price_Normal = Convert.ToInt32(price_info[1]);
+            config.Price_Max    = Convert.ToInt32(price_info[2]);
 
 
 
-            if (!AnimalBelongDic.ContainsKey(config.Belong)) {
-                AnimalBelongDic.Add(config.Belong, new List<AnimalData>());
+            if (!GoodsDic.ContainsKey(config.ID)) {
+                GoodsDic.Add(config.ID, config);
             }
-            AnimalBelongDic[config.Belong].Add(config);
-
-            if (!AnimalTypeDic.ContainsKey(config.Type)) {
-                AnimalTypeDic.Add(config.Type, new List<AnimalData>());
-            }
-            AnimalTypeDic[config.Type].Add(config);
+            GoodsDatas.Add(config);
         }
     }
 
-    public List<AnimalData> GetDatasByType(_C.ANIMAL type)
+    public List<GoodsData> GetGoodsDatas()
     {
-        List<AnimalData> data;
-        if (AnimalTypeDic.TryGetValue(type, out data)) {
-            return data;
-        }
-
-        return data;
+        return GoodsDatas;
     }
 
-    public List<AnimalData> GetDatasByBelong(int belong)
+    public GoodsData GetGoods(int id)
     {
-        List<AnimalData> data;
-        if (AnimalBelongDic.TryGetValue(belong, out data)) {
+        GoodsData data;
+        if (GoodsDic.TryGetValue(id, out data)) {
             return data;
         }
 
