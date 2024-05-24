@@ -11,6 +11,8 @@ namespace Money
         private int m_Coin;
         public int Coin { get { return m_Coin; }}
 
+        public bool m_PauseFlag = false;
+
         public Calendar Calendar;
         public Market Market;
 
@@ -52,14 +54,28 @@ namespace Money
             return m_Coin >= cost;
         }
 
+        public void Pause()
+        {
+            m_PauseFlag = true;
+        }
+
+        public void Resume()
+        {
+            m_PauseFlag = false;
+        }
+
         // Update is called once per frame
         void Update()
         {
-            
+            if (m_PauseFlag) return;
+
+
         }
 
         void FixedUpdate()
         {
+            if (m_PauseFlag) return;
+
             float fixed_deltatime = Time.fixedDeltaTime;
 
             if (Calendar != null) {

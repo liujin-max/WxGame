@@ -18,8 +18,8 @@ namespace Money
         private int m_Count;    //拥有数量
         public int Count {get {return m_Count;}}
 
-        private int m_Price;    //单个成本
-        public int Price {get {return m_Price;}}
+        private float m_Price;    //单个成本(负责计算)
+        public int Price {get {return (int)m_Price;}}   //负责显示
 
         
         public Package(GoodsData data)
@@ -29,10 +29,10 @@ namespace Money
 
         public void Increase(int price, int count)
         {
-            int total = m_Count * m_Price + price * count;
+            float total = m_Count * m_Price + price * count;
 
             m_Count += count;
-            m_Price = (int)MathF.Floor(total / m_Count);
+            m_Price = total / (float)m_Count;
         }
 
         public void Decrease(int price, int count)

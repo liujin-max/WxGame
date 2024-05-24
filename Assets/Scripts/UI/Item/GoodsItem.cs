@@ -17,7 +17,13 @@ namespace Money
         void Awake()
         {
             transform.GetComponent<Button>().onClick.AddListener(()=>{
-                Field.Instance.Market.BuyGoods(m_Goods.ID, m_Goods.Price, 1);
+                //一个都买不起
+                if (!Field.Instance.CheckCoinEnough(m_Goods.Price)){
+                    return;
+                }
+
+                var window = GameFacade.Instance.UIManager.LoadWindow("BuyWindow", UIManager.BOARD).GetComponent<BuyWindow>();
+                window.Init(m_Goods);
             });
         }
 

@@ -141,6 +141,8 @@
     <Compile Include="Assets\DOTween\Modules\DOTweenModuleUnityVersion.cs" />
     <Compile Include="Assets\Scripts\Effect\LongPressButton.cs" />
     <Compile Include="Assets\Scripts\Logic\Element\Calendar.cs" />
+    <Compile Include="Assets\Scripts\UI\Window\BuyWindow.cs" />
+    <Compile Include="Assets\Scripts\UI\Window\SellWindow.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Resources\Shader\SpriteGray.shader" />
