@@ -49,10 +49,10 @@ namespace Money
             Field.Instance.Resume();
         }
 
-        public void Init(Package package)
+        public void Init(Package package, Goods goods)
         {
             m_Package   = package;
-            m_Goods     = Field.Instance.Market.GetGoods(m_Package.ID);
+            m_Goods     = goods;
 
             m_Text.text = package.Name;
             

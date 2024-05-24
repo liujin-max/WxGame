@@ -18,8 +18,11 @@ namespace Money
         void Awake()
         {
             transform.GetComponent<Button>().onClick.AddListener(()=>{
-                var window = GameFacade.Instance.UIManager.LoadWindow("SellWindow", UIManager.BOARD).GetComponent<SellWindow>();
-                window.Init(m_Package);
+                var goods   = Field.Instance.Market.GetGoods(m_Package.ID);
+                if (goods == null) return;
+
+                var window  = GameFacade.Instance.UIManager.LoadWindow("SellWindow", UIManager.BOARD).GetComponent<SellWindow>();
+                window.Init(m_Package, goods);
             });
         }
         
