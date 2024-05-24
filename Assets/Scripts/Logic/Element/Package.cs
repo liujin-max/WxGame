@@ -19,7 +19,7 @@ namespace Money
         public int Count {get {return m_Count;}}
 
         private float m_Price;    //单个成本(负责计算)
-        public int Price {get {return (int)m_Price;}}   //负责显示
+        public float Price {get {return m_Price;}}   //负责显示
 
         
         public Package(GoodsData data)

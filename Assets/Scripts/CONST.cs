@@ -11,41 +11,30 @@ public static class _C
 
 
 
-
- 
-    //状态机的状态列表
     public enum FSMSTATE
     {
-        GAME_START      = 0,
-        GAME_RECORD     = 1,
-        GAME_IDLE       = 2,
-        GAME_PLAY       = 3,
-        GAME_COMPLEX    = 4,
-        GAME_SHOP       = 5,
-        GAME_END        = 6
+        
     }
-
-    public enum ANIMAL
+ 
+    //商品状态
+    public enum GOODSTATE
     {
-        CAT     = 1,
-        DOG     = 2,
-        MOUSE   = 3 
-    }
-
-    public enum SIDE
-    {
-        OUR = 1,
-        ENEMY,
-        NEUTRAL
+        UNSOLD,
+        NORMAL,
+        HOT
     }
 
 
 
 
-    public static int DEFAULT_WEIGHT  = 5;
-    public static int DEFAULT_HEIGHT = 5;
 
 
+    public static int DEFAULT_COIN  = 100;
+
+
+
+    public static string PRICE_INCREASE_COLOR   = "<#FF2D00>";
+    public static string PRICE_REDUCE_COLOR     = "<#47FF00>";
 
 
 

@@ -28,7 +28,7 @@ namespace Money
 
         public void Enter()
         {
-            m_Coin = 0;
+            m_Coin = _C.DEFAULT_COIN;
 
             Calendar = new Calendar();
             Calendar.Init();

@@ -124,6 +124,9 @@ namespace Money
                 g.RandomPrice();
             });
 
+            GameFacade.Instance.UIManager.LoadWindow("MarketNoticeWindow", UIManager.BOARD).GetComponent<MarketNoticeWindow>();
+
+
             EventManager.SendEvent(new GameEvent(EVENT.UI_GOODSUPDATE));
         }
 

@@ -34,7 +34,7 @@ namespace Money
 
         void FlushUI()
         {
-            m_Cost.text = m_Package.Price.ToString();
+            m_Cost.text = m_Package.Price.ToString("F2");
             m_Count.text = m_Package.Count.ToString();
         }
     }

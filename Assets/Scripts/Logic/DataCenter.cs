@@ -8,9 +8,9 @@ public class GoodsData
 {
     public int ID;
     public string Name;
-    public int Price_Min;
-    public int Price_Normal;
-    public int Price_Max;
+    public int[] Prices;
+    public int[] Weights;
+
     
     //描述
     public string Increase;
@@ -32,13 +32,21 @@ public class DataCenter
             GoodsData config    = new GoodsData();
             config.ID           = Convert.ToInt32(data[0]);
             config.Name         = data[1];
-            config.Increase     = data[3];
-            config.Reduction    = data[4];
+            config.Increase     = data[4];
+            config.Reduction    = data[5];
 
             string[] price_info = data[2].Split('|');
-            config.Price_Min    = Convert.ToInt32(price_info[0]);
-            config.Price_Normal = Convert.ToInt32(price_info[1]);
-            config.Price_Max    = Convert.ToInt32(price_info[2]);
+            config.Prices       = new int[price_info.Length];
+            for (int i = 0; i < price_info.Length; i++) {
+                config.Prices[i] = Convert.ToInt32(price_info[i]);
+            }
+
+
+            string[] weight_info = data[3].Split('|');
+            config.Weights      = new int[weight_info.Length];
+            for (int i = 0; i < weight_info.Length; i++) {
+                config.Weights[i] = Convert.ToInt32(weight_info[i]);
+            }
 
 
 

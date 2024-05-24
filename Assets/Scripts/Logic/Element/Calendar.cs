@@ -40,7 +40,7 @@ namespace Money
 
         public void Clock(float fixed_deltatime)
         {
-            //每隔一段事件，调整物价
+            //每隔一段时间，调整物价
             m_Timer.Update(fixed_deltatime);
             if (m_Timer.IsFinished() == true) {
                 m_Timer.Reset();

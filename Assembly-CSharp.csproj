@@ -143,6 +143,7 @@
     <Compile Include="Assets\Scripts\Logic\Element\Calendar.cs" />
     <Compile Include="Assets\Scripts\UI\Window\BuyWindow.cs" />
     <Compile Include="Assets\Scripts\UI\Window\SellWindow.cs" />
+    <Compile Include="Assets\Scripts\UI\Window\MarketNoticeWindow.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Resources\Shader\SpriteGray.shader" />
