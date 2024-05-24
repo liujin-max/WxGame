@@ -11,6 +11,7 @@ namespace Money
         private int m_Coin;
         public int Coin { get { return m_Coin; }}
 
+        public Calendar Calendar;
         public Market Market;
 
 
@@ -23,26 +24,12 @@ namespace Money
             m_Instance = this;
         }
 
-
-        // Update is called once per frame
-        void Update()
-        {
-            
-        }
-
-        void FixedUpdate()
-        {
-            float fixed_deltatime = Time.fixedDeltaTime;
-
-            if (Market != null) {
-                Market.Clock(fixed_deltatime);
-            }
-        }
-
         public void Enter()
         {
             m_Coin = 0;
 
+            Calendar = new Calendar();
+            Calendar.Init();
 
             Market = new Market();
             Market.Init();
@@ -56,11 +43,28 @@ namespace Money
         public void UpdateCoin(int value)
         {
             m_Coin += value;
+
+            if (value > 0) Calendar.UpdateIncome(value);
         }
 
         public bool CheckCoinEnough(int cost)
         {
             return m_Coin >= cost;
+        }
+
+        // Update is called once per frame
+        void Update()
+        {
+            
+        }
+
+        void FixedUpdate()
+        {
+            float fixed_deltatime = Time.fixedDeltaTime;
+
+            if (Calendar != null) {
+                Calendar.Clock(fixed_deltatime);
+            }
         }
     }
 

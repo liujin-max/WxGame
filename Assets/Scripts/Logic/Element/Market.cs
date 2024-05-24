@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -20,13 +21,19 @@ namespace Money
         public List<Package> Packages { get { return m_Packages; } }
 
 
-        private CDTimer m_Timer = new CDTimer(5.0f);
-        public CDTimer Timer { get { return m_Timer;}}
-
         public void Init()
         {
             InitGoods();
+
+
+            EventManager.AddHandler(EVENT.ONYEARUPDATE, OnReponseYearUpdate);
         }
+
+        public void Dispose()
+        {
+            EventManager.DelHandler(EVENT.ONYEARUPDATE, OnReponseYearUpdate);
+        }
+
 
         //生成商品
         void InitGoods()
@@ -109,19 +116,17 @@ namespace Money
         }
 
 
-        public void Clock(float fixed_deltatime)
+
+        #region 监听事件
+        private void OnReponseYearUpdate(GameEvent @event)
         {
-            //每隔一段事件，调整物价
-            m_Timer.Update(fixed_deltatime);
-            if (m_Timer.IsFinished() == true) {
-                m_Timer.Reset();
+            m_Goods.ForEach(g => {
+                g.RandomPrice();
+            });
 
-                m_Goods.ForEach(g => {
-                    g.RandomPrice();
-                });
-
-                EventManager.SendEvent(new GameEvent(EVENT.UI_GOODSUPDATE));
-            }
+            EventManager.SendEvent(new GameEvent(EVENT.UI_GOODSUPDATE));
         }
+
+        #endregion
     }
 }

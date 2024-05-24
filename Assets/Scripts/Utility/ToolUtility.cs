@@ -68,4 +68,25 @@ public static class ToolUtility
         double timestamp    = timeSpan.TotalSeconds;
         return timestamp;
     }
+
+
+    //数字转换成带单位的
+    public static string FormatNumberWithSuffix(float number)
+    {
+        string[] suffixes = { "", "K", "M", "B", "T" }; // 单位后缀
+
+        int suffixIndex = 0;
+        while (number >= 1000.0f && suffixIndex < suffixes.Length - 1)
+        {
+            number /= 1000.0f;
+            suffixIndex++;
+        }
+
+        if(number % 1 == 0)
+        {
+            return number.ToString() + suffixes[suffixIndex];
+        }
+
+        return number.ToString("F2") + suffixes[suffixIndex];
+    }
 }

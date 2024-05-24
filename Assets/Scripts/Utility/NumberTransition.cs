@@ -42,8 +42,7 @@ public class NumberTransition : MonoBehaviour
         if (m_TargetNumber == (int)m_CurrentNumber) return;
 
         
-        var speed   = m_Offset * Time.deltaTime;
-
+        var speed   = m_Offset * Time.deltaTime / 0.15f;
         if (speed > 0) {
             speed   = Math.Max(m_SpeedMin, speed);
         } else {

@@ -9,7 +9,10 @@ namespace Money
 {
    public class GameWindow : MonoBehaviour
     {
-        [SerializeField] private NumberTransition m_Coin;
+        [SerializeField] private TextMeshProUGUI m_Year;
+        [SerializeField] private TextMeshProUGUI m_Coin;
+        [SerializeField] private TextMeshProUGUI m_Income;
+
         [SerializeField] private LongPressButton m_BtnCoin;
         [SerializeField] private Image m_TimerBar;
 
@@ -36,9 +39,12 @@ namespace Money
         // Update is called once per frame
         void Update()
         {
-            m_TimerBar.fillAmount = Field.Instance.Market.Timer.Current / Field.Instance.Market.Timer.Duration;
+            m_Year.text = Field.Instance.Calendar.Year + "岁";
+            m_TimerBar.fillAmount = Field.Instance.Calendar.Timer.Current / Field.Instance.Calendar.Timer.Duration;
 
-            m_Coin.SetValue(Field.Instance.Coin);  
+
+            m_Coin.text     = ToolUtility.FormatNumberWithSuffix(Field.Instance.Coin);  
+            m_Income.text   = "+" + ToolUtility.FormatNumberWithSuffix(Field.Instance.Calendar.Income);
         }
 
         void HideItems()
