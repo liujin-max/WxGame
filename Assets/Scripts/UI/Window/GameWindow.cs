@@ -12,6 +12,9 @@ namespace Money
         [SerializeField] private TextMeshProUGUI m_Coin;
         [SerializeField] private Button m_BtnCoin;
 
+        [SerializeField] private Transform m_Pivot;
+        private MarketItem m_MarketItem = null;
+
 
         void Awake()
         {
@@ -25,6 +28,24 @@ namespace Money
         void Update()
         {
             m_Coin.text = Field.Instance.Coin.ToString();
+        }
+
+        void HideItems()
+        {
+            if (m_MarketItem != null) m_MarketItem.gameObject.SetActive(false);
+
+
+        }
+
+        public void ShowMarket()
+        {
+            HideItems();
+
+            if (m_MarketItem == null) {
+                m_MarketItem = GameFacade.Instance.UIManager.LoadItem("MarketItem", m_Pivot).GetComponent<MarketItem>();
+                m_MarketItem.InitGoods();
+            }
+            m_MarketItem.gameObject.SetActive(true);
         }
     }
  

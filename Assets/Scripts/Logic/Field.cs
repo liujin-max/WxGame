@@ -9,11 +9,9 @@ namespace Money
     {
 
         private int m_Coin;
-        public int Coin { 
-            get { return Crypt.DE(m_Coin); } 
-        }
+        public int Coin { get { return m_Coin; }}
 
-        
+        public Market Market;
 
 
         private static Field m_Instance = null;
@@ -34,15 +32,26 @@ namespace Money
 
         public void Enter()
         {
-            m_Coin = Crypt.EN(0);
+            m_Coin = 0;
 
 
-            GameFacade.Instance.UIManager.LoadWindow("GameWindow", UIManager.BOTTOM);
+            Market = new Market();
+            Market.Init();
+
+
+
+            var window = GameFacade.Instance.UIManager.LoadWindow("GameWindow", UIManager.BOTTOM).GetComponent<GameWindow>();
+            window.ShowMarket();
         }
 
         public void UpdateCoin(int value)
         {
-            m_Coin = Crypt.EN(Coin + value);
+            m_Coin += value;
+        }
+
+        public bool CheckCoinEnough(int cost)
+        {
+            return m_Coin >= cost;
         }
     }
 

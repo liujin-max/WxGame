@@ -11,8 +11,11 @@ namespace Money
     public class Goods
     {
         private GoodsData m_Data;
+        public int ID { get {return m_Data.ID;}}
+        public string Name { get {return m_Data.Name;}}
 
         private int m_Price;    //当前价格
+        public int Price {get {return m_Price;}}
 
         public Goods(GoodsData data)
         {

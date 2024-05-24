@@ -12,10 +12,14 @@ namespace Money
     public class Package
     {
         private GoodsData m_Data;
-
+        public int ID { get {return m_Data.ID;}}
+        public string Name { get {return m_Data.Name;}}
 
         private int m_Count;    //拥有数量
+        public int Count {get {return m_Count;}}
+
         private int m_Price;    //单个成本
+        public int Price {get {return m_Price;}}
 
         
         public Package(GoodsData data)

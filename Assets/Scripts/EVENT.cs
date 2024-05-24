@@ -2,6 +2,6 @@
 
 public static class EVENT
 {
-    public static string UI_CARDTURNFRONT   = "UI_CARDTURNFRONT";
-    public static string UI_CARDTURNBACK    = "UI_CARDTURNBACK";
+    public static string UI_BUYGOODS        = "UI_BUYGOODS";
+    public static string UI_SELLPACKAGES    = "UI_SELLPACKAGES";
 }

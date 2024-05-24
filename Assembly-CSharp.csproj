@@ -67,6 +67,7 @@
     <Compile Include="Assets\Scripts\Utility\SlideScrollView.cs" />
     <Compile Include="Assets\Scripts\EFFECT.cs" />
     <Compile Include="Assets\Scripts\Effect\BezierCurveAnimation.cs" />
+    <Compile Include="Assets\Scripts\Logic\Element\Goods.cs" />
     <Compile Include="Assets\Scripts\Utility\UrlImageUtility.cs" />
     <Compile Include="Assets\Scripts\Effect\Floating.cs" />
     <Compile Include="Assets\Scripts\Manager\SoundManager.cs" />
@@ -74,6 +75,7 @@
     <Compile Include="Assets\Scripts\Utility\DIYScrollView.cs" />
     <Compile Include="Assets\DOTween\Modules\DOTweenModulePhysics2D.cs" />
     <Compile Include="Assets\Scripts\Manager\UIManager.cs" />
+    <Compile Include="Assets\Scripts\Logic\Element\Package.cs" />
     <Compile Include="Assets\Scripts\Utility\Crypt.cs" />
     <Compile Include="Assets\Scripts\Manager\WXPlatform.cs" />
     <Compile Include="Assets\AllIn1SpriteShader\Demo\Scripts\All1ShaderDemoController.cs" />
@@ -126,18 +128,18 @@
     <Compile Include="Assets\Scripts\Utility\Sound.cs" />
     <Compile Include="Assets\Scripts\Utility\RandomUtility.cs" />
     <Compile Include="Assets\AllIn1SpriteShader\Scripts\RandomSeed.cs" />
+    <Compile Include="Assets\Scripts\UI\Item\MarketItem.cs" />
     <Compile Include="Assets\Scripts\FSM\State.cs" />
     <Compile Include="Assets\Scripts\Logic\DataCenter.cs" />
     <Compile Include="Assets\Scripts\Utility\SuperScrollView.cs" />
     <Compile Include="Assets\Scripts\UI\Window\GameWindow.cs" />
     <Compile Include="Assets\Scripts\Manager\Effect.cs" />
     <Compile Include="Assets\AllIn1SpriteShader\Demo\Scripts\DemoCircleExpositor.cs" />
+    <Compile Include="Assets\Scripts\Logic\Element\Market.cs" />
     <Compile Include="Assets\Scripts\Effect\Shine.cs" />
     <Compile Include="Assets\DOTween\Modules\DOTweenModuleUnityVersion.cs" />
-    <Compile Include="Assets\Scripts\UI\Window\MarketWindow.cs" />
-    <Compile Include="Assets\Scripts\Logic\Element\Goods.cs" />
-    <Compile Include="Assets\Scripts\Logic\Element\Market.cs" />
-    <Compile Include="Assets\Scripts\Logic\Element\Package.cs" />
+    <Compile Include="Assets\Scripts\UI\Item\GoodsItem.cs" />
+    <Compile Include="Assets\Scripts\UI\Item\PackageItem.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Resources\Shader\SpriteGray.shader" />
