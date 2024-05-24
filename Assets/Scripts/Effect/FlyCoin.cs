@@ -30,8 +30,8 @@ public class FlyCoin : MonoBehaviour
         Vector3 endPoint = startPoint;
 
         
-        transform.DOJump(endPoint, 1.5f, 1, 0.7f).SetEase(Ease.OutQuad).OnComplete(() => {
-            m_Coin.DOFade(0.2f, 0.5f);
+        transform.DOJump(endPoint, 1f, 1, 0.7f).SetEase(Ease.OutQuad).OnComplete(() => {
+            m_Coin.DOFade(0.2f, 0.3f);
         });
 
         transform.DOLocalRotate(new Vector3(0, 180, 0), 0.25f).SetLoops(-1);

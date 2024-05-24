@@ -21,6 +21,7 @@ namespace Money
 
 
         private CDTimer m_Timer = new CDTimer(5.0f);
+        public CDTimer Timer { get { return m_Timer;}}
 
         public void Init()
         {

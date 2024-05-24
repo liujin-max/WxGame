@@ -115,7 +115,6 @@
     <Compile Include="Assets\Scripts\Effect\FlyCoin.cs" />
     <Compile Include="Assets\Scripts\Utility\MouseClickHandler.cs" />
     <Compile Include="Assets\Scripts\Manager\CsvManager.cs" />
-    <Compile Include="Assets\Scripts\Utility\TextureImporterSettings.cs" />
     <Compile Include="Assets\Scripts\Manager\EffectManager.cs" />
     <Compile Include="Assets\Scripts\Struct\AttributeValue.cs" />
     <Compile Include="Assets\Scripts\GameFacade.cs" />
@@ -140,6 +139,7 @@
     <Compile Include="Assets\Scripts\Logic\Element\Market.cs" />
     <Compile Include="Assets\Scripts\Effect\Shine.cs" />
     <Compile Include="Assets\DOTween\Modules\DOTweenModuleUnityVersion.cs" />
+    <Compile Include="Assets\Scripts\Effect\LongPressButton.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Resources\Shader\SpriteGray.shader" />

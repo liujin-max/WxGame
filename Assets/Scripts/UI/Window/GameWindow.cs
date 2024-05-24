@@ -11,14 +11,20 @@ namespace Money
     {
         [SerializeField] private TextMeshProUGUI m_Coin;
         [SerializeField] private Button m_BtnCoin;
+        [SerializeField] private Image m_TimerBar;
 
         [SerializeField] private Transform m_Pivot;
+        
+
+
         private MarketItem m_MarketItem = null;
 
 
         void Awake()
         {
-            m_BtnCoin.onClick.AddListener(()=>{
+            m_TimerBar.fillAmount = 0;
+
+            m_BtnCoin.GetComponent<LongPressButton>().Init(()=>{
                 Field.Instance.UpdateCoin(1);
 
                 var e = GameFacade.Instance.EffectManager.LoadUIEffect(EFFECT.FLYCOIN, m_BtnCoin.transform.position);
@@ -30,7 +36,9 @@ namespace Money
         // Update is called once per frame
         void Update()
         {
-            m_Coin.text = Field.Instance.Coin.ToString();
+            m_TimerBar.fillAmount = Field.Instance.Market.Timer.Current / Field.Instance.Market.Timer.Duration;
+
+            m_Coin.text = Field.Instance.Coin.ToString();  
         }
 
         void HideItems()
