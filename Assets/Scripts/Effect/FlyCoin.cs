@@ -34,7 +34,10 @@ public class FlyCoin : MonoBehaviour
         Vector3[] path = new Vector3[] { startPoint, heightPoint, endPoint };
 
         
-        transform.DOPath(path, 0.7f, PathType.Linear, PathMode.TopDown2D).SetEase(Ease.InOutSine).OnComplete(()=> {
+        // transform.DOPath(path, 0.7f, PathType.Linear, PathMode.TopDown2D).SetEase(Ease.InOutSine).OnComplete(()=> {
+        //     m_Coin.DOFade(0.2f, 0.5f);
+        // });
+        transform.DOJump(endPoint, 1.5f, 1, 0.7f).SetEase(Ease.OutQuad).OnComplete(() => {
             m_Coin.DOFade(0.2f, 0.5f);
         });
         
