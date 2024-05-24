@@ -12,11 +12,15 @@ namespace Money
     public class Market 
     {
         private List<Goods> m_Goods = new List<Goods>();
+        private Dictionary<int, Goods> m_GoodsDic = new Dictionary<int, Goods>();
         public List<Goods> Goods { get { return m_Goods; } }
 
         private List<Package> m_Packages = new List<Package>();
         private Dictionary<int, Package> m_PackageDic = new Dictionary<int, Package>();
         public List<Package> Packages { get { return m_Packages; } }
+
+
+        private CDTimer m_Timer = new CDTimer(5.0f);
 
         public void Init()
         {
@@ -27,11 +31,22 @@ namespace Money
         void InitGoods()
         {
             m_Goods.Clear();
+            m_GoodsDic.Clear();
 
             GameFacade.Instance.DataCenter.GetGoodsDatas().ForEach(data => {
                 Goods goods = new Goods(data);
                 m_Goods.Add(goods);
+                m_GoodsDic[data.ID] = goods;
             });
+        }
+
+        public Goods GetGoods(int id)
+        {
+            if (m_GoodsDic.ContainsKey(id))
+            {
+                return m_GoodsDic[id];
+            }
+            return null;
         }
 
         public Package GetPackage(int id)
@@ -90,6 +105,22 @@ namespace Money
 
             //通知UI
             EventManager.SendEvent(new GameEvent(EVENT.UI_SELLPACKAGES, pkg));
+        }
+
+
+        public void Clock(float fixed_deltatime)
+        {
+            //每隔一段事件，调整物价
+            m_Timer.Update(fixed_deltatime);
+            if (m_Timer.IsFinished() == true) {
+                m_Timer.Reset();
+
+                m_Goods.ForEach(g => {
+                    g.RandomPrice();
+                });
+
+                EventManager.SendEvent(new GameEvent(EVENT.UI_GOODSUPDATE));
+            }
         }
     }
 }

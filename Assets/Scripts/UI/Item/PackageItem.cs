@@ -18,7 +18,8 @@ namespace Money
         void Awake()
         {
             transform.GetComponent<Button>().onClick.AddListener(()=>{
-                Field.Instance.Market.SellPackages(m_Package.ID, m_Package.Price, 1);
+                var goods = Field.Instance.Market.GetGoods(m_Package.ID);
+                Field.Instance.Market.SellPackages(m_Package.ID, goods.Price, 1);
             });
         }
         

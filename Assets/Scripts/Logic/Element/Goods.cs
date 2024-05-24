@@ -23,6 +23,11 @@ namespace Money
 
             m_Price= data.Price_Normal;
         }
+
+        public void RandomPrice()
+        {
+            m_Price = RandomUtility.Random(m_Data.Price_Min, m_Data.Price_Max);
+        }
     }
 }
 

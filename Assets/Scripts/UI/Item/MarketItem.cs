@@ -52,17 +52,22 @@ namespace Money
         {
             EventManager.AddHandler(EVENT.UI_BUYGOODS,      OnReponseBuyGoods);
             EventManager.AddHandler(EVENT.UI_SELLPACKAGES,  OnReponseSellPkgs);
+            EventManager.AddHandler(EVENT.UI_GOODSUPDATE,   OnReponseGoodsUpdate);
+            
         }
 
         void OnDestroy()
         {
             EventManager.DelHandler(EVENT.UI_BUYGOODS,      OnReponseBuyGoods);
             EventManager.DelHandler(EVENT.UI_SELLPACKAGES,  OnReponseSellPkgs);
-        }   
+            EventManager.DelHandler(EVENT.UI_GOODSUPDATE,   OnReponseGoodsUpdate);
+        }
 
 
         public void InitGoods()
         {
+            m_GoodsItems.ForEach(item => item.gameObject.SetActive(false));
+
             for (int i = 0; i < Field.Instance.Market.Goods.Count; i++)
             {
                 var g = Field.Instance.Market.Goods[i];
@@ -96,6 +101,12 @@ namespace Money
         {
             FlushPackages();
         }
+
+        private void OnReponseGoodsUpdate(GameEvent @event)
+        {
+            InitGoods();
+        }
+
         #endregion
     }
 }

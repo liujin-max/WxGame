@@ -30,6 +30,15 @@ namespace Money
             
         }
 
+        void FixedUpdate()
+        {
+            float fixed_deltatime = Time.fixedDeltaTime;
+
+            if (Market != null) {
+                Market.Clock(fixed_deltatime);
+            }
+        }
+
         public void Enter()
         {
             m_Coin = 0;
