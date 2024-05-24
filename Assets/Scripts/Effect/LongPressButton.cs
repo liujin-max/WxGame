@@ -5,18 +5,12 @@ using UnityEngine.UI;
 
 public class LongPressButton : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IPointerClickHandler
 {
-    private Button m_Button;
-
     private CDTimer m_PressTimer = new CDTimer(0.8f); // 设置长按时间为1秒
     private CDTimer m_PressStep = new CDTimer(0.15f);
 
     private bool m_PressFlag = false;
     private Action m_Callback;
 
-    void Awake()
-    {
-        m_Button = GetComponent<Button>();
-    }
 
     public void Init(Action callback)
     {

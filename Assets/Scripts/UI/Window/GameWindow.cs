@@ -9,8 +9,8 @@ namespace Money
 {
    public class GameWindow : MonoBehaviour
     {
-        [SerializeField] private TextMeshProUGUI m_Coin;
-        [SerializeField] private Button m_BtnCoin;
+        [SerializeField] private NumberTransition m_Coin;
+        [SerializeField] private LongPressButton m_BtnCoin;
         [SerializeField] private Image m_TimerBar;
 
         [SerializeField] private Transform m_Pivot;
@@ -24,7 +24,7 @@ namespace Money
         {
             m_TimerBar.fillAmount = 0;
 
-            m_BtnCoin.GetComponent<LongPressButton>().Init(()=>{
+            m_BtnCoin.Init(()=>{
                 Field.Instance.UpdateCoin(1);
 
                 var e = GameFacade.Instance.EffectManager.LoadUIEffect(EFFECT.FLYCOIN, m_BtnCoin.transform.position);
@@ -38,7 +38,7 @@ namespace Money
         {
             m_TimerBar.fillAmount = Field.Instance.Market.Timer.Current / Field.Instance.Market.Timer.Duration;
 
-            m_Coin.text = Field.Instance.Coin.ToString();  
+            m_Coin.SetValue(Field.Instance.Coin);  
         }
 
         void HideItems()

@@ -6,6 +6,9 @@ using UnityEngine;
 
 public class NumberTransition : MonoBehaviour
 {
+    public float m_SpeedMin = 0.3f;
+
+
     private int m_TargetNumber = 0;
     private float m_CurrentNumber = 0;
     private float m_Offset = 0;
@@ -42,9 +45,9 @@ public class NumberTransition : MonoBehaviour
         var speed   = m_Offset * Time.deltaTime;
 
         if (speed > 0) {
-            speed   = Math.Max(0.3f, speed);
+            speed   = Math.Max(m_SpeedMin, speed);
         } else {
-            speed   = Math.Min(-0.3f, speed);
+            speed   = Math.Min(-m_SpeedMin, speed);
         }
 
         m_CurrentNumber += speed;

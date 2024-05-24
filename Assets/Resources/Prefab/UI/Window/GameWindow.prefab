@@ -124,8 +124,8 @@ GameObject:
   - component: {fileID: 3709049623844110679}
   - component: {fileID: 3807966977727512797}
   - component: {fileID: 6666203570000393077}
-  - component: {fileID: 6290493343566183130}
   - component: {fileID: 3969125848699308229}
+  - component: {fileID: 464974317566663418}
   m_Layer: 5
   m_Name: BtnCoin
   m_TagString: Untagged
@@ -191,7 +191,19 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &6290493343566183130
+--- !u!114 &3969125848699308229
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2878707408706240893}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3519e0c5493186a48b05a88dcdf5b9a5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &464974317566663418
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -235,18 +247,6 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &3969125848699308229
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2878707408706240893}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3519e0c5493186a48b05a88dcdf5b9a5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &3006004737675898560
 GameObject:
   m_ObjectHideFlags: 0
@@ -299,8 +299,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9c7105cb447f4604fb43bd3eb9b48dbd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Coin: {fileID: 6143894797164084390}
-  m_BtnCoin: {fileID: 6290493343566183130}
+  m_Coin: {fileID: 6880662464910083663}
+  m_BtnCoin: {fileID: 3969125848699308229}
   m_TimerBar: {fileID: 2429145725684224699}
   m_Pivot: {fileID: 4516583072504702549}
 --- !u!1 &3700898621470484981
@@ -466,6 +466,7 @@ GameObject:
   - component: {fileID: 4514381827538723002}
   - component: {fileID: 148709144581058099}
   - component: {fileID: 6143894797164084390}
+  - component: {fileID: 6880662464910083663}
   m_Layer: 5
   m_Name: Coin
   m_TagString: Untagged
@@ -590,6 +591,19 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &6880662464910083663
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8038640901824949360}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4b81c16ddde6ae64aad42dd4f677fc33, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SpeedMin: 1
 --- !u!1 &8333658283032609477
 GameObject:
   m_ObjectHideFlags: 0
