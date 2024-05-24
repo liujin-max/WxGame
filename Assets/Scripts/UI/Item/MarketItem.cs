@@ -50,16 +50,16 @@ namespace Money
 
         void Awake()
         {
-            EventManager.AddHandler(EVENT.UI_BUYGOODS,      OnReponseBuyGoods);
-            EventManager.AddHandler(EVENT.UI_SELLPACKAGES,  OnReponseSellPkgs);
+            EventManager.AddHandler(EVENT.UI_PURCHASEGOODS, OnReponsePurchaseGoods);
+            EventManager.AddHandler(EVENT.UI_SALEPACKAGES,  OnReponseSalePkgs);
             EventManager.AddHandler(EVENT.UI_GOODSUPDATE,   OnReponseGoodsUpdate);
             
         }
 
         void OnDestroy()
         {
-            EventManager.DelHandler(EVENT.UI_BUYGOODS,      OnReponseBuyGoods);
-            EventManager.DelHandler(EVENT.UI_SELLPACKAGES,  OnReponseSellPkgs);
+            EventManager.DelHandler(EVENT.UI_PURCHASEGOODS, OnReponsePurchaseGoods);
+            EventManager.DelHandler(EVENT.UI_SALEPACKAGES,  OnReponseSalePkgs);
             EventManager.DelHandler(EVENT.UI_GOODSUPDATE,   OnReponseGoodsUpdate);
         }
 
@@ -92,12 +92,12 @@ namespace Money
 
 
         #region 监听事件
-        private void OnReponseSellPkgs(GameEvent @event)
+        private void OnReponseSalePkgs(GameEvent @event)
         {
             FlushPackages();
         }
 
-        private void OnReponseBuyGoods(GameEvent @event)
+        private void OnReponsePurchaseGoods(GameEvent @event)
         {
             FlushPackages();
         }

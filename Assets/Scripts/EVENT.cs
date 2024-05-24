@@ -2,8 +2,8 @@
 
 public static class EVENT
 {
-    public static string UI_BUYGOODS        = "UI_BUYGOODS";
-    public static string UI_SELLPACKAGES    = "UI_SELLPACKAGES";
+    public static string UI_PURCHASEGOODS   = "UI_PURCHASEGOODS";
+    public static string UI_SALEPACKAGES    = "UI_SALEPACKAGES";
 
     public static string UI_GOODSUPDATE     = "UI_GOODSUPDATE";
 

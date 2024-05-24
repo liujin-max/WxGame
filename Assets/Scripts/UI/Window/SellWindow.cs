@@ -34,7 +34,7 @@ namespace Money
 
 
             m_BtnConfirm.onClick.AddListener(()=>{
-                Field.Instance.Market.SellPackages(m_Package.ID, m_Goods.Price, m_Current);
+                Field.Instance.Market.SalePackages(m_Package.ID, m_Goods.Price, m_Current);
 
                 GameFacade.Instance.UIManager.UnloadWindow(gameObject);
             });

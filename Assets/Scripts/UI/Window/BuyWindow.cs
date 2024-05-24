@@ -33,7 +33,7 @@ namespace Money
 
 
             m_BtnConfirm.onClick.AddListener(()=>{
-                Field.Instance.Market.BuyGoods(m_Goods.ID, m_Goods.Price, m_Current);
+                Field.Instance.Market.PurchaseGoods(m_Goods.ID, m_Goods.Price, m_Current);
 
                 GameFacade.Instance.UIManager.UnloadWindow(gameObject);
             });

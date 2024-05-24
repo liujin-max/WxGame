@@ -67,7 +67,7 @@ namespace Money
         }
 
         //购买商品
-        public void BuyGoods(int id, int price, int count)
+        public void PurchaseGoods(int id, int price, int count)
         {
             //判断价格够不够
             int cost = price * count;
@@ -89,11 +89,11 @@ namespace Money
             Field.Instance.UpdateCoin(-cost);
 
             //通知UI
-            EventManager.SendEvent(new GameEvent(EVENT.UI_BUYGOODS, pkg));
+            EventManager.SendEvent(new GameEvent(EVENT.UI_PURCHASEGOODS, pkg));
         }
 
         //出售货物
-        public void SellPackages(int id, int price, int count)
+        public void SalePackages(int id, int price, int count)
         {
             Package pkg = this.GetPackage(id);
             if (pkg == null) {
@@ -112,7 +112,7 @@ namespace Money
             }
 
             //通知UI
-            EventManager.SendEvent(new GameEvent(EVENT.UI_SELLPACKAGES, pkg));
+            EventManager.SendEvent(new GameEvent(EVENT.UI_SALEPACKAGES, pkg));
         }
 
 
