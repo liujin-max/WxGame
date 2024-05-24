@@ -20,6 +20,9 @@ namespace Money
         {
             m_BtnCoin.onClick.AddListener(()=>{
                 Field.Instance.UpdateCoin(1);
+
+                var e = GameFacade.Instance.EffectManager.LoadUIEffect(EFFECT.FLYCOIN, m_BtnCoin.transform.position);
+                e.GetComponent<FlyCoin>().Fly();
             });
         }
 

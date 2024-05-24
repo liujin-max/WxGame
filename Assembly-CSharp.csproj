@@ -72,6 +72,7 @@
     <Compile Include="Assets\Scripts\Effect\Floating.cs" />
     <Compile Include="Assets\Scripts\Manager\SoundManager.cs" />
     <Compile Include="Assets\Scripts\Effect\ShakeText.cs" />
+    <Compile Include="Assets\Scripts\UI\Item\GoodsItem.cs" />
     <Compile Include="Assets\Scripts\Utility\DIYScrollView.cs" />
     <Compile Include="Assets\DOTween\Modules\DOTweenModulePhysics2D.cs" />
     <Compile Include="Assets\Scripts\Manager\UIManager.cs" />
@@ -103,6 +104,7 @@
     <Compile Include="Assets\Scripts\Logic\User.cs" />
     <Compile Include="Assets\Scripts\Manager\SystemManager.cs" />
     <Compile Include="Assets\Scripts\Utility\CameraUtility.cs" />
+    <Compile Include="Assets\Scripts\UI\Item\PackageItem.cs" />
     <Compile Include="Assets\AllIn1SpriteShader\Demo\Scripts\DemoRandomColorSwap.cs" />
     <Compile Include="Assets\Scripts\CONST.cs" />
     <Compile Include="Assets\Scripts\Utility\NumberTransition.cs" />
@@ -138,8 +140,6 @@
     <Compile Include="Assets\Scripts\Logic\Element\Market.cs" />
     <Compile Include="Assets\Scripts\Effect\Shine.cs" />
     <Compile Include="Assets\DOTween\Modules\DOTweenModuleUnityVersion.cs" />
-    <Compile Include="Assets\Scripts\UI\Item\GoodsItem.cs" />
-    <Compile Include="Assets\Scripts\UI\Item\PackageItem.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Resources\Shader\SpriteGray.shader" />
