@@ -73,7 +73,7 @@ public class EditorPlatform : Platform
     }
 
     //Banner广告
-    public override void BANNER_VIDEOAD(string ad_id, bool is_show)
+    public override void BANNER_VIDEOAD(string ad_id, bool is_show, int top = 780)
     {
 
     }

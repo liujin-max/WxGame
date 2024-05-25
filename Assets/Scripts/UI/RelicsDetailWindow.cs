@@ -15,6 +15,15 @@ namespace CB
         [SerializeField] RawImage c_Icon;
         [SerializeField] GameObject c_DescriptionPivot;
 
+        void Awake()
+        {
+            Platform.Instance.BANNER_VIDEOAD("adunit-697b8b9570b5665a", true);
+        }
+
+        void OnDestroy()
+        {
+            Platform.Instance.BANNER_VIDEOAD("adunit-697b8b9570b5665a", false);
+        }
 
         public void Init(Relics relics, Action callback)
         {

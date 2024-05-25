@@ -33,7 +33,7 @@ public abstract class Platform
 
     //激励广告
     public abstract void REWARD_VIDEOAD(string ad_id, Action callback = null);
-    public abstract void BANNER_VIDEOAD(string ad_id, bool is_show);
+    public abstract void BANNER_VIDEOAD(string ad_id, bool is_show, int top = 780);
     public abstract void INTER_VIDEOAD(string ad_id);
 
     //设备振动

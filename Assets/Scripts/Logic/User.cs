@@ -33,6 +33,7 @@ namespace CB
         public int Order;
         public int Coin;
         public int Glass;
+        public int RebornTimes;
         public List<string> BallRecords;    //弹珠不是唯一的，所以不能用Dictionary
         public List<string> RelicsRecords;
         public int SeatAddition;

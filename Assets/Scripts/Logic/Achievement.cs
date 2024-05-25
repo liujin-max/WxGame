@@ -1450,7 +1450,6 @@ namespace CB
         public void Dispose()
         {
             EventManager.DelHandler(EVENT.ONGAMESTART,      OnReponseGameStart);
-            EventManager.DelHandler(EVENT.ONGAMEEND,        OnReponseGameEnd);
             EventManager.DelHandler(EVENT.ONPLAYSTART,      OnReponsePlayStart);
             EventManager.DelHandler(EVENT.ONPLAYEND,        OnReponsePlayEnd);
             EventManager.DelHandler(EVENT.ONHITOBSTACLE,    OnReponseHitObstacle);
@@ -1492,7 +1491,6 @@ namespace CB
             
 
             EventManager.AddHandler(EVENT.ONGAMESTART,      OnReponseGameStart);
-            EventManager.AddHandler(EVENT.ONGAMEEND,        OnReponseGameEnd);
             EventManager.AddHandler(EVENT.ONPLAYSTART,      OnReponsePlayStart);
             EventManager.AddHandler(EVENT.ONPLAYEND,        OnReponsePlayEnd);
             EventManager.AddHandler(EVENT.ONHITOBSTACLE,    OnReponseHitObstacle);
@@ -1578,10 +1576,6 @@ namespace CB
 
         }
 
-        protected virtual void OnReponseGameEnd(GameEvent @event)
-        {
-
-        }
 
         protected virtual void OnReponseGameStart(GameEvent @event)
         {

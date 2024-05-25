@@ -11,6 +11,7 @@ namespace CB
     {
 
         [SerializeField] private Button BtnRestart;
+        [SerializeField] private Button BtnReborn;
         [SerializeField] private Button BtnShare;
         [SerializeField] private GameObject m_MainPivot;
         [SerializeField] private GameObject m_ScorePivot;
@@ -22,6 +23,8 @@ namespace CB
         // Start is called before the first frame update
         void Start()
         {
+            Platform.Instance.BANNER_VIDEOAD("adunit-76c9b3e9a46fb235", true, 50);
+
             BtnRestart.onClick.AddListener(()=>{
                 GameFacade.Instance.SoundManager.Load(SOUND.CLICK);
 
@@ -29,6 +32,28 @@ namespace CB
                 GameFacade.Instance.Game.Dispose();
                 NavigationController.GotoLoading();
                 GameFacade.Instance.UIManager.UnloadWindow(gameObject);
+            });
+
+            BtnReborn.gameObject.SetActive(GameFacade.Instance.Game.RebornTimes <= 0);
+            BtnReborn.onClick.AddListener(()=>{
+                Platform.Instance.REWARD_VIDEOAD("adunit-a345ac227bfdc83e", ()=>{
+                    GameFacade.Instance.Game.RebornTimes++;
+                    GameFacade.Instance.Game.Export(true);      //重新上传存档
+
+                    //继续游戏
+                    GameFacade.Instance.Game.Resume();
+
+                    //清理障碍物
+                    GameFacade.Instance.Game.ClearElements();
+
+                    if (GameFacade.Instance.Game.Stage % _C.STAGESTEP == 0) { //每3关
+                        GameFacade.Instance.Game.DOTransist(_C.FSMSTATE.GAME_SHOP);
+                    } else {
+                        GameFacade.Instance.Game.DOTransist(_C.FSMSTATE.GAME_COMPLEX);
+                    }
+
+                    GameFacade.Instance.UIManager.UnloadWindow(gameObject);
+                });
             });
 
             BtnShare.onClick.AddListener(()=>{
@@ -68,6 +93,8 @@ namespace CB
 
         void OnDestroy()
         {
+            Platform.Instance.BANNER_VIDEOAD("adunit-76c9b3e9a46fb235", false);
+
             if (m_Effect != null) {
                 Destroy(m_Effect);
                 m_Effect = null;

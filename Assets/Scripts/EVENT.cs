@@ -36,7 +36,6 @@ public static class EVENT
     public static string ONPLAYSTART        = "ONPLAYSTART";
     public static string ONPLAYEND          = "ONPLAYEND";          //结算时  
     public static string ONGAMESTART        = "ONGAMESTART";        //游戏开始
-    public static string ONGAMEEND          = "ONGAMEEND";          //游戏结束
     public static string ONCOMPLEXINIT      = "ONCOMPLEXINIT";      //生成合成列表时  
     public static string ONDRAWINGOBSTACLE  = "OnDRAWINGOBSTACLE";  //生成宝石时 
     public static string ONAFTERDRAWOBT     = "ONAFTERDRAWOBT";     //生成宝石后

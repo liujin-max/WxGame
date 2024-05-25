@@ -20,6 +20,8 @@ public class RecordWindow : MonoBehaviour
 
     void Awake()
     {
+        Platform.Instance.BANNER_VIDEOAD("adunit-8f0f5d79b50b3223", true);
+
         c_Frame.localScale = new Vector3(1.5f, 1.5f, 1.5f);
 
         c_Frame.GetComponent<CanvasGroup>().DOFade(1, 0.15f);
@@ -36,6 +38,11 @@ public class RecordWindow : MonoBehaviour
             });
 
         });
+    }
+
+    void OnDestroy()
+    {
+        Platform.Instance.BANNER_VIDEOAD("adunit-8f0f5d79b50b3223", false);
     }
 
     public void Init(int ach_coin, int ach_glass)

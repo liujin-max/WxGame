@@ -74,7 +74,7 @@ public class GhostWindow : MonoBehaviour
     {
         c_DescriptionPivot.SetActive(false);
 
-        c_BtnVideoRefresh.gameObject.SetActive(false);
+        // c_BtnVideoRefresh.gameObject.SetActive(false);
         c_BtnRefresh.gameObject.SetActive(false);
         c_BtnSelect.gameObject.SetActive(false);
         c_BtnCancel.gameObject.SetActive(false);
@@ -293,8 +293,8 @@ public class GhostWindow : MonoBehaviour
 
     void FixedUpdate()
     {
-        c_BtnVideoRefresh.gameObject.SetActive(c_BtnRefresh.gameObject.activeSelf);
-        c_BtnVideoRefresh.transform.position = new Vector3(c_BtnRefresh.transform.position.x, c_BtnRefresh.transform.position.y - 1.3f, 0);
+        // c_BtnVideoRefresh.gameObject.SetActive(c_BtnRefresh.gameObject.activeSelf);
+        // c_BtnVideoRefresh.transform.position = new Vector3(c_BtnRefresh.transform.position.x, c_BtnRefresh.transform.position.y - 1.3f, 0);
     }
 
 

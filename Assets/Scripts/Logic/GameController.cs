@@ -86,6 +86,12 @@ namespace CB
             set { m_Glass = Crypt.EN(value);}
         }
 
+        //每局复活次数
+        private int m_RebornTimes = 0;
+        public int RebornTimes{ 
+            get {return m_RebornTimes;}
+            set { m_RebornTimes = value;}
+        }
         internal int m_RefreshTimes = 0;
         [HideInInspector] public AttributeValue RefreshCoin = new AttributeValue(2); //{ get {return 2 + m_RefreshTimes;} }
 
@@ -178,6 +184,8 @@ namespace CB
             record.Order    = this.Stage;
             record.Coin     = this.Coin;
             record.Glass    = this.Glass;
+
+            record.RebornTimes  = this.RebornTimes;
             record.SeatAddition = this.m_SeatAddition;
             //
 
@@ -606,6 +614,20 @@ namespace CB
             return script;
         }
 
+        public void ClearElements()
+        {
+            foreach (var obt in m_FSM.Owner.Obstacles) {
+                obt.Dispose();
+            }
+            m_FSM.Owner.Obstacles.Clear();
+
+            //清理box
+            foreach (var ghost in m_FSM.Owner.Boxs) {
+                ghost.Dispose();
+            }
+            m_FSM.Owner.Boxs.Clear();
+        }
+
         //重启战场
         public void Restart()
         {
@@ -961,6 +983,7 @@ namespace CB
                 m_FSM.Owner.Coin    = archiveRecord.Coin;
                 m_FSM.Owner.Glass   = archiveRecord.Glass;
                 m_FSM.Owner.Stage   = archiveRecord.Order;
+                m_FSM.Owner.RebornTimes = archiveRecord.RebornTimes;
 
                 m_FSM.Owner.PushSeatAddition(archiveRecord.SeatAddition);
 
@@ -1428,20 +1451,14 @@ namespace CB
                     Camera.main.GetComponent<CameraUtility>().DoShake();
 
                     //清理障碍物
-                    foreach (var obt in m_FSM.Owner.Obstacles) {
-                        obt.Dispose();
-                    }
-                    m_FSM.Owner.Obstacles.Clear();
-
-                    //清理Ghost
-                    foreach (var ghost in m_FSM.Owner.Boxs) {
-                        ghost.Dispose();
-                    }
-                    m_FSM.Owner.Boxs.Clear();
+                    GameFacade.Instance.Game.ClearElements();
 
                     
                 } else  {
                     if (m_FSM.Owner.ShootQueue.Count == 0) {
+                        m_FSM.Owner.Environment.OnEnd();
+
+
                         m_FSM.Transist(_C.FSMSTATE.GAME_END, m_FSM.Owner.Stage - 1);
                     }
                 }
@@ -1640,8 +1657,6 @@ namespace CB
             var obj = GameFacade.Instance.UIManager.LoadWindow("Prefab/UI/ResultWindow", GameFacade.Instance.UIManager.BOARD);
             var ui  = obj.GetComponent<ResultWindow>();
             ui.Init(real_score, m_FSM.Owner.m_IsNewScore);
-
-            EventManager.SendEvent(new GameEvent(EVENT.ONGAMEEND));
         }
     }
 

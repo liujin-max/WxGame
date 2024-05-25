@@ -257,7 +257,7 @@ public class WXPlatform : Platform
     }
 
     //Banner广告
-    public override void BANNER_VIDEOAD(string ad_id, bool is_show)
+    public override void BANNER_VIDEOAD(string ad_id, bool is_show, int top = 780)
     {
         WXBannerAd ad;
         if (m_BannerADPairs.TryGetValue(ad_id, out ad)) {
@@ -266,9 +266,9 @@ public class WXPlatform : Platform
             WXCreateBannerAdParam param = new WXCreateBannerAdParam();
             param.adUnitId      = ad_id;
             param.adIntervals   = 30;
-            param.style.left    = 10;
-            param.style.top     = 700;
-            param.style.width   = 400;
+            param.style.left    = 60;
+            param.style.top     = top;
+            param.style.width   = 300;
             param.style.height  = 200;
 
             ad = WX.CreateBannerAd(param);
