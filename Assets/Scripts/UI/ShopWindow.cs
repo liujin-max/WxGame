@@ -41,11 +41,13 @@ public class ShopWindow : MonoBehaviour
             GameFacade.Instance.Game.DOTransist(_C.FSMSTATE.GAME_COMPLEX);
         });
 
-        c_BtnVideoRefresh.gameObject.SetActive(false);
         c_BtnVideoRefresh.onClick.AddListener(()=>{
-            // List<Relics> datas = GameFacade.Instance.Game.GenerateRelicses();
-            
-            // Init(datas);
+            GameFacade.Instance.SoundManager.Load(SOUND.CLICK);
+
+            Platform.Instance.REWARD_VIDEOAD("adunit-1dc73ba6dff278d8", ()=>{
+                List<Relics> datas = GameFacade.Instance.Game.GenerateRelicses();
+                Init(datas);
+            });
         });
 
     }

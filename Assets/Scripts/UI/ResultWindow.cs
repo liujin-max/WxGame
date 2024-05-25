@@ -17,6 +17,7 @@ namespace CB
         [SerializeField] private TextMeshProUGUI ScoreText;
 
         private GameObject m_Effect;
+        private CDTimer m_Timer = new CDTimer(0.5f);
 
         // Start is called before the first frame update
         void Start()
@@ -50,7 +51,19 @@ namespace CB
             {
                 GameFacade.Instance.SoundManager.Load(SOUND.RESULT);
             }
-            
+        
+        }
+
+        void Update()
+        {
+            if (m_Timer != null) {
+                m_Timer.Update(Time.deltaTime);
+                if (m_Timer.IsFinished() == true) {
+                    m_Timer = null;
+
+                    Platform.Instance.INTER_VIDEOAD("adunit-ef2a56ff6235dc71");
+                }
+            }
         }
 
         void OnDestroy()

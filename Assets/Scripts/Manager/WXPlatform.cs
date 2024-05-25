@@ -5,12 +5,14 @@ using CB;
 using LitJson;
 using UnityEngine;
 
-#if !UNITY_EDITOR && WEIXINMINIGAME
+#if WEIXINMINIGAME  //&& !UNITY_EDITOR
 using WeChatWASM;
 
 
 public class WXPlatform : Platform
 {
+    private Dictionary<string, WXBannerAd> m_BannerADPairs = new Dictionary<string, WXBannerAd>();
+
     public override void INIT(Action callback)
     {
         GameObject.Find("EventSystem").AddComponent<WXTouchInputOverride>();
@@ -221,10 +223,83 @@ public class WXPlatform : Platform
         });
     }
 
-    //激励广告
-    public override void REWARDVIDEO()
+    void LoadAD(WXRewardedVideoAd ad, Action callback)
     {
+        ad.Load((WXTextResponse reponse)=>{
+            callback();
+        }, (WXADErrorResponse error_reponse)=>{
+            LoadAD(ad, callback);
+        });
+    }
 
+    //激励广告
+    public override void REWARD_VIDEOAD(string ad_id, Action callback)
+    {
+        WXCreateRewardedVideoAdParam param = new WXCreateRewardedVideoAdParam();
+        param.adUnitId = ad_id;
+
+        WXRewardedVideoAd ad = WX.CreateRewardedVideoAd(param);
+        this.LoadAD(ad, ()=>{
+            ad.Show((WXTextResponse reponse)=>{
+                
+            }, (WXTextResponse error_reponse)=>{
+                GameFacade.Instance.FlyTip("广告展示失败：" + error_reponse.errCode);
+            });
+        });
+
+        ad.OnClose((WXRewardedVideoAdOnCloseResponse reponse)=>{
+            // Debug.Log("是否完成观看：" + reponse.isEnded);
+            if (reponse != null && reponse.isEnded == true) {
+                if (callback != null) 
+                    callback();
+            }
+        });
+    }
+
+    //Banner广告
+    public override void BANNER_VIDEOAD(string ad_id, bool is_show)
+    {
+        WXBannerAd ad;
+        if (m_BannerADPairs.TryGetValue(ad_id, out ad)) {
+            
+        } else {
+            WXCreateBannerAdParam param = new WXCreateBannerAdParam();
+            param.adUnitId      = ad_id;
+            param.adIntervals   = 30;
+            param.style.left    = 10;
+            param.style.top     = 700;
+            param.style.width   = 400;
+            param.style.height  = 200;
+
+            ad = WX.CreateBannerAd(param);
+            m_BannerADPairs.Add(ad_id, ad);
+        }
+
+        if (is_show == true) {
+            ad.Show((WXTextResponse reponse)=>{
+
+            }, (WXTextResponse reponse)=>{
+                GameFacade.Instance.FlyTip("广告展示失败：" + reponse.errCode);
+            });
+        } else {
+            ad.Hide();
+        }
+    }
+
+    //插屏广告
+    public override void INTER_VIDEOAD(string ad_id)
+    {
+        WXCreateInterstitialAdParam param = new WXCreateInterstitialAdParam();
+        param.adUnitId = ad_id;
+
+        WXInterstitialAd ad = WX.CreateInterstitialAd(param);
+        ad.Show((WXTextResponse reponse)=>{
+            // Debug.Log("Show 成功：" + reponse.errCode);
+        }, (WXTextResponse reponse)=>{
+            // Debug.Log("Show 失败：" + reponse.errCode);
+        });
+
+        
     }
 
     //设备振动

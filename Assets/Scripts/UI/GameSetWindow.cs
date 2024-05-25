@@ -18,6 +18,8 @@ public class GameSetWindow : MonoBehaviour
 
     void Awake()
     {
+        Platform.Instance.BANNER_VIDEOAD("adunit-78e1a7920085d132", true);
+
         c_MusicSlider.onValueChanged.AddListener((float value)=>{
             GameFacade.Instance.SystemManager.MusicVolume = value;
         });
@@ -44,6 +46,11 @@ public class GameSetWindow : MonoBehaviour
             GameFacade.Instance.Game.Enter();
             GameFacade.Instance.UIManager.UnloadWindow(gameObject);
         });
+    }
+
+    void OnDestroy()
+    {
+        Platform.Instance.BANNER_VIDEOAD("adunit-78e1a7920085d132", false);
     }
 
     // Start is called before the first frame update

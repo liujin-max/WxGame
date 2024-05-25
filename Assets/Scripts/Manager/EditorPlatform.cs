@@ -67,7 +67,18 @@ public class EditorPlatform : Platform
     }
 
     //激励广告
-    public override void REWARDVIDEO()
+    public override void REWARD_VIDEOAD(string ad_id, Action callback)
+    {
+        if (callback!= null) callback();
+    }
+
+    //Banner广告
+    public override void BANNER_VIDEOAD(string ad_id, bool is_show)
+    {
+
+    }
+
+    public override void INTER_VIDEOAD(string ad_id)
     {
 
     }

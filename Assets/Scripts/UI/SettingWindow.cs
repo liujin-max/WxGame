@@ -16,6 +16,8 @@ public class SettingWindow : MonoBehaviour
 
     void Awake()
     {
+        Platform.Instance.BANNER_VIDEOAD("adunit-572e9d91851655e6", true);
+
         c_Mask.onClick.AddListener(()=>{
             GameFacade.Instance.UIManager.UnloadWindow(gameObject);
         });
@@ -31,6 +33,11 @@ public class SettingWindow : MonoBehaviour
         c_VibrateToggle.onValueChanged.AddListener((flag)=>{
             GameFacade.Instance.SystemManager.VibrateFlag = flag;
         });
+    }
+
+    void OnDestroy()
+    {
+        Platform.Instance.BANNER_VIDEOAD("adunit-572e9d91851655e6", false);
     }
 
     // Start is called before the first frame update

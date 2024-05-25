@@ -16,6 +16,8 @@ public class PopUpWindow : MonoBehaviour
 
     void Awake()
     {
+        Platform.Instance.BANNER_VIDEOAD("adunit-0a5910ddc759e7d3", true);
+
         c_BtnConfirm.onClick.AddListener(()=>{
             GameFacade.Instance.SoundManager.Load(SOUND.CLICK);
 
@@ -33,6 +35,11 @@ public class PopUpWindow : MonoBehaviour
             }
             GameFacade.Instance.UIManager.UnloadWindow(gameObject);
         });
+    }
+
+    void OnDestroy()
+    {
+        Platform.Instance.BANNER_VIDEOAD("adunit-0a5910ddc759e7d3", false);
     }
 
     public void Init(string des, Action confirm_callback, Action cancel_callback)

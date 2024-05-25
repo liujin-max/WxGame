@@ -15,7 +15,7 @@ public class GhostWindow : MonoBehaviour
     [SerializeField] private Button c_BtnSelect;
     [SerializeField] private Button c_BtnCancel;
     [SerializeField] private Button c_BtnRefresh;
-    [SerializeField] private Button c_BtnGlass;
+    [SerializeField] private Button c_BtnCoin;
     [SerializeField] private Button c_BtnVideoRefresh;
     [SerializeField] private GameObject c_ButtonPivot;
     [SerializeField] private GameObject c_DescriptionPivot;
@@ -74,11 +74,11 @@ public class GhostWindow : MonoBehaviour
     {
         c_DescriptionPivot.SetActive(false);
 
+        c_BtnVideoRefresh.gameObject.SetActive(false);
         c_BtnRefresh.gameObject.SetActive(false);
         c_BtnSelect.gameObject.SetActive(false);
         c_BtnCancel.gameObject.SetActive(false);
-        c_BtnGlass.gameObject.SetActive(false);
-        c_BtnVideoRefresh.gameObject.SetActive(false);
+        
 
         c_BtnSelect.onClick.AddListener(()=> {
             var flag = false;
@@ -130,18 +130,27 @@ public class GhostWindow : MonoBehaviour
             }
         });
 
-        //看广告，获取碎片
-        c_BtnGlass.onClick.AddListener(()=>{
-            GameFacade.Instance.Game.PushGlass(1, false);
-            GameFacade.Instance.EffectManager.LoadUIEffect(EFFECT.FLYGLASS, c_BtnGlass.transform.position);
+        //看广告，获取金币
+        c_BtnCoin.onClick.AddListener(()=>{
+            Platform.Instance.REWARD_VIDEOAD("adunit-69f3ac167e9aae19", ()=>{
+                GameFacade.Instance.Game.UpdateCoin(3, false);
+
+                for (int i = 0; i < 3; i++)
+                {
+                    var e = GameFacade.Instance.EffectManager.LoadUIEffect(EFFECT.FLYCOIN, c_BtnCoin.transform.position);
+                    e.GetComponent<FlyCoin>().Fly(0.1f * i); 
+                }
+            }); 
         });
 
         //看广告，刷新
         c_BtnVideoRefresh.onClick.AddListener(()=>{
-            List<ComplextEvent> events = GameFacade.Instance.Game.RefreshEvents(is_video_play : true);
-            if (events != null) {
-                this.Init(events);
-            }
+            Platform.Instance.REWARD_VIDEOAD("adunit-00bd468dc4b6ca2a", ()=>{
+                List<ComplextEvent> events = GameFacade.Instance.Game.RefreshEvents(is_video_play : true);
+                if (events != null) {
+                    this.Init(events);
+                }
+            });
         });
 
         c_SeatPivot.onClick.AddListener(()=>{
@@ -279,9 +288,13 @@ public class GhostWindow : MonoBehaviour
 
             c_BtnRefresh.gameObject.SetActive(true);
             c_BtnCancel.gameObject.SetActive(true);
-            // c_BtnGlass.gameObject.SetActive(true);
-            // c_BtnVideoRefresh.gameObject.SetActive(true);
         }
+    }
+
+    void FixedUpdate()
+    {
+        c_BtnVideoRefresh.gameObject.SetActive(c_BtnRefresh.gameObject.activeSelf);
+        c_BtnVideoRefresh.transform.position = new Vector3(c_BtnRefresh.transform.position.x, c_BtnRefresh.transform.position.y - 1.3f, 0);
     }
 
 
