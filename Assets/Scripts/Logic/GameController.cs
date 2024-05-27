@@ -41,6 +41,7 @@ namespace CB
         private Simulator m_Simulator;
         [HideInInspector] public Simulator Simulator {get { return m_Simulator;}}
 
+        private Difficult m_Difficult;
         private EnvironmentController m_Environment;
         [HideInInspector] public EnvironmentController Environment {get { return m_Environment;}}
 
@@ -126,6 +127,7 @@ namespace CB
         [HideInInspector] public AttributeValue GlassRate = new AttributeValue(15);     //合成列表出现碎片的几率
 
         private int m_SeatAddition = 0;  //附加的弹珠槽数量
+        public int SeatAddition{ get { return m_SeatAddition;}}
         [HideInInspector] public int AdditionPrice      //随着附加数量的增加而递增
         {
             get { 
@@ -148,8 +150,10 @@ namespace CB
 
         void Awake()
         {
-            m_Simulator = transform.GetComponent<Simulator>();
-            m_Environment = transform.GetComponent<EnvironmentController>();
+            m_Simulator     = transform.GetComponent<Simulator>();
+            m_Difficult     = transform.GetComponent<Difficult>();
+            m_Environment   = transform.GetComponent<EnvironmentController>();
+            
 
             m_Aim_Opos  = c_takeAim.transform.localPosition;
 
@@ -324,24 +328,29 @@ namespace CB
                 return FibonacciRecursive(n - 1) + FibonacciRecursive(n - 2);
             }
         }
+        
 
         public int GetTargetScore(int stage = -1)
         {
             if (stage == -1) stage = this.Stage;
 
-            int count = 0;
-            for (int i = 1; i <= stage; i++) {
-                count += i;
-            }
+            return m_Difficult.GetDifficultyAtStage(stage);
+
+
+            // int count = 0;
+            // for (int i = 1; i <= stage; i++) {
+            //     count += i;
+            // }
 
             //每#关，分数要求提升一个台阶
             // int step = (int)(stage / (2 * _C.STAGESTEP + 1));
 
             // return count * 2 * (step + 1);
 
-            int step = (int)(stage / (_C.STAGESTEP + 1));
+            // int step = (int)(stage / (_C.STAGESTEP + 1));
+            // int step = (int)Mathf.Ceil(stage / (_C.STAGESTEP + 1) / 2) + 1;
 
-            return count * FibonacciRecursive(step + 1);
+            // return count * FibonacciRecursive(step + 1);
         }
 
         public bool IsScoreReach()
@@ -641,6 +650,11 @@ namespace CB
 
             m_RelicsDatas.Clear();
             m_RelicsDataDic.Clear();
+
+            m_RebornTimes   = 0;
+            m_SeatAddition  = 0;
+            SeatCount.Clear();
+            GlassRate.Clear();
 
             //清理小球
             foreach (var ball in m_Balls) {
@@ -972,9 +986,9 @@ namespace CB
 
             m_FSM.Owner.GameUI = GameFacade.Instance.UIManager.LoadWindow("Prefab/UI/GameWindow", GameFacade.Instance.UIManager.BOTTOM).GetComponent<GameWindow>();
 
-            // for (int i = 0; i < 30; i++)
+            // for (int i = 0; i < 50; i++)
             // {
-            //     Debug.Log("关卡 ：  " + (i + 1) + ", "+ m_FSM.Owner.GetTargetScore(i+1));
+            //     Debug.Log("关卡 ：  " + (i + 1) + ", 难度 ："+ m_FSM.Owner.GetTargetScore(i+1));
             // }
 
             ArchiveRecord archiveRecord = null;

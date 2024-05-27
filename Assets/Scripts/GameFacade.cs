@@ -185,9 +185,11 @@ public class GameFacade : MonoBehaviour
         }
     }
 
-    public void Popup(string des, Action confirm_callback, Action cancel_callback = null)
+    public PopUpWindow Popup(string des, Action confirm_callback, Action video_callback , Action cancel_callback = null)
     {
         var window = UIManager.LoadWindow("Prefab/UI/PopUpWindow", UIManager.BOARD).GetComponent<PopUpWindow>();
-        window.Init(des, confirm_callback, cancel_callback);
+        window.Init(des, confirm_callback, video_callback, cancel_callback);
+
+        return window;
     }
 }

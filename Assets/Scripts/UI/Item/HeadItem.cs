@@ -8,6 +8,10 @@ public class HeadItem : MonoBehaviour
 
     public void Init(string url)
     {
+        if (string.IsNullOrEmpty(url) == true) {
+            m_Head.SetLocalImage("UI/Set/Set_default_head");
+            return;
+        }
         m_Head.SetImage(url);
     }
 }

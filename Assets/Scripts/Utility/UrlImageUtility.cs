@@ -20,6 +20,12 @@ public class UrlImageUtility : MonoBehaviour
         StartCoroutine(LoadImage(url));
     }
 
+    public void SetLocalImage(string path)
+    {
+        m_Image.texture = Resources.Load<Texture2D>(path);
+        m_Image.SetNativeSize();
+    }
+
 
     IEnumerator LoadImage(string url)
     {

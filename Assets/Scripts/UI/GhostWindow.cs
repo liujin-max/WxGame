@@ -154,11 +154,15 @@ public class GhostWindow : MonoBehaviour
         });
 
         c_SeatPivot.onClick.AddListener(()=>{
-            GameFacade.Instance.Popup(string.Format("花费 {0}<sprite=1> 购买一个弹珠槽？", GameFacade.Instance.Game.AdditionPrice), ()=>{
+            PopUpWindow window = GameFacade.Instance.Popup(string.Format("花费 {0}<sprite=1> 购买一个弹珠槽？", GameFacade.Instance.Game.AdditionPrice), ()=>{
                 if (GameFacade.Instance.Game.BuyBallSeat() == true) {
                     GameFacade.Instance.SoundManager.Load(SOUND.COST);
                 }
+            }, ()=>{
+                GameFacade.Instance.Game.PushSeatAddition(1);
             });
+
+            window.ShowVideo(GameFacade.Instance.Game.SeatAddition <= 1);
         });
 
         //适配遮罩高度

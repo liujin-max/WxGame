@@ -121,7 +121,7 @@ AutoStreamingSettings:
     refs:
     - 0
     - res
-    maxPlaceholderSize: 196640
+    maxPlaceholderSize: 0
     width: 4
     height: 1
     abSize: 0
@@ -170,7 +170,7 @@ AutoStreamingSettings:
     warningFlag: 0
     refs:
     - res
-    maxPlaceholderSize: 196640
+    maxPlaceholderSize: 0
     width: 64
     height: 64
     abSize: 0
@@ -291,7 +291,7 @@ AutoStreamingSettings:
     refs:
     - 1
     - res
-    maxPlaceholderSize: 196640
+    maxPlaceholderSize: 0
     width: 442
     height: 1024
     abSize: 0
@@ -354,7 +354,7 @@ AutoStreamingSettings:
     warningFlag: 0
     refs:
     - res
-    maxPlaceholderSize: 196640
+    maxPlaceholderSize: 0
     width: 345
     height: 77
     abSize: 0
@@ -378,7 +378,7 @@ AutoStreamingSettings:
     warningFlag: 0
     refs:
     - res
-    maxPlaceholderSize: 196640
+    maxPlaceholderSize: 0
     width: 128
     height: 68
     abSize: 0
@@ -390,7 +390,7 @@ AutoStreamingSettings:
     warningFlag: 0
     refs:
     - res
-    maxPlaceholderSize: 196640
+    maxPlaceholderSize: 0
     width: 414
     height: 87
     abSize: 0

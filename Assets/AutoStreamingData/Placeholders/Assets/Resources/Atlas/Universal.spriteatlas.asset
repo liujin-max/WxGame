@@ -56,12 +56,14 @@ SpriteAtlas:
   - {fileID: 21300000, guid: fa50b675c56ccee41ac0053999b9ba4d, type: 3}
   - {fileID: 21300000, guid: 69e52a77b5b3d95409039a2121be456b, type: 3}
   - {fileID: 21300000, guid: 5390e09a61bcefd46af4a307a64a450f, type: 3}
+  - {fileID: 21300000, guid: 107b490b6c74418458715ddc22b50a3e, type: 3}
   - {fileID: 21300000, guid: 967ec76b485ed30428104198cca585da, type: 3}
   - {fileID: 21300000, guid: c403eedd10ef2a2478e5dcb14a5d2f98, type: 3}
   m_PackedSpriteNamesToIndex:
   - Universal_description_frame
   - Universal_circle_white
   - Universal_button_confirm
+  - Universal_btn_close
   - Universal_description_bar
   - Universal_button_cancel
   m_RenderDataMap: {}

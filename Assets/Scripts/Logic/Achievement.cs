@@ -356,7 +356,7 @@ namespace CB
     public class Achievement_KILLBOMB : Achievement
     {
         private int m_Count = 0;
-        private int m_Max   = 3;
+        private int m_Max   = 2;
         public override string GetDescription()
         {
             return string.Format("单回合内击落<size=46><#FFCC4A>{0}</color></size>个<sprite=7>", m_Max);
