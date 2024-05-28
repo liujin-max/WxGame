@@ -25,25 +25,10 @@ public static class _C
         GAME_END        = 6
     }
 
-    public enum ANIMAL
-    {
-        CAT     = 1,
-        DOG     = 2,
-        MOUSE   = 3 
-    }
-
-    public enum SIDE
-    {
-        OUR = 1,
-        ENEMY,
-        NEUTRAL
-    }
 
 
-
-
-    public static int DEFAULT_WEIGHT  = 5;
-    public static int DEFAULT_HEIGHT = 5;
+    public static int DEFAULT_WEIGHT  = 10;
+    public static int DEFAULT_HEIGHT = 10;
 
 
 

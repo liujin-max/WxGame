@@ -7,14 +7,14 @@ public class TextureImporterSettings : AssetPostprocessor
 {
     void OnPreprocessTexture()
     {
-        // TextureImporter textureImporter = (TextureImporter)assetImporter;
-        // textureImporter.textureType = TextureImporterType.Sprite; // 设置纹理类型为 Sprite
-        // // textureImporter.spriteImportMode = SpriteImportMode.Multiple;
-        // TextureImporterPlatformSettings platformSettings = textureImporter.GetPlatformTextureSettings("webgl");
-        // platformSettings.overridden = true;
+        TextureImporter textureImporter = (TextureImporter)assetImporter;
+        textureImporter.textureType = TextureImporterType.Sprite; // 设置纹理类型为 Sprite
+        // textureImporter.spriteImportMode = SpriteImportMode.Multiple;
+        TextureImporterPlatformSettings platformSettings = textureImporter.GetPlatformTextureSettings("webgl");
+        platformSettings.overridden = true;
         // platformSettings.maxTextureSize = 512;
-        // platformSettings.format = TextureImporterFormat.ASTC_6x6;
-        // textureImporter.SetPlatformTextureSettings(platformSettings);
+        platformSettings.format = TextureImporterFormat.ASTC_8x8;
+        textureImporter.SetPlatformTextureSettings(platformSettings);
     }
 }
 

@@ -9,7 +9,7 @@ using UnityEngine;
 public class CsvManager: MonoBehaviour
 {
     //表名
-    public const string TableKey_Animal   = "Animal";
+    public const string TableKey_Card   = "Card";
 
 
     //表名与表结构
@@ -20,7 +20,7 @@ public class CsvManager: MonoBehaviour
 
     public void ReadCsvs()
     {
-        this.ReadCsv(CsvManager.TableKey_Animal,          "CSV/Animal");
+        this.ReadCsv(CsvManager.TableKey_Card,          "CSV/Card");
 
     }
 

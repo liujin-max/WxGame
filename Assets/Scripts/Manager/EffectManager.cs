@@ -7,7 +7,7 @@ public class EffectManager : MonoBehaviour
     //加载UI特效
     public GameObject LoadUIEffect(string path, Vector3 world_pos)
     {
-        var e = GameFacade.Instance.EffectManager.Load(path, world_pos, GameFacade.Instance.UIManager.EFFECT.gameObject);
+        var e = GameFacade.Instance.EffectManager.Load(path, world_pos, UIManager.EFFECT.gameObject);
         e.transform.position = world_pos;
 
         return e;
@@ -29,7 +29,7 @@ public class EffectManager : MonoBehaviour
 
     public void FlyRate(Vector3 pos,  float value)
     {
-        var e = GameFacade.Instance.EffectManager.Load(EFFECT.RATENUMBER, pos * 100, GameFacade.Instance.UIManager.EFFECT.gameObject);
+        var e = GameFacade.Instance.EffectManager.Load(EFFECT.RATENUMBER, pos * 100, UIManager.EFFECT.gameObject);
         e.transform.localScale = Vector3.one;
         e.GetComponent<RateNumber>().Fly(value);
     }

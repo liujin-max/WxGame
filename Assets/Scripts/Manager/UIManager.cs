@@ -5,11 +5,11 @@ using UnityEngine;
 
 public class UIManager : MonoBehaviour
 {
-    public Transform BOTTOM;
-    public Transform MAJOR;
-    public Transform TIP;
-    public Transform BOARD;
-    public Transform EFFECT;
+    public static Transform BOTTOM;
+    public static Transform MAJOR;
+    public static Transform TIP;
+    public static Transform BOARD;
+    public static Transform EFFECT;
 
 
 
