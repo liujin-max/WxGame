@@ -11,6 +11,7 @@ public class PopUpWindow : MonoBehaviour
     [SerializeField] private Button c_BtnConfirm;
     [SerializeField] private Button c_BtnCancel;
     [SerializeField] private Button c_BtnVideo;
+    [SerializeField] private Button c_BtnMoney;
 
     private Action m_ConfirmCallback;
     private Action m_VideoCallback;
@@ -37,6 +38,19 @@ public class PopUpWindow : MonoBehaviour
                     m_VideoCallback();
                 }
                 GameFacade.Instance.UIManager.UnloadWindow(gameObject);
+            });
+        });
+
+        c_BtnMoney.onClick.AddListener(()=>{
+            GameFacade.Instance.SoundManager.Load(SOUND.CLICK);
+
+            Platform.Instance.REWARD_VIDEOAD("adunit-69f3ac167e9aae19", ()=>{
+                GameFacade.Instance.Game.UpdateCoin(3, false);
+
+                for (int i = 0; i < 3; i++) {
+                    var e = GameFacade.Instance.EffectManager.LoadUIEffect(EFFECT.FLYCOIN, c_BtnMoney.transform.position);
+                    e.GetComponent<FlyCoin>().Fly(0.1f * i); 
+                }
             });
         });
 
@@ -67,5 +81,6 @@ public class PopUpWindow : MonoBehaviour
     public void ShowVideo(bool flag)
     {
         c_BtnVideo.gameObject.SetActive(flag);
+        c_BtnMoney.gameObject.SetActive(!flag);
     }
 }

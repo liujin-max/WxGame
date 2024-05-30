@@ -97,23 +97,24 @@ namespace CB
     //每拥有2枚碎片, 高级弹珠的伤害就增加1点
     public class BEffect_GROW : BEffect
     {
+        private int m_Max = 5;
         public BEffect_GROW() {}
         
         public override string GetDescription()
         {
-            return string.Format("每拥有2枚<sprite={0}>,高阶弹珠的伤害增加1点。", (int)_C.SPRITEATLAS.GLASS);
+            return string.Format("每拥有2枚<sprite={0}>,高阶弹珠的伤害增加1点（最高{1}点）", (int)_C.SPRITEATLAS.GLASS, m_Max);
         }
 
         public override string ShowString()
         {
-            return ((int)(GameFacade.Instance.Game.Glass * 0.5f)).ToString();
+            return ((int)Mathf.Min((int)(GameFacade.Instance.Game.Glass * 0.5f), m_Max)).ToString();
         }
 
         public override void Execute()
         {
             GameFacade.Instance.Game.Balls.ForEach(b => {
                 if (b.Type != _C.BALLTYPE.NORMAL && b.Type != _C.BALLTYPE.SMALL) {
-                    b.Demage.PutADD(this, (int)GameFacade.Instance.Game.Glass * 0.5f);
+                    b.Demage.PutADD(this, Mathf.Min((int)GameFacade.Instance.Game.Glass * 0.5f, m_Max));
                 }
             });
         }
@@ -129,7 +130,7 @@ namespace CB
         {
             GameFacade.Instance.Game.Balls.ForEach(b => {
                 if (b.Type != _C.BALLTYPE.NORMAL && b.Type != _C.BALLTYPE.SMALL) {
-                    b.Demage.PutADD(this, (int)GameFacade.Instance.Game.Glass * 0.5f);
+                    b.Demage.PutADD(this, Mathf.Min((int)GameFacade.Instance.Game.Glass * 0.5f, m_Max));
                 }
             });
         }
@@ -138,7 +139,7 @@ namespace CB
         {
             if (ball.Type == _C.BALLTYPE.NORMAL || ball.Type == _C.BALLTYPE.SMALL) return;
 
-            ball.Demage.PutADD(this, (int)GameFacade.Instance.Game.Glass * 0.5f);
+            ball.Demage.PutADD(this, Mathf.Min((int)GameFacade.Instance.Game.Glass * 0.5f, m_Max));
         }
     }
 
@@ -235,7 +236,7 @@ namespace CB
 
         public override string GetDescription()
         {
-            return string.Format("<sprite={0}>的弹力变大。", (int)_C.SPRITEATLAS.FANG);
+            return string.Format(" <sprite={0}>的弹力变大。", (int)_C.SPRITEATLAS.FANG);
         }
 
         public override void OnHitAfter(Ball ball, Obstacle obt, Collision2D collision)

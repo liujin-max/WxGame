@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using CB;
 using UnityEngine;
 
@@ -35,6 +36,9 @@ public abstract class Platform
     public abstract void REWARD_VIDEOAD(string ad_id, Action callback = null);
     public abstract void BANNER_VIDEOAD(string ad_id, bool is_show, int top = 780);
     public abstract void INTER_VIDEOAD(string ad_id);
+
+    //上报事件
+    public abstract void REPORTEVENT(string event_id, object report_event);
 
     //设备振动
     public abstract void VIBRATE(string level);

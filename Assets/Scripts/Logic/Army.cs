@@ -69,6 +69,8 @@ namespace CB
 
         public Relics PushRelics(int id)
         {
+            if (m_RelicsDic.ContainsKey(id)) return null;
+
             RelicsData data = GameFacade.Instance.Game.GetRelicsData(id);
             Relics relics   = new Relics(data);
             relics.Equip();

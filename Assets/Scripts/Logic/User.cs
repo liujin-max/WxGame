@@ -39,7 +39,6 @@ namespace CB
         public int SeatAddition;
     }
 
-
     //负责管理账号的各种数据
     public class User : MonoBehaviour
     {

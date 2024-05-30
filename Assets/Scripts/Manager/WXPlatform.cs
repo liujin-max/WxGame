@@ -254,6 +254,9 @@ public class WXPlatform : Platform
                     callback();
             }
         });
+
+        //上报事件:观看广告
+        Platform.Instance.REPORTEVENT(CustomEvent.LookVideo, new Event_LookVideo(ad_id));
     }
 
     //Banner广告
@@ -301,6 +304,14 @@ public class WXPlatform : Platform
 
         
     }
+
+    //上报事件
+    public override void REPORTEVENT(string event_id, object report_event)
+    {
+        WX.ReportEvent(event_id, report_event);
+    }
+
+
 
     //设备振动
     public override void VIBRATE(string level)

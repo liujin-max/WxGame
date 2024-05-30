@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using DG.Tweening;
 using LitJson;
+using Newtonsoft.Json;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -537,6 +538,12 @@ namespace CB
 
             m_Balls.Remove(ball);
             m_Balls.Insert(0, ball);
+
+            //上报事件:合成弹珠
+            Platform.Instance.REPORTEVENT(CustomEvent.ComplexBall, new Event_ComplexBall((int)ball.Type));
+
+
+
             EventManager.SendEvent(new GameEvent(EVENT.UI_FLUSHBALLS, ball));
 
             EventManager.SendEvent(new GameEvent(EVENT.ONCOMPLEXBALL, ball));
@@ -852,6 +859,11 @@ namespace CB
 
             Relics new_relics = m_Army.PushRelics(relics.ID);
 
+            //上报事件:购买道具
+            Platform.Instance.REPORTEVENT(CustomEvent.BuyRelics, new Event_BuyRelics(relics.ID));
+
+            
+
             EventManager.SendEvent(new GameEvent(EVENT.ONBUYRELICS, relics));
             EventManager.SendEvent(new GameEvent(EVENT.UI_FLUSHSHOP, relics));
 
@@ -875,13 +887,13 @@ namespace CB
         //根据当前记录可以得到的金币
         public int GetScoreCoin()
         {
-            return GameFacade.Instance.User.Score;
+            return Mathf.Min(GameFacade.Instance.User.Score, 100);  //最多给100
         }
 
         //根据当前记录可以得到的碎片
         public int GetScoreGlass()
         {
-            return _C.DEFAULT_GLASS + (int)(GameFacade.Instance.User.Score / 5.0);
+            return _C.DEFAULT_GLASS + Mathf.Min((int)(GameFacade.Instance.User.Score / 5.0), 20);
         }
 
         //范围伤害
@@ -1099,7 +1111,7 @@ namespace CB
             });
 
 
-            // m_FSM.Owner.Army.PushRelics(140);
+            // m_FSM.Owner.Army.PushRelics(102);
             // CONFIG.GetRelicsDatas().ForEach(x => {
             //     if (x.Weight > 0) m_FSM.Owner.Army.PushRelics(x.ID);
             // });
@@ -1276,7 +1288,11 @@ namespace CB
         void OnMouseDown()
         {
             //点击在UI上了
-            // if (EventSystem.current.IsPointerOverGameObject()) {
+            if (ToolUtility.IsPointerOverGameObject(Input.mousePosition)) {
+                return;
+            }
+
+            
             if (m_FSM.Owner.PauseFlag == true) {
                 return;
             }
@@ -1550,6 +1566,7 @@ namespace CB
                 EventManager.SendEvent(new GameEvent(EVENT.UI_FLUSHBALLS));
             }
         }
+
     }
 
 

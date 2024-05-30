@@ -59,7 +59,7 @@
     <UnityVersion>2021.2.5f1c303</UnityVersion>
   </PropertyGroup>
   <ItemGroup>
-    <Analyzer Include="C:\Users\win\.vscode\extensions\visualstudiotoolsforunity.vstuc-1.0.1\Analyzers\Microsoft.Unity.Analyzers.dll" />
+    <Analyzer Include="C:\Users\win\.vscode\extensions\visualstudiotoolsforunity.vstuc-1.0.2\Analyzers\Microsoft.Unity.Analyzers.dll" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Scripts\UI\PopUpWindow.cs" />
@@ -152,6 +152,7 @@
     <Compile Include="Assets\Scripts\Logic\User.cs" />
     <Compile Include="Assets\Scripts\Manager\SystemManager.cs" />
     <Compile Include="Assets\Scripts\Utility\CameraUtility.cs" />
+    <Compile Include="Assets\Scripts\Utility\CustomEvent.cs" />
     <Compile Include="Assets\AllIn1SpriteShader\Demo\Scripts\DemoRandomColorSwap.cs" />
     <Compile Include="Assets\Scripts\CONST.cs" />
     <Compile Include="Assets\Scripts\Utility\NumberTransition.cs" />
@@ -165,6 +166,7 @@
     <Compile Include="Assets\AllIn1SpriteShader\Scripts\SetAtlasUvs.cs" />
     <Compile Include="Assets\Scripts\UI\GhostUpgradeWindow.cs" />
     <Compile Include="Assets\Scripts\FSM\FSM.cs" />
+    <Compile Include="Assets\Scripts\Logic\Difficult.cs" />
     <Compile Include="Assets\Scripts\Logic\Ball\BallSimulator.cs" />
     <Compile Include="Assets\Scripts\Effect\FlyCoin.cs" />
     <Compile Include="Assets\Scripts\UI\RankWindow.cs" />
@@ -224,7 +226,6 @@
     <Compile Include="Assets\Scripts\UI\GhostWindow.cs" />
     <Compile Include="Assets\DOTween\Modules\DOTweenModuleUnityVersion.cs" />
     <Compile Include="Assets\Scripts\Logic\Relics.cs" />
-    <Compile Include="Assets\Scripts\Logic\Difficult.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Resources\Shader\SpriteGray.shader" />

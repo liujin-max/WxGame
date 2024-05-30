@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public static class ToolUtility
 {
@@ -67,5 +68,26 @@ public static class ToolUtility
         TimeSpan timeSpan   = currentTime - unixEpoch;
         double timestamp    = timeSpan.TotalSeconds;
         return timestamp;
+    }
+
+    /// <summary>
+    /// 检测是否点击UI
+    /// </summary>
+    /// <param name="mousePosition">鼠标位置</param>
+    /// <returns></returns>
+    public static bool IsPointerOverGameObject(Vector2 mousePosition)
+    {
+        //创建一个点击事件
+        PointerEventData eventData = new PointerEventData(EventSystem.current);
+        eventData.position = mousePosition;
+        List<RaycastResult> raycastResults = new List<RaycastResult>();
+        //向点击位置发射一条射线，检测是否点击UI
+        EventSystem.current.RaycastAll(eventData, raycastResults);
+        if (raycastResults.Count > 0)//大于0 说明 有UI
+        {
+            return true;
+        }
+
+        return false;
     }
 }

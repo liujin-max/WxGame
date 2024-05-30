@@ -83,6 +83,12 @@ public class EditorPlatform : Platform
 
     }
 
+    //上报事件
+    public override void REPORTEVENT(string event_id, object report_event)
+    {
+
+    }
+
     public override void VIBRATE(string level)
     {
         if (!GameFacade.Instance.SystemManager.VibrateFlag) return;
