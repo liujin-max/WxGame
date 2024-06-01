@@ -439,6 +439,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8005345987431771297}
   - component: {fileID: 6199120823454092879}
+  - component: {fileID: 3672173095008921317}
   m_Layer: 5
   m_Name: ShopWindow
   m_TagString: Untagged
@@ -485,6 +486,18 @@ MonoBehaviour:
   c_Pivot: {fileID: 999509154369350840}
   c_BtnSkip: {fileID: 5604444191268960927}
   c_BtnVideoRefresh: {fileID: 8745742995946684837}
+--- !u!114 &3672173095008921317
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6420961964586391604}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a8925cd925436284faa71ed257bf9db1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7307435651029754452
 GameObject:
   m_ObjectHideFlags: 0
@@ -711,7 +724,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 373, y: -845}
+  m_AnchoredPosition: {x: 385, y: -680}
   m_SizeDelta: {x: 288, y: 96}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7693447974737259145

@@ -35,8 +35,12 @@ public class ShopWindow : MonoBehaviour
 
     void Start()
     {
+        Platform.Instance.BANNER_VIDEOAD("adunit-0a5910ddc759e7d3", true, 790);
+
         c_BtnSkip.onClick.AddListener(()=> {
             GameFacade.Instance.SoundManager.Load(SOUND.CLICK);
+
+            Platform.Instance.BANNER_VIDEOAD("adunit-0a5910ddc759e7d3", false);
 
             GameFacade.Instance.Game.DOTransist(_C.FSMSTATE.GAME_COMPLEX);
         });
