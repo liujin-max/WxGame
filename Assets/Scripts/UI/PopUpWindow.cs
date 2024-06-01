@@ -41,6 +41,8 @@ public class PopUpWindow : MonoBehaviour
             });
         });
 
+        //暂时隐藏
+        c_BtnMoney.gameObject.SetActive(false);
         c_BtnMoney.onClick.AddListener(()=>{
             GameFacade.Instance.SoundManager.Load(SOUND.CLICK);
 
@@ -81,6 +83,5 @@ public class PopUpWindow : MonoBehaviour
     public void ShowVideo(bool flag)
     {
         c_BtnVideo.gameObject.SetActive(flag);
-        c_BtnMoney.gameObject.SetActive(!flag);
     }
 }

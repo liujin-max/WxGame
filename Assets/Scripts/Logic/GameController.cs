@@ -602,6 +602,7 @@ namespace CB
             return script;
         }
 
+        //生成炸弹
         public Bomb PushBomb(Vector3 pos)
         {
             var item    = Instantiate(Resources.Load<GameObject>("Prefab/Box/Bomb"), pos, Quaternion.identity, c_obtPivot);
@@ -610,6 +611,17 @@ namespace CB
 
             return script;
         }
+
+        //生成复制
+        public Copy PushCopy(Vector3 pos)
+        {
+            var item    = Instantiate(Resources.Load<GameObject>("Prefab/Box/Copy"), pos, Quaternion.identity, c_obtPivot);
+            var script  = item.GetComponent<Copy>();
+            m_Boxs.Add(script);
+
+            return script;
+        }
+
 
         //获得碎片
         public void PushGlass(int value, bool is_reward = true)
@@ -1162,6 +1174,11 @@ namespace CB
                 temp_list.Add((int)_C.BOXTYPE.BOMB);
             }
 
+            if (RandomUtility.IsHit(20))
+            {
+                temp_list.Add((int)_C.BOXTYPE.COPY);
+            }
+
             EventManager.SendEvent(new GameEvent(EVENT.ONDRAWINGOBSTACLE, temp_list, random_count));
 
             //生成宝石
@@ -1189,6 +1206,8 @@ namespace CB
                     m_FSM.Owner.PushGhost(point);
                 } else if (hp == (int)_C.BOXTYPE.BOMB) {
                     m_FSM.Owner.PushBomb(point);
+                } else if (hp == (int)_C.BOXTYPE.COPY) {
+                    m_FSM.Owner.PushCopy(point);
                 } else {
                     var obt = m_FSM.Owner.PushObstacle(point, hp);
                     obt.DoScale();

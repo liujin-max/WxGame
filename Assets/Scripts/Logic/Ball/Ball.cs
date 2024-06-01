@@ -62,6 +62,7 @@ namespace CB
         public Vector2 LastVelocity{ get {return m_LastVelocity;}}
 
         [HideInInspector]public bool IsSimulate = false;
+        [HideInInspector]public bool IsCopy = false;
 
         private float m_FlyTime = 0;
         public float FlyTime { get {return m_FlyTime;}}

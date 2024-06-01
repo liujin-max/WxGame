@@ -42,9 +42,9 @@ public class NumberTransition : MonoBehaviour
         var speed   = m_Offset * Time.deltaTime;
 
         if (speed > 0) {
-            speed   = Math.Max(0.3f, speed);
+            speed   = Math.Max(0.4f, speed);
         } else {
-            speed   = Math.Min(-0.3f, speed);
+            speed   = Math.Min(-0.4f, speed);
         }
 
         m_CurrentNumber += speed;

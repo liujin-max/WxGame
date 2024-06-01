@@ -622,7 +622,7 @@ namespace CB
 
         public override void OnBallShoot(Ball ball, bool is_real_shoot)
         {
-            if (ball.IsSimulate == true) return;
+            if (ball.IsSimulate == true || ball.IsCopy == true) return;
             if (is_real_shoot == false) return;
 
             if (RandomUtility.IsHit(15) == true)

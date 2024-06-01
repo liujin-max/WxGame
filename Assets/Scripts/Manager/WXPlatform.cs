@@ -217,7 +217,7 @@ public class WXPlatform : Platform
         
         WX.ShareAppMessage(new ShareAppMessageOption()
         {
-            title       = "进入弹珠世界！",
+            title       = "差一点就破纪录啦！",
             imageUrlId  = "ha6CwV+bTPeClHQlbkrDqw==",
             imageUrl    = "https://mmocgame.qpic.cn/wechatgame/3aU0WbWrP4x4zsIvWz14yOrRianJOLpSLPiaMVnv60FOBhFYabc7zNIjYI2z9FuicAn/0",
         });
@@ -235,6 +235,9 @@ public class WXPlatform : Platform
     //激励广告
     public override void REWARD_VIDEOAD(string ad_id, Action callback)
     {
+        //上报事件:观看广告
+        Platform.Instance.REPORTEVENT(CustomEvent.LookVideo, new Event_LookVideo(ad_id));
+
         WXCreateRewardedVideoAdParam param = new WXCreateRewardedVideoAdParam();
         param.adUnitId = ad_id;
 
@@ -253,10 +256,7 @@ public class WXPlatform : Platform
                 if (callback != null) 
                     callback();
             }
-        });
-
-        //上报事件:观看广告
-        Platform.Instance.REPORTEVENT(CustomEvent.LookVideo, new Event_LookVideo(ad_id));
+        });  
     }
 
     //Banner广告

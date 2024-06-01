@@ -748,7 +748,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\u8FD9\u662F\u5F53\u524D\u62E5\u6709\u7684\u5F39\u73E0\n\u5927\u90E8\u5206\u65F6\u5019\u5F39\u73E0\u53EA\u80FD\u53D1\u5C04\u4E00\u6B21"
+  m_text: "\u8FD9\u662F\u5F53\u524D\u62E5\u6709\u7684\u5F39\u73E0\n\u5927\u90E8\u5206\u65F6\u5019\u5F39\u73E0<#3297FF>\u53EA\u80FD\u53D1\u5C04\u4E00\u6B21</color>"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 32c80d060003e7948a473f15dd09db7a, type: 2}
   m_sharedMaterial: {fileID: 2100000, guid: af9a12627dbbf504d8ff999d22fc5ce0, type: 2}
@@ -976,7 +976,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\u6ED1\u52A8\u5C4F\u5E55\u53D1\u5C04\u5F39\u73E0\n\u51FB\u843D\u573A\u4E0A\u7684\u5B9D\u77F3\u6765\u83B7\u5F97\u5206\u6570\n\u6536\u96C6<sprite=0>\u5408\u6210\u5F39\u73E0"
+  m_text: "<#3297FF>\u6ED1\u52A8\u5C4F\u5E55</color>\u53D1\u5C04\u5F39\u73E0\n\u51FB\u843D\u573A\u4E0A\u7684\u5B9D\u77F3\u6765\u83B7\u5F97\u5206\u6570\n<#3297FF>\u6536\u96C6<sprite=0>\u5408\u6210\u5F39\u73E0</color>"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 32c80d060003e7948a473f15dd09db7a, type: 2}
   m_sharedMaterial: {fileID: 2100000, guid: af9a12627dbbf504d8ff999d22fc5ce0, type: 2}
@@ -1194,7 +1194,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\u70B9\u51FB\u5F39\u73E0\u69FD\u53EF\u4EE5\u66F4\u6362\u5F39\u73E0\u7684\u53D1\u5C04\u987A\u5E8F\n\u4F11\u6574\u9636\u6BB5\u53EF\u4EE5\u5728\u6B64\u5904\u6269\u5145\u5F39\u73E0\u69FD"
+  m_text: "\u70B9\u51FB\u5F39\u73E0\u69FD\u53EF\u4EE5<#3297FF>\u66F4\u6362\u5F39\u73E0\u7684\u53D1\u5C04\u987A\u5E8F</color>\n\u4F11\u6574\u9636\u6BB5\u53EF\u4EE5\u5728\u6B64\u5904<#3297FF>\u6269\u5145\u5F39\u73E0\u69FD</color>"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 32c80d060003e7948a473f15dd09db7a, type: 2}
   m_sharedMaterial: {fileID: 2100000, guid: af9a12627dbbf504d8ff999d22fc5ce0, type: 2}

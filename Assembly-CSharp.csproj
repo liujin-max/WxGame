@@ -131,6 +131,7 @@
     <Compile Include="Assets\AllIn1SpriteShader\Demo\Scripts\DemoItem.cs" />
     <Compile Include="Assets\Scripts\Utility\UIFitter.cs" />
     <Compile Include="Assets\Scripts\UI\ResultWindow.cs" />
+    <Compile Include="Assets\Scripts\Logic\Box\Copy.cs" />
     <Compile Include="Assets\Scripts\Logic\Ball\BallFocusBomb.cs" />
     <Compile Include="Assets\Scripts\UI\Item\AchievementItem.cs" />
     <Compile Include="Assets\DOTween\Modules\DOTweenModulePhysics.cs" />

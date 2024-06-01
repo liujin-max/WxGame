@@ -13,6 +13,7 @@ namespace CB
         [SerializeField] private Button BtnRestart;
         [SerializeField] private Button BtnReborn;
         [SerializeField] private Button BtnShare;
+        [SerializeField] private Button BtnRank;
         [SerializeField] private GameObject m_MainPivot;
         [SerializeField] private GameObject m_ScorePivot;
         [SerializeField] private TextMeshProUGUI ScoreText;
@@ -58,6 +59,12 @@ namespace CB
 
             BtnShare.onClick.AddListener(()=>{
                 Platform.Instance.SHARE();
+            });
+
+            BtnRank.onClick.AddListener(()=>{
+                GameFacade.Instance.SoundManager.Load(SOUND.CLICK);
+                
+                Platform.Instance.PULLRANK();
             });
         }
 

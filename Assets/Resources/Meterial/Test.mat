@@ -109,7 +109,7 @@ Material:
     - _HitEffectGlow: 5
     - _HologramMaxAlpha: 1
     - _HologramMinAlpha: 0
-    - _HologramStripesAmount: 0.2
+    - _HologramStripesAmount: 0
     - _HologramStripesSpeed: 5
     - _HologramUnmodAmount: 0.4
     - _HsvBright: 1

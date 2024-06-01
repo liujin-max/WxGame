@@ -133,10 +133,10 @@ public class GhostWindow : MonoBehaviour
         //看广告，获取金币
         c_BtnCoin.onClick.AddListener(()=>{
             Platform.Instance.REWARD_VIDEOAD("adunit-69f3ac167e9aae19", ()=>{
-                GameFacade.Instance.Game.UpdateCoin(3, false);
+                c_BtnCoin.gameObject.SetActive(false);  //只能看1次
+                GameFacade.Instance.Game.UpdateCoin(10, false);
 
-                for (int i = 0; i < 3; i++)
-                {
+                for (int i = 0; i < 5; i++) {
                     var e = GameFacade.Instance.EffectManager.LoadUIEffect(EFFECT.FLYCOIN, c_BtnCoin.transform.position);
                     e.GetComponent<FlyCoin>().Fly(0.1f * i); 
                 }
