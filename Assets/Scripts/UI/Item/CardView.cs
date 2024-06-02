@@ -41,6 +41,13 @@ public class CardView : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDrag
 
         m_Icon.sprite = Resources.Load<Sprite>("UI/Card/" + card.ID);
         m_Icon.SetNativeSize();
+
+        FlushUI();
+    }
+
+    public void FlushUI()
+    {
+        m_CanvasGroup.alpha = m_Card.STATE == _C.CARD_STATE.NORMAL ? 1 : 0.4f;
     }
 
     public void Broken()
@@ -48,11 +55,14 @@ public class CardView : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDrag
         transform.DOScale(2, 0.1f);
         m_CanvasGroup.DOFade(0.1f, 0.1f).OnComplete(()=>{
             m_Card.Entity = null;
-            Destroy(gameObject);
+            this.Destroy();
         });
     }
 
-
+    public void Destroy()
+    {
+        Destroy(gameObject);
+    }
 
 
     #region 监听事件

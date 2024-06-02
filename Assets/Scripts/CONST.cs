@@ -31,6 +31,13 @@ public static class _C
         RIGHT
     }
 
+    //方块状态
+    public enum CARD_STATE
+    {
+        NORMAL,
+        GHOST    
+    }
+
 
 
     public static int DEFAULT_WEIGHT  = 10;

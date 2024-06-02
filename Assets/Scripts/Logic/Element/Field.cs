@@ -24,6 +24,8 @@ public class Field : MonoBehaviour
     private List<Card> m_Cards = new List<Card>();
     public List<Card> Cards { get { return m_Cards;}}
 
+    private List<Card> m_GhostCards = new List<Card>();
+
     void Awake()
     {
         m_Instance = this;
@@ -53,7 +55,7 @@ public class Field : MonoBehaviour
         var window = GameFacade.Instance.UIManager.LoadWindow("GameWindow", UIManager.BOTTOM).GetComponent<GameWindow>();
         window.Init();
 
-        this.AddCards();
+        InitCards();
         m_FSM.Transist(_C.FSMSTATE.IDLE);
     }
 
@@ -73,8 +75,59 @@ public class Field : MonoBehaviour
         }
     }
 
+    void InitCards()
+    {
+        //获取所有CardData
+        List<object> card_list = new List<object>();
+        card_list.AddRange(GameFacade.Instance.DataCenter.GetCards());
+
+        //获取空着的Grid
+        List<object> grid_list = new List<object>(); 
+        for (int i = 0; i < Field.Instance.Grids.GetLength(0); i++) {
+            for (int j = 0; j < Field.Instance.Grids.GetLength(1); j++) {
+                var g = Field.Instance.Grids[i, j];
+                if (g.IsEmpty() == true) {
+                    grid_list.Add(g);
+                }  
+            }
+        }
+
+        int count = 3;
+        List<object> grid_datas = RandomUtility.Pick(count, grid_list);
+
+        for (int i = 0; i < grid_datas.Count; i++)
+        {
+            Grid grid = grid_datas[i] as Grid;
+
+            CardData card_data = RandomUtility.Pick(1, card_list)[0] as CardData;
+
+            Card card   = new Card(card_data);
+            card.Grid   = grid;
+            grid.Card   = card;
+            card.STATE  = _C.CARD_STATE.NORMAL;
+
+            EventManager.SendEvent(new GameEvent(EVENT.ONADDCARD, card));
+
+            m_Cards.Add(card);
+        }
+    }
+
     public List<Card> AddCards()
     {
+        //将残影方块实体化
+        m_GhostCards.ForEach(card => {
+            if (card.Grid.IsEmpty() == true) {
+                card.STATE = _C.CARD_STATE.NORMAL;
+                card.Grid.Card = card;
+                card.Entity.FlushUI();
+                m_Cards.Add(card);
+            } else {
+                Debug.LogError("实体化时，当前坐标已经有方块了：" + card.Grid.X + ", " + card.Grid.Y);
+            }
+        });
+        m_GhostCards.Clear();
+
+
         List<Card> add_cards = new List<Card>();
 
         //获取所有CardData
@@ -101,17 +154,32 @@ public class Field : MonoBehaviour
 
             CardData card_data = RandomUtility.Pick(1, card_list)[0] as CardData;
 
-            Card card = new Card(card_data);
-            card.Grid = grid;
-            grid.Card = card;
+            Card card   = new Card(card_data);
+            card.STATE  = _C.CARD_STATE.GHOST;
+            card.Grid   = grid;
 
             EventManager.SendEvent(new GameEvent(EVENT.ONADDCARD, card));
 
             add_cards.Add(card);
-            m_Cards.Add(card);
+            m_GhostCards.Add(card);
         }
 
         return add_cards;
+    }
+
+    //清理残影
+    //如果当前位置有残影，则清空残影
+    void ClearGhost(Card card)
+    {
+        for (int i = 0; i < m_GhostCards.Count; i++)
+        {
+            var c = m_GhostCards[i];
+            if (c.Grid == card.Grid) {
+                m_GhostCards.Remove(c);
+                c.Entity.Destroy();
+                break;
+            }
+        }
     }
 
 
@@ -231,6 +299,8 @@ public class Field : MonoBehaviour
         target.Card = card;
         card.Grid   = target;
 
+        this.ClearGhost(card);
+
         EventManager.SendEvent(new GameEvent(EVENT.UI_MOVECARD, card));
 
         return target;
@@ -258,6 +328,8 @@ public class Field : MonoBehaviour
         origin.Card = null;
         target.Card = card;
         card.Grid   = target;
+
+        this.ClearGhost(card);
 
         EventManager.SendEvent(new GameEvent(EVENT.UI_MOVECARD, card));
 
@@ -287,6 +359,8 @@ public class Field : MonoBehaviour
         target.Card = card;
         card.Grid   = target;
 
+        this.ClearGhost(card);
+
         EventManager.SendEvent(new GameEvent(EVENT.UI_MOVECARD, card));
 
         return target;
@@ -314,6 +388,8 @@ public class Field : MonoBehaviour
         origin.Card = null;
         target.Card = card;
         card.Grid   = target;
+
+        this.ClearGhost(card);
 
         EventManager.SendEvent(new GameEvent(EVENT.UI_MOVECARD, card));
 
