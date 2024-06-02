@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
+//负责执行方块的连锁反应
 public class State_Chain<T> : State<Field>
 {
     public State_Chain(_C.FSMSTATE id) : base(id){}

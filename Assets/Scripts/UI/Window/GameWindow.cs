@@ -41,6 +41,7 @@ public class GameWindow : MonoBehaviour
                 var item = GameFacade.Instance.UIManager.LoadItem("GridView", m_CardPivot).GetComponent<GridView>();
                 item.transform.localPosition = grid.GetPosition();
                 item.Init(grid);
+                item.Show(grid.IsValid);
                 m_GridItems.Add(item); 
             }
         }

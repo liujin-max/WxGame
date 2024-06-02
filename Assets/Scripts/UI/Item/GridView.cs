@@ -4,20 +4,16 @@ using UnityEngine;
 
 public class GridView : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
+    private Grid m_Grid;
+    public Grid Grid {get { return m_Grid; }}
     public void Init(Grid grid)
     {
-
+        m_Grid = grid;
     }
+
+    public void Show(bool flag)
+    {
+        gameObject.SetActive(flag);
+    }
+
 }

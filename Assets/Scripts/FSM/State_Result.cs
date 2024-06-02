@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+//一步走完后的处理
 public class State_Result<T> : State<Field>
 {
     private CDTimer m_Timer = new CDTimer(0.3f);

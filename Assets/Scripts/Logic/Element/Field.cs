@@ -220,7 +220,7 @@ public class Field : MonoBehaviour
         for (int j = origin.Y + 1; j < _C.DEFAULT_HEIGHT; j++)
         {
             Grid grid = m_Grids[origin.X, j];
-            if (grid.Card != null) break;
+            if (!grid.IsEmpty() || !grid.IsValid) break;
             
             target  = grid;
         }
@@ -248,7 +248,7 @@ public class Field : MonoBehaviour
         for (int j = origin.Y -1; j >= 0; j--)
         {
             Grid grid = m_Grids[origin.X, j];
-            if (grid.Card != null) break;
+            if (!grid.IsEmpty() || !grid.IsValid) break;
             
             target  = grid;
         }
@@ -276,7 +276,7 @@ public class Field : MonoBehaviour
         for (int i = origin.X -1; i >= 0; i--)
         {
             Grid grid = m_Grids[i, origin.Y];
-            if (grid.Card != null) break;
+            if (!grid.IsEmpty() || !grid.IsValid) break;
             
             target  = grid;
         }
@@ -304,7 +304,7 @@ public class Field : MonoBehaviour
         for (int i = origin.X + 1; i < _C.DEFAULT_WEIGHT; i++)
         {
             Grid grid = m_Grids[i, origin.Y];
-            if (grid.Card != null) break;
+            if (!grid.IsEmpty() || !grid.IsValid) break;
             
             target  = grid;
         }

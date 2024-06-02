@@ -22,6 +22,7 @@ public class Card
         set {m_Entity = value;}
     }
 
+    public bool Dragable {get {return true;}}
 
     public Card(CardData cardData)
     {

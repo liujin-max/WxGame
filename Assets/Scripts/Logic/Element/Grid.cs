@@ -8,6 +8,12 @@ public class Grid
     public int X;
     public int Y;
 
+    private bool m_ValidFlag = true;
+    public bool IsValid {
+        get { return m_ValidFlag;}
+        set { m_ValidFlag = value;}
+    }
+
     private Card m_Card;
     public Card Card {
         get {return m_Card;} 

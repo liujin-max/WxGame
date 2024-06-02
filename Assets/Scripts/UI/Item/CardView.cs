@@ -47,6 +47,7 @@ public class CardView : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDrag
     {
         transform.DOScale(2, 0.1f);
         m_CanvasGroup.DOFade(0.1f, 0.1f).OnComplete(()=>{
+            m_Card.Entity = null;
             Destroy(gameObject);
         });
     }
@@ -57,6 +58,8 @@ public class CardView : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDrag
     #region 监听事件
     public void OnBeginDrag(PointerEventData eventData)
     {
+        if (!m_Card.Dragable) return;   //无法拖动的
+
         m_Dragging  = true;
         m_TouchPos  = eventData.position;
     }
