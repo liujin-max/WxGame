@@ -12,8 +12,8 @@ public class CardView : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDrag
     public Card Card { get { return m_Card;}}
 
     [SerializeField] private Image m_Icon;
-
-    public Button Touch;
+    
+    private CanvasGroup m_CanvasGroup;
 
 
     private Vector2 m_TouchPos;
@@ -21,7 +21,10 @@ public class CardView : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDrag
 
     void Awake()
     {
-        Touch = GetComponent<Button>();
+        m_CanvasGroup = GetComponent<CanvasGroup>();
+
+        transform.localScale = Vector2.zero;
+        transform.DOScale(1, 0.15f);
 
         EventManager.AddHandler(EVENT.UI_MOVECARD,   OnReponseMoveCard);
     }
@@ -37,6 +40,14 @@ public class CardView : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDrag
 
         m_Icon.sprite = Resources.Load<Sprite>("UI/Card/" + card.ID);
         m_Icon.SetNativeSize();
+    }
+
+    public void Broken()
+    {
+        transform.DOScale(2, 0.1f);
+        m_CanvasGroup.DOFade(0.1f, 0.1f).OnComplete(()=>{
+            Destroy(gameObject);
+        });
     }
 
     public void OnBeginDrag(PointerEventData eventData)

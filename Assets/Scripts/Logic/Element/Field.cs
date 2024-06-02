@@ -10,12 +10,17 @@ public class Field : MonoBehaviour
     public static Field Instance{get{return m_Instance;}}
 
     private FSM<Field> m_FSM;
+    
+    private bool m_IsMoved = false;
+    public bool IsMoved { 
+        get { return m_IsMoved;}
+        set { m_IsMoved = value;}
+    }
 
     private Grid[,] m_Grids = new Grid[_C.DEFAULT_WEIGHT, _C.DEFAULT_HEIGHT];
     public Grid[,] Grids {get{ return m_Grids;}}
 
 
-    private Card[,] m_CardDic = new Card[_C.DEFAULT_WEIGHT, _C.DEFAULT_HEIGHT];
     private List<Card> m_Cards = new List<Card>();
     public List<Card> Cards { get { return m_Cards;}}
 
@@ -23,15 +28,22 @@ public class Field : MonoBehaviour
     {
         m_Instance = this;
 
-        m_FSM = new FSM<Field>(this, State<Field> );
-
-
-        EventManager.AddHandler(EVENT.ONCARDMOVED,      OnCardMoved);
     }
 
     void OnDestroy()
     {
-        EventManager.DelHandler(EVENT.ONCARDMOVED,      OnCardMoved);
+
+    }
+
+    void Start()
+    {
+        m_FSM = new FSM<Field>(this,  new State<Field>[] {
+            new State_Idle<Field>(_C.FSMSTATE.IDLE),
+            new State_Eliminate<Field>(_C.FSMSTATE.ELIMINATE),
+            new State_Chain<Field>(_C.FSMSTATE.CHAIN),
+            new State_Result<Field>(_C.FSMSTATE.RESULT)
+        });
+
     }
 
     public void Enter()
@@ -41,8 +53,13 @@ public class Field : MonoBehaviour
         var window = GameFacade.Instance.UIManager.LoadWindow("GameWindow", UIManager.BOTTOM).GetComponent<GameWindow>();
         window.Init();
 
+        this.AddCards();
+        m_FSM.Transist(_C.FSMSTATE.IDLE);
+    }
 
-        AddCards();
+    public void Transist(_C.FSMSTATE state, params object[] values)
+    {
+        m_FSM.Transist(state, values);
     }
 
 
@@ -56,8 +73,10 @@ public class Field : MonoBehaviour
         }
     }
 
-    public void AddCards()
+    public List<Card> AddCards()
     {
+        List<Card> add_cards = new List<Card>();
+
         //获取所有CardData
         List<object> card_list = new List<object>();
         card_list.AddRange(GameFacade.Instance.DataCenter.GetCards());
@@ -88,8 +107,11 @@ public class Field : MonoBehaviour
 
             EventManager.SendEvent(new GameEvent(EVENT.ONADDCARD, card));
 
+            add_cards.Add(card);
             m_Cards.Add(card);
         }
+
+        return add_cards;
     }
 
 
@@ -146,13 +168,52 @@ public class Field : MonoBehaviour
         return false;
     }
 
+    public Card GetCardByDirection(Card card, _C.DIRECTION direction)
+    {
+        switch (direction)
+        {
+            case _C.DIRECTION.TOP:
+                if (card.Grid.Y == _C.DEFAULT_HEIGHT - 1)
+                    return null;
+
+                var g_top = Field.Instance.Grids[card.Grid.X, card.Grid.Y + 1];
+                return g_top.Card;
+            
+
+            case _C.DIRECTION.DOWN:
+                if (card.Grid.Y == 0)
+                    return null;
+
+                var g_down = Field.Instance.Grids[card.Grid.X, card.Grid.Y - 1];
+                return g_down.Card;
+
+            
+            case _C.DIRECTION.LEFT:
+                if (card.Grid.X == 0)
+                    return null;
+
+                var g_left = Field.Instance.Grids[card.Grid.X - 1, card.Grid.Y];
+                return g_left.Card;
+
+
+            case _C.DIRECTION.RIGHT:
+                if (card.Grid.X == _C.DEFAULT_WEIGHT - 1)
+                    return null;
+
+                var g_right = Field.Instance.Grids[card.Grid.X + 1, card.Grid.Y];
+                return g_right.Card;
+        }
+
+
+        return null;
+    }
 
     //向上移动(单个)
-    public void MoveTop(Card card)
+    public Grid MoveTop(Card card)
     {
         Grid origin = card.Grid;
 
-        if (origin.Y == _C.DEFAULT_HEIGHT - 1) return;
+        if (origin.Y == _C.DEFAULT_HEIGHT - 1) return null;
 
         Grid target = null;
 
@@ -164,7 +225,7 @@ public class Field : MonoBehaviour
             target  = grid;
         }
 
-        if (target == null)  return;
+        if (target == null)  return null;
 
         origin.Card = null;
         target.Card = card;
@@ -172,15 +233,15 @@ public class Field : MonoBehaviour
 
         EventManager.SendEvent(new GameEvent(EVENT.UI_MOVECARD, card));
 
-        Eliminate();
+        return target;
     } 
 
     //向下移动
-    public void MoveDown(Card card)
+    public Grid MoveDown(Card card)
     {
         Grid origin = card.Grid;
 
-        if (origin.Y == 0) return;
+        if (origin.Y == 0) return null;
 
         Grid target = null;
 
@@ -192,7 +253,7 @@ public class Field : MonoBehaviour
             target  = grid;
         }
 
-        if (target == null)  return;
+        if (target == null)  return null;
 
         origin.Card = null;
         target.Card = card;
@@ -200,15 +261,15 @@ public class Field : MonoBehaviour
 
         EventManager.SendEvent(new GameEvent(EVENT.UI_MOVECARD, card));
 
-        Eliminate();
+        return target;
     }
 
     //向左移动
-    public void MoveLeft(Card card)
+    public Grid MoveLeft(Card card)
     {
         Grid origin = card.Grid;
 
-        if (origin.X == 0) return;
+        if (origin.X == 0) return null;
 
         Grid target = null;
 
@@ -220,7 +281,7 @@ public class Field : MonoBehaviour
             target  = grid;
         }
 
-        if (target == null)  return;
+        if (target == null)  return null;
 
         origin.Card = null;
         target.Card = card;
@@ -228,15 +289,15 @@ public class Field : MonoBehaviour
 
         EventManager.SendEvent(new GameEvent(EVENT.UI_MOVECARD, card));
 
-        Eliminate();
+        return target;
     }
 
     //向右移动
-    public void MoveRight(Card card)
+    public Grid MoveRight(Card card)
     {
         Grid origin = card.Grid;
 
-        if (origin.X == _C.DEFAULT_WEIGHT - 1) return;
+        if (origin.X == _C.DEFAULT_WEIGHT - 1) return null;
 
         Grid target = null;
 
@@ -248,7 +309,7 @@ public class Field : MonoBehaviour
             target  = grid;
         }
 
-        if (target == null)  return;
+        if (target == null)  return null;
 
         origin.Card = null;
         target.Card = card;
@@ -256,13 +317,12 @@ public class Field : MonoBehaviour
 
         EventManager.SendEvent(new GameEvent(EVENT.UI_MOVECARD, card));
 
-
-        Eliminate();
+        return target;
     }
 
     //计算消除
     //相邻的
-    public void Eliminate()
+    public List<Card> CheckEliminate()
     {
         List<Card> _Removes = new List<Card>();
 
@@ -276,25 +336,17 @@ public class Field : MonoBehaviour
         _Removes.ForEach(c => {
             c.IsEliminate = true;
             c.Grid.Card = null;
-            c.Grid = null;
+            // c.Grid = null;       //不置空，否则会影响连锁反应的判断
             m_Cards.Remove(c);
         });
+
+        return _Removes;
     }
 
-
-
-    #region 监听事件
-    private void OnCardMoved(GameEvent @event)
+    void Update()
     {
-        //销毁
-        EventManager.SendEvent(new GameEvent(EVENT.UI_DESTROYCARD, this));
-
-
-
-        //移动结束后的额外处理
-        this.AddCards();
-        this.Eliminate();
-        EventManager.SendEvent(new GameEvent(EVENT.UI_DESTROYCARD, this));
+        if (m_FSM != null) m_FSM.Update();
     }
-    #endregion
+
+
 }

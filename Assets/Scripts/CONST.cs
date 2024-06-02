@@ -22,6 +22,15 @@ public static class _C
         RESULT      //
     }
 
+    //方向
+    public enum DIRECTION
+    {
+        TOP,
+        DOWN,
+        LEFT,
+        RIGHT
+    }
+
 
 
     public static int DEFAULT_WEIGHT  = 10;

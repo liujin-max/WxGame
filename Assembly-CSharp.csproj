@@ -138,6 +138,10 @@
     <Compile Include="Assets\AllIn1SpriteShader\Demo\Scripts\DemoCircleExpositor.cs" />
     <Compile Include="Assets\Scripts\Effect\Shine.cs" />
     <Compile Include="Assets\DOTween\Modules\DOTweenModuleUnityVersion.cs" />
+    <Compile Include="Assets\Scripts\FSM\State_Idle.cs" />
+    <Compile Include="Assets\Scripts\FSM\State_Eliminate.cs" />
+    <Compile Include="Assets\Scripts\FSM\State_Chain.cs" />
+    <Compile Include="Assets\Scripts\FSM\State_Result.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Resources\Shader\SpriteGray.shader" />

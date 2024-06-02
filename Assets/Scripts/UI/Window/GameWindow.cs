@@ -19,7 +19,6 @@ public class GameWindow : MonoBehaviour
     private List<CardView> m_CardItems = new List<CardView>();
     private List<GridView> m_GridItems = new List<GridView>();
 
-    private CardView m_CurCardItem = null;
 
     void Awake()
     {
@@ -106,7 +105,7 @@ public class GameWindow : MonoBehaviour
         });
 
         _Removes.ForEach(item => {
-            Destroy(item.gameObject);
+            item.Broken();
             m_CardItems.Remove(item);
         });
     }
