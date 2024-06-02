@@ -70,6 +70,7 @@
     <Compile Include="Assets\Scripts\Utility\UrlImageUtility.cs" />
     <Compile Include="Assets\Scripts\Effect\Floating.cs" />
     <Compile Include="Assets\Scripts\Manager\SoundManager.cs" />
+    <Compile Include="Assets\Scripts\UI\Item\GridView.cs" />
     <Compile Include="Assets\Scripts\Effect\ShakeText.cs" />
     <Compile Include="Assets\Scripts\Utility\DIYScrollView.cs" />
     <Compile Include="Assets\DOTween\Modules\DOTweenModulePhysics2D.cs" />
@@ -77,6 +78,7 @@
     <Compile Include="Assets\Scripts\Utility\Crypt.cs" />
     <Compile Include="Assets\Scripts\Manager\WXPlatform.cs" />
     <Compile Include="Assets\AllIn1SpriteShader\Demo\Scripts\All1ShaderDemoController.cs" />
+    <Compile Include="Assets\Scripts\Logic\Element\Card.cs" />
     <Compile Include="Assets\Scripts\Effect\Rotate.cs" />
     <Compile Include="Assets\AllIn1SpriteShader\Scripts\AllIn1Shader.cs" />
     <Compile Include="Assets\Scripts\Struct\CDTimer.cs" />
@@ -84,6 +86,7 @@
     <Compile Include="Assets\Scripts\Manager\OBJManager.cs" />
     <Compile Include="Assets\Scripts\EVENT.cs" />
     <Compile Include="Assets\Scripts\Utility\UIMaskUtility.cs" />
+    <Compile Include="Assets\Scripts\UI\Item\CardView.cs" />
     <Compile Include="Assets\Scripts\Manager\SceneManager.cs" />
     <Compile Include="Assets\DOTween\Modules\DOTweenModuleUtils.cs" />
     <Compile Include="Assets\Scripts\Utility\CSVUtility.cs" />
@@ -104,8 +107,10 @@
     <Compile Include="Assets\Scripts\CONST.cs" />
     <Compile Include="Assets\Scripts\Utility\NumberTransition.cs" />
     <Compile Include="Assets\Scripts\Utility\BalatroFloating.cs" />
+    <Compile Include="Assets\Scripts\UI\Window\GameWindow.cs" />
     <Compile Include="Assets\Scripts\Logic\NavigationController.cs" />
     <Compile Include="Assets\AllIn1SpriteShader\Scripts\SetAtlasUvs.cs" />
+    <Compile Include="Assets\Scripts\Logic\Element\Grid.cs" />
     <Compile Include="Assets\Scripts\FSM\FSM.cs" />
     <Compile Include="Assets\Scripts\Effect\FlyCoin.cs" />
     <Compile Include="Assets\Scripts\Utility\MouseClickHandler.cs" />
@@ -124,6 +129,7 @@
     <Compile Include="Assets\Scripts\Manager\Platform.cs" />
     <Compile Include="Assets\Scripts\Utility\Sound.cs" />
     <Compile Include="Assets\Scripts\Utility\RandomUtility.cs" />
+    <Compile Include="Assets\Scripts\Logic\Element\Field.cs" />
     <Compile Include="Assets\AllIn1SpriteShader\Scripts\RandomSeed.cs" />
     <Compile Include="Assets\Scripts\FSM\State.cs" />
     <Compile Include="Assets\Scripts\Logic\DataCenter.cs" />
@@ -132,11 +138,6 @@
     <Compile Include="Assets\AllIn1SpriteShader\Demo\Scripts\DemoCircleExpositor.cs" />
     <Compile Include="Assets\Scripts\Effect\Shine.cs" />
     <Compile Include="Assets\DOTween\Modules\DOTweenModuleUnityVersion.cs" />
-    <Compile Include="Assets\Scripts\UI\Item\CardView.cs" />
-    <Compile Include="Assets\Scripts\UI\Window\GameWindow.cs" />
-    <Compile Include="Assets\Scripts\Logic\Element\Field.cs" />
-    <Compile Include="Assets\Scripts\Logic\Element\Grid.cs" />
-    <Compile Include="Assets\Scripts\Logic\Element\Card.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Resources\Shader\SpriteGray.shader" />

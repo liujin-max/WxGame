@@ -24,4 +24,9 @@ public class Grid
     {
         return new Vector2(-475 + X * 105, -475 + Y * 105);
     }
+
+    public bool IsEmpty()
+    {
+        return m_Card == null;
+    }
 }

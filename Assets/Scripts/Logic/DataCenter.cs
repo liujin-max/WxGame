@@ -14,8 +14,6 @@ public class CardData
 //全局数据类
 public class DataCenter
 {
-
-    //根据Belong分类
     private static Dictionary<int, CardData> m_CardDic = new Dictionary<int, CardData>();
     private static List<CardData> m_Cards = new List<CardData>();
 

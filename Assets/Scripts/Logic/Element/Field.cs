@@ -1,5 +1,7 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Field : MonoBehaviour
@@ -18,15 +20,25 @@ public class Field : MonoBehaviour
     void Awake()
     {
         m_Instance = this;
+
+
+        EventManager.AddHandler(EVENT.ONCARDMOVED,      OnCardMoved);
+    }
+
+    void OnDestroy()
+    {
+        EventManager.DelHandler(EVENT.ONCARDMOVED,      OnCardMoved);
     }
 
     public void Enter()
     {
         InitGrids();
-        InitCards();
 
         var window = GameFacade.Instance.UIManager.LoadWindow("GameWindow", UIManager.BOTTOM).GetComponent<GameWindow>();
         window.Init();
+
+
+        AddCards();
     }
 
 
@@ -40,175 +52,42 @@ public class Field : MonoBehaviour
         }
     }
 
-    void InitCards()
+    public void AddCards()
     {
-        m_Cards.Clear();
-
-
         //获取所有CardData
         List<object> card_list = new List<object>();
         card_list.AddRange(GameFacade.Instance.DataCenter.GetCards());
 
-        //获取所有Grid
+        //获取空着的Grid
         List<object> grid_list = new List<object>(); 
         for (int i = 0; i < Field.Instance.Grids.GetLength(0); i++) {
             for (int j = 0; j < Field.Instance.Grids.GetLength(1); j++) {
-                grid_list.Add(Field.Instance.Grids[i, j]);
+                var g = Field.Instance.Grids[i, j];
+                if (g.IsEmpty() == true) {
+                    grid_list.Add(g);
+                }  
             }
         }
 
-        List<object> card_datas = RandomUtility.Pick(20, card_list);
-        List<object> grid_datas = RandomUtility.Pick(20 * 4, grid_list);
+        int count = 3;
+        List<object> grid_datas = RandomUtility.Pick(count, grid_list);
 
-        for (int i = 0; i < card_datas.Count; i++)
+        for (int i = 0; i < grid_datas.Count; i++)
         {
-            CardData card_data = card_datas[i] as CardData;
+            Grid grid = grid_datas[i] as Grid;
 
-            for (int j = 0; j < 4; j++)
-            {
-                Card card = new Card(card_data);
+            CardData card_data = RandomUtility.Pick(1, card_list)[0] as CardData;
 
-                List<object> grids = RandomUtility.Pick(1, grid_datas);
-                Grid grid = grids[0] as Grid;
-                card.Grid = grid;
-                grid.Card = card;
+            Card card = new Card(card_data);
+            card.Grid = grid;
+            grid.Card = card;
 
-                m_Cards.Add(card);
-                grid_datas.Remove(grid);
-            }
+            EventManager.SendEvent(new GameEvent(EVENT.ONADDCARD, card));
+
+            m_Cards.Add(card);
         }
     }
 
-    //向上移动
-    public void MoveTop()
-    {
-        for (int i = 0; i < _C.DEFAULT_WEIGHT; i++)
-        {
-            //从高到低 先筛选出这一列所有的Card
-            List<Card> cards = new List<Card>();
-            for (int j = _C.DEFAULT_HEIGHT - 1; j >= 0; j--)
-            {
-                Grid grid = m_Grids[i, j];
-                if (grid.Card != null) {
-                    cards.Add(grid.Card);
-                    grid.Card = null;
-                }
-            }
-            
-            for (int j = 0; j < cards.Count; j++) {
-                int height = _C.DEFAULT_HEIGHT - j - 1;
-                Grid g = m_Grids[i, height];
-                Card c = cards[j];
-                c.Grid  = g;
-                g.Card  = c;
-            }
-        }
-
-        Eliminate();
-    }
-
-    //向下移动
-    public void MoveDown()
-    {
-        for (int i = 0; i < _C.DEFAULT_WEIGHT; i++)
-        {
-            //从低到高 先筛选出这一列所有的Card
-            List<Card> cards = new List<Card>();
-            for (int j = 0; j < _C.DEFAULT_HEIGHT; j++)
-            {
-                Grid grid = m_Grids[i, j];
-                if (grid.Card != null) {
-                    cards.Add(grid.Card);
-                    grid.Card = null;
-                }
-            }
-            
-            for (int j = 0; j < cards.Count; j++) {
-                int height = j;
-                Grid g = m_Grids[i, height];
-                Card c = cards[j];
-                c.Grid  = g;
-                g.Card  = c;
-            }
-        }
-
-        Eliminate();
-    }
-
-    //向左移动
-    public void MoveLeft()
-    {
-        for (int j = 0; j < _C.DEFAULT_HEIGHT; j++)
-        {
-            // 从左到右筛选
-            List<Card> cards = new List<Card>();
-            for (int i = 0; i < _C.DEFAULT_WEIGHT; i++)
-            {
-                Grid grid = m_Grids[i, j];
-                if (grid.Card != null) {
-                    cards.Add(grid.Card);
-                    grid.Card = null;
-                }
-            }
-
-            for (int i = 0; i < cards.Count; i++) {
-                int weight = i;
-                Grid g = m_Grids[weight, j];
-                Card c = cards[i];
-                c.Grid  = g;
-                g.Card  = c;
-            }
-        }
-
-        Eliminate();
-    }
-
-    //向右移动
-    public void MoveRight()
-    {
-        for (int j = 0; j < _C.DEFAULT_HEIGHT; j++)
-        {
-            // 从左到右筛选
-            List<Card> cards = new List<Card>();
-            for (int i = _C.DEFAULT_WEIGHT - 1; i >= 0; i--) {
-                Grid grid = m_Grids[i, j];
-                if (grid.Card != null) {
-                    cards.Add(grid.Card);
-                    grid.Card = null;
-                }
-            }
-
-            for (int i = 0; i < cards.Count; i++) {
-                int weight = _C.DEFAULT_WEIGHT - i - 1;
-                Grid g = m_Grids[weight, j];
-                Card c = cards[i];
-                c.Grid  = g;
-                g.Card  = c;
-            }
-        }
-
-        Eliminate();
-    }
-
-    //计算消除
-    public void Eliminate()
-    {
-        List<Card> _Removes = new List<Card>();
-
-        for (int i = m_Cards.Count - 1; i >= 0; i--)
-        {
-            var card = m_Cards[i];
-            if (IsSameCardNear(card) == true) {
-                _Removes.Add(card);
-            }
-        }
-
-        _Removes.ForEach(c => {
-            c.IsEliminate = true;
-            c.Grid.Card = null;
-            m_Cards.Remove(c);
-        });
-    }
 
     bool IsGridSame(Grid g1, Grid g2)
     {
@@ -262,4 +141,156 @@ public class Field : MonoBehaviour
 
         return false;
     }
+
+
+    //向上移动(单个)
+    public void MoveTop(Card card)
+    {
+        Grid origin = card.Grid;
+
+        if (origin.Y == _C.DEFAULT_HEIGHT - 1) return;
+
+        Grid target = null;
+
+        for (int j = origin.Y + 1; j < _C.DEFAULT_HEIGHT; j++)
+        {
+            Grid grid = m_Grids[origin.X, j];
+            if (grid.Card != null) break;
+            
+            target  = grid;
+        }
+
+        if (target == null)  return;
+
+        origin.Card = null;
+        target.Card = card;
+        card.Grid   = target;
+
+        EventManager.SendEvent(new GameEvent(EVENT.UI_MOVECARD, card));
+
+        Eliminate();
+    } 
+
+    //向下移动
+    public void MoveDown(Card card)
+    {
+        Grid origin = card.Grid;
+
+        if (origin.Y == 0) return;
+
+        Grid target = null;
+
+        for (int j = origin.Y -1; j >= 0; j--)
+        {
+            Grid grid = m_Grids[origin.X, j];
+            if (grid.Card != null) break;
+            
+            target  = grid;
+        }
+
+        if (target == null)  return;
+
+        origin.Card = null;
+        target.Card = card;
+        card.Grid   = target;
+
+        EventManager.SendEvent(new GameEvent(EVENT.UI_MOVECARD, card));
+
+        Eliminate();
+    }
+
+    //向左移动
+    public void MoveLeft(Card card)
+    {
+        Grid origin = card.Grid;
+
+        if (origin.X == 0) return;
+
+        Grid target = null;
+
+        for (int i = origin.X -1; i >= 0; i--)
+        {
+            Grid grid = m_Grids[i, origin.Y];
+            if (grid.Card != null) break;
+            
+            target  = grid;
+        }
+
+        if (target == null)  return;
+
+        origin.Card = null;
+        target.Card = card;
+        card.Grid   = target;
+
+        EventManager.SendEvent(new GameEvent(EVENT.UI_MOVECARD, card));
+
+        Eliminate();
+    }
+
+    //向右移动
+    public void MoveRight(Card card)
+    {
+        Grid origin = card.Grid;
+
+        if (origin.X == _C.DEFAULT_WEIGHT - 1) return;
+
+        Grid target = null;
+
+        for (int i = origin.X + 1; i < _C.DEFAULT_WEIGHT; i++)
+        {
+            Grid grid = m_Grids[i, origin.Y];
+            if (grid.Card != null) break;
+            
+            target  = grid;
+        }
+
+        if (target == null)  return;
+
+        origin.Card = null;
+        target.Card = card;
+        card.Grid   = target;
+
+        EventManager.SendEvent(new GameEvent(EVENT.UI_MOVECARD, card));
+
+
+        Eliminate();
+    }
+
+    //计算消除
+    //相邻的
+    public void Eliminate()
+    {
+        List<Card> _Removes = new List<Card>();
+
+        m_Cards.ForEach(card => {
+            if (IsSameCardNear(card) == true) {
+                _Removes.Add(card);
+            }
+        });
+
+
+        _Removes.ForEach(c => {
+            c.IsEliminate = true;
+            c.Grid.Card = null;
+            c.Grid = null;
+            m_Cards.Remove(c);
+        });
+    }
+
+
+
+    #region 监听事件
+    private void OnCardMoved(GameEvent @event)
+    {
+        //销毁
+        EventManager.SendEvent(new GameEvent(EVENT.UI_DESTROYCARD, this));
+
+
+
+        //移动结束后的额外处理
+        this.AddCards();
+        this.Eliminate();
+        EventManager.SendEvent(new GameEvent(EVENT.UI_DESTROYCARD, this));
+    }
+    #endregion
 }

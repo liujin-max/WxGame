@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
@@ -16,31 +17,38 @@ public class GameWindow : MonoBehaviour
 
 
     private List<CardView> m_CardItems = new List<CardView>();
+    private List<GridView> m_GridItems = new List<GridView>();
+
+    private CardView m_CurCardItem = null;
+
     void Awake()
     {
         m_BtnTop.onClick.AddListener(()=>{
-            Field.Instance.MoveTop();
 
-            MoveCardItems();
         });
 
         m_BtnDown.onClick.AddListener(()=>{
-            Field.Instance.MoveDown();
 
-            MoveCardItems();
         });
 
         m_BtnLeft.onClick.AddListener(()=>{
-            Field.Instance.MoveLeft();
 
-            MoveCardItems();
         });
 
         m_BtnRight.onClick.AddListener(()=>{
-            Field.Instance.MoveRight();
 
-            MoveCardItems();
         });
+
+        EventManager.AddHandler(EVENT.UI_DESTROYCARD,   OnReponseDestroyCard);
+
+        EventManager.AddHandler(EVENT.ONADDCARD,        OnReponseAddCard);
+    }
+
+    void OnDestroy()
+    {
+        EventManager.DelHandler(EVENT.UI_DESTROYCARD,   OnReponseDestroyCard);
+
+        EventManager.DelHandler(EVENT.ONADDCARD,        OnReponseAddCard);
     }
 
     // Update is called once per frame
@@ -49,28 +57,64 @@ public class GameWindow : MonoBehaviour
         
     }
 
-    void MoveCardItems()
+    public void Init()
     {
-        for (int i = m_CardItems.Count - 1; i >= 0; i--)
-        {
-            var item = m_CardItems[i];
+        InitGrids();
+        InitCards();
+    }
 
-            item.transform.DOLocalMove(item.Card.Grid.GetPosition(), 0.3f).OnComplete(()=>{
-                if (item.Card.IsEliminate == true) {
-                    Destroy(item.gameObject);
-                    m_CardItems.Remove(item);
-                }
-            });
+    void InitGrids()
+    {
+        for (int i = 0; i < _C.DEFAULT_WEIGHT; i++) {
+            for (int j = 0; j < _C.DEFAULT_HEIGHT; j++) {
+                var grid = Field.Instance.Grids[i ,j];
+
+                var item = GameFacade.Instance.UIManager.LoadItem("GridView", m_CardPivot).GetComponent<GridView>();
+                item.transform.localPosition = grid.GetPosition();
+                item.Init(grid);
+                m_GridItems.Add(item); 
+            }
         }
     }
 
-    public void Init()
+    void InitCards()
     {
         Field.Instance.Cards.ForEach(card => {
-            var item = GameFacade.Instance.UIManager.LoadItem("CardView", m_CardPivot).GetComponent<CardView>();
-            item.transform.localPosition = card.Grid.GetPosition();
-            item.Init(card);
-            m_CardItems.Add(item);
+            this.AddCard(card);
         });
     }
+
+    void AddCard(Card card)
+    {
+        var item = GameFacade.Instance.UIManager.LoadItem("CardView", m_CardPivot).GetComponent<CardView>();
+        item.transform.localPosition = card.Grid.GetPosition();
+        item.Init(card);
+
+        m_CardItems.Add(item);
+    }
+
+
+    #region 监听事件
+    private void OnReponseDestroyCard(GameEvent @event)
+    {
+        List<CardView> _Removes = new List<CardView>();
+
+        m_CardItems.ForEach(item => {
+            if (item.Card.IsEliminate == true) {
+                _Removes.Add(item);
+            }
+        });
+
+        _Removes.ForEach(item => {
+            Destroy(item.gameObject);
+            m_CardItems.Remove(item);
+        });
+    }
+
+    private void OnReponseAddCard(GameEvent @event)
+    {
+        Card card = @event.GetParam(0) as Card;
+        this.AddCard(card);
+    }
+    #endregion
 }

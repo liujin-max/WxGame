@@ -1,20 +1,34 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class CardView : MonoBehaviour
+public class CardView : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHandler
 {
     private Card m_Card;
     public Card Card { get { return m_Card;}}
 
     [SerializeField] private Image m_Icon;
 
-    // Start is called before the first frame update
-    void Start()
+    public Button Touch;
+
+
+    private Vector2 m_TouchPos;
+    private bool m_Dragging = false;
+
+    void Awake()
     {
-        
+        Touch = GetComponent<Button>();
+
+        EventManager.AddHandler(EVENT.UI_MOVECARD,   OnReponseMoveCard);
+    }
+
+    void OnDestroy()
+    {
+        EventManager.DelHandler(EVENT.UI_MOVECARD,   OnReponseMoveCard);
     }
 
     public void Init(Card card)
@@ -24,4 +38,61 @@ public class CardView : MonoBehaviour
         m_Icon.sprite = Resources.Load<Sprite>("UI/Card/" + card.ID);
         m_Icon.SetNativeSize();
     }
+
+    public void OnBeginDrag(PointerEventData eventData)
+    {
+        m_Dragging  = true;
+        m_TouchPos  = eventData.position;
+    }
+
+    public void OnDrag(PointerEventData eventData)
+    {
+        if (!m_Dragging) return;
+
+        Vector2 offset = eventData.position - m_TouchPos;
+
+        //滑动距离太短了
+        if (Mathf.Abs(offset.x) <= 40 && Mathf.Abs(offset.y) <= 40) return;
+
+
+        if (Mathf.Abs(offset.x) > Mathf.Abs(offset.y))  //左右拖动
+        {
+            if (offset.x < 0) {
+                Field.Instance.MoveLeft(m_Card);
+            } else {
+                Field.Instance.MoveRight(m_Card);
+            }
+        }
+        else    //上下拖动
+        {
+            if (offset.y < 0) {
+                Field.Instance.MoveDown(m_Card);
+            } else {
+                Field.Instance.MoveTop(m_Card);
+            }
+        }
+
+
+        m_Dragging = false;
+    }
+
+    public void OnEndDrag(PointerEventData eventData)
+    {
+        m_Dragging = false;
+    }
+
+
+    #region 监听事件
+    private void OnReponseMoveCard(GameEvent @event)
+    {
+        Card card = @event.GetParam(0) as Card;
+
+        if (card == m_Card) 
+        {
+            transform.DOLocalMove(m_Card.Grid.GetPosition(), 0.2f).OnComplete(()=>{
+                EventManager.SendEvent(new GameEvent(EVENT.ONCARDMOVED, this));
+            });
+        }
+    }
+    #endregion
 }
