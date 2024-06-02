@@ -10,50 +10,20 @@ public class GameWindow : MonoBehaviour
 
     [SerializeField] private Transform m_CardPivot;
 
-    [SerializeField] private Button m_BtnTop;
-    [SerializeField] private Button m_BtnDown;
-    [SerializeField] private Button m_BtnLeft;
-    [SerializeField] private Button m_BtnRight;
 
 
-    private List<CardView> m_CardItems = new List<CardView>();
+
     private List<GridView> m_GridItems = new List<GridView>();
 
 
     void Awake()
     {
-        m_BtnTop.onClick.AddListener(()=>{
-
-        });
-
-        m_BtnDown.onClick.AddListener(()=>{
-
-        });
-
-        m_BtnLeft.onClick.AddListener(()=>{
-
-        });
-
-        m_BtnRight.onClick.AddListener(()=>{
-
-        });
-
-        EventManager.AddHandler(EVENT.UI_DESTROYCARD,   OnReponseDestroyCard);
-
         EventManager.AddHandler(EVENT.ONADDCARD,        OnReponseAddCard);
     }
 
     void OnDestroy()
     {
-        EventManager.DelHandler(EVENT.UI_DESTROYCARD,   OnReponseDestroyCard);
-
         EventManager.DelHandler(EVENT.ONADDCARD,        OnReponseAddCard);
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 
     public void Init()
@@ -88,27 +58,10 @@ public class GameWindow : MonoBehaviour
         var item = GameFacade.Instance.UIManager.LoadItem("CardView", m_CardPivot).GetComponent<CardView>();
         item.transform.localPosition = card.Grid.GetPosition();
         item.Init(card);
-
-        m_CardItems.Add(item);
     }
 
 
     #region 监听事件
-    private void OnReponseDestroyCard(GameEvent @event)
-    {
-        List<CardView> _Removes = new List<CardView>();
-
-        m_CardItems.ForEach(item => {
-            if (item.Card.IsEliminate == true) {
-                _Removes.Add(item);
-            }
-        });
-
-        _Removes.ForEach(item => {
-            item.Broken();
-            m_CardItems.Remove(item);
-        });
-    }
 
     private void OnReponseAddCard(GameEvent @event)
     {

@@ -10,8 +10,6 @@ public class State_Chain<T> : State<Field>
 
     public override void Enter(params object[] values)
     {
-        Debug.Log("State_Chain");
-
         EventManager.AddHandler(EVENT.ONCARDMOVED,      OnCardMoved);
 
         List<Card> cards = values[0] as List<Card>;
@@ -46,8 +44,6 @@ public class State_Chain<T> : State<Field>
                 }
             }
         });
-
-        Debug.Log("State_Chain 数量：" + m_ChainCards.Count);
     }
 
     public override void Update()

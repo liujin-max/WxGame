@@ -37,6 +37,7 @@ public class CardView : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDrag
     public void Init(Card card)
     {
         m_Card = card;
+        m_Card.Entity = this;
 
         m_Icon.sprite = Resources.Load<Sprite>("UI/Card/" + card.ID);
         m_Icon.SetNativeSize();
@@ -50,6 +51,10 @@ public class CardView : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDrag
         });
     }
 
+
+
+
+    #region 监听事件
     public void OnBeginDrag(PointerEventData eventData)
     {
         m_Dragging  = true;
@@ -92,15 +97,12 @@ public class CardView : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDrag
         m_Dragging = false;
     }
 
-
-    #region 监听事件
     private void OnReponseMoveCard(GameEvent @event)
     {
         Card card = @event.GetParam(0) as Card;
 
-        if (card == m_Card) 
-        {
-            transform.DOLocalMove(m_Card.Grid.GetPosition(), 0.2f).OnComplete(()=>{
+        if (card == m_Card) {
+            transform.DOLocalMove(m_Card.Grid.GetPosition(), 0.25f).OnComplete(()=>{
                 EventManager.SendEvent(new GameEvent(EVENT.ONCARDMOVED, this));
             });
         }

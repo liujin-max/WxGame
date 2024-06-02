@@ -334,7 +334,6 @@ public class Field : MonoBehaviour
 
 
         _Removes.ForEach(c => {
-            c.IsEliminate = true;
             c.Grid.Card = null;
             // c.Grid = null;       //不置空，否则会影响连锁反应的判断
             m_Cards.Remove(c);
