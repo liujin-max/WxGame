@@ -16,13 +16,10 @@ public static class _C
     //状态机的状态列表
     public enum FSMSTATE
     {
-        GAME_START      = 0,
-        GAME_RECORD     = 1,
-        GAME_IDLE       = 2,
-        GAME_PLAY       = 3,
-        GAME_COMPLEX    = 4,
-        GAME_SHOP       = 5,
-        GAME_END        = 6
+        IDLE,       //待机
+        ELIMINATE,  //消除阶段
+        CHAIN,      //连锁反应阶段,
+        RESULT      //
     }
 
 

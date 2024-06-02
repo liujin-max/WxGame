@@ -9,6 +9,8 @@ public class Field : MonoBehaviour
     private static Field m_Instance;
     public static Field Instance{get{return m_Instance;}}
 
+    private FSM<Field> m_FSM;
+
     private Grid[,] m_Grids = new Grid[_C.DEFAULT_WEIGHT, _C.DEFAULT_HEIGHT];
     public Grid[,] Grids {get{ return m_Grids;}}
 
@@ -20,6 +22,8 @@ public class Field : MonoBehaviour
     void Awake()
     {
         m_Instance = this;
+
+        m_FSM = new FSM<Field>(this, State<Field> );
 
 
         EventManager.AddHandler(EVENT.ONCARDMOVED,      OnCardMoved);
