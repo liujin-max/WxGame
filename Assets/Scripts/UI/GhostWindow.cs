@@ -182,7 +182,11 @@ public class GhostWindow : MonoBehaviour
         var seat_pivot = GameFacade.Instance.Game.GameUI.SeatPivot;
         var pos = new Vector3(seat_pivot.transform.position.x * 100, seat_pivot.transform.position.y * 100, 0);
         c_Mask.GetComponent<UIMaskUtility>().SetCenter(pos);
-        c_GuidePivot.transform.GetComponent<UIMaskUtility>().SetCenter(pos);
+
+        if (c_GuidePivot.activeSelf) {
+            c_GuidePivot.transform.GetComponent<UIMaskUtility>().SetCenter(pos);
+        }
+        
     }
 
     public void Init(List<ComplextEvent> events)
