@@ -74,20 +74,21 @@ public class CardView : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDrag
         Destroy(gameObject);
     }
 
+
+
+
     void FixedUpdate()
     {
         var card = Field.Instance.GetMinDistanceSameCard(m_Card);
         if (card != null)
         {
-            // float angle = Vector2.Angle(card.Grid.GetPosition() - m_Card.Grid.GetPosition(), Vector2.right);
-            // Debug.Log("方块：" + m_Card.Grid.X + ", " + m_Card.Grid.Y + " 看向 " + card.Grid.X + ", " + card.Grid.Y + " 角度：" + angle);
-            // Vector2 pos = ToolUtility.FindPointOnCircle(new Vector2(-30, 0), 10, angle);
-            // m_Eye_Left.transform.localPosition = pos;
+            float angle = Vector2.Angle(card.Grid.GetPosition() - m_Card.Grid.GetPosition(), Vector2.right);
+            Debug.Log("方块：" + m_Card.Grid.X + ", " + m_Card.Grid.Y + " 看向 " + card.Grid.X + ", " + card.Grid.Y + " 角度：" + angle);
+            Vector2 pos = ToolUtility.FindPointOnCircle(new Vector2(-30, 0), 10, angle);
+            m_Eye_Left.transform.localPosition = pos;
 
-            // m_Eye_Right.transform.localPosition = ToolUtility.FindPointOnCircle(new Vector2( 30, 0), 10, angle);
+            m_Eye_Right.transform.localPosition = ToolUtility.FindPointOnCircle(new Vector2( 30, 0), 10, angle);
 
-            // m_Eye_Left.transform.LookAt(card.Entity.transform);
-            // m_Eye_Right.transform.LookAt(card.Entity.transform);
                     // 使眼睛朝向鼠标
             
             
@@ -96,16 +97,16 @@ public class CardView : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDrag
             // mousePos = Camera.main.ScreenToWorldPoint(mousePos);
 
             // Vector2 directionToMouse = (mousePos - m_Eye_Left_Pos).normalized;
-            // m_Eye_Left.transform.position = (Vector2)m_Eye_Left_Pos + directionToMouse * 10;
+            // m_Eye_Left.transform.position = (Vector2)m_Eye_Left_Pos + directionToMouse;
 
 
-            Vector2 l_direction = (card.Entity.transform.position - transform.position).normalized;
-            m_Eye_Left.transform.position = (Vector2)m_Eye_Left_Pos + l_direction * 0.1f;
+            // Vector2 l_direction = (card.Entity.transform.position - transform.position).normalized;
+            // m_Eye_Left.transform.position = (Vector2)m_Eye_Left_Pos + l_direction * 0.1f;
 
-            Vector2 r_direction = (card.Entity.transform.position - transform.position).normalized;
-            m_Eye_Right.transform.position = (Vector2)m_Eye_Right_Pos + r_direction * 0.1f;
+            // Vector2 r_direction = (card.Entity.transform.position - transform.position).normalized;
+            // m_Eye_Right.transform.position = (Vector2)m_Eye_Right_Pos + r_direction * 0.1f;
 
-            Debug.Log("坐标：" + m_Eye_Left_Pos + "| " + m_Eye_Right_Pos);
+            // Debug.Log("坐标：" + m_Eye_Left_Pos + "| " + m_Eye_Right_Pos);
         }
         else 
         {
