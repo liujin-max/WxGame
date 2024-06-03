@@ -294,6 +294,7 @@ public class Field : MonoBehaviour
                 Vector2 t_pos = c.Grid.GetPosition();
                 float dis = Vector2.Distance(o_pos, t_pos);
                 if (dis < min_distance) {
+                    min_distance = dis;
                     target_card = c;
                 }
             }

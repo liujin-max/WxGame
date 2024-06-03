@@ -15,8 +15,7 @@ public class CardView : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDrag
     [SerializeField] private Image m_Eye_Left;
     [SerializeField] private Image m_Eye_Right;
 
-    private Vector3 m_Eye_Left_Pos;
-    private Vector3 m_Eye_Right_Pos;
+
     private CanvasGroup m_CanvasGroup;
 
 
@@ -49,8 +48,7 @@ public class CardView : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDrag
         if (card.ID == 101) m_Icon.color = Color.yellow;
         if (card.ID == 102) m_Icon.color = Color.blue;
 
-        m_Eye_Left_Pos = m_Eye_Left.transform.position;
-        m_Eye_Right_Pos = m_Eye_Right.transform.position;
+
 
         FlushUI();
     }
@@ -79,39 +77,37 @@ public class CardView : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDrag
 
     void FixedUpdate()
     {
-        var card = Field.Instance.GetMinDistanceSameCard(m_Card);
-        if (card != null)
+        if (m_Card.STATE == _C.CARD_STATE.NORMAL)
         {
-            float angle = Vector2.Angle(card.Grid.GetPosition() - m_Card.Grid.GetPosition(), Vector2.right);
-            Debug.Log("方块：" + m_Card.Grid.X + ", " + m_Card.Grid.Y + " 看向 " + card.Grid.X + ", " + card.Grid.Y + " 角度：" + angle);
-            Vector2 pos = ToolUtility.FindPointOnCircle(new Vector2(-30, 0), 10, angle);
-            m_Eye_Left.transform.localPosition = pos;
+            m_Eye_Left.gameObject.SetActive(true);
+            m_Eye_Right.gameObject.SetActive(true);
 
-            m_Eye_Right.transform.localPosition = ToolUtility.FindPointOnCircle(new Vector2( 30, 0), 10, angle);
+            var card = Field.Instance.GetMinDistanceSameCard(m_Card);
+            if (card != null)
+            {
+                Vector2 t_pos = card.Entity.transform.localPosition;
+                Vector2 o_pos = m_Card.Entity.transform.localPosition;
 
-                    // 使眼睛朝向鼠标
-            
-            
+                float angle = Vector2.Angle(t_pos - o_pos, Vector2.right);
+                if (t_pos.y < o_pos.y) {
+                    angle *= -1;
+                }
 
-            // Vector3 mousePos = Input.mousePosition;
-            // mousePos = Camera.main.ScreenToWorldPoint(mousePos);
+                // Debug.Log("方块：" + m_Card.Grid.X + ", " + m_Card.Grid.Y + " 看向 " + card.Grid.X + ", " + card.Grid.Y + " 角度：" + angle);
+                m_Eye_Left.transform.localPosition = ToolUtility.FindPointOnCircle(new Vector2(-25, 0), 15, angle);
+                m_Eye_Right.transform.localPosition = ToolUtility.FindPointOnCircle(new Vector2( 25, 0), 15, angle);
 
-            // Vector2 directionToMouse = (mousePos - m_Eye_Left_Pos).normalized;
-            // m_Eye_Left.transform.position = (Vector2)m_Eye_Left_Pos + directionToMouse;
-
-
-            // Vector2 l_direction = (card.Entity.transform.position - transform.position).normalized;
-            // m_Eye_Left.transform.position = (Vector2)m_Eye_Left_Pos + l_direction * 0.1f;
-
-            // Vector2 r_direction = (card.Entity.transform.position - transform.position).normalized;
-            // m_Eye_Right.transform.position = (Vector2)m_Eye_Right_Pos + r_direction * 0.1f;
-
-            // Debug.Log("坐标：" + m_Eye_Left_Pos + "| " + m_Eye_Right_Pos);
+            }
+            else 
+            {
+                m_Eye_Left.transform.localPosition = new Vector2(-25, 0);
+                m_Eye_Right.transform.localPosition = new Vector2(25, 0);
+            }
         }
-        else 
+        else
         {
-            m_Eye_Left.transform.localPosition = new Vector2(-30, 0);
-            m_Eye_Right.transform.localPosition = new Vector2(30, 0);
+            m_Eye_Left.gameObject.SetActive(false);
+            m_Eye_Right.gameObject.SetActive(false);
         }
 
     }
@@ -167,7 +163,7 @@ public class CardView : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDrag
         Card card = @event.GetParam(0) as Card;
 
         if (card == m_Card) {
-            transform.DOLocalMove(m_Card.Grid.GetPosition(), 0.25f).OnComplete(()=>{
+            transform.DOLocalMove(m_Card.Grid.GetPosition(), 0.3f).OnComplete(()=>{
                 EventManager.SendEvent(new GameEvent(EVENT.ONCARDMOVED, this));
             });
         }
