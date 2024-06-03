@@ -19,6 +19,7 @@ public static class _C
         IDLE,       //待机
         ELIMINATE,  //消除阶段
         CHAIN,      //连锁反应阶段,
+        CHECK,
         RESULT      //
     }
 
@@ -38,7 +39,12 @@ public static class _C
         GHOST    
     }
 
-
+    public enum RESULT
+    {
+        VICTORY,
+        LOSE,
+        NONE
+    }
 
 
 

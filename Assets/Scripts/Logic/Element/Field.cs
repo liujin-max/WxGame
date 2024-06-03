@@ -53,6 +53,7 @@ public class Field : MonoBehaviour
             new State_Idle<Field>(_C.FSMSTATE.IDLE),
             new State_Eliminate<Field>(_C.FSMSTATE.ELIMINATE),
             new State_Chain<Field>(_C.FSMSTATE.CHAIN),
+            new State_Check<Field>(_C.FSMSTATE.CHECK),
             new State_Result<Field>(_C.FSMSTATE.RESULT)
         });
 
@@ -474,6 +475,16 @@ public class Field : MonoBehaviour
         });
 
         return _Removes;
+    }
+
+    public _C.RESULT CheckResult()
+    {
+        if (m_Stage.IsFinished() == true) return _C.RESULT.VICTORY;
+
+        if (m_Stage.MoveStep.IsClear() == true) return _C.RESULT.LOSE;
+
+
+        return _C.RESULT.NONE;
     }
 
     void Update()

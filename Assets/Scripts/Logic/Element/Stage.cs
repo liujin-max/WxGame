@@ -33,11 +33,13 @@ public class Stage
 
         ParseCardPool();
         ParseCondition();
+
+        EventManager.AddHandler(EVENT.ONCARDBROKEN,   OnCardBroken);
     }
 
     public void Dispose()
     {
-
+        EventManager.DelHandler(EVENT.ONCARDBROKEN,   OnCardBroken);
     }
 
     void ParseCardPool()
@@ -55,10 +57,8 @@ public class Stage
 
         foreach (var item in m_Data.Condition.Split('|')) {
             string[] conditions = item.Split(':');
-            foreach (var str in conditions) {
-                var condition = new Condition(Convert.ToInt32(str[0]), Convert.ToInt32(str[1]));
-                m_Conditions.Add(condition);
-            }
+            var condition = new Condition(Convert.ToInt32(conditions[0]), Convert.ToInt32(conditions[1]));
+            m_Conditions.Add(condition);
         }
     }
 
@@ -94,4 +94,17 @@ public class Stage
 
         return true;
     }
+
+
+    #region 监听事件
+    private void OnCardBroken(GameEvent @event)
+    {
+        var card = @event.GetParam(0) as Card;
+        this.Collect(card.ID, 1);
+        
+        // if (this.IsConformTo(card.ID) == true) {
+
+        // }
+    }
+    #endregion
 }

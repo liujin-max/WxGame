@@ -3,6 +3,7 @@
 public static class EVENT
 {
     public static string UI_MOVECARD        = "UI_MOVECARD";
+    public static string UI_BROKENCARD      = "UI_BROKENCARD";
 
 
     

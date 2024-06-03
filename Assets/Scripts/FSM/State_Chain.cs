@@ -8,6 +8,7 @@ public class State_Chain<T> : State<Field>
 {
     public State_Chain(_C.FSMSTATE id) : base(id){}
 
+    private List<Card> m_EliCards = new List<Card>();
     private List<Card> m_ChainCards = new List<Card>();
 
     public override void Enter(params object[] values)
@@ -16,8 +17,12 @@ public class State_Chain<T> : State<Field>
 
         List<Card> cards = values[0] as List<Card>;
 
+        m_EliCards.Clear();
         m_ChainCards.Clear();
+        
         cards.ForEach(c => {
+            m_EliCards.Add(c);
+
             var top = Field.Instance.GetCardByDirection(c, _C.DIRECTION.TOP);
             if (top != null) {
                 if (Field.Instance.MoveTop(top) != null) {
@@ -50,6 +55,13 @@ public class State_Chain<T> : State<Field>
 
     public override void Update()
     {
+        for (int i = 0; i < m_EliCards.Count; i++)
+        {
+            var c = m_EliCards[i];
+            if (c.Entity != null)
+                return;
+        }
+
         if (m_ChainCards.Count == 0) {
             Field.Instance.Transist(_C.FSMSTATE.ELIMINATE);
         }

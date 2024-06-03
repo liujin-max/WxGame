@@ -60,10 +60,12 @@ public class CardView : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDrag
 
     public void Broken()
     {
-        transform.DOScale(1.6f, 0.1f);
-        m_CanvasGroup.DOFade(0.1f, 0.1f).OnComplete(()=>{
+        transform.DOScale(1.5f, 0.2f);
+        m_CanvasGroup.DOFade(0f, 0.2f).OnComplete(()=>{
             m_Card.Entity = null;
             this.Destroy();
+
+            EventManager.SendEvent(new GameEvent(EVENT.UI_BROKENCARD, m_Card));
         });
     }
 

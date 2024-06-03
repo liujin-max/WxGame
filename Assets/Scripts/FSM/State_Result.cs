@@ -5,28 +5,18 @@ using UnityEngine;
 //一步走完后的处理
 public class State_Result<T> : State<Field>
 {
-    private CDTimer m_Timer = new CDTimer(0.3f);
-
     public State_Result(_C.FSMSTATE id) : base(id){}
 
     public override void Enter(params object[] values)
     {
-        m_Timer.Reset();
+        var result = (_C.RESULT)values[0];
 
-        Field.Instance.IsMoved = false;
-
-        Field.Instance.AddCards();
-        
-    }
-
-    public override void Update()
-    {
-        m_Timer.Update(Time.deltaTime);
-        if (m_Timer.IsFinished() == true) {
-            m_Timer.Reset();
-
-            Field.Instance.Transist(_C.FSMSTATE.ELIMINATE);
+        if (result == _C.RESULT.VICTORY) {  //成功
+            GameFacade.Instance.UIManager.LoadWindow("VictoryWindow", UIManager.BOARD).GetComponent<VictoryWindow>();
+        } else {    //失败
+            Debug.Log("失败");
         }
+        
     }
 }
 
