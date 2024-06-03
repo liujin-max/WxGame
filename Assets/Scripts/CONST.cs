@@ -46,7 +46,13 @@ public static class _C
         NONE
     }
 
-
+    //动画节点的状态
+    public enum DISPLAY_STATE
+    {
+        IDLE,
+        PLAYING,
+        END
+    }
 
 
 

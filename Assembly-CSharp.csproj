@@ -149,6 +149,8 @@
     <Compile Include="Assets\Scripts\UI\Window\VictoryWindow.cs" />
     <Compile Include="Assets\Scripts\FSM\State_Check.cs" />
     <Compile Include="Assets\Scripts\UI\Window\LoseWindow.cs" />
+    <Compile Include="Assets\Scripts\Display\DisplayEngine.cs" />
+    <Compile Include="Assets\Scripts\Display\DisplayEvent.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Resources\Shader\SpriteGray.shader" />

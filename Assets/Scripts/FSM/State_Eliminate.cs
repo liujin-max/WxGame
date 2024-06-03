@@ -13,12 +13,16 @@ public class State_Eliminate<T> : State<Field>
 
     public override void Enter(params object[] values)
     {
+        Debug.Log("State_Eliminate");
+
         m_Removes = Field.Instance.CheckEliminate();
 
         //有宝石要消除，则消除并进入连锁反应
         if (m_Removes.Count > 0) {
             m_Removes.ForEach(card => {
-                EventManager.SendEvent(new GameEvent(EVENT.ONCARDBROKEN, card));
+                Field.Instance.Stage.Collect(card.ID, 1);
+
+                GameFacade.Instance.DisplayEngine.Put(DisplayEngine.Track.Common, new DisplayEvent_BrokenCard(card));
             });
             
             Field.Instance.Transist(_C.FSMSTATE.CHAIN, m_Removes);

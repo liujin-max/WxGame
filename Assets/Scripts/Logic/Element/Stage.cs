@@ -33,13 +33,11 @@ public class Stage
 
         ParseCardPool();
         ParseCondition();
-
-        EventManager.AddHandler(EVENT.ONCARDBROKEN,   OnCardBroken);
     }
 
     public void Dispose()
     {
-        EventManager.DelHandler(EVENT.ONCARDBROKEN,   OnCardBroken);
+
     }
 
     void ParseCardPool()
@@ -97,14 +95,6 @@ public class Stage
 
 
     #region 监听事件
-    private void OnCardBroken(GameEvent @event)
-    {
-        var card = @event.GetParam(0) as Card;
-        this.Collect(card.ID, 1);
-        
-        // if (this.IsConformTo(card.ID) == true) {
 
-        // }
-    }
     #endregion
 }

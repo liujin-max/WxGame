@@ -112,6 +112,17 @@ public class GameFacade : MonoBehaviour
         }
     }
 
+    private DisplayEngine m_DisplayEngine = null;
+    public DisplayEngine DisplayEngine
+    {
+        get {
+            if (m_DisplayEngine == null) {
+                m_DisplayEngine = transform.AddComponent<DisplayEngine>();
+            }
+            return m_DisplayEngine;
+        }
+    }
+
     #endregion
 
     private static GameFacade _instance = null;

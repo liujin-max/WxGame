@@ -39,12 +39,11 @@ public class Field : MonoBehaviour
     {
         m_Instance = this;
 
-        EventManager.AddHandler(EVENT.ONCARDMOVED,      OnCardMoved);
     }
 
     void OnDestroy()
     {
-        EventManager.DelHandler(EVENT.ONCARDMOVED,      OnCardMoved);
+
     }
 
     void Start()
@@ -137,8 +136,8 @@ public class Field : MonoBehaviour
             card.Grid   = grid;
             grid.Card   = card;
             card.STATE  = _C.CARD_STATE.NORMAL;
-
-            EventManager.SendEvent(new GameEvent(EVENT.ONADDCARD, card));
+            
+            GameFacade.Instance.DisplayEngine.Put(DisplayEngine.Track.Common, new DisplayEvent_AddCard(card));
 
             m_Cards.Add(card);
         }
@@ -178,7 +177,7 @@ public class Field : MonoBehaviour
             card.STATE  = _C.CARD_STATE.GHOST;
             card.Grid   = grid;
 
-            EventManager.SendEvent(new GameEvent(EVENT.ONADDCARD, card));
+            GameFacade.Instance.DisplayEngine.Put(DisplayEngine.Track.Common, new DisplayEvent_AddCard(card));
 
             add_cards.Add(card);
             m_GhostCards.Add(card);
@@ -363,7 +362,7 @@ public class Field : MonoBehaviour
         this.ClearGhost(card);
         m_Stage.MoveStep.UpdateCurrent(-1);
 
-        EventManager.SendEvent(new GameEvent(EVENT.UI_MOVECARD, card));
+        GameFacade.Instance.DisplayEngine.Put(DisplayEngine.Track.Common, new DisplayEvent_MoveCard(card));
 
         return target;
     } 
@@ -394,7 +393,7 @@ public class Field : MonoBehaviour
         this.ClearGhost(card);
         m_Stage.MoveStep.UpdateCurrent(-1);
 
-        EventManager.SendEvent(new GameEvent(EVENT.UI_MOVECARD, card));
+        GameFacade.Instance.DisplayEngine.Put(DisplayEngine.Track.Common, new DisplayEvent_MoveCard(card));
 
         return target;
     }
@@ -425,7 +424,7 @@ public class Field : MonoBehaviour
         this.ClearGhost(card);
         m_Stage.MoveStep.UpdateCurrent(-1);
 
-        EventManager.SendEvent(new GameEvent(EVENT.UI_MOVECARD, card));
+        GameFacade.Instance.DisplayEngine.Put(DisplayEngine.Track.Common, new DisplayEvent_MoveCard(card));
 
         return target;
     }
@@ -456,7 +455,7 @@ public class Field : MonoBehaviour
         this.ClearGhost(card);
         m_Stage.MoveStep.UpdateCurrent(-1);
 
-        EventManager.SendEvent(new GameEvent(EVENT.UI_MOVECARD, card));
+        GameFacade.Instance.DisplayEngine.Put(DisplayEngine.Track.Common, new DisplayEvent_MoveCard(card));
 
         return target;
     }
@@ -502,9 +501,6 @@ public class Field : MonoBehaviour
 
 
     #region 监听事件
-    private void OnCardMoved(GameEvent @event)
-    {
 
-    }
     #endregion
 }

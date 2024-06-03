@@ -5,13 +5,11 @@ using UnityEngine;
 //一步走完后的处理
 public class State_Check<T> : State<Field>
 {
-    private CDTimer m_Timer = new CDTimer(0.3f);
-
     public State_Check(_C.FSMSTATE id) : base(id){}
 
     public override void Enter(params object[] values)
     {
-        m_Timer.Reset();
+        Debug.Log("State_Check");
 
         Field.Instance.IsMoved = false;
 
@@ -21,12 +19,10 @@ public class State_Check<T> : State<Field>
 
     public override void Update()
     {
-        m_Timer.Update(Time.deltaTime);
-        if (m_Timer.IsFinished() == true) {
-            m_Timer.Reset();
+        if (!GameFacade.Instance.DisplayEngine.IsIdle()) return;
 
-            Field.Instance.Transist(_C.FSMSTATE.ELIMINATE);
-        }
+        Field.Instance.Transist(_C.FSMSTATE.ELIMINATE);
+
     }
 }
 

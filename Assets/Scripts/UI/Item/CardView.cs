@@ -16,7 +16,7 @@ public class CardView : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDrag
     [SerializeField] private Image m_Eye_Right;
 
 
-    private CanvasGroup m_CanvasGroup;
+    public CanvasGroup CanvasGroup;
 
 
     private Vector2 m_TouchPos;
@@ -24,17 +24,15 @@ public class CardView : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDrag
 
     void Awake()
     {
-        m_CanvasGroup = GetComponent<CanvasGroup>();
+        CanvasGroup = GetComponent<CanvasGroup>();
 
         transform.localScale = Vector2.zero;
         transform.DOScale(1, 0.15f);
-
-        EventManager.AddHandler(EVENT.UI_MOVECARD,   OnReponseMoveCard);
     }
 
     void OnDestroy()
     {
-        EventManager.DelHandler(EVENT.UI_MOVECARD,   OnReponseMoveCard);
+
     }
 
     public void Init(Card card)
@@ -55,18 +53,7 @@ public class CardView : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDrag
 
     public void FlushUI()
     {
-        m_CanvasGroup.alpha = m_Card.STATE == _C.CARD_STATE.NORMAL ? 1 : 0.4f;
-    }
-
-    public void Broken()
-    {
-        transform.DOScale(1.5f, 0.2f);
-        m_CanvasGroup.DOFade(0f, 0.2f).OnComplete(()=>{
-            m_Card.Entity = null;
-            this.Destroy();
-
-            EventManager.SendEvent(new GameEvent(EVENT.UI_BROKENCARD, m_Card));
-        });
+        CanvasGroup.alpha = m_Card.STATE == _C.CARD_STATE.NORMAL ? 1 : 0.4f;
     }
 
     public void Destroy()
@@ -95,7 +82,6 @@ public class CardView : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDrag
                     angle *= -1;
                 }
 
-                // Debug.Log("方块：" + m_Card.Grid.X + ", " + m_Card.Grid.Y + " 看向 " + card.Grid.X + ", " + card.Grid.Y + " 角度：" + angle);
                 m_Eye_Left.transform.localPosition = ToolUtility.FindPointOnCircle(new Vector2(-25, 0), 15, angle);
                 m_Eye_Right.transform.localPosition = ToolUtility.FindPointOnCircle(new Vector2( 25, 0), 15, angle);
 
@@ -159,17 +145,6 @@ public class CardView : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDrag
     public void OnEndDrag(PointerEventData eventData)
     {
         m_Dragging = false;
-    }
-
-    private void OnReponseMoveCard(GameEvent @event)
-    {
-        Card card = @event.GetParam(0) as Card;
-
-        if (card == m_Card) {
-            transform.DOLocalMove(m_Card.Grid.Position, 0.3f).OnComplete(()=>{
-                EventManager.SendEvent(new GameEvent(EVENT.ONCARDMOVED, this));
-            });
-        }
     }
     #endregion
 }
