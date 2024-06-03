@@ -71,8 +71,12 @@ public class Field : MonoBehaviour
             for (int j = 0; j < _C.DEFAULT_HEIGHT; j++) {
                 var grid = new Grid(i, j);
                 m_Grids[i, j] = grid;
+
+                if (i == 0 || i == _C.DEFAULT_WEIGHT - 1 || j == 0 || j == _C.DEFAULT_HEIGHT - 1) grid.IsValid = false;
+                // if (i == 1 || i == _C.DEFAULT_WEIGHT - 2 || j == 1 || j == _C.DEFAULT_HEIGHT - 2) grid.IsValid = false;
             }
         }
+
     }
 
     void InitCards()
@@ -86,7 +90,7 @@ public class Field : MonoBehaviour
         for (int i = 0; i < Field.Instance.Grids.GetLength(0); i++) {
             for (int j = 0; j < Field.Instance.Grids.GetLength(1); j++) {
                 var g = Field.Instance.Grids[i, j];
-                if (g.IsEmpty() == true) {
+                if (g.IsEmpty == true && g.IsValid == true) {
                     grid_list.Add(g);
                 }  
             }
@@ -116,7 +120,7 @@ public class Field : MonoBehaviour
     {
         //将残影方块实体化
         m_GhostCards.ForEach(card => {
-            if (card.Grid.IsEmpty() == true) {
+            if (card.Grid.IsEmpty == true) {
                 card.STATE = _C.CARD_STATE.NORMAL;
                 card.Grid.Card = card;
                 card.Entity.FlushUI();
@@ -139,7 +143,7 @@ public class Field : MonoBehaviour
         for (int i = 0; i < Field.Instance.Grids.GetLength(0); i++) {
             for (int j = 0; j < Field.Instance.Grids.GetLength(1); j++) {
                 var g = Field.Instance.Grids[i, j];
-                if (g.IsEmpty() == true) {
+                if (g.IsEmpty == true && g.IsValid == true) {
                     grid_list.Add(g);
                 }  
             }
@@ -235,7 +239,8 @@ public class Field : MonoBehaviour
 
         return false;
     }
-
+    
+    //获取四个方向相邻的方块
     public Card GetCardByDirection(Card card, _C.DIRECTION direction)
     {
         switch (direction)
@@ -276,6 +281,27 @@ public class Field : MonoBehaviour
         return null;
     }
 
+    //获取离得最近的同色方块
+    public Card GetMinDistanceSameCard(Card card)
+    {
+        float min_distance = 1000;
+        Vector2 o_pos = card.Grid.GetPosition();
+
+        Card target_card = null;
+
+        m_Cards.ForEach(c => {
+            if (c.ID == card.ID && c != card) {
+                Vector2 t_pos = c.Grid.GetPosition();
+                float dis = Vector2.Distance(o_pos, t_pos);
+                if (dis < min_distance) {
+                    target_card = c;
+                }
+            }
+        });
+
+        return target_card;
+    }
+
     //向上移动(单个)
     public Grid MoveTop(Card card)
     {
@@ -288,7 +314,7 @@ public class Field : MonoBehaviour
         for (int j = origin.Y + 1; j < _C.DEFAULT_HEIGHT; j++)
         {
             Grid grid = m_Grids[origin.X, j];
-            if (!grid.IsEmpty() || !grid.IsValid) break;
+            if (!grid.IsEmpty || !grid.IsValid) break;
             
             target  = grid;
         }
@@ -318,7 +344,7 @@ public class Field : MonoBehaviour
         for (int j = origin.Y -1; j >= 0; j--)
         {
             Grid grid = m_Grids[origin.X, j];
-            if (!grid.IsEmpty() || !grid.IsValid) break;
+            if (!grid.IsEmpty || !grid.IsValid) break;
             
             target  = grid;
         }
@@ -348,7 +374,7 @@ public class Field : MonoBehaviour
         for (int i = origin.X -1; i >= 0; i--)
         {
             Grid grid = m_Grids[i, origin.Y];
-            if (!grid.IsEmpty() || !grid.IsValid) break;
+            if (!grid.IsEmpty || !grid.IsValid) break;
             
             target  = grid;
         }
@@ -378,7 +404,7 @@ public class Field : MonoBehaviour
         for (int i = origin.X + 1; i < _C.DEFAULT_WEIGHT; i++)
         {
             Grid grid = m_Grids[i, origin.Y];
-            if (!grid.IsEmpty() || !grid.IsValid) break;
+            if (!grid.IsEmpty || !grid.IsValid) break;
             
             target  = grid;
         }

@@ -12,7 +12,11 @@ public class CardView : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDrag
     public Card Card { get { return m_Card;}}
 
     [SerializeField] private Image m_Icon;
-    
+    [SerializeField] private Image m_Eye_Left;
+    [SerializeField] private Image m_Eye_Right;
+
+    private Vector3 m_Eye_Left_Pos;
+    private Vector3 m_Eye_Right_Pos;
     private CanvasGroup m_CanvasGroup;
 
 
@@ -39,8 +43,14 @@ public class CardView : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDrag
         m_Card = card;
         m_Card.Entity = this;
 
-        m_Icon.sprite = Resources.Load<Sprite>("UI/Card/" + card.ID);
-        m_Icon.SetNativeSize();
+        // m_Icon.sprite = Resources.Load<Sprite>("UI/Card/" + card.ID);
+        // m_Icon.SetNativeSize();
+        if (card.ID == 100) m_Icon.color = Color.red;
+        if (card.ID == 101) m_Icon.color = Color.yellow;
+        if (card.ID == 102) m_Icon.color = Color.blue;
+
+        m_Eye_Left_Pos = m_Eye_Left.transform.position;
+        m_Eye_Right_Pos = m_Eye_Right.transform.position;
 
         FlushUI();
     }
@@ -52,7 +62,7 @@ public class CardView : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDrag
 
     public void Broken()
     {
-        transform.DOScale(2, 0.1f);
+        transform.DOScale(1.6f, 0.1f);
         m_CanvasGroup.DOFade(0.1f, 0.1f).OnComplete(()=>{
             m_Card.Entity = null;
             this.Destroy();
@@ -62,6 +72,47 @@ public class CardView : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDrag
     public void Destroy()
     {
         Destroy(gameObject);
+    }
+
+    void FixedUpdate()
+    {
+        var card = Field.Instance.GetMinDistanceSameCard(m_Card);
+        if (card != null)
+        {
+            // float angle = Vector2.Angle(card.Grid.GetPosition() - m_Card.Grid.GetPosition(), Vector2.right);
+            // Debug.Log("方块：" + m_Card.Grid.X + ", " + m_Card.Grid.Y + " 看向 " + card.Grid.X + ", " + card.Grid.Y + " 角度：" + angle);
+            // Vector2 pos = ToolUtility.FindPointOnCircle(new Vector2(-30, 0), 10, angle);
+            // m_Eye_Left.transform.localPosition = pos;
+
+            // m_Eye_Right.transform.localPosition = ToolUtility.FindPointOnCircle(new Vector2( 30, 0), 10, angle);
+
+            // m_Eye_Left.transform.LookAt(card.Entity.transform);
+            // m_Eye_Right.transform.LookAt(card.Entity.transform);
+                    // 使眼睛朝向鼠标
+            
+            
+
+            // Vector3 mousePos = Input.mousePosition;
+            // mousePos = Camera.main.ScreenToWorldPoint(mousePos);
+
+            // Vector2 directionToMouse = (mousePos - m_Eye_Left_Pos).normalized;
+            // m_Eye_Left.transform.position = (Vector2)m_Eye_Left_Pos + directionToMouse * 10;
+
+
+            Vector2 l_direction = (card.Entity.transform.position - transform.position).normalized;
+            m_Eye_Left.transform.position = (Vector2)m_Eye_Left_Pos + l_direction * 0.1f;
+
+            Vector2 r_direction = (card.Entity.transform.position - transform.position).normalized;
+            m_Eye_Right.transform.position = (Vector2)m_Eye_Right_Pos + r_direction * 0.1f;
+
+            Debug.Log("坐标：" + m_Eye_Left_Pos + "| " + m_Eye_Right_Pos);
+        }
+        else 
+        {
+            m_Eye_Left.transform.localPosition = new Vector2(-30, 0);
+            m_Eye_Right.transform.localPosition = new Vector2(30, 0);
+        }
+
     }
 
 

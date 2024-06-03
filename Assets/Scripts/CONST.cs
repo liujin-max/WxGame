@@ -40,8 +40,8 @@ public static class _C
 
 
 
-    public static int DEFAULT_WEIGHT  = 10;
-    public static int DEFAULT_HEIGHT = 10;
+    public static int DEFAULT_WEIGHT  = 7;
+    public static int DEFAULT_HEIGHT = 8;
 
 
 

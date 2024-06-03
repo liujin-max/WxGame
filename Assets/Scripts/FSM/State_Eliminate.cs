@@ -21,7 +21,7 @@ public class State_Eliminate<T> : State<Field>
                 EventManager.SendEvent(new GameEvent(EVENT.ONCARDBROKEN, card));
             });
             
-            // Field.Instance.Transist(_C.FSMSTATE.CHAIN, m_Removes);
+            Field.Instance.Transist(_C.FSMSTATE.CHAIN, m_Removes);
         } else {
             if (Field.Instance.IsMoved == true) {
                 Field.Instance.Transist(_C.FSMSTATE.RESULT);
@@ -33,18 +33,18 @@ public class State_Eliminate<T> : State<Field>
 
     public override void Update()
     {
-        //等动画播完了 再进入下一步
-        if (m_IsWait) {
-            for (int i = 0; i < m_Removes.Count; i++){
-                var card = m_Removes[i];
-                if (card.Entity != null) 
-                    return;
-            }
+        // //等动画播完了 再进入下一步
+        // if (m_IsWait) {
+        //     for (int i = 0; i < m_Removes.Count; i++){
+        //         var card = m_Removes[i];
+        //         if (card.Entity != null) 
+        //             return;
+        //     }
 
-            Field.Instance.Transist(_C.FSMSTATE.CHAIN, m_Removes);
+        //     Field.Instance.Transist(_C.FSMSTATE.CHAIN, m_Removes);
 
-            m_IsWait = false;
-            m_Removes.Clear();
-        }
+        //     m_IsWait = false;
+        //     m_Removes.Clear();
+        // }
     }
 }

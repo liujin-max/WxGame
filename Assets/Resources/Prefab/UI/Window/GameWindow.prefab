@@ -51,10 +51,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_CardPivot: {fileID: 6577482592010389869}
-  m_BtnTop: {fileID: 0}
-  m_BtnDown: {fileID: 0}
-  m_BtnLeft: {fileID: 0}
-  m_BtnRight: {fileID: 0}
 --- !u!1 &5456642714501153208
 GameObject:
   m_ObjectHideFlags: 0
@@ -125,6 +121,6 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: -50}
   m_SizeDelta: {x: 1050, y: 1045}
   m_Pivot: {x: 0.5, y: 0.5}

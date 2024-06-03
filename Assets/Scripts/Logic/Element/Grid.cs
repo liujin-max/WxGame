@@ -14,6 +14,8 @@ public class Grid
         set { m_ValidFlag = value;}
     }
 
+    public bool IsEmpty {get { return m_Card == null;}}
+
     private Card m_Card;
     public Card Card {
         get {return m_Card;} 
@@ -28,11 +30,6 @@ public class Grid
 
     public Vector2 GetPosition()
     {
-        return new Vector2(-475 + X * 105, -475 + Y * 105);
-    }
-
-    public bool IsEmpty()
-    {
-        return m_Card == null;
+        return new Vector2(-435 + X * 145, -435 + Y * 145);
     }
 }

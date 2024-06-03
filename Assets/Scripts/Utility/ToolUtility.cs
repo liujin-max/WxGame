@@ -68,4 +68,17 @@ public static class ToolUtility
         double timestamp    = timeSpan.TotalSeconds;
         return timestamp;
     }
+
+    public static Vector2 FindPointOnCircle(Vector3 center, float radius, float angle)
+    {
+        // 将角度转换为弧度
+        float radians = angle * Mathf.Deg2Rad;
+
+        // 计算圆上一定角度外的某个点的坐标
+        Vector2 point = new Vector2(
+            center.x + radius * Mathf.Cos(radians),
+            center.y + radius * Mathf.Sin(radians));
+
+        return point;
+    }
 }
