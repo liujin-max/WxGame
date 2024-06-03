@@ -44,10 +44,10 @@ public class CardView : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDrag
 
         // m_Icon.sprite = Resources.Load<Sprite>("UI/Card/" + card.ID);
         // m_Icon.SetNativeSize();
-        if (card.ID == 100) m_Icon.color = Color.red;
-        if (card.ID == 101) m_Icon.color = Color.yellow;
-        if (card.ID == 102) m_Icon.color = Color.blue;
-
+        if (card.ID == 10001) m_Icon.color = Color.red;
+        if (card.ID == 10002) m_Icon.color = Color.yellow;
+        if (card.ID == 10003) m_Icon.color = Color.blue;
+        if (card.ID == 10004) m_Icon.color = Color.green;
 
 
         FlushUI();
@@ -117,6 +117,7 @@ public class CardView : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDrag
     public void OnBeginDrag(PointerEventData eventData)
     {
         if (!m_Card.Dragable) return;   //无法拖动的
+        if (Field.Instance.Stage.MoveStep.IsClear()) return;    //没有行动步数了
 
         m_Dragging  = true;
         m_TouchPos  = eventData.position;
@@ -163,7 +164,7 @@ public class CardView : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDrag
         Card card = @event.GetParam(0) as Card;
 
         if (card == m_Card) {
-            transform.DOLocalMove(m_Card.Grid.GetPosition(), 0.3f).OnComplete(()=>{
+            transform.DOLocalMove(m_Card.Grid.Position, 0.3f).OnComplete(()=>{
                 EventManager.SendEvent(new GameEvent(EVENT.ONCARDMOVED, this));
             });
         }

@@ -8,17 +8,39 @@ public class CardData
 {
     public int ID;
     public string Name;
-
 }
+
+//数据体
+public class StageData
+{
+    public int ID;
+    public string Name;
+    public int Weight;
+    public int Height;
+    public int Step;
+    public string Condition;
+    public int Coin;
+    public string Cards;
+}
+
+
 
 //全局数据类
 public class DataCenter
 {
-    private static Dictionary<int, CardData> m_CardDic = new Dictionary<int, CardData>();
-    private static List<CardData> m_Cards = new List<CardData>();
+    //方块信息
+    private Dictionary<int, CardData> m_CardDic = new Dictionary<int, CardData>();
+    private List<CardData> m_Cards = new List<CardData>();
+
+    //章节信息
+    public Levels Level;
 
     public void Init()
     {
+        //章节数据
+        Level = new Levels();
+        Level.Init();
+
         //弹珠数据
         List<string[]> list = GameFacade.Instance.CsvManager.GetStringArrays(CsvManager.TableKey_Card);
         foreach (string[] data in list) {

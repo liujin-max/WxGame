@@ -142,6 +142,10 @@
     <Compile Include="Assets\Scripts\UI\Window\GameWindow.cs" />
     <Compile Include="Assets\Scripts\Logic\Element\Card.cs" />
     <Compile Include="Assets\Scripts\FSM\State_Result.cs" />
+    <Compile Include="Assets\Scripts\Logic\Element\Levels.cs" />
+    <Compile Include="Assets\Scripts\Logic\Element\Stage.cs" />
+    <Compile Include="Assets\Scripts\Logic\Element\Condition.cs" />
+    <Compile Include="Assets\Scripts\UI\Item\ConditionItem.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Resources\Shader\SpriteGray.shader" />

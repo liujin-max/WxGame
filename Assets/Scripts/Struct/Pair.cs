@@ -25,6 +25,11 @@ public class Pair
         return m_Curret >= m_Total;
     }
 
+    public bool IsClear()
+    {
+        return m_Curret <= 0;
+    }
+
     public void Clear()
     {
         m_Curret = 0;

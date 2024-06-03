@@ -8,6 +8,9 @@ public class Grid
     public int X;
     public int Y;
 
+    private Vector2 m_Position;
+    public Vector2 Position {get {return m_Position;}}
+
     private bool m_ValidFlag = true;
     public bool IsValid {
         get { return m_ValidFlag;}
@@ -22,14 +25,11 @@ public class Grid
         set {m_Card = value;}
     }
 
-    public Grid(int x, int y)
+    public Grid(int x, int y, Vector2 position)
     {
         X = x;
         Y = y;
-    }
 
-    public Vector2 GetPosition()
-    {
-        return new Vector2(-435 + X * 145, -435 + Y * 145);
+        m_Position = position;
     }
 }
