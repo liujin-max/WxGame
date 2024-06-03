@@ -38,8 +38,8 @@ public class DisplayEvent_MoveCard : DisplayEvent
     public override void Start()
     {
         base.Start();
-        var card = m_Params[0] as Card;
 
+        var card = m_Params[0] as Card;
         card.Entity.transform.DOLocalMove(card.Grid.Position, 0.3f).OnComplete(()=>{
             m_State = _C.DISPLAY_STATE.END;
 
@@ -56,8 +56,8 @@ public class DisplayEvent_BrokenCard : DisplayEvent
     public override void Start()
     {
         base.Start();
-        var card = m_Params[0] as Card;
 
+        var card = m_Params[0] as Card;
         card.Entity.transform.DOScale(1.5f, 0.2f);
         card.Entity.CanvasGroup.DOFade(0f, 0.2f).OnComplete(()=>{
             m_State = _C.DISPLAY_STATE.END;

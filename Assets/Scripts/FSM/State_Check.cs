@@ -9,8 +9,6 @@ public class State_Check<T> : State<Field>
 
     public override void Enter(params object[] values)
     {
-        Debug.Log("State_Check");
-
         Field.Instance.IsMoved = false;
 
         Field.Instance.AddCards();

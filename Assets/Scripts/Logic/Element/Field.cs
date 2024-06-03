@@ -136,7 +136,7 @@ public class Field : MonoBehaviour
             card.Grid   = grid;
             grid.Card   = card;
             card.STATE  = _C.CARD_STATE.NORMAL;
-            
+
             GameFacade.Instance.DisplayEngine.Put(DisplayEngine.Track.Common, new DisplayEvent_AddCard(card));
 
             m_Cards.Add(card);
@@ -471,7 +471,6 @@ public class Field : MonoBehaviour
                 _Removes.Add(card);
             }
         });
-
 
         _Removes.ForEach(c => {
             c.Grid.Card = null;

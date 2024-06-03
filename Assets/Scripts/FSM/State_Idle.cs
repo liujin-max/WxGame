@@ -11,7 +11,6 @@ public class State_Idle<T> : State<Field>
 
     public override void Enter(params object[] values)
     {
-        Debug.Log("State_Idle");
         EventManager.AddHandler(EVENT.ONCARDMOVED,      OnCardMoved);
         
         Field.Instance.IsMoved = true;

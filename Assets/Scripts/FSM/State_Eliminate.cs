@@ -8,24 +8,19 @@ public class State_Eliminate<T> : State<Field>
 {
     public State_Eliminate(_C.FSMSTATE id) : base(id){}
 
-    private List<Card> m_Removes = new List<Card>();
-
-
     public override void Enter(params object[] values)
     {
-        Debug.Log("State_Eliminate");
-
-        m_Removes = Field.Instance.CheckEliminate();
+        List<Card> _removes = Field.Instance.CheckEliminate();
 
         //有宝石要消除，则消除并进入连锁反应
-        if (m_Removes.Count > 0) {
-            m_Removes.ForEach(card => {
+        if (_removes.Count > 0) {
+            _removes.ForEach(card => {
                 Field.Instance.Stage.Collect(card.ID, 1);
 
                 GameFacade.Instance.DisplayEngine.Put(DisplayEngine.Track.Common, new DisplayEvent_BrokenCard(card));
             });
             
-            Field.Instance.Transist(_C.FSMSTATE.CHAIN, m_Removes);
+            Field.Instance.Transist(_C.FSMSTATE.CHAIN, _removes);
         } else {
             //无宝石需要消除
             //先判断是否满足胜利或失败条件

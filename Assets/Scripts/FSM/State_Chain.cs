@@ -10,9 +10,6 @@ public class State_Chain<T> : State<Field>
 
     public override void Enter(params object[] values)
     {
-        Debug.Log("State_Chain");
-
-
         List<Card> cards = values[0] as List<Card>;
 
         cards.ForEach(c => {
