@@ -14,6 +14,10 @@ public class State_Idle<T> : State<Field>
         EventManager.AddHandler(EVENT.ONCARDMOVED,      OnCardMoved);
         
         Field.Instance.IsMoved = true;
+
+        //场上没有可移动的方块
+        if (Field.Instance.Cards.Count == 0) 
+            Field.Instance.Transist(_C.FSMSTATE.CHECK);
     }
 
     public override void Exit()

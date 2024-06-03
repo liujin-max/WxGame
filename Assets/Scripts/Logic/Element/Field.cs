@@ -80,6 +80,18 @@ public class Field : MonoBehaviour
     public void Dispose()
     {
         m_Stage.Dispose();
+
+        m_Cards.ForEach(c => {
+            c.Grid.Card = null;
+            c.Entity.Destroy();
+        });
+        m_Cards.Clear();
+
+        m_GhostCards.ForEach(c => {
+            c.Grid.Card = null;
+            c.Entity.Destroy();
+        });
+        m_GhostCards.Clear();
     }
 
     public void Transist(_C.FSMSTATE state, params object[] values)
@@ -103,12 +115,6 @@ public class Field : MonoBehaviour
 
     void InitCards()
     {
-        m_Cards.ForEach(c => {
-            c.Grid.Card = null;
-            c.Entity.Destroy();
-        });
-        m_Cards.Clear();
-
         //获取CardData池子
         m_CardPool.Clear();
         foreach (var id in m_Stage.Cards) {
@@ -126,7 +132,7 @@ public class Field : MonoBehaviour
         {
             Grid grid   = grid_datas[i] as Grid;
 
-            int rand    = RandomUtility.Random(1, m_CardPool.Count);
+            int rand    = RandomUtility.Random(0, m_CardPool.Count);
             Card card   = new Card(m_CardPool[rand]);
             card.Grid   = grid;
             grid.Card   = card;
@@ -167,7 +173,7 @@ public class Field : MonoBehaviour
         {
             Grid grid = grid_datas[i] as Grid;
 
-            int rand    = RandomUtility.Random(1, m_CardPool.Count);
+            int rand    = RandomUtility.Random(0, m_CardPool.Count);
             Card card   = new Card(m_CardPool[rand]);
             card.STATE  = _C.CARD_STATE.GHOST;
             card.Grid   = grid;

@@ -148,6 +148,7 @@
     <Compile Include="Assets\Scripts\FSM\State_Result.cs" />
     <Compile Include="Assets\Scripts\UI\Window\VictoryWindow.cs" />
     <Compile Include="Assets\Scripts\FSM\State_Check.cs" />
+    <Compile Include="Assets\Scripts\UI\Window\LoseWindow.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Resources\Shader\SpriteGray.shader" />

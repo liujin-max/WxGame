@@ -27,7 +27,7 @@ public class ConditionItem : MonoBehaviour
     {
         m_Condition = condition;
 
-        if (condition.ID == 10000) m_Icon.color = Color.black;
+        if (condition.ID == 10000) m_Icon.color = Color.cyan;
         if (condition.ID == 10001) m_Icon.color = Color.red;
         if (condition.ID == 10002) m_Icon.color = Color.yellow;
         if (condition.ID == 10003) m_Icon.color = Color.blue;

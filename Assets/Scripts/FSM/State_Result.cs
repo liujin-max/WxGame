@@ -14,7 +14,7 @@ public class State_Result<T> : State<Field>
         if (result == _C.RESULT.VICTORY) {  //成功
             GameFacade.Instance.UIManager.LoadWindow("VictoryWindow", UIManager.BOARD).GetComponent<VictoryWindow>();
         } else {    //失败
-            Debug.Log("失败");
+            GameFacade.Instance.UIManager.LoadWindow("LoseWindow", UIManager.BOARD).GetComponent<LoseWindow>();
         }
         
     }
