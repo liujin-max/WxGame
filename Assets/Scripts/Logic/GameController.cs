@@ -1010,7 +1010,7 @@ namespace CB
 
             m_FSM.Owner.GameUI = GameFacade.Instance.UIManager.LoadWindow("Prefab/UI/GameWindow", GameFacade.Instance.UIManager.BOTTOM).GetComponent<GameWindow>();
 
-            // for (int i = 0; i < 50; i++)
+            // for (int i = 0; i < 150; i++)
             // {
             //     Debug.Log("关卡 ：  " + (i + 1) + ", 难度 ："+ m_FSM.Owner.GetTargetScore(i+1));
             // }
@@ -1158,12 +1158,24 @@ namespace CB
 
 
             //至少有3个碎片
-            temp_list.Add((int)_C.BOXTYPE.GHOST);
-            temp_list.Add((int)_C.BOXTYPE.GHOST);
-            temp_list.Add((int)_C.BOXTYPE.GHOST);
+            int glass_count = 3;
+            int glass_rate  = 70;
+
+            if (m_FSM.Owner.Glass >= 40) {
+                glass_rate  = 40;
+                glass_count = RandomUtility.Random(1, 3);
+            } else if (m_FSM.Owner.Glass >= 20) {
+                glass_rate  = 55;
+                glass_count = RandomUtility.Random(1, 4);
+            }
+
+            for (int i = 0; i < glass_count; i++)
+            {
+                temp_list.Add((int)_C.BOXTYPE.GHOST);
+            }
 
             for (int i = 0; i < 3; i++) {
-                if (RandomUtility.IsHit(70))  {
+                if (RandomUtility.IsHit(glass_rate))  {
                     temp_list.Add((int)_C.BOXTYPE.GHOST);
                 }
             }
@@ -1373,7 +1385,7 @@ namespace CB
         {
             //金币跟积分挂钩，最少也给1块钱
             int min = RandomUtility.Random(1, 4);
-            int max = RandomUtility.Random(17, 24);
+            int max = RandomUtility.Random(15, 22);
             int coin = Mathf.Clamp((int)Mathf.Floor(m_FSM.Owner.Score / 20.0f), min, max);
 
             AttributeValue coin_number = new AttributeValue(coin);

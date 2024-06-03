@@ -263,7 +263,7 @@ namespace CB
         public override void OnComplextInit(ComplextEvent evt)
         {
             if (evt.EventType == _C.COMPLEXTEVEMT.NEW) {
-                if (RandomUtility.IsHit(50) == true) {
+                if (RandomUtility.IsHit(45) == true) {
                     if (evt.Cost.ToNumber() > 1) {
                         evt.Cost.PutADD(this, -1);
 
@@ -322,7 +322,7 @@ namespace CB
             if (ghost == null) return;
             if (ghost.IsDead() == false) return;
 
-            if (RandomUtility.IsHit(40) == true)
+            if (RandomUtility.IsHit(35) == true)
             {
                 GameFacade.Instance.Game.Glass += 1;
 
@@ -374,26 +374,28 @@ namespace CB
     }
 
 
-    //每拥有一枚碎片，普通弹珠的伤害就增加1点
+    //每拥有1枚碎片，普通弹珠的伤害就增加1点
     public class BEffect_BLIZARD : BEffect
     {
+        private int m_Max = 5;
+
         public BEffect_BLIZARD() {}
         
         public override string GetDescription()
         {
-            return string.Format("每拥有一枚<sprite={0}>,<sprite={1}>的伤害增加1点。", (int)_C.SPRITEATLAS.GLASS, (int)_C.SPRITEATLAS.BALL);
+            return string.Format("每拥有一枚<sprite={0}>,<sprite={1}>的伤害增加1点（最高{2}点）", (int)_C.SPRITEATLAS.GLASS, (int)_C.SPRITEATLAS.BALL, m_Max);
         }
 
         public override string ShowString()
         {
-            return GameFacade.Instance.Game.Glass.ToString();
+            return Mathf.Min(GameFacade.Instance.Game.Glass, m_Max).ToString();
         }
 
         public override void Execute()
         {
             GameFacade.Instance.Game.Balls.ForEach(b => {
                 if (b.Type == _C.BALLTYPE.NORMAL) {
-                    b.Demage.PutADD(this, GameFacade.Instance.Game.Glass);
+                    b.Demage.PutADD(this, Mathf.Min(GameFacade.Instance.Game.Glass, m_Max));
                 }
             });
         }
@@ -409,7 +411,7 @@ namespace CB
         {
             GameFacade.Instance.Game.Balls.ForEach(b => {
                 if (b.Type == _C.BALLTYPE.NORMAL) {
-                    b.Demage.PutADD(this, GameFacade.Instance.Game.Glass);
+                    b.Demage.PutADD(this, Mathf.Min(GameFacade.Instance.Game.Glass, m_Max));
                 }
             });
         }
@@ -418,7 +420,7 @@ namespace CB
         {
             if (ball.Type != _C.BALLTYPE.NORMAL) return;
 
-            ball.Demage.PutADD(this, GameFacade.Instance.Game.Glass);
+            ball.Demage.PutADD(this, Mathf.Min(GameFacade.Instance.Game.Glass, m_Max));
         }
     }
 
@@ -962,7 +964,7 @@ namespace CB
 
         public override void OnDrawingObstacles(List<int> lists, AttributeValue draw_count)
         {
-            draw_count.PutADD(this, 3);
+            draw_count.PutADD(this, 4);
 
             EventManager.SendEvent(new GameEvent(EVENT.UI_TRIGGERRELICS, Belong));
         }
