@@ -123,7 +123,7 @@ public class GameWindow : MonoBehaviour
 
     private void OnReponseCardMoved(GameEvent @event)
     {
-        m_Step.text     = Field.Instance.Stage.MoveStep.Current.ToString();
+        m_Step.text = Field.Instance.Stage.MoveStep.Current.ToString();
     }
 
 

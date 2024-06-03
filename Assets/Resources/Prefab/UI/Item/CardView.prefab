@@ -262,6 +262,7 @@ MonoBehaviour:
   m_Icon: {fileID: 2619995880026417243}
   m_Eye_Left: {fileID: 8373649074266332795}
   m_Eye_Right: {fileID: 166201167322063193}
+  CanvasGroup: {fileID: 0}
 --- !u!225 &3146753856206467596
 CanvasGroup:
   m_ObjectHideFlags: 0
