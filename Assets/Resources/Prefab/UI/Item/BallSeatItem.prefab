@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 2988805706058879593}
   - component: {fileID: 2740735910504472838}
   - component: {fileID: 6570987239630018689}
+  - component: {fileID: 593761408353063464}
   m_Layer: 5
   m_Name: Touch
   m_TagString: Untagged
@@ -76,6 +77,22 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!111 &593761408353063464
+Animation:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 427252982691535101}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Animation: {fileID: 7400000, guid: 5b6ea51116ef9714fb9ea569580af280, type: 2}
+  m_Animations:
+  - {fileID: 7400000, guid: 5b6ea51116ef9714fb9ea569580af280, type: 2}
+  m_WrapMode: 0
+  m_PlayAutomatically: 1
+  m_AnimatePhysics: 0
+  m_CullingType: 0
 --- !u!1 &1093404444409234642
 GameObject:
   m_ObjectHideFlags: 0

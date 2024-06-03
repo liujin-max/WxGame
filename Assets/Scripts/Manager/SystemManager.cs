@@ -8,6 +8,8 @@ public class SystemManager : MonoBehaviour
     //存储键
     public static string KEY_USER       = "KEY_USER";
     public static string KEY_ARCHIVE    = "KEY_ARCHIVE";    //关卡进行中的存档
+    public static string KEY_GUIDE      = "KEY_GUIDE";      //引导
+    public static string KEY_SWITCH     = "KEY_SWITCH";     //扩充弹珠槽
 
 
     public static string KEY_MUSIC      = "KEY_MUSIC";      //音乐

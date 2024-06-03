@@ -1266,7 +1266,7 @@ namespace CB
                 //生成宝石
                 DrawObstables();
 
-                if (m_FSM.Owner.Stage == 1 && GameFacade.Instance.User.Score == 0) {
+                if (m_FSM.Owner.Stage == 1 && GameFacade.Instance.User.Score == 0 && GameFacade.Instance.SystemManager.GetIntByKey(SystemManager.KEY_GUIDE) == 0) {
                     _GuideUI = GameFacade.Instance.UIManager.LoadWindow("Prefab/UI/GuideWindow", GameFacade.Instance.UIManager.MAJOR).GetComponent<GuideWindow>();
                 } else {
                     m_FSM.Transist(_C.FSMSTATE.GAME_PLAY);

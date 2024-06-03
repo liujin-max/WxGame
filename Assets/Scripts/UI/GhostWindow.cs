@@ -20,6 +20,7 @@ public class GhostWindow : MonoBehaviour
     [SerializeField] private GameObject c_ButtonPivot;
     [SerializeField] private GameObject c_DescriptionPivot;
     [SerializeField] private TextMeshProUGUI c_Tip;
+    [SerializeField] private GameObject c_GuidePivot;
 
     private GhostItem m_SelectGhost = null;
     private List<GhostItem> m_GhostItems = new List<GhostItem>();
@@ -83,6 +84,7 @@ public class GhostWindow : MonoBehaviour
         c_BtnSelect.gameObject.SetActive(false);
         c_BtnCancel.gameObject.SetActive(false);
         
+
 
         c_BtnSelect.onClick.AddListener(()=> {
             var flag = false;
@@ -169,10 +171,18 @@ public class GhostWindow : MonoBehaviour
             window.ShowVideo(GameFacade.Instance.Game.SeatAddition <= 1);
         });
 
+        c_GuidePivot.SetActive(GameFacade.Instance.SystemManager.GetIntByKey(SystemManager.KEY_SWITCH) == 0);
+        c_GuidePivot.GetComponent<Button>().onClick.AddListener(()=>{
+            GameFacade.Instance.SystemManager.SetIntByKey(SystemManager.KEY_SWITCH, 1);
+
+            c_GuidePivot.SetActive(false);
+        });
+
         //适配遮罩高度
         var seat_pivot = GameFacade.Instance.Game.GameUI.SeatPivot;
         var pos = new Vector3(seat_pivot.transform.position.x * 100, seat_pivot.transform.position.y * 100, 0);
         c_Mask.GetComponent<UIMaskUtility>().SetCenter(pos);
+        c_GuidePivot.transform.GetComponent<UIMaskUtility>().SetCenter(pos);
     }
 
     public void Init(List<ComplextEvent> events)

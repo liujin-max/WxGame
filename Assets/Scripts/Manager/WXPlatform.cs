@@ -235,9 +235,6 @@ public class WXPlatform : Platform
     //激励广告
     public override void REWARD_VIDEOAD(string ad_id, Action callback)
     {
-        //上报事件:观看广告
-        Platform.Instance.REPORTEVENT(CustomEvent.LookVideo, new Event_LookVideo(ad_id));
-
         WXCreateRewardedVideoAdParam param = new WXCreateRewardedVideoAdParam();
         param.adUnitId = ad_id;
 
@@ -253,8 +250,12 @@ public class WXPlatform : Platform
         ad.OnClose((WXRewardedVideoAdOnCloseResponse reponse)=>{
             // Debug.Log("是否完成观看：" + reponse.isEnded);
             if (reponse != null && reponse.isEnded == true) {
-                if (callback != null) 
+                //上报事件:观看广告
+                Platform.Instance.REPORTEVENT(CustomEvent.LookVideo, new Event_LookVideo(ad_id));
+
+                if (callback != null) {
                     callback();
+                }  
             }
         });  
     }

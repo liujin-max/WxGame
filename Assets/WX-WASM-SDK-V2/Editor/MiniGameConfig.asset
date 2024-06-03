@@ -77,3 +77,5 @@ MonoBehaviour:
   - KEY_SOUND
   - KEY_VIBRATE
   - KEY_ARCHIVE
+  - KEY_GUIDE
+  - KEY_SWITCH

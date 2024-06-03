@@ -1743,7 +1743,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\u6BCF\u5468\u4E004:00\u91CD\u7F6E"
+  m_text: "\u6BCF\u5468\u4E8C4:00\u91CD\u7F6E"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 32c80d060003e7948a473f15dd09db7a, type: 2}
   m_sharedMaterial: {fileID: 2100000, guid: af9a12627dbbf504d8ff999d22fc5ce0, type: 2}

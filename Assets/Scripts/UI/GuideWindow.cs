@@ -87,7 +87,7 @@ public class GuideWindow : MonoBehaviour
             return;
         }
 
-
+        GameFacade.Instance.SystemManager.SetIntByKey(SystemManager.KEY_GUIDE, 1);
         GameFacade.Instance.Game.DOTransist(_C.FSMSTATE.GAME_PLAY);
         Destroy(gameObject);
     }
