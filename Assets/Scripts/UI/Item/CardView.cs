@@ -37,8 +37,8 @@ public class CardView : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDrag
 
     public void Init(Card card)
     {
-        m_Card = card;
-        m_Card.Entity = this;
+        // m_Card = card;
+        // m_Card.Entity = this;
 
         // m_Icon.sprite = Resources.Load<Sprite>("UI/Card/" + card.ID);
         // m_Icon.SetNativeSize();

@@ -17,7 +17,9 @@ public class DisplayEvent_AddCard : DisplayEvent
         base.Start();
         var card = m_Params[0] as Card;
 
-        EventManager.SendEvent(new GameEvent(EVENT.ONADDCARD, card));
+        // EventManager.SendEvent(new GameEvent(EVENT.ONADDCARD, card));
+
+        card.Display();
     }
 
     public override void Update(float dealta_time)
@@ -57,15 +59,15 @@ public class DisplayEvent_BrokenCard : DisplayEvent
     {
         base.Start();
 
-        var card = m_Params[0] as Card;
-        card.Entity.transform.DOScale(1.5f, 0.2f);
-        card.Entity.CanvasGroup.DOFade(0f, 0.2f).OnComplete(()=>{
-            m_State = _C.DISPLAY_STATE.END;
+        // var card = m_Params[0] as Card;
+        // card.Entity.transform.DOScale(1.5f, 0.2f);
+        // card.Entity.CanvasGroup.DOFade(0f, 0.2f).OnComplete(()=>{
+        //     m_State = _C.DISPLAY_STATE.END;
 
-            card.Dispose();
+        //     card.Dispose();
 
-            EventManager.SendEvent(new GameEvent(EVENT.UI_BROKENCARD, card));
-        });
+        //     EventManager.SendEvent(new GameEvent(EVENT.UI_BROKENCARD, card));
+        // });
 
     }
 }

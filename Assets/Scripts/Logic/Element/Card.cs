@@ -17,10 +17,9 @@ public class Card
     }
 
     //实体
-    private CardView m_Entity;
-    public CardView Entity {
+    private Jelly m_Entity;
+    public Jelly Entity {
         get {return m_Entity;}
-        set {m_Entity = value;}
     }
 
     //可滑动
@@ -39,8 +38,12 @@ public class Card
     public Card(CardData cardData)
     {
         m_Data = cardData;
+    }
 
-
+    public void Display()
+    {
+        m_Entity = new Jelly(this);
+        m_Entity.Display();
     }
 
     public void Dispose()

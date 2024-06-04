@@ -15,6 +15,9 @@ public class Field : MonoBehaviour
     private Stage m_Stage;
     public Stage Stage {get{return m_Stage;}}
 
+    private Land m_Land;
+    public Land Land {get{return m_Land;}}
+
     private int m_Weight = 5;
     private int m_Height = 6;
     
@@ -39,6 +42,7 @@ public class Field : MonoBehaviour
     {
         m_Instance = this;
 
+        m_Land = new Land();
     }
 
     void OnDestroy()
@@ -105,7 +109,10 @@ public class Field : MonoBehaviour
 
         for (int i = 0; i < m_Weight; i++) {
             for (int j = 0; j < m_Height; j++) {
-                m_Grids[i, j] = new Grid(i, j, new Vector2((i - ((m_Weight - 1) / 2.0f)) * 145, (j - ((m_Height - 1) / 2.0f)) * 145));
+                var grid = new Grid(i, j, new Vector3((i - ((m_Weight - 1) / 2.0f)) * 1.15f, (j - ((m_Height - 1) / 2.0f)) * 1.15f, 0));
+                m_Grids[i, j] = grid;
+
+                grid.Display();
             }
         }
 
@@ -150,7 +157,7 @@ public class Field : MonoBehaviour
             if (card.Grid.IsEmpty == true) {
                 card.STATE = _C.CARD_STATE.NORMAL;
                 card.Grid.Card = card;
-                card.Entity.FlushUI();
+                card.Entity.Flush();
                 m_Cards.Add(card);
             } else {
                 Debug.LogError("实体化时，当前坐标已经有方块了：" + card.Grid.X + ", " + card.Grid.Y);

@@ -75,9 +75,9 @@ public class GameWindow : MonoBehaviour
 
     void AddCard(Card card)
     {
-        var item = GameFacade.Instance.UIManager.LoadItem("CardView", m_CardPivot).GetComponent<CardView>();
-        item.transform.localPosition = card.Grid.Position;
-        item.Init(card);
+        // var item = GameFacade.Instance.UIManager.LoadItem("CardView", m_CardPivot).GetComponent<CardView>();
+        // item.transform.localPosition = card.Grid.Position;
+        // item.Init(card);
     }
 
 
@@ -98,21 +98,21 @@ public class GameWindow : MonoBehaviour
 
     private void OnReponseInitGrids(GameEvent @event)
     {
-        m_GridItems.ForEach(item => {item.Show(false);});
+        // m_GridItems.ForEach(item => {item.Show(false);});
 
-        int count = 0;
-        for (int i = 0; i < Field.Instance.Grids.GetLength(0); i++) {
-            for (int j = 0; j < Field.Instance.Grids.GetLength(1); j++) {
-                var grid = Field.Instance.Grids[i ,j];
+        // int count = 0;
+        // for (int i = 0; i < Field.Instance.Grids.GetLength(0); i++) {
+        //     for (int j = 0; j < Field.Instance.Grids.GetLength(1); j++) {
+        //         var grid = Field.Instance.Grids[i ,j];
 
-                var item = new_grid_view(count);
-                item.transform.localPosition = grid.Position;
-                item.Init(grid);
-                item.Show(grid.IsValid);
+        //         var item = new_grid_view(count);
+        //         item.transform.localPosition = grid.Position;
+        //         item.Init(grid);
+        //         item.Show(grid.IsValid);
 
-                count++;
-            }
-        }
+        //         count++;
+        //     }
+        // }
     }
     
     private void OnReponseAddCard(GameEvent @event)

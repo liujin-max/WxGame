@@ -9,8 +9,20 @@ public class CameraUtility : MonoBehaviour
     void Awake()
     {
         var camera = this.GetComponent<Camera>();
-        ScreenOrientation designAutoRotation = Screen.orientation;
 
+        if (camera.orthographic == true) 
+        {
+            FilterOrthographic(camera);
+        }
+        else
+        {   
+            FilterPerspective(camera);
+        }
+    }
+
+    void FilterOrthographic(Camera camera)
+    {
+        ScreenOrientation designAutoRotation = Screen.orientation;
 
         float aspect = camera.aspect;
         float designOrthographicSize = 9.6f;
@@ -43,6 +55,18 @@ public class CameraUtility : MonoBehaviour
                 break;
 
         }
+    }
+
+    void FilterPerspective(Camera camera)
+    {
+        //Camera.main.fieldOfView是用来设置摄像机视野的大小
+
+        float targetHight = 1920.0f;
+        if (1080 * Screen.height > 1920 * Screen.width)
+        {
+            targetHight = 1080f * Screen.height / Screen.width;
+        }
+        camera.fieldOfView = 60 * (targetHight/1920.0f);
     }
 
     public void DoShake()
