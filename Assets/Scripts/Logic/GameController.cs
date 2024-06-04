@@ -814,6 +814,9 @@ namespace CB
                 this.UpdateCoin(-cost, false);
                 m_RefreshTimes += 1;
                 RefreshCoin.PutADD(GameFacade.Instance.Game, m_RefreshTimes);
+
+                //上报事件:金币刷新
+                Platform.Instance.REPORTEVENT(CustomEvent.FlushBall, new Event_FlushBall(cost));
             }
 
             List<ComplextEvent> events = GameFacade.Instance.Game.GenerateEvents();
@@ -899,7 +902,7 @@ namespace CB
         //根据当前记录可以得到的金币
         public int GetScoreCoin()
         {
-            return Mathf.Min(GameFacade.Instance.User.Score, 100);  //最多给100
+            return Mathf.Min((int)Mathf.Ceil(GameFacade.Instance.User.Score / 2.0f), 100);  //最多给100
         }
 
         //根据当前记录可以得到的碎片
@@ -1384,9 +1387,9 @@ namespace CB
         void ReceiveReward()
         {
             //金币跟积分挂钩，最少也给1块钱
-            int min = RandomUtility.Random(1, 4);
-            int max = RandomUtility.Random(15, 22);
-            int coin = Mathf.Clamp((int)Mathf.Floor(m_FSM.Owner.Score / 20.0f), min, max);
+            int min = RandomUtility.Random(2, 4);
+            int max = RandomUtility.Random(15, 19);
+            int coin = Mathf.Clamp((int)Mathf.Floor(m_FSM.Owner.Score / 25.0f), min, max);
 
             AttributeValue coin_number = new AttributeValue(coin);
 

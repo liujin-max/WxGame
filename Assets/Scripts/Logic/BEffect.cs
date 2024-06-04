@@ -194,7 +194,7 @@ namespace CB
 
         public override string GetDescription()
         {
-            return string.Format("结算时，场上每颗<sprite={0}>转化成1枚<sprite={1}>。", (int)_C.SPRITEATLAS.YUAN, (int)_C.SPRITEATLAS.COIN);
+            return string.Format("结算时，场上的<sprite={0}>有概率转化成<sprite={1}>。", (int)_C.SPRITEATLAS.YUAN, (int)_C.SPRITEATLAS.COIN);
         }
 
         public override string ShowString()
@@ -213,7 +213,7 @@ namespace CB
         {
             int count = 0;
             GameFacade.Instance.Game.Obstacles.ForEach(o => {
-                if (o.Order == 3) {
+                if (o.Order == 3 && RandomUtility.IsHit(70)) {
                     count++; 
                    
                     var effect = GameFacade.Instance.EffectManager.Load(EFFECT.FLYCOIN, o.transform.position);

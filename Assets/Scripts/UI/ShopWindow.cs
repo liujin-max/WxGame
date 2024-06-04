@@ -10,7 +10,7 @@ public class ShopWindow : MonoBehaviour
     [SerializeField] Transform c_Pivot;
     [SerializeField] Button c_BtnSkip;
     [SerializeField] Button c_BtnVideoRefresh;
-
+    [SerializeField] private Button c_BtnCoin;
 
     private List<Relics> m_Relicses;
     private List<RelicsItem> m_Items = new List<RelicsItem>();
@@ -37,6 +37,9 @@ public class ShopWindow : MonoBehaviour
     {
         Platform.Instance.BANNER_VIDEOAD("adunit-0a5910ddc759e7d3", true, 790);
 
+        if (GameFacade.Instance.Game.Stage % 6 == 0)
+            Platform.Instance.INTER_VIDEOAD("adunit-4b36fdd955b27425");
+
         c_BtnSkip.onClick.AddListener(()=> {
             GameFacade.Instance.SoundManager.Load(SOUND.CLICK);
 
@@ -52,6 +55,21 @@ public class ShopWindow : MonoBehaviour
                 List<Relics> datas = GameFacade.Instance.Game.GenerateRelicses();
                 Init(datas);
             });
+        });
+
+        //看广告，获取金币
+        c_BtnCoin.onClick.AddListener(()=>{
+            GameFacade.Instance.SoundManager.Load(SOUND.CLICK);
+
+            Platform.Instance.REWARD_VIDEOAD("adunit-708c6492458c7564", ()=>{
+                c_BtnCoin.gameObject.SetActive(false);  //只能看1次
+                GameFacade.Instance.Game.UpdateCoin(10, false);
+
+                for (int i = 0; i < 5; i++) {
+                    var e = GameFacade.Instance.EffectManager.LoadUIEffect(EFFECT.FLYCOIN, c_BtnCoin.transform.position);
+                    e.GetComponent<FlyCoin>().Fly(0.1f * i); 
+                }
+            }); 
         });
 
     }

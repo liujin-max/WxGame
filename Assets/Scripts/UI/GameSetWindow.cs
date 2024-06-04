@@ -19,6 +19,7 @@ public class GameSetWindow : MonoBehaviour
     void Awake()
     {
         Platform.Instance.BANNER_VIDEOAD("adunit-78e1a7920085d132", true);
+        Platform.Instance.INTER_VIDEOAD("adunit-be8c4bf0b0153996");
 
         c_MusicSlider.onValueChanged.AddListener((float value)=>{
             GameFacade.Instance.SystemManager.MusicVolume = value;
@@ -42,9 +43,11 @@ public class GameSetWindow : MonoBehaviour
         c_BtnRestart.onClick.AddListener(()=>{
             GameFacade.Instance.SoundManager.Load(SOUND.CLICK);
 
-            GameFacade.Instance.Game.Restart();
-            GameFacade.Instance.Game.Enter();
-            GameFacade.Instance.UIManager.UnloadWindow(gameObject);
+            Platform.Instance.REWARD_VIDEOAD("adunit-23fb1d157f3e66a9", ()=>{
+                GameFacade.Instance.Game.Restart();
+                GameFacade.Instance.Game.Enter(GameFacade.Instance.User.GetArchiveRecord());
+                GameFacade.Instance.UIManager.UnloadWindow(gameObject);
+            }); 
         });
     }
 

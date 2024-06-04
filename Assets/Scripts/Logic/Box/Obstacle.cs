@@ -203,6 +203,7 @@ namespace CB
 
             if (this.IsDead() == true) {
                 GameFacade.Instance.SoundManager.Load(SOUND.DROP);
+                Camera.main.GetComponent<CameraUtility>().DoSmallShake();
             }
 
             EventManager.SendEvent(new GameEvent(EVENT.ONHITOBSTACLE, this, demage, ball));

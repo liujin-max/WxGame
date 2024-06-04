@@ -36,6 +36,7 @@ public abstract class Platform
     public abstract void REWARD_VIDEOAD(string ad_id, Action callback = null);
     public abstract void BANNER_VIDEOAD(string ad_id, bool is_show, int top = 780);
     public abstract void INTER_VIDEOAD(string ad_id);
+    public abstract void GRID_VIDEOAD(string ad_id, bool is_show);
 
     //上报事件
     public abstract void REPORTEVENT(string event_id, object report_event);

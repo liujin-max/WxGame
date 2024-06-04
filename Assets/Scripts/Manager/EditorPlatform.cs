@@ -83,6 +83,11 @@ public class EditorPlatform : Platform
 
     }
 
+    public override void GRID_VIDEOAD(string ad_id, bool is_show)
+    {
+
+    }
+
     //上报事件
     public override void REPORTEVENT(string event_id, object report_event)
     {

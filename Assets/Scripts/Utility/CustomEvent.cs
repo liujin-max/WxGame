@@ -67,10 +67,32 @@ public class Event_LookVideo    //观看广告
     }
 }
 
+[System.Serializable]
+public class Event_FlushBall    //观看广告
+{
+    public string m_name;
+    public int m_coin;
+    public int m_glass;
+    public int m_stage;
+
+    public int m_cost;
+
+    public Event_FlushBall(int cost)
+    {
+        m_cost  = cost;
+
+        m_name  = GameFacade.Instance.User.Name;
+        m_coin  = GameFacade.Instance.Game.Coin;
+        m_glass = GameFacade.Instance.Game.Glass;
+        m_stage = GameFacade.Instance.Game.Stage;
+    }
+}
+
 public static class CustomEvent
 {
     public static string BuyRelics = "e_buyrelics";
     public static string ComplexBall = "e_complexball";
+    public static string FlushBall = "e_flushball";
 
     public static string LookVideo = "e_lookvideo";
 }

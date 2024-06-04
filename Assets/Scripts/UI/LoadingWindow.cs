@@ -24,6 +24,7 @@ namespace CB
         
         void Awake()
         {
+            Platform.Instance.GRID_VIDEOAD("adunit-8c9a560ad3540b0e", true);
             c_Version.text = GameFacade.Instance.Version;
 
             BtnEnter.onClick.AddListener(() => {
@@ -72,6 +73,8 @@ namespace CB
 
         void OnDestroy()
         {
+            Platform.Instance.GRID_VIDEOAD("adunit-8c9a560ad3540b0e", false);
+
             EventManager.DelHandler(EVENT.UI_FLUSHUSER, OnReponseFlushUser);
         }
 

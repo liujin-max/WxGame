@@ -13,6 +13,10 @@ namespace CB
         [SerializeField] private Transform c_OurPivot;
         [SerializeField] private SuperScrollView c_ScrollView;
 
+        void Start()
+        {
+            Platform.Instance.INTER_VIDEOAD("adunit-76726126bec5062f");
+        }
 
         public void Init(RankDataInfo data_info)
         {

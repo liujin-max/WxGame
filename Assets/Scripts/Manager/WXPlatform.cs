@@ -12,6 +12,7 @@ using WeChatWASM;
 public class WXPlatform : Platform
 {
     private Dictionary<string, WXBannerAd> m_BannerADPairs = new Dictionary<string, WXBannerAd>();
+    private Dictionary<string, WXCustomAd> m_CustomADPairs = new Dictionary<string, WXCustomAd>();
 
     public override void INIT(Action callback)
     {
@@ -302,7 +303,35 @@ public class WXPlatform : Platform
         }, (WXTextResponse reponse)=>{
             // Debug.Log("Show 失败：" + reponse.errCode);
         });
+    }
 
+    //格子广告
+    public override void GRID_VIDEOAD(string ad_id, bool is_show)
+    {
+        WXCustomAd old;
+        if (m_CustomADPairs.TryGetValue(ad_id, out old)) {
+            m_CustomADPairs.Remove(ad_id);
+            old.Destroy();
+        } 
+
+
+        WXCreateCustomAdParam param = new WXCreateCustomAdParam();
+        param.adUnitId= ad_id;
+        param.style.left    = 60;
+        param.style.top     = 805;
+
+        WXCustomAd ad = WX.CreateCustomAd(param);
+        m_CustomADPairs.Add(ad_id, ad);
+
+        if (is_show == true) {
+            ad.Show((WXTextResponse reponse)=>{
+
+            }, (WXTextResponse reponse)=>{
+                GameFacade.Instance.FlyTip("广告展示失败：" + reponse.errCode);
+            });
+        } else {
+            ad.Hide();
+        }
         
     }
 
