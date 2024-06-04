@@ -90,4 +90,24 @@ public static class ToolUtility
 
         return false;
     }
+
+    //数字转换成带单位的
+    public static string FormatNumberWithSuffix(float number)
+    {
+        string[] suffixes = { "", "K", "M", "B", "T" }; // 单位后缀
+
+        int suffixIndex = 0;
+        while (number >= 1000.0f && suffixIndex < suffixes.Length - 1)
+        {
+            number /= 1000.0f;
+            suffixIndex++;
+        }
+
+        if(number % 1 == 0)
+        {
+            return number.ToString() + suffixes[suffixIndex];
+        }
+
+        return number.ToString("F1") + suffixes[suffixIndex];
+    }
 }

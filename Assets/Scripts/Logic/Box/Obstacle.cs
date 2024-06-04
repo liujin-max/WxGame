@@ -120,7 +120,7 @@ namespace CB
 
         void Flush()
         {
-            c_CountText.text = ((int)m_HPShow).ToString();
+            c_CountText.text = ToolUtility.FormatNumberWithSuffix((int)m_HPShow);
         }
 
         public void Show(bool flag)
