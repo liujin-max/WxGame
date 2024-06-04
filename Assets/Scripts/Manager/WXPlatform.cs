@@ -262,17 +262,19 @@ public class WXPlatform : Platform
     }
 
     //Banner广告
-    public override void BANNER_VIDEOAD(string ad_id, bool is_show, int top = 780)
+    public override void BANNER_VIDEOAD(string ad_id, bool is_show, int top = -1)
     {
         WXBannerAd ad;
         if (m_BannerADPairs.TryGetValue(ad_id, out ad)) {
             
         } else {
+            var info = WX.GetSystemInfoSync();
+
             WXCreateBannerAdParam param = new WXCreateBannerAdParam();
             param.adUnitId      = ad_id;
             param.adIntervals   = 30;
-            param.style.left    = 60;
-            param.style.top     = top;
+            param.style.left    = (int)info.screenWidth / 2 - 150; //60;
+            param.style.top     = top == -1 ? (int)info.screenHeight - 115 : top;
             param.style.width   = 300;
             param.style.height  = 200;
 
@@ -314,11 +316,12 @@ public class WXPlatform : Platform
             old.Destroy();
         } 
 
+        var info = WX.GetSystemInfoSync();
 
         WXCreateCustomAdParam param = new WXCreateCustomAdParam();
         param.adUnitId= ad_id;
-        param.style.left    = 60;
-        param.style.top     = 805;
+        param.style.left    = (int)info.screenWidth / 2 - 144; //60;
+        param.style.top     = (int)info.screenHeight - 95;
 
         WXCustomAd ad = WX.CreateCustomAd(param);
         m_CustomADPairs.Add(ad_id, ad);

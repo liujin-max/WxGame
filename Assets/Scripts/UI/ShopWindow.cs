@@ -35,7 +35,7 @@ public class ShopWindow : MonoBehaviour
 
     void Start()
     {
-        Platform.Instance.BANNER_VIDEOAD("adunit-0a5910ddc759e7d3", true, 790);
+        Platform.Instance.BANNER_VIDEOAD("adunit-0a5910ddc759e7d3", true);
 
         if (GameFacade.Instance.Game.Stage % 6 == 0)
             Platform.Instance.INTER_VIDEOAD("adunit-4b36fdd955b27425");

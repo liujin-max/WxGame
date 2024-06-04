@@ -65,7 +65,7 @@ public class GhostWindow : MonoBehaviour
     {
         EventManager.AddHandler(EVENT.UI_FLUSHBALLS,    OnReponseFlushBalls);
 
-        Platform.Instance.BANNER_VIDEOAD("adunit-0a5910ddc759e7d3", true, 790);
+        Platform.Instance.BANNER_VIDEOAD("adunit-0a5910ddc759e7d3", true);
     }
 
     void OnDestroy()
