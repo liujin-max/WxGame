@@ -21,11 +21,7 @@ public class Field : MonoBehaviour
     private int m_Weight = 5;
     private int m_Height = 6;
     
-    private bool m_IsMoved = false;
-    public bool IsMoved { 
-        get { return m_IsMoved;}
-        set { m_IsMoved = value;}
-    }
+    public bool IsMoved = false;
 
     private Grid[,] m_Grids;
     public Grid[,] Grids {get{ return m_Grids;}}
@@ -80,6 +76,8 @@ public class Field : MonoBehaviour
 
     public void Dispose()
     {
+        IsMoved = false;
+
         m_Stage.Dispose();
 
         for (int i = 0; i < m_Weight; i++) {

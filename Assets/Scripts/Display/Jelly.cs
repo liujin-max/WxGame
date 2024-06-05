@@ -17,11 +17,6 @@ public class Jelly : MonoBehaviour
     private Vector3 m_TouchPos;
     private bool m_Dragging = false;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
 
     public void Init(Card card)
     {
@@ -114,8 +109,7 @@ public class Jelly : MonoBehaviour
         if (!m_Card.Dragable) return;   //无法拖动的
         if (Field.Instance.Stage.MoveStep.IsClear()) return;    //没有行动步数了
         if (Field.Instance.IsMoved) return;
-        
-        Field.Instance.IsMoved = true;
+
 
         m_Dragging  = true;
         m_TouchPos  = Input.mousePosition;
@@ -153,6 +147,8 @@ public class Jelly : MonoBehaviour
 
 
         m_Dragging = false;
+        
+        Field.Instance.IsMoved = true;
     }
 
     void OnMouseUp()
