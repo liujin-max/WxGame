@@ -89,7 +89,6 @@
     <Compile Include="Assets\Scripts\Manager\OBJManager.cs" />
     <Compile Include="Assets\Scripts\EVENT.cs" />
     <Compile Include="Assets\Scripts\Utility\UIMaskUtility.cs" />
-    <Compile Include="Assets\Scripts\UI\Item\CardView.cs" />
     <Compile Include="Assets\Scripts\Manager\SceneManager.cs" />
     <Compile Include="Assets\DOTween\Modules\DOTweenModuleUtils.cs" />
     <Compile Include="Assets\Scripts\Utility\CSVUtility.cs" />

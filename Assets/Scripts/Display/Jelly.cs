@@ -10,6 +10,8 @@ using UnityEngine;
 public class Jelly : MonoBehaviour
 {
     public SpriteRenderer Entity;
+    [SerializeField] private GameObject m_Eye_Left;
+    [SerializeField] private GameObject m_Eye_Right;
 
     private Tweener m_ScaleTweener;
 
@@ -96,7 +98,42 @@ public class Jelly : MonoBehaviour
     void FixedUpdate()
     {
         OnMouseDrag();
+
+        {
+            if (m_Card.STATE == _C.CARD_STATE.NORMAL)
+            {
+                m_Eye_Left.gameObject.SetActive(true);
+                m_Eye_Right.gameObject.SetActive(true);
+
+                var card = Field.Instance.GetMinDistanceSameCard(m_Card);
+                if (card != null)
+                {
+                    Vector2 t_pos = card.Entity.transform.localPosition;
+                    Vector2 o_pos = m_Card.Entity.transform.localPosition;
+
+                    float angle = Vector2.Angle(t_pos - o_pos, Vector2.right);
+                    if (t_pos.y < o_pos.y) {
+                        angle *= -1;
+                    }
+
+                    m_Eye_Left.transform.localPosition = ToolUtility.FindPointOnCircle(new Vector2(-0.2f, 0.35f), 0.15f, angle);
+                    m_Eye_Right.transform.localPosition = ToolUtility.FindPointOnCircle(new Vector2( 0.2f, 0.35f), 0.15f, angle);
+
+                }
+                else 
+                {
+                    m_Eye_Left.transform.localPosition = new Vector2(-0.2f, 0.35f);
+                    m_Eye_Right.transform.localPosition = new Vector2(0.2f, 0.35f);
+                }
+            }
+            else
+            {
+                m_Eye_Left.gameObject.SetActive(false);
+                m_Eye_Right.gameObject.SetActive(false);
+            }
+        }
     }
+
 
     public void Dispose()
     {
@@ -147,7 +184,7 @@ public class Jelly : MonoBehaviour
 
 
         m_Dragging = false;
-        
+
         Field.Instance.IsMoved = true;
     }
 
