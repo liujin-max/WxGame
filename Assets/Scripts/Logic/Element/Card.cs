@@ -42,22 +42,20 @@ public class Card
 
     public void Display()
     {
-        m_Entity = new Jelly(this);
-        m_Entity.Display();
+        m_Entity= GameFacade.Instance.UIManager.LoadPrefab("Prefab/Element/Jelly", Vector3.zero, Field.Instance.Land.ENTITY_ROOT).GetComponent<Jelly>();
+        m_Entity.SetPosition(m_Grid.Position);
+        m_Entity.Init(this);
     }
 
     public void Dispose()
     {
-        m_Entity.Destroy();
+        if (m_Grid != null) {
+            m_Grid.Card = null;
+        }
+
+        m_Entity.Dispose();
         m_Entity = null;
 
     }
-
-    
-
-
-    #region 监听事件
-
-    #endregion
     
 }

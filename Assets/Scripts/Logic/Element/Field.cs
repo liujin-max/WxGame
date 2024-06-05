@@ -85,14 +85,12 @@ public class Field : MonoBehaviour
         m_Stage.Dispose();
 
         m_Cards.ForEach(c => {
-            c.Grid.Card = null;
-            c.Entity.Destroy();
+            c.Dispose();
         });
         m_Cards.Clear();
 
         m_GhostCards.ForEach(c => {
-            c.Grid.Card = null;
-            c.Entity.Destroy();
+            c.Dispose();
         });
         m_GhostCards.Clear();
     }
@@ -109,7 +107,7 @@ public class Field : MonoBehaviour
 
         for (int i = 0; i < m_Weight; i++) {
             for (int j = 0; j < m_Height; j++) {
-                var grid = new Grid(i, j, new Vector3((i - ((m_Weight - 1) / 2.0f)) * 1.15f, (j - ((m_Height - 1) / 2.0f)) * 1.15f, 0));
+                var grid = new Grid(i, j, new Vector2((i - ((m_Weight - 1) / 2.0f)) * 1.05f, (j - ((m_Height - 1) / 2.0f)) * 1.05f));
                 m_Grids[i, j] = grid;
 
                 grid.Display();
@@ -226,6 +224,10 @@ public class Field : MonoBehaviour
         }
     }
 
+    void UpdateMoveStep(int value)
+    {
+        m_Stage.MoveStep.UpdateCurrent(value);
+    }
 
     bool IsGridSame(Grid g1, Grid g2)
     {
@@ -366,8 +368,8 @@ public class Field : MonoBehaviour
         target.Card = card;
         card.Grid   = target;
 
-        this.ClearGhost(card);
-        m_Stage.MoveStep.UpdateCurrent(-1);
+        ClearGhost(card);
+        UpdateMoveStep(-1);
 
         GameFacade.Instance.DisplayEngine.Put(DisplayEngine.Track.Common, new DisplayEvent_MoveCard(card));
 
@@ -397,8 +399,8 @@ public class Field : MonoBehaviour
         target.Card = card;
         card.Grid   = target;
 
-        this.ClearGhost(card);
-        m_Stage.MoveStep.UpdateCurrent(-1);
+        ClearGhost(card);
+        UpdateMoveStep(-1);
 
         GameFacade.Instance.DisplayEngine.Put(DisplayEngine.Track.Common, new DisplayEvent_MoveCard(card));
 
@@ -409,7 +411,6 @@ public class Field : MonoBehaviour
     public Grid MoveLeft(Card card)
     {
         Grid origin = card.Grid;
-
         if (origin.X == 0) return null;
 
         Grid target = null;
@@ -421,6 +422,7 @@ public class Field : MonoBehaviour
             
             target  = grid;
         }
+        
 
         if (target == null)  return null;
 
@@ -428,8 +430,8 @@ public class Field : MonoBehaviour
         target.Card = card;
         card.Grid   = target;
 
-        this.ClearGhost(card);
-        m_Stage.MoveStep.UpdateCurrent(-1);
+        ClearGhost(card);
+        UpdateMoveStep(-1);
 
         GameFacade.Instance.DisplayEngine.Put(DisplayEngine.Track.Common, new DisplayEvent_MoveCard(card));
 
@@ -459,8 +461,8 @@ public class Field : MonoBehaviour
         target.Card = card;
         card.Grid   = target;
 
-        this.ClearGhost(card);
-        m_Stage.MoveStep.UpdateCurrent(-1);
+        ClearGhost(card);
+        UpdateMoveStep(-1);
 
         GameFacade.Instance.DisplayEngine.Put(DisplayEngine.Track.Common, new DisplayEvent_MoveCard(card));
 

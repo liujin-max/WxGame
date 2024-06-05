@@ -71,4 +71,12 @@ public class UIManager : MonoBehaviour
 
         return obj;
     }
+
+    public GameObject LoadPrefab(string path, Vector3 position, Transform parent)
+    {
+        var obj = Instantiate(Resources.Load<GameObject>(path), position, Quaternion.identity, parent);
+        obj.transform.localEulerAngles = Vector3.zero;
+
+        return obj;
+    }
 }

@@ -2,14 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Grid : MonoBehaviour
+public class Grid
 {
-    //-475, -475
     public int X;
     public int Y;
 
-    private Vector3 m_Position;
-    public Vector3 Position {get {return m_Position;}}
+    private Vector2 m_Position;
+    public Vector2 Position {get {return m_Position;}}
 
     private bool m_ValidFlag = true;
     public bool IsValid {
@@ -27,7 +26,7 @@ public class Grid : MonoBehaviour
 
     private GameObject m_Entity;
 
-    public Grid(int x, int y, Vector3 position)
+    public Grid(int x, int y, Vector2 position)
     {
         X = x;
         Y = y;
@@ -38,7 +37,7 @@ public class Grid : MonoBehaviour
 
     public void Display()
     {
-        m_Entity = Instantiate(Resources.Load<GameObject>("Prefab/Element/Grid"), Vector3.zero, Quaternion.identity, Field.Instance.Land.GRID_ROOT);
+        m_Entity = GameFacade.Instance.UIManager.LoadPrefab("Prefab/Element/Grid", Vector3.zero, Field.Instance.Land.GRID_ROOT);
         m_Entity.transform.localPosition = m_Position;
         m_Entity.transform.localEulerAngles = Vector3.zero;
     }
