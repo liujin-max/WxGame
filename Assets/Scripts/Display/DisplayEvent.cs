@@ -59,11 +59,16 @@ public class DisplayEvent_MoveCard : DisplayEvent
         }
 
         card.Entity.transform.DOLocalMove(card.Grid.Position, time).OnComplete(()=>{
-            m_State = _C.DISPLAY_STATE.END;
+            card.Entity.DoScale(Vector3.one, 0.1f, ()=>{
+                m_State = _C.DISPLAY_STATE.END;
 
-            card.Entity.DoScale(Vector3.one, 0.1f);
+                var hit = Field.Instance.GetCardByDirection(card, direction);
+                if (hit != null) {
+                    hit.Entity.Shake(direction);
+                }
 
-            EventManager.SendEvent(new GameEvent(EVENT.ONCARDMOVED, card));
+                EventManager.SendEvent(new GameEvent(EVENT.ONCARDMOVED, card));
+            });
         });
     }
 }
@@ -71,22 +76,29 @@ public class DisplayEvent_MoveCard : DisplayEvent
 //卡牌消除
 public class DisplayEvent_BrokenCard : DisplayEvent
 {
+
     public DisplayEvent_BrokenCard(params object[] values) : base(values) {}
 
     public override void Start()
     {
         base.Start();
 
+        
+    }
+
+    public override void Update(float dealta_time)
+    {
         var card = m_Params[0] as Card;
-        card.Entity.transform.DOScale(1.5f, 0.2f);
-        card.Entity.DoFade(0f, 0.2f, ()=>{
+
+        card.Entity.Entity.size = new Vector2(card.Entity.Entity.size.x, card.Entity.Entity.size.y + dealta_time * 4);
+
+        if (card.Entity.Entity.size.y >= 2.0f) {
             m_State = _C.DISPLAY_STATE.END;
 
             card.Dispose();
 
             EventManager.SendEvent(new GameEvent(EVENT.UI_BROKENCARD, card));
-        });
-
+        }
     }
 }
 

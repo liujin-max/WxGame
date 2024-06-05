@@ -105,6 +105,11 @@ public class Field : MonoBehaviour
         m_FSM.Transist(state, values);
     }
 
+    public _C.FSMSTATE GetCurrentFSMState()
+    {
+        return m_FSM.CurrentState.ID;
+    }
+
 
     void InitGrids()
     {

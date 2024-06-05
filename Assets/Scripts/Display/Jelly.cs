@@ -60,6 +60,28 @@ public class Jelly : MonoBehaviour
         m_ScaleTweener = Entity.transform.DOShakeScale(0.5f, strength , 8, 50);
     }
 
+    public void Shake(_C.DIRECTION direction)
+    {
+        switch (direction)
+        {
+            case _C.DIRECTION.TOP:
+                this.Shake(new Vector2(0, 0.2f));
+                break;
+
+            case _C.DIRECTION.DOWN:
+                this.Shake(new Vector2(0, 0.2f));
+                break;
+
+            case _C.DIRECTION.LEFT:
+                this.Shake(new Vector2(0.2f, 0));
+                break;
+
+            case _C.DIRECTION.RIGHT:
+                this.Shake(new Vector2(0.2f, 0));
+                break;
+        }
+    }
+
     public void Shake()
     {
         if (m_ScaleTweener != null) m_ScaleTweener.Kill();
@@ -67,11 +89,13 @@ public class Jelly : MonoBehaviour
         m_ScaleTweener = Entity.transform.DOShakeScale(0.5f, 0.2f , 8, 50);
     }
 
-    public void DoScale(Vector3 scale, float time)
+    public void DoScale(Vector3 scale, float time, Action callback = null)
     {
         if (m_ScaleTweener != null) m_ScaleTweener.Kill();
 
-        m_ScaleTweener = Entity.transform.DOScale(scale, time);
+        m_ScaleTweener = Entity.transform.DOScale(scale, time).OnComplete(()=>{
+            if (callback != null) callback();
+        });
     }
 
     void FixedUpdate()
@@ -89,6 +113,9 @@ public class Jelly : MonoBehaviour
     {
         if (!m_Card.Dragable) return;   //无法拖动的
         if (Field.Instance.Stage.MoveStep.IsClear()) return;    //没有行动步数了
+        if (Field.Instance.IsMoved) return;
+        
+        Field.Instance.IsMoved = true;
 
         m_Dragging  = true;
         m_TouchPos  = Input.mousePosition;
