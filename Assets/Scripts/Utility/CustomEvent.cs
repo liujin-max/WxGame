@@ -68,7 +68,7 @@ public class Event_LookVideo    //观看广告
 }
 
 [System.Serializable]
-public class Event_FlushBall    //观看广告
+public class Event_FlushBall    //刷新弹珠
 {
     public string m_name;
     public int m_coin;
@@ -88,6 +88,31 @@ public class Event_FlushBall    //观看广告
     }
 }
 
+[System.Serializable]
+public class Event_ErrorVideo
+{
+    public string m_name;
+    public int m_coin;
+    public int m_glass;
+    public int m_stage;
+
+    public string m_ad_id;
+    public int m_errorcode;
+    public string m_errortype;
+
+    public Event_ErrorVideo(string ad_id, int errCode, string errortype)
+    {
+        m_ad_id     = ad_id;
+        m_errorcode = errCode;
+        m_errortype = errortype;
+
+        m_name  = GameFacade.Instance.User.Name;
+        m_coin  = GameFacade.Instance.Game.Coin;
+        m_glass = GameFacade.Instance.Game.Glass;
+        m_stage = GameFacade.Instance.Game.Stage;
+    }
+}
+
 public static class CustomEvent
 {
     public static string BuyRelics = "e_buyrelics";
@@ -95,4 +120,5 @@ public static class CustomEvent
     public static string FlushBall = "e_flushball";
 
     public static string LookVideo = "e_lookvideo";
+    public static string ErrorVideo = "e_errorvideo";
 }

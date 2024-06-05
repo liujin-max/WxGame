@@ -33,7 +33,7 @@ namespace CB
                 if (RandomUtility.IsHit(60) == true)
                 {
                     GameFacade.Instance.SoundManager.Load(SOUND.SPLIT);
-                    Platform.Instance.VIBRATE(_C.VIBRATELEVEL.MEDIUM);
+                    Platform.Instance.VIBRATE(_C.VIBRATELEVEL.LIGHT);
 
                     Vector3 collision_point = transform.localPosition; //collision.contacts[0].point;
                     //分裂出#个小球

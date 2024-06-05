@@ -25,7 +25,7 @@ namespace CB
         void Awake()
         {
             Platform.Instance.GRID_VIDEOAD("adunit-8c9a560ad3540b0e", true);
-            c_Version.text = GameFacade.Instance.Version;
+            c_Version.text = "v" + GameFacade.Instance.Version;
 
             BtnEnter.onClick.AddListener(() => {
                 GameFacade.Instance.SoundManager.Load(SOUND.CLICK);

@@ -61,7 +61,7 @@ namespace CB
                 var obj = GameFacade.Instance.EffectManager.Load(EFFECT.BOOM, collision_point);
                 obj.transform.localScale = new Vector3(rate, rate, rate);
 
-                Platform.Instance.VIBRATE(_C.VIBRATELEVEL.MEDIUM);
+                Platform.Instance.VIBRATE(_C.VIBRATELEVEL.LIGHT);
             }
         }
     }

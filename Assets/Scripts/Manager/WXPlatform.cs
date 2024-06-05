@@ -240,11 +240,17 @@ public class WXPlatform : Platform
         param.adUnitId = ad_id;
 
         WXRewardedVideoAd ad = WX.CreateRewardedVideoAd(param);
+        ad.OnError((WXADErrorResponse response)=>{
+            //上报事件:广告错误
+            Platform.Instance.REPORTEVENT(CustomEvent.ErrorVideo, new Event_ErrorVideo(ad_id, response.errCode, "onError"));
+        });
+
         this.LoadAD(ad, ()=>{
             ad.Show((WXTextResponse reponse)=>{
                 
             }, (WXTextResponse error_reponse)=>{
-                GameFacade.Instance.FlyTip("广告展示失败：" + error_reponse.errCode);
+                //上报事件:广告错误
+                Platform.Instance.REPORTEVENT(CustomEvent.ErrorVideo, new Event_ErrorVideo(ad_id, error_reponse.errCode, "Show"));
             });
         });
 
@@ -280,13 +286,19 @@ public class WXPlatform : Platform
 
             ad = WX.CreateBannerAd(param);
             m_BannerADPairs.Add(ad_id, ad);
+
+            ad.OnError((WXADErrorResponse response)=>{
+                //上报事件:广告错误
+                Platform.Instance.REPORTEVENT(CustomEvent.ErrorVideo, new Event_ErrorVideo(ad_id, response.errCode, "onError"));
+            });
         }
 
         if (is_show == true) {
             ad.Show((WXTextResponse reponse)=>{
 
             }, (WXTextResponse reponse)=>{
-                GameFacade.Instance.FlyTip("广告展示失败：" + reponse.errCode);
+                //上报事件:广告错误
+                Platform.Instance.REPORTEVENT(CustomEvent.ErrorVideo, new Event_ErrorVideo(ad_id, reponse.errCode, "Show"));
             });
         } else {
             ad.Hide();
@@ -298,13 +310,23 @@ public class WXPlatform : Platform
     {
         WXCreateInterstitialAdParam param = new WXCreateInterstitialAdParam();
         param.adUnitId = ad_id;
+        
 
         WXInterstitialAd ad = WX.CreateInterstitialAd(param);
+
+        ad.OnError((WXADErrorResponse response)=>{
+            //上报事件:广告错误
+            Platform.Instance.REPORTEVENT(CustomEvent.ErrorVideo, new Event_ErrorVideo(ad_id, response.errCode, "onError"));
+        });
+
         ad.Show((WXTextResponse reponse)=>{
             // Debug.Log("Show 成功：" + reponse.errCode);
         }, (WXTextResponse reponse)=>{
-            // Debug.Log("Show 失败：" + reponse.errCode);
+            //上报事件:广告错误
+            Platform.Instance.REPORTEVENT(CustomEvent.ErrorVideo, new Event_ErrorVideo(ad_id, reponse.errCode, "Show"));
         });
+
+        
     }
 
     //格子广告
@@ -326,11 +348,17 @@ public class WXPlatform : Platform
         WXCustomAd ad = WX.CreateCustomAd(param);
         m_CustomADPairs.Add(ad_id, ad);
 
+        ad.OnError((WXADErrorResponse response)=>{
+            //上报事件:广告错误
+            Platform.Instance.REPORTEVENT(CustomEvent.ErrorVideo, new Event_ErrorVideo(ad_id, response.errCode, "onError"));
+        });
+
         if (is_show == true) {
             ad.Show((WXTextResponse reponse)=>{
 
             }, (WXTextResponse reponse)=>{
-                GameFacade.Instance.FlyTip("广告展示失败：" + reponse.errCode);
+                //上报事件:广告错误
+                Platform.Instance.REPORTEVENT(CustomEvent.ErrorVideo, new Event_ErrorVideo(ad_id, reponse.errCode, "Show"));
             });
         } else {
             ad.Hide();
