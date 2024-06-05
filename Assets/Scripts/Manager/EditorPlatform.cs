@@ -61,7 +61,7 @@ public class EditorPlatform : Platform
 
     }
 
-    public override void SHARE()
+    public override void SHARE(string text)
     {
         EventManager.SendEvent(new GameEvent(EVENT.ONSHAREGAME));
     }

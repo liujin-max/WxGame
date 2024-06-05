@@ -30,7 +30,7 @@ public abstract class Platform
     //拉取排行榜
     public abstract void PULLRANK();
     //分享
-    public abstract void SHARE();
+    public abstract void SHARE(string text);
 
     //激励广告
     public abstract void REWARD_VIDEOAD(string ad_id, Action callback = null);

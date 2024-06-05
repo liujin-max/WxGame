@@ -16,6 +16,7 @@ namespace CB
         [SerializeField] private Button BtnSet;
         [SerializeField] private Button BtnRank;
         [SerializeField] private Button BtnAchievement;
+        [SerializeField] private Button BtnShare;
         [SerializeField] private TextMeshProUGUI c_Version;
 
 
@@ -65,6 +66,10 @@ namespace CB
                 var obj = GameFacade.Instance.UIManager.LoadWindow("Prefab/UI/AchievementWindow", GameFacade.Instance.UIManager.BOARD);
                 var window = obj.GetComponent<AchievementWindow>();
                 window.Init();
+            });
+
+            BtnShare.onClick.AddListener(()=>{
+                Platform.Instance.SHARE("来帮帮我！");
             });
 
 

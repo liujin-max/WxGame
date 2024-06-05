@@ -212,13 +212,13 @@ public class WXPlatform : Platform
     }
 
     //分享
-    public override void SHARE()
+    public override void SHARE(string text)
     {
         EventManager.SendEvent(new GameEvent(EVENT.ONSHAREGAME));
         
         WX.ShareAppMessage(new ShareAppMessageOption()
         {
-            title       = "差一点就破纪录啦！",
+            title       = text, //"差一点就破纪录啦！",
             imageUrlId  = "ha6CwV+bTPeClHQlbkrDqw==",
             imageUrl    = "https://mmocgame.qpic.cn/wechatgame/3aU0WbWrP4x4zsIvWz14yOrRianJOLpSLPiaMVnv60FOBhFYabc7zNIjYI2z9FuicAn/0",
         });
