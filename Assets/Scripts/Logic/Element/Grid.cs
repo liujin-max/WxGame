@@ -41,4 +41,12 @@ public class Grid
         m_Entity.transform.localPosition = m_Position;
         m_Entity.transform.localEulerAngles = Vector3.zero;
     }
+
+    public void Dispose()
+    {
+        if (m_Entity != null) {
+            GameObject.Destroy(m_Entity);
+            m_Entity = null;
+        }
+    }
 }

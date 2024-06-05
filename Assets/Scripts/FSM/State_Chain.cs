@@ -15,6 +15,8 @@ public class State_Chain<T> : State<Field>
         cards.ForEach(c => {
             var top = Field.Instance.GetCardByDirection(c, _C.DIRECTION.TOP);
             if (top != null) {
+                top.Entity.Shake(new Vector2(0, 0.2f));
+
                 if (Field.Instance.MoveTop(top) != null) {
 
                 }
@@ -22,6 +24,8 @@ public class State_Chain<T> : State<Field>
 
             var down = Field.Instance.GetCardByDirection(c, _C.DIRECTION.DOWN);
             if (down != null) {
+                down.Entity.Shake(new Vector2(0, 0.2f));
+
                 if (Field.Instance.MoveDown(down) != null) {
 
                 }
@@ -29,6 +33,8 @@ public class State_Chain<T> : State<Field>
 
             var left = Field.Instance.GetCardByDirection(c, _C.DIRECTION.LEFT);
             if (left != null) {
+                left.Entity.Shake(new Vector2(0.2f, 0));
+
                 if (Field.Instance.MoveLeft(left) != null) {
 
                 }
@@ -36,6 +42,8 @@ public class State_Chain<T> : State<Field>
 
             var right = Field.Instance.GetCardByDirection(c, _C.DIRECTION.RIGHT);
             if (right != null) {
+                right.Entity.Shake(new Vector2(0.2f, 0));
+
                 if (Field.Instance.MoveRight(right) != null) {
 
                 }

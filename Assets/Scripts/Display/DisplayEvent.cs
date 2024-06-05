@@ -20,6 +20,7 @@ public class DisplayEvent_AddCard : DisplayEvent
         // EventManager.SendEvent(new GameEvent(EVENT.ONADDCARD, card));
 
         card.Display();
+        card.Entity.Shake();
     }
 
     public override void Update(float dealta_time)
@@ -41,9 +42,26 @@ public class DisplayEvent_MoveCard : DisplayEvent
     {
         base.Start();
 
-        var card = m_Params[0] as Card;
-        card.Entity.transform.DOLocalMove(card.Grid.Position, 0.3f).OnComplete(()=>{
+        var card        = m_Params[0] as Card;
+        var direction   = (_C.DIRECTION)m_Params[1];
+        int offset      = (int)m_Params[2];
+
+        float time      = 0.05f + (offset * 0.05f);
+
+
+        if (direction == _C.DIRECTION.LEFT || direction == _C.DIRECTION.RIGHT)
+        {
+            card.Entity.DoScale(new Vector3(1.2f, 0.8f, 0), 0.1f);
+        }
+        else
+        {
+            card.Entity.DoScale(new Vector3(0.8f, 1.2f, 0), 0.1f);
+        }
+
+        card.Entity.transform.DOLocalMove(card.Grid.Position, time).OnComplete(()=>{
             m_State = _C.DISPLAY_STATE.END;
+
+            card.Entity.DoScale(Vector3.one, 0.1f);
 
             EventManager.SendEvent(new GameEvent(EVENT.ONCARDMOVED, card));
         });

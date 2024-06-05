@@ -50,7 +50,9 @@ public class Card
     public void Dispose()
     {
         if (m_Grid != null) {
-            m_Grid.Card = null;
+            if (m_Grid.Card == this) {
+                m_Grid.Card = null;
+            }
         }
 
         m_Entity.Dispose();

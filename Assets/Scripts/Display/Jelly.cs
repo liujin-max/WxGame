@@ -9,7 +9,9 @@ using UnityEngine;
 //方块实体
 public class Jelly : MonoBehaviour
 {
-    [SerializeField] private SpriteRenderer m_Frame;
+    public SpriteRenderer Entity;
+
+    private Tweener m_ScaleTweener;
 
     private Card m_Card;
     private Vector3 m_TouchPos;
@@ -25,10 +27,7 @@ public class Jelly : MonoBehaviour
     {
         m_Card = card;
 
-        if (card.ID == 10001) m_Frame.color = Color.red;
-        if (card.ID == 10002) m_Frame.color = Color.yellow;
-        if (card.ID == 10003) m_Frame.color = Color.blue;
-        if (card.ID == 10004) m_Frame.color = Color.green;
+        Entity.sprite  = Resources.Load<Sprite>("UI/Element/jelly_" + card.ID);
 
         Flush();
     }
@@ -41,17 +40,38 @@ public class Jelly : MonoBehaviour
     public void Flush()
     {
         if (m_Card.STATE == _C.CARD_STATE.GHOST) {
-            m_Frame.color = new Color(m_Frame.color.r, m_Frame.color.g, m_Frame.color.b, 0.4f);
+            Entity.color = new Color(Entity.color.r, Entity.color.g, Entity.color.b, 0.4f);
         } else {
-            m_Frame.color = new Color(m_Frame.color.r, m_Frame.color.g, m_Frame.color.b, 1.0f);
+            Entity.color = new Color(Entity.color.r, Entity.color.g, Entity.color.b, 1.0f);
         }
     }
 
     public void DoFade(float alpha, float time, Action action)
     {
-        m_Frame.DOFade(alpha, time).OnComplete(()=>{
+        Entity.DOFade(alpha, time).OnComplete(()=>{
             action();
         });
+    }
+
+    public void Shake(Vector2 strength)
+    {
+        if (m_ScaleTweener != null) m_ScaleTweener.Kill();
+
+        m_ScaleTweener = Entity.transform.DOShakeScale(0.5f, strength , 8, 50);
+    }
+
+    public void Shake()
+    {
+        if (m_ScaleTweener != null) m_ScaleTweener.Kill();
+
+        m_ScaleTweener = Entity.transform.DOShakeScale(0.5f, 0.2f , 8, 50);
+    }
+
+    public void DoScale(Vector3 scale, float time)
+    {
+        if (m_ScaleTweener != null) m_ScaleTweener.Kill();
+
+        m_ScaleTweener = Entity.transform.DOScale(scale, time);
     }
 
     void FixedUpdate()
@@ -72,6 +92,8 @@ public class Jelly : MonoBehaviour
 
         m_Dragging  = true;
         m_TouchPos  = Input.mousePosition;
+
+        Shake();
     }
 
     //自定义的拖拽
@@ -82,7 +104,7 @@ public class Jelly : MonoBehaviour
         Vector3 offset = Input.mousePosition - m_TouchPos;
 
         //滑动距离太短了
-        float distance = 0.4f;
+        float distance = 40f;
         if (Mathf.Abs(offset.x) <= distance && Mathf.Abs(offset.y) <= distance) return;
 
         if (Mathf.Abs(offset.x) > Mathf.Abs(offset.y))  //左右拖动

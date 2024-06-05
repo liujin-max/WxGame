@@ -14,6 +14,7 @@ public class TextureImporterSettings : AssetPostprocessor
         platformSettings.overridden = true;
         // platformSettings.maxTextureSize = 512;
         platformSettings.format = TextureImporterFormat.ASTC_8x8;
+        platformSettings.compressionQuality = 100;
         textureImporter.SetPlatformTextureSettings(platformSettings);
     }
 }

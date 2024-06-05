@@ -76,13 +76,18 @@ public class Field : MonoBehaviour
         InitCards();
 
         m_FSM.Transist(_C.FSMSTATE.IDLE);
-
-        
     }
 
     public void Dispose()
     {
         m_Stage.Dispose();
+
+        for (int i = 0; i < m_Weight; i++) {
+            for (int j = 0; j < m_Height; j++) {
+                var grid = m_Grids[i, j];
+                grid.Dispose();
+            }
+        }
 
         m_Cards.ForEach(c => {
             c.Dispose();
@@ -107,7 +112,7 @@ public class Field : MonoBehaviour
 
         for (int i = 0; i < m_Weight; i++) {
             for (int j = 0; j < m_Height; j++) {
-                var grid = new Grid(i, j, new Vector2((i - ((m_Weight - 1) / 2.0f)) * 1.05f, (j - ((m_Height - 1) / 2.0f)) * 1.05f));
+                var grid = new Grid(i, j, new Vector2((i - ((m_Weight - 1) / 2.0f)) * 1.22f, (j - ((m_Height - 1) / 2.0f)) * 1.22f));
                 m_Grids[i, j] = grid;
 
                 grid.Display();
@@ -218,7 +223,7 @@ public class Field : MonoBehaviour
             var c = m_GhostCards[i];
             if (c.Grid == card.Grid) {
                 m_GhostCards.Remove(c);
-                c.Entity.Destroy();
+                c.Dispose();
                 break;
             }
         }
@@ -364,6 +369,8 @@ public class Field : MonoBehaviour
 
         if (target == null)  return null;
 
+        int offset  = Mathf.Abs(target.Y - origin.Y);
+
         origin.Card = null;
         target.Card = card;
         card.Grid   = target;
@@ -371,7 +378,7 @@ public class Field : MonoBehaviour
         ClearGhost(card);
         UpdateMoveStep(-1);
 
-        GameFacade.Instance.DisplayEngine.Put(DisplayEngine.Track.Common, new DisplayEvent_MoveCard(card));
+        GameFacade.Instance.DisplayEngine.Put(DisplayEngine.Track.Common, new DisplayEvent_MoveCard(card, _C.DIRECTION.TOP, offset));
 
         return target;
     } 
@@ -395,6 +402,8 @@ public class Field : MonoBehaviour
 
         if (target == null)  return null;
 
+        int offset  = Mathf.Abs(target.Y - origin.Y);
+
         origin.Card = null;
         target.Card = card;
         card.Grid   = target;
@@ -402,7 +411,7 @@ public class Field : MonoBehaviour
         ClearGhost(card);
         UpdateMoveStep(-1);
 
-        GameFacade.Instance.DisplayEngine.Put(DisplayEngine.Track.Common, new DisplayEvent_MoveCard(card));
+        GameFacade.Instance.DisplayEngine.Put(DisplayEngine.Track.Common, new DisplayEvent_MoveCard(card, _C.DIRECTION.DOWN, offset));
 
         return target;
     }
@@ -423,8 +432,9 @@ public class Field : MonoBehaviour
             target  = grid;
         }
         
-
         if (target == null)  return null;
+
+        int offset  = Mathf.Abs(target.X - origin.X);
 
         origin.Card = null;
         target.Card = card;
@@ -433,7 +443,7 @@ public class Field : MonoBehaviour
         ClearGhost(card);
         UpdateMoveStep(-1);
 
-        GameFacade.Instance.DisplayEngine.Put(DisplayEngine.Track.Common, new DisplayEvent_MoveCard(card));
+        GameFacade.Instance.DisplayEngine.Put(DisplayEngine.Track.Common, new DisplayEvent_MoveCard(card, _C.DIRECTION.LEFT, offset));
 
         return target;
     }
@@ -457,6 +467,8 @@ public class Field : MonoBehaviour
 
         if (target == null)  return null;
 
+        int offset  = Mathf.Abs(target.X - origin.X);
+
         origin.Card = null;
         target.Card = card;
         card.Grid   = target;
@@ -464,7 +476,7 @@ public class Field : MonoBehaviour
         ClearGhost(card);
         UpdateMoveStep(-1);
 
-        GameFacade.Instance.DisplayEngine.Put(DisplayEngine.Track.Common, new DisplayEvent_MoveCard(card));
+        GameFacade.Instance.DisplayEngine.Put(DisplayEngine.Track.Common, new DisplayEvent_MoveCard(card, _C.DIRECTION.RIGHT, offset));
 
         return target;
     }
