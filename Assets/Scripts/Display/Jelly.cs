@@ -170,24 +170,22 @@ public class Jelly : MonoBehaviour
         if (Mathf.Abs(offset.x) > Mathf.Abs(offset.y))  //左右拖动
         {
             if (offset.x < 0) {
-                Field.Instance.MoveLeft(m_Card);
+                Field.Instance.IsMoved = Field.Instance.MoveLeft(m_Card) != null;
             } else {
-                Field.Instance.MoveRight(m_Card);
+                Field.Instance.IsMoved = Field.Instance.MoveRight(m_Card) != null;
             }
         }
         else    //上下拖动
         {
             if (offset.y < 0) {
-                Field.Instance.MoveDown(m_Card);
+                Field.Instance.IsMoved = Field.Instance.MoveDown(m_Card) != null;
             } else {
-                Field.Instance.MoveTop(m_Card);
+                Field.Instance.IsMoved = Field.Instance.MoveTop(m_Card) != null;
             }
         }
 
 
         m_Dragging = false;
-
-        Field.Instance.IsMoved = true;
     }
 
     void OnMouseUp()

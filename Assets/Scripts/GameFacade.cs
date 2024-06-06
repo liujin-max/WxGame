@@ -165,6 +165,8 @@ public class GameFacade : MonoBehaviour
             User.Sync();
         });
 
+        UIManager.LoadWindow("MaskWindow", UIManager.TIP);
+
         //进入游戏
         NavigationController.GotoGame();
 

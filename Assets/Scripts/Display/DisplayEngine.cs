@@ -14,6 +14,7 @@ public class DisplayEngine : MonoBehaviour
     public enum Track
     {
         Common,     //并行
+        Queue,      //按顺序
     }
 
     private Dictionary<Track, List<DisplayEvent>> m_Events = new Dictionary<Track,List<DisplayEvent>>();
@@ -46,10 +47,13 @@ public class DisplayEngine : MonoBehaviour
     {
         float dealta_time = Time.deltaTime;
 
-        foreach (var item in m_Events)
+        //同时播放
+        if (m_Events.ContainsKey(Track.Common))
         {
             List<DisplayEvent> _removes = new List<DisplayEvent>();
-            item.Value.ForEach(e => {
+
+            List<DisplayEvent> events = m_Events[Track.Common];
+            events.ForEach(e => {
                 if (e.IsIdle()) {
                     e.Start();
                 } else if (e.IsPlaying()) {
@@ -62,8 +66,28 @@ public class DisplayEngine : MonoBehaviour
             });
 
             _removes.ForEach(e => {
-                item.Value.Remove(e);
+                events.Remove(e);
             });
         }
+
+        //按队列播放
+        if (m_Events.ContainsKey(Track.Queue))
+        {
+            List<DisplayEvent> events = m_Events[Track.Queue];
+            if (events.Count > 0) 
+            {
+                var e = events[0];
+                if (e.IsIdle()) {
+                    e.Start();
+                } else if (e.IsPlaying()) {
+                    e.Update(dealta_time);
+                }
+
+                if (e.IsFinished() == true) {
+                    events.Remove(e);
+                }
+            }
+        }
+
     }
 }

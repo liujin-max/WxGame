@@ -27,10 +27,12 @@ public class Field : MonoBehaviour
     public Grid[,] Grids {get{ return m_Grids;}}
 
 
-    private List<CardData> m_CardPool = new List<CardData>();
-    private List<Card> m_GhostCards = new List<Card>();
     private List<Card> m_Cards = new List<Card>();
     public List<Card> Cards { get { return m_Cards;}}
+
+    private List<Card> m_GhostCards = new List<Card>();
+    public List<Card> GhostCards { get { return m_GhostCards;}}
+
 
     
 
@@ -66,13 +68,15 @@ public class Field : MonoBehaviour
         m_Weight    = m_Stage.Weight;
         m_Height    = m_Stage.Height;
 
+        m_Land.Enter(m_Stage);
+
         EventManager.SendEvent(new GameEvent(EVENT.ONENTERSTAGE, m_Stage));
 
         InitGrids();
 
-        m_Land.Display();
+        m_Land.InitGrids();
+        m_Land.InitCards();
 
-        InitCards();
 
         m_FSM.Transist(_C.FSMSTATE.IDLE);
     }
@@ -82,6 +86,7 @@ public class Field : MonoBehaviour
         IsMoved = false;
 
         m_Stage.Dispose();
+        m_Land.Dispose();
 
         for (int i = 0; i < m_Weight; i++) {
             for (int j = 0; j < m_Height; j++) {
@@ -99,6 +104,8 @@ public class Field : MonoBehaviour
             c.Dispose();
         });
         m_GhostCards.Clear();
+
+        
     }
 
     public void Transist(_C.FSMSTATE state, params object[] values)
@@ -124,85 +131,43 @@ public class Field : MonoBehaviour
         }
     }
 
-    void InitCards()
+    //添加果冻
+    public void PutCard(_C.CARD_STATE state, Card card, Grid grid)
     {
-        //获取CardData池子
-        m_CardPool.Clear();
-        foreach (var id in m_Stage.Cards) {
-            CardData card_data = GameFacade.Instance.DataCenter.GetCardData(id);
-            m_CardPool.Add(card_data);
-        }
+        card.STATE  = state;
+        if (state == _C.CARD_STATE.GHOST) {
+            card.Grid   = grid;
 
-        //获取空着的Grid
-        List<object> grid_list = this.GetEmptyGrids();
+            m_GhostCards.Add(card);
 
-        int count = 3;
-        List<object> grid_datas = RandomUtility.Pick(count, grid_list);
+            GameFacade.Instance.DisplayEngine.Put(DisplayEngine.Track.Common, new DisplayEvent_GhostCard(card));
 
-        for (int i = 0; i < grid_datas.Count; i++)
-        {
-            Grid grid   = grid_datas[i] as Grid;
-
-            int rand    = RandomUtility.Random(0, m_CardPool.Count);
-            Card card   = new Card(m_CardPool[rand]);
+        } else {
             card.Grid   = grid;
             grid.Card   = card;
-            card.STATE  = _C.CARD_STATE.NORMAL;
-
-            GameFacade.Instance.DisplayEngine.Put(DisplayEngine.Track.Common, new DisplayEvent_NormalCard(card));
 
             m_Cards.Add(card);
+
+            GameFacade.Instance.DisplayEngine.Put(DisplayEngine.Track.Common, new DisplayEvent_NormalCard(card));
         }
+    }
+
+    public Card PutCard(_C.CARD_STATE state, CardData cardData, Grid grid)
+    {
+        Card card   = new Card(cardData);
+        PutCard(state, card, grid);
+
+        return card;
     }
 
     public List<Card> AddCards()
     {
-        //将残影方块实体化
-        m_GhostCards.ForEach(card => {
-            if (card.Grid.IsEmpty == true) {
-                card.STATE = _C.CARD_STATE.NORMAL;
-                card.Grid.Card = card;
-                
-                GameFacade.Instance.DisplayEngine.Put(DisplayEngine.Track.Common, new DisplayEvent_NormalCard(card));
-
-                m_Cards.Add(card);
-            } else {
-                Debug.LogError("实体化时，当前坐标已经有方块了：" + card.Grid.X + ", " + card.Grid.Y);
-            }
-        });
-        m_GhostCards.Clear();
-
-
-        List<Card> add_cards = new List<Card>();
-
-        //获取空着的Grid
-        List<object> grid_list = this.GetEmptyGrids();
-
-
-        int count = RandomUtility.Random(1, 4);
-        List<object> grid_datas = RandomUtility.Pick(count, grid_list);
-
-        for (int i = 0; i < grid_datas.Count; i++)
-        {
-            Grid grid = grid_datas[i] as Grid;
-
-            int rand    = RandomUtility.Random(0, m_CardPool.Count);
-            Card card   = new Card(m_CardPool[rand]);
-            card.STATE  = _C.CARD_STATE.GHOST;
-            card.Grid   = grid;
-
-            GameFacade.Instance.DisplayEngine.Put(DisplayEngine.Track.Common, new DisplayEvent_GhostCard(card));
-
-            add_cards.Add(card);
-            m_GhostCards.Add(card);
-        }
-
-        return add_cards;
+        return m_Land.AddCards();
     }
 
 
     //获取空位格子
-    List<object> GetEmptyGrids()
+    public List<object> GetEmptyGrids()
     {
         //获取空着的Grid
         List<object> grid_list = new List<object>(); 
@@ -216,6 +181,12 @@ public class Field : MonoBehaviour
         }
 
         return grid_list;
+    }
+
+    //获取格子
+    public Grid GetGrid(int x, int y)
+    {
+        return m_Grids[x, y];
     }
 
     //清理残影

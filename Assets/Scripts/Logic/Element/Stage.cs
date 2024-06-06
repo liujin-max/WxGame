@@ -19,15 +19,16 @@ public class Stage
     private List<Condition> m_Conditions = new List<Condition>();
     public List<Condition> Conditions {get{return m_Conditions;}}
 
-    private List<int> m_Cards = new List<int>();
-    public List<int> Cards {get{return this.m_Cards;}}
+    private List<CardData> m_Cards = new List<CardData>();
+    private Dictionary<int, CardData> m_CardDic = new Dictionary<int, CardData>();
+    public List<CardData> Cards {get{return this.m_Cards;}}
 
     //行动次数
     public Pair MoveStep;
 
     public Stage(StageData stageData)
     {
-        m_Data = stageData;
+        m_Data  = stageData;
 
         MoveStep = new Pair(m_Data.Step, m_Data.Step);
 
@@ -43,10 +44,24 @@ public class Stage
     void ParseCardPool()
     {
         m_Cards.Clear();
+        m_CardDic.Clear();
 
         foreach (var id in m_Data.Cards.Split('|')) {
-            m_Cards.Add(Convert.ToInt32(id));
+            int card_id = Convert.ToInt32(id);
+            CardData card_data = GameFacade.Instance.DataCenter.GetCardData(card_id);
+            m_Cards.Add(card_data);
+            m_CardDic[card_id] = card_data;
         }
+    }
+
+    public CardData GetCardData(int card_id)
+    {
+        CardData cardData;
+        if (m_CardDic.TryGetValue(card_id, out cardData)) {
+            return cardData;
+        }
+
+        return null;
     }
 
     void ParseCondition()
@@ -58,6 +73,16 @@ public class Stage
             var condition = new Condition(Convert.ToInt32(conditions[0]), Convert.ToInt32(conditions[1]));
             m_Conditions.Add(condition);
         }
+    }
+
+    public Condition GetCondition(int condition_id)
+    {
+        for (int i = 0; i < m_Conditions.Count; i++) {
+            var c = m_Conditions[i];
+            if (c.ID == condition_id)
+                return c;
+        }
+        return null;
     }
 
     //判断是否符合
@@ -91,6 +116,16 @@ public class Stage
         }
 
         return true;
+    }
+
+    public bool IsConditionFinished(int condition_id)
+    {
+        var c = this.GetCondition(condition_id);
+        if (c != null) {
+            return c.IsFinished();
+        }
+
+        return false;
     }
 
 

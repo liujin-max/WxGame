@@ -5,6 +5,93 @@ using UnityEngine;
 
 
 
+//空白 单纯的等待时间
+public class DisplayEvent_Wait : DisplayEvent
+{
+    private CDTimer m_Timer = new CDTimer(1);
+    public DisplayEvent_Wait(params object[] values) : base(values) {}
+
+    public override void Start()
+    {
+        base.Start();
+
+        m_Timer = new CDTimer((float)m_Params[0]);
+    }
+
+    public override void Update(float dt)
+    {
+        m_Timer.Update(dt);
+        if (m_Timer.IsFinished()) {
+           m_State = _C.DISPLAY_STATE.END; 
+        }
+    }
+
+}
+
+//展现所有格子
+public class DisplayEvent_ShowAllGrid : DisplayEvent
+{
+    public DisplayEvent_ShowAllGrid(params object[] values) : base(values) {}
+
+    public override void Start()
+    {
+        base.Start();
+
+        //展示所有格子
+        for (int i = 0; i < Field.Instance.Grids.GetLength(0); i++)
+        {
+            for (int j = 0; j < Field.Instance.Grids.GetLength(1); j++)
+            {
+                var grid = Field.Instance.Grids[i, j];
+
+                if (grid.IsValid) {
+                   if (grid.Entity == null) grid.Display();
+
+                    grid.Entity.transform.localScale = Vector3.one; 
+                    grid.Show(true);
+                } else {
+                    grid.Show(false);
+                }
+            }
+        }
+        
+
+        m_State = _C.DISPLAY_STATE.END;
+    }
+
+}
+
+//隐藏格子
+public class DisplayEvent_HideGrid : DisplayEvent
+{
+    private CDTimer m_Timer = new CDTimer(0.1f);
+    public DisplayEvent_HideGrid(params object[] values) : base(values) {}
+
+    public override void Start()
+    {
+        base.Start();
+
+        var grid = m_Params[0] as Grid;
+
+        if (grid.Entity == null) {
+            m_State = _C.DISPLAY_STATE.END;
+            return;
+        }
+        
+
+        grid.Entity.transform.DOScale(0f, 0.2f);
+    }
+
+    public override void Update(float deltaTime)
+    {
+        m_Timer.Update(deltaTime);
+        if (m_Timer.IsFinished()) {
+            m_State = _C.DISPLAY_STATE.END;
+        }
+    }
+}
+
+
 
 //添加虚化果冻
 public class DisplayEvent_GhostCard : DisplayEvent
@@ -46,7 +133,6 @@ public class DisplayEvent_NormalCard : DisplayEvent
         });
     }
 }
-
 
 //移动卡牌
 public class DisplayEvent_MoveCard : DisplayEvent
@@ -117,6 +203,7 @@ public class DisplayEvent_BrokenCard : DisplayEvent
 
             card.Dispose();
 
+            EventManager.SendEvent(new GameEvent(EVENT.ONBROKENCARD, card));
             EventManager.SendEvent(new GameEvent(EVENT.UI_BROKENCARD, card));
         }
     }

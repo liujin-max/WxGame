@@ -25,6 +25,7 @@ public class Grid
     }
 
     private GameObject m_Entity;
+    public GameObject Entity {get {return m_Entity;} }
 
     public Grid(int x, int y, Vector2 position)
     {
@@ -41,6 +42,14 @@ public class Grid
         m_Entity.transform.localPosition = m_Position;
         m_Entity.transform.localEulerAngles = Vector3.zero;
     }
+
+    public void Show(bool flag)
+    {
+        if (m_Entity != null) {
+            m_Entity.gameObject.SetActive(flag);
+        }
+    }
+
 
     public void Dispose()
     {
