@@ -68,14 +68,12 @@ public class Field : MonoBehaviour
         m_Weight    = m_Stage.Weight;
         m_Height    = m_Stage.Height;
 
-        m_Land.Enter(m_Stage);
-
         EventManager.SendEvent(new GameEvent(EVENT.ONENTERSTAGE, m_Stage));
 
         InitGrids();
 
-        m_Land.InitGrids();
-        m_Land.InitCards();
+        m_Stage.FilterGrids();
+        m_Stage.InitCards();
 
 
         m_FSM.Transist(_C.FSMSTATE.IDLE);
@@ -86,7 +84,6 @@ public class Field : MonoBehaviour
         IsMoved = false;
 
         m_Stage.Dispose();
-        m_Land.Dispose();
 
         for (int i = 0; i < m_Weight; i++) {
             for (int j = 0; j < m_Height; j++) {
@@ -162,7 +159,7 @@ public class Field : MonoBehaviour
 
     public List<Card> AddCards()
     {
-        return m_Land.AddCards();
+        return m_Stage.AddCards();
     }
 
 
