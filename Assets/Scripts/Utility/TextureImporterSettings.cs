@@ -12,8 +12,7 @@ public class TextureImporterSettings : AssetPostprocessor
         // textureImporter.spriteImportMode = SpriteImportMode.Multiple;
         TextureImporterPlatformSettings platformSettings = textureImporter.GetPlatformTextureSettings("webgl");
         platformSettings.overridden = true;
-        // platformSettings.maxTextureSize = 512;
-        platformSettings.format = TextureImporterFormat.ASTC_8x8;
+        // platformSettings.format = TextureImporterFormat.ASTC_8x8;
         platformSettings.compressionQuality = 100;
         textureImporter.SetPlatformTextureSettings(platformSettings);
     }

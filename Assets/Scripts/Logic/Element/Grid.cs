@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Grid
 {
+    public int Order;
     public int X;
     public int Y;
 
@@ -27,10 +28,11 @@ public class Grid
     private GameObject m_Entity;
     public GameObject Entity {get {return m_Entity;} }
 
-    public Grid(int x, int y, Vector2 position)
+    public Grid(int order, int x, int y, Vector2 position)
     {
-        X = x;
-        Y = y;
+        Order   = order;
+        X       = x;
+        Y       = y;
 
         m_Position = position;
     }
@@ -41,6 +43,9 @@ public class Grid
         m_Entity = GameFacade.Instance.UIManager.LoadPrefab("Prefab/Element/Grid", Vector3.zero, Field.Instance.Land.GRID_ROOT);
         m_Entity.transform.localPosition = m_Position;
         m_Entity.transform.localEulerAngles = Vector3.zero;
+
+        m_Entity.transform.Find("1").gameObject.SetActive(Order % 2 != 0);
+        m_Entity.transform.Find("2").gameObject.SetActive(Order % 2 == 0);
     }
 
     public void Show(bool flag)

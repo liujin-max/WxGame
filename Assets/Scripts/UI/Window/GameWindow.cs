@@ -11,8 +11,8 @@ public class GameWindow : MonoBehaviour
 
     [SerializeField] private Transform m_ConditionPivot;
     [SerializeField] private Transform m_CardPivot;
-    [SerializeField] private TextMeshProUGUI m_Stage;
-    [SerializeField] private TextMeshProUGUI m_Step;
+    [SerializeField] private Text m_Stage;
+    [SerializeField] private Text m_Step;
 
 
 

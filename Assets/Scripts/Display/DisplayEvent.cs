@@ -128,14 +128,24 @@ public class DisplayEvent_NormalCard : DisplayEvent
         if (card.TYPE == _C.CARD_TYPE.FRAME) {
             card.Entity.SetPosition(card.Grid.Position);
             m_State = _C.DISPLAY_STATE.END;
-            
+
         } else {
-            card.Entity.SetPosition(card.Grid.Position + new Vector2(0, 0.5f));
-            card.Entity.transform.DOLocalMove(card.Grid.Position, 0.15f).OnComplete(()=>{
+            // card.Entity.SetPosition(card.Grid.Position + new Vector2(0, 0.5f));
+
+            card.Entity.Entity.transform.localScale = new Vector3(0.8f, 0.8f, 0.8f);
+            card.Entity.Entity.transform.DOScale(1f, 0.1f).SetEase(Ease.OutBack);
+
+            card.Entity.transform.DOJump(card.Grid.Position, 0.6f, 1, 0.25f).SetEase(Ease.OutQuad).OnComplete(() => {
                 m_State = _C.DISPLAY_STATE.END;
 
                 card.Entity.Shake(new Vector2(0.05f, 0.05f));
             });
+
+            // card.Entity.transform.DOLocalMove(card.Grid.Position, 0.15f).OnComplete(()=>{
+            //     m_State = _C.DISPLAY_STATE.END;
+
+            //     card.Entity.Shake(new Vector2(0.05f, 0.05f));
+            // });
         }
     }
 }

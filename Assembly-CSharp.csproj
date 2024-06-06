@@ -183,9 +183,7 @@
     <None Include="Assets\TextMesh Pro\Shaders\TMPro_Surface.cginc" />
     <None Include="Assets\TextMesh Pro\Resources\LineBreaking Following Characters.txt" />
     <None Include="Assets\AllIn1SpriteShader\Resources\AllIn1SpriteShaderLight.shader" />
-    <None Include="Assets\Font\RateNumber\RateNumber.fnt" />
     <None Include="Assets\DOTween\DOTween.dll" />
-    <None Include="Assets\Font\Number\Number.fnt" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile Masking.shader" />
     <None Include="Assets\codeandweb.com\Readme.txt" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF Overlay.shader" />

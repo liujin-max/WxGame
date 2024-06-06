@@ -120,10 +120,13 @@ public class Field : MonoBehaviour
     {
         m_Grids = new Grid[m_Weight, m_Height];
 
+        int count = 1;
         for (int i = 0; i < m_Weight; i++) {
             for (int j = 0; j < m_Height; j++) {
-                var grid = new Grid(i, j, new Vector2((i - ((m_Weight - 1) / 2.0f)) * 1.22f, (j - ((m_Height - 1) / 2.0f)) * 1.22f));
+                var grid = new Grid(count, i, j, new Vector2((i - ((m_Weight - 1) / 2.0f)) * 1.24f, (j - ((m_Height - 1) / 2.0f)) * 1.26f));
                 m_Grids[i, j] = grid;
+
+                count++;
             }
         }
     }
