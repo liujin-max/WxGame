@@ -19,7 +19,6 @@ public class Jelly : MonoBehaviour
     private Vector3 m_TouchPos;
     private bool m_Dragging = false;
 
-
     public void Init(Card card)
     {
         m_Card = card;
@@ -100,6 +99,8 @@ public class Jelly : MonoBehaviour
         OnMouseDrag();
 
         {
+            if (m_Card.IsEliminating) return;
+
             if (m_Card.STATE == _C.CARD_STATE.NORMAL)
             {
                 m_Eye_Left.gameObject.SetActive(true);
@@ -116,14 +117,14 @@ public class Jelly : MonoBehaviour
                         angle *= -1;
                     }
 
-                    m_Eye_Left.transform.localPosition = ToolUtility.FindPointOnCircle(new Vector2(-0.2f, 0.35f), 0.15f, angle);
-                    m_Eye_Right.transform.localPosition = ToolUtility.FindPointOnCircle(new Vector2( 0.2f, 0.35f), 0.15f, angle);
+                    m_Eye_Left.transform.localPosition = ToolUtility.FindPointOnCircle(new Vector2(-0.2f, 1), 0.15f, angle);
+                    m_Eye_Right.transform.localPosition = ToolUtility.FindPointOnCircle(new Vector2( 0.2f, 1), 0.15f, angle);
 
                 }
                 else 
                 {
-                    m_Eye_Left.transform.localPosition = new Vector2(-0.2f, 0.35f);
-                    m_Eye_Right.transform.localPosition = new Vector2(0.2f, 0.35f);
+                    m_Eye_Left.transform.localPosition = new Vector2(-0.2f, 1f);
+                    m_Eye_Right.transform.localPosition = new Vector2(0.2f, 1f);
                 }
             }
             else
@@ -145,6 +146,7 @@ public class Jelly : MonoBehaviour
     {
         if (!m_Card.Dragable) return;   //无法拖动的
         if (Field.Instance.Stage.MoveStep.IsClear()) return;    //没有行动步数了
+        if (Field.Instance.GetCurrentFSMState() != _C.FSMSTATE.IDLE) return;
         if (Field.Instance.IsMoved) return;
 
 

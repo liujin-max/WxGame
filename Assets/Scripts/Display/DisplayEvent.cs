@@ -6,32 +6,47 @@ using UnityEngine;
 
 
 
-//添加卡牌
-public class DisplayEvent_AddCard : DisplayEvent
+//添加虚化果冻
+public class DisplayEvent_GhostCard : DisplayEvent
 {
-    private CDTimer m_Timer = new CDTimer(0.3f);
-    public DisplayEvent_AddCard(params object[] values) : base(values) {}
+    public DisplayEvent_GhostCard(params object[] values) : base(values) {}
 
     public override void Start()
     {
         base.Start();
         var card = m_Params[0] as Card;
 
-        // EventManager.SendEvent(new GameEvent(EVENT.ONADDCARD, card));
-
         card.Display();
-        card.Entity.Shake();
-    }
 
-    public override void Update(float dealta_time)
-    {
-        m_Timer.Update(dealta_time);
-
-        if (m_Timer.IsFinished())
-            m_State = _C.DISPLAY_STATE.END;
-        
+        m_State = _C.DISPLAY_STATE.END;
     }
 }
+
+//添加实体果冻
+public class DisplayEvent_NormalCard : DisplayEvent
+{
+    public DisplayEvent_NormalCard(params object[] values) : base(values) {}
+
+    public override void Start()
+    {
+        base.Start();
+        var card = m_Params[0] as Card;
+
+        if (card.Entity == null) {
+            card.Display();
+        } else {
+            card.Entity.Flush();
+        }
+
+        card.Entity.SetPosition(card.Grid.Position + new Vector2(0, 0.5f));
+        card.Entity.transform.DOLocalMove(card.Grid.Position, 0.15f).OnComplete(()=>{
+            m_State = _C.DISPLAY_STATE.END;
+
+            card.Entity.Shake();
+        });
+    }
+}
+
 
 //移动卡牌
 public class DisplayEvent_MoveCard : DisplayEvent
@@ -46,7 +61,7 @@ public class DisplayEvent_MoveCard : DisplayEvent
         var direction   = (_C.DIRECTION)m_Params[1];
         int offset      = (int)m_Params[2];
 
-        float time      = 0.05f + (offset * 0.05f);
+        float time      = 0.1f + (offset * 0.05f);
 
 
         if (direction == _C.DIRECTION.LEFT || direction == _C.DIRECTION.RIGHT)
@@ -83,14 +98,19 @@ public class DisplayEvent_BrokenCard : DisplayEvent
     {
         base.Start();
 
-        
+        var card = m_Params[0] as Card;
+        card.IsEliminating = true;
     }
 
     public override void Update(float dealta_time)
     {
         var card = m_Params[0] as Card;
 
-        card.Entity.Entity.size = new Vector2(card.Entity.Entity.size.x, card.Entity.Entity.size.y + dealta_time * 4);
+        float height = card.Entity.Entity.size.y + dealta_time * 3;
+        card.Entity.Entity.size = new Vector2(card.Entity.Entity.size.x, height);
+
+        RectTransform rect = card.Entity.Entity.GetComponent<RectTransform>();
+        rect.sizeDelta = new Vector2(rect.sizeDelta.x, height);
 
         if (card.Entity.Entity.size.y >= 2.0f) {
             m_State = _C.DISPLAY_STATE.END;

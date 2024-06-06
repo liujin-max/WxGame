@@ -6,21 +6,23 @@ using UnityEngine;
 //负责判断方块的销毁逻辑
 public class State_Eliminate<T> : State<Field>
 {
+    private List<Card> _Removes = new List<Card>();
+
     public State_Eliminate(_C.FSMSTATE id) : base(id){}
 
     public override void Enter(params object[] values)
     {
-        List<Card> _removes = Field.Instance.CheckEliminate();
+        _Removes = Field.Instance.CheckEliminate();
 
         //有宝石要消除，则消除并进入连锁反应
-        if (_removes.Count > 0) {
-            _removes.ForEach(card => {
+        if (_Removes.Count > 0) {
+            _Removes.ForEach(card => {
                 Field.Instance.Stage.Collect(card.ID, 1);
 
                 GameFacade.Instance.DisplayEngine.Put(DisplayEngine.Track.Common, new DisplayEvent_BrokenCard(card));
             });
             
-            Field.Instance.Transist(_C.FSMSTATE.CHAIN, _removes);
+            // Field.Instance.Transist(_C.FSMSTATE.CHAIN, _removes);
         } else {
             //无宝石需要消除
             //先判断是否满足胜利或失败条件
@@ -37,6 +39,15 @@ public class State_Eliminate<T> : State<Field>
             else
             {
                 Field.Instance.Transist(_C.FSMSTATE.RESULT, result);
+            }
+        }
+    }
+
+    public override void Update()
+    {
+        if (_Removes.Count > 0) {
+            if (GameFacade.Instance.DisplayEngine.IsIdle() == true) {
+                Field.Instance.Transist(_C.FSMSTATE.CHAIN, _Removes);
             }
         }
     }

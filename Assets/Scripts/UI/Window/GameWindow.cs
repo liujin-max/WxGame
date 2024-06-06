@@ -56,8 +56,6 @@ public class GameWindow : MonoBehaviour
     void Awake()
     {
         EventManager.AddHandler(EVENT.ONENTERSTAGE,     OnReponseEnterStage);
-        EventManager.AddHandler(EVENT.ONINITGRID,       OnReponseInitGrids);
-        EventManager.AddHandler(EVENT.ONADDCARD,        OnReponseAddCard);
         EventManager.AddHandler(EVENT.ONCARDMOVED,      OnReponseCardMoved);
         
     }
@@ -65,20 +63,12 @@ public class GameWindow : MonoBehaviour
     void OnDestroy()
     {
         EventManager.DelHandler(EVENT.ONENTERSTAGE,     OnReponseEnterStage);
-        EventManager.DelHandler(EVENT.ONINITGRID,       OnReponseInitGrids);
-        EventManager.DelHandler(EVENT.ONADDCARD,        OnReponseAddCard);
         EventManager.DelHandler(EVENT.ONCARDMOVED,      OnReponseCardMoved);
 
         
     }
 
 
-    void AddCard(Card card)
-    {
-        // var item = GameFacade.Instance.UIManager.LoadItem("CardView", m_CardPivot).GetComponent<CardView>();
-        // item.transform.localPosition = card.Grid.Position;
-        // item.Init(card);
-    }
 
 
     #region 监听事件
@@ -95,31 +85,7 @@ public class GameWindow : MonoBehaviour
             item.Init(condition);
         }
     }
-
-    private void OnReponseInitGrids(GameEvent @event)
-    {
-        // m_GridItems.ForEach(item => {item.Show(false);});
-
-        // int count = 0;
-        // for (int i = 0; i < Field.Instance.Grids.GetLength(0); i++) {
-        //     for (int j = 0; j < Field.Instance.Grids.GetLength(1); j++) {
-        //         var grid = Field.Instance.Grids[i ,j];
-
-        //         var item = new_grid_view(count);
-        //         item.transform.localPosition = grid.Position;
-        //         item.Init(grid);
-        //         item.Show(grid.IsValid);
-
-        //         count++;
-        //     }
-        // }
-    }
     
-    private void OnReponseAddCard(GameEvent @event)
-    {
-        Card card = @event.GetParam(0) as Card;
-        this.AddCard(card);
-    }
 
     private void OnReponseCardMoved(GameEvent @event)
     {

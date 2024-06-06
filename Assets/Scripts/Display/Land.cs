@@ -12,4 +12,9 @@ public class Land
         GRID_ROOT   = GameObject.Find("Field/Grids").transform;
         ENTITY_ROOT = GameObject.Find("Field/Entitys").transform;
     }
+
+    public void Display()
+    {
+        
+    }
 }

@@ -69,6 +69,9 @@ public class Field : MonoBehaviour
         EventManager.SendEvent(new GameEvent(EVENT.ONENTERSTAGE, m_Stage));
 
         InitGrids();
+
+        m_Land.Display();
+
         InitCards();
 
         m_FSM.Transist(_C.FSMSTATE.IDLE);
@@ -117,12 +120,8 @@ public class Field : MonoBehaviour
             for (int j = 0; j < m_Height; j++) {
                 var grid = new Grid(i, j, new Vector2((i - ((m_Weight - 1) / 2.0f)) * 1.22f, (j - ((m_Height - 1) / 2.0f)) * 1.22f));
                 m_Grids[i, j] = grid;
-
-                grid.Display();
             }
         }
-
-        EventManager.SendEvent(new GameEvent(EVENT.ONINITGRID));
     }
 
     void InitCards()
@@ -150,7 +149,7 @@ public class Field : MonoBehaviour
             grid.Card   = card;
             card.STATE  = _C.CARD_STATE.NORMAL;
 
-            GameFacade.Instance.DisplayEngine.Put(DisplayEngine.Track.Common, new DisplayEvent_AddCard(card));
+            GameFacade.Instance.DisplayEngine.Put(DisplayEngine.Track.Common, new DisplayEvent_NormalCard(card));
 
             m_Cards.Add(card);
         }
@@ -163,7 +162,9 @@ public class Field : MonoBehaviour
             if (card.Grid.IsEmpty == true) {
                 card.STATE = _C.CARD_STATE.NORMAL;
                 card.Grid.Card = card;
-                card.Entity.Flush();
+                
+                GameFacade.Instance.DisplayEngine.Put(DisplayEngine.Track.Common, new DisplayEvent_NormalCard(card));
+
                 m_Cards.Add(card);
             } else {
                 Debug.LogError("实体化时，当前坐标已经有方块了：" + card.Grid.X + ", " + card.Grid.Y);
@@ -190,7 +191,7 @@ public class Field : MonoBehaviour
             card.STATE  = _C.CARD_STATE.GHOST;
             card.Grid   = grid;
 
-            GameFacade.Instance.DisplayEngine.Put(DisplayEngine.Track.Common, new DisplayEvent_AddCard(card));
+            GameFacade.Instance.DisplayEngine.Put(DisplayEngine.Track.Common, new DisplayEvent_GhostCard(card));
 
             add_cards.Add(card);
             m_GhostCards.Add(card);

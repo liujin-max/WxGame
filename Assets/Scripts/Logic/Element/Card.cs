@@ -22,12 +22,18 @@ public class Card
         get {return m_Entity;}
     }
 
+    //死亡分解中
+    public bool IsEliminating = false;
+
     //可滑动
     public bool Dragable {
         get {
             if (STATE == _C.CARD_STATE.GHOST) {
                 return false;
             }
+
+            if (IsEliminating) return false;
+
             return true;
         }
     }
