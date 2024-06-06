@@ -25,6 +25,9 @@ public class Card
     //死亡分解中
     public bool IsEliminating = false;
 
+    //固定的
+    public bool IsFixed = false;
+
     //可滑动
     public bool Dragable {
         get {
@@ -32,7 +35,7 @@ public class Card
                 return false;
             }
 
-            if (IsEliminating) return false;
+            if (IsEliminating || IsFixed) return false;
 
             return true;
         }
