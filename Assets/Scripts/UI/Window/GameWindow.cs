@@ -74,7 +74,7 @@ public class GameWindow : MonoBehaviour
     #region 监听事件
     private void OnReponseEnterStage(GameEvent @event)
     {
-        m_Stage.text    = Field.Instance.Stage.Name;
+        m_Stage.text    = Field.Instance.Stage.ID.ToString();
         m_Step.text     = Field.Instance.Stage.MoveStep.Current.ToString();
 
         //初始化条件

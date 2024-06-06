@@ -10,7 +10,6 @@ public class Stage
     private StageData m_Data;
 
     public int ID {get{return m_Data.ID;}}
-    public string Name {get{return "关卡 " + m_Data.ID;}}
     public int Weight {get{return m_Data.Weight;}}
     public int Height {get{return m_Data.Height;}}
     public int Coin {get{return m_Data.Coin;}}
