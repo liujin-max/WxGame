@@ -327,7 +327,7 @@ public class Field : MonoBehaviour
     {
         Grid origin = card.Grid;
 
-        if (origin.Y == m_Height - 1) return null;
+        if (origin.Y == m_Height - 1 || card.IsFixed) return null;
 
         Grid target = null;
 
@@ -360,7 +360,7 @@ public class Field : MonoBehaviour
     {
         Grid origin = card.Grid;
 
-        if (origin.Y == 0) return null;
+        if (origin.Y == 0  || card.IsFixed) return null;
 
         Grid target = null;
 
@@ -392,7 +392,7 @@ public class Field : MonoBehaviour
     public Grid MoveLeft(Card card)
     {
         Grid origin = card.Grid;
-        if (origin.X == 0) return null;
+        if (origin.X == 0  || card.IsFixed) return null;
 
         Grid target = null;
 
@@ -425,7 +425,7 @@ public class Field : MonoBehaviour
     {
         Grid origin = card.Grid;
 
-        if (origin.X == m_Weight - 1) return null;
+        if (origin.X == m_Weight - 1  || card.IsFixed) return null;
 
         Grid target = null;
 

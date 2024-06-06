@@ -51,6 +51,8 @@ public class Jelly : MonoBehaviour
 
     public void Shake(Vector2 strength)
     {
+        if (m_Card.IsFixed) return;
+
         if (m_ScaleTweener != null) {
             Entity.transform.localScale = Vector3.one;
             m_ScaleTweener.Kill();
@@ -61,6 +63,8 @@ public class Jelly : MonoBehaviour
 
     public void Shake(_C.DIRECTION direction)
     {
+        if (m_Card.IsFixed) return;
+
         switch (direction)
         {
             case _C.DIRECTION.TOP:
@@ -152,7 +156,10 @@ public class Jelly : MonoBehaviour
 
     #region 监听事件
     void OnMouseDown()
-    {
+    {   
+        if (m_Card.TYPE == _C.CARD_TYPE.FRAME || m_Card.STATE == _C.CARD_STATE.GHOST) return;
+
+        ClickShake();
         if (!m_Card.Dragable) return;   //无法拖动的
         if (Field.Instance.Stage.MoveStep.IsClear()) return;    //没有行动步数了
         if (Field.Instance.GetCurrentFSMState() != _C.FSMSTATE.IDLE) return;
@@ -161,8 +168,6 @@ public class Jelly : MonoBehaviour
 
         m_Dragging  = true;
         m_TouchPos  = Input.mousePosition;
-
-        ClickShake();
     }
 
     //自定义的拖拽

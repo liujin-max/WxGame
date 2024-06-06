@@ -32,6 +32,13 @@ public static class _C
         RIGHT
     }
 
+    //方块类型
+    public enum CARD_TYPE
+    {
+        JELLY = 1,
+        FRAME    
+    }
+
     //方块状态
     public enum CARD_STATE
     {

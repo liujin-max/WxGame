@@ -131,6 +131,9 @@ public class GameFacade : MonoBehaviour
         get {return _instance;} 
     }
 
+    public bool TestMode = false;
+    public int TestStage = 0;
+
     void Awake()
     {
         _instance = this;

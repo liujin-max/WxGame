@@ -8,6 +8,7 @@ public class CardData
 {
     public int ID;
     public string Name;
+    public _C.CARD_TYPE Type;
 }
 
 //数据体
@@ -41,12 +42,13 @@ public class DataCenter
         Level = new Levels();
         Level.Init();
 
-        //弹珠数据
+        //果冻数据
         List<string[]> list = GameFacade.Instance.CsvManager.GetStringArrays(CsvManager.TableKey_Card);
         foreach (string[] data in list) {
             CardData config = new CardData();
             config.ID       = Convert.ToInt32(data[0]);
             config.Name     = data[1];
+            config.Type     = (_C.CARD_TYPE)Convert.ToInt32(data[2]);
 
             m_Cards.Add(config);
             m_CardDic[config.ID]  = config;

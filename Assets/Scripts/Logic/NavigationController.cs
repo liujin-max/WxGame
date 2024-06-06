@@ -22,7 +22,8 @@ public static class NavigationController
         GameFacade.Instance.SoundManager.PlayBGM(SOUND.BGM);
 
         GameFacade.Instance.ScenePool.LoadSceneAsync("Game", () => {
-            Field.Instance.Enter(1);
+            int stage = GameFacade.Instance.TestMode == true ? GameFacade.Instance.TestStage : 1;
+            Field.Instance.Enter(stage);
         });
     }
 }
