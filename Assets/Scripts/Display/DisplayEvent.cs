@@ -129,7 +129,7 @@ public class DisplayEvent_NormalCard : DisplayEvent
         card.Entity.transform.DOLocalMove(card.Grid.Position, 0.15f).OnComplete(()=>{
             m_State = _C.DISPLAY_STATE.END;
 
-            card.Entity.Shake();
+            card.Entity.Shake(new Vector2(0.05f, 0.05f));
         });
     }
 }

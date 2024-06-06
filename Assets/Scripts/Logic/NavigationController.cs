@@ -7,13 +7,13 @@ using UnityEngine;
 
 public static class NavigationController
 {
-    public static void GotoLoading()
+    public static void GotoLogin()
     {
         GameFacade.Instance.SoundManager.PlayBGM(SOUND.BGM);
 
         //加载loading界面
-        GameFacade.Instance.ScenePool.LoadSceneAsync("Loading", () => {
-            GameFacade.Instance.UIManager.LoadWindow("LoadingWindow", UIManager.BOTTOM);
+        GameFacade.Instance.ScenePool.LoadSceneAsync("Login", () => {
+            GameFacade.Instance.UIManager.LoadWindow("LoginWindow", UIManager.BOTTOM);
         });
     }
 

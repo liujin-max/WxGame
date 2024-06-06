@@ -168,7 +168,7 @@ public class GameFacade : MonoBehaviour
         UIManager.LoadWindow("MaskWindow", UIManager.TIP);
 
         //进入游戏
-        NavigationController.GotoGame();
+        NavigationController.GotoLogin();
 
         
         yield return null; 

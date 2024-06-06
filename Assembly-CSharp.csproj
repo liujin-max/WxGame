@@ -154,6 +154,8 @@
     <Compile Include="Assets\DOTween\Modules\DOTweenModuleUnityVersion.cs" />
     <Compile Include="Assets\Scripts\Utility\BoxColliderUtility.cs" />
     <Compile Include="Assets\Scripts\UI\Window\MaskWindow.cs" />
+    <Compile Include="Assets\Scripts\UI\Window\LoginWindow.cs" />
+    <Compile Include="Assets\Scripts\Effect\SceneSwitch.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Resources\Shader\SpriteGray.shader" />

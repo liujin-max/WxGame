@@ -51,9 +51,12 @@ public class Jelly : MonoBehaviour
 
     public void Shake(Vector2 strength)
     {
-        if (m_ScaleTweener != null) m_ScaleTweener.Kill();
+        if (m_ScaleTweener != null) {
+            Entity.transform.localScale = Vector3.one;
+            m_ScaleTweener.Kill();
+        }
 
-        m_ScaleTweener = Entity.transform.DOShakeScale(0.5f, strength , 8, 50);
+        m_ScaleTweener = Entity.transform.DOShakeScale(0.4f, strength , 8, 50);
     }
 
     public void Shake(_C.DIRECTION direction)
@@ -78,16 +81,22 @@ public class Jelly : MonoBehaviour
         }
     }
 
-    public void Shake()
+    void ClickShake()
     {
-        if (m_ScaleTweener != null) m_ScaleTweener.Kill();
+        if (m_ScaleTweener != null) {
+            Entity.transform.localScale = Vector3.one;
+            m_ScaleTweener.Kill();
+        }
 
         m_ScaleTweener = Entity.transform.DOShakeScale(0.5f, 0.2f , 8, 50);
     }
 
     public void DoScale(Vector3 scale, float time, Action callback = null)
     {
-        if (m_ScaleTweener != null) m_ScaleTweener.Kill();
+        if (m_ScaleTweener != null) {
+            Entity.transform.localScale = Vector3.one;
+            m_ScaleTweener.Kill();
+        }
 
         m_ScaleTweener = Entity.transform.DOScale(scale, time).OnComplete(()=>{
             if (callback != null) callback();
@@ -153,7 +162,7 @@ public class Jelly : MonoBehaviour
         m_Dragging  = true;
         m_TouchPos  = Input.mousePosition;
 
-        Shake();
+        ClickShake();
     }
 
     //自定义的拖拽
