@@ -26,11 +26,4 @@ public class EffectManager : MonoBehaviour
 
         return e;
     }
-
-    public void FlyRate(Vector3 pos,  float value)
-    {
-        var e = GameFacade.Instance.EffectManager.Load(EFFECT.RATENUMBER, pos * 100, UIManager.EFFECT.gameObject);
-        e.transform.localScale = Vector3.one;
-        e.GetComponent<RateNumber>().Fly(value);
-    }
 }

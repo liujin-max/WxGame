@@ -209,6 +209,8 @@ public class DisplayEvent_BrokenCard : DisplayEvent
         if (card.Entity.Entity.size.y >= 2.0f) {
             m_State = _C.DISPLAY_STATE.END;
 
+            GameFacade.Instance.EffectManager.Load(EFFECT.BROKEN, card.Entity.transform.position);
+
             card.Dispose();
 
             EventManager.SendEvent(new GameEvent(EVENT.ONBROKENCARD, card));
