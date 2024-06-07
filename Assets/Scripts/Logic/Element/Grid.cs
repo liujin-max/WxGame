@@ -27,6 +27,11 @@ public class Grid
 
     private GameObject m_Entity;
     public GameObject Entity {get {return m_Entity;} }
+    public Transform Frame;
+    private Transform m_Line1;
+    private Transform m_Line2;
+    private Transform m_Horn1;
+    private Transform m_Horn2;
 
     public Grid(int order, int x, int y, Vector2 position)
     {
@@ -44,35 +49,139 @@ public class Grid
         m_Entity.transform.localPosition = m_Position;
         m_Entity.transform.localEulerAngles = Vector3.zero;
 
-        m_Entity.transform.Find("1").gameObject.SetActive(Order % 2 != 0);
-        m_Entity.transform.Find("2").gameObject.SetActive(Order % 2 == 0);
+        var res = Order % 2 == 0 ? "UI/Element/grid_1" :  "UI/Element/grid_2";
+        Frame   = m_Entity.transform.Find("Frame");
+        Frame.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>(res);
 
 
-        // float scale_x = 1f;
-        // float scale_y = 1f;
+        m_Line1 = m_Entity.transform.Find("Line1Pivot");
+        m_Line2 = m_Entity.transform.Find("Line2Pivot");
+        m_Horn1 = m_Entity.transform.Find("Horn1Pivot");
+        m_Horn2 = m_Entity.transform.Find("Horn2Pivot");
 
-        // var g_top   = Field.Instance.GetGridByDirection(this, _C.DIRECTION.TOP);
-        // var g_dowm  = Field.Instance.GetGridByDirection(this, _C.DIRECTION.DOWN);
-        // var g_left  = Field.Instance.GetGridByDirection(this, _C.DIRECTION.LEFT);
-        // var g_right = Field.Instance.GetGridByDirection(this, _C.DIRECTION.RIGHT);
+        FlushFrame();
+    }
 
-        // if (g_top != null  && g_top.IsValid && g_dowm != null && g_dowm.IsValid)
-        // {
-        //     scale_y = 2f;
-        // }
+    void FlushFrame()
+    {
+        m_Line1.gameObject.SetActive(false);
+        m_Line2.gameObject.SetActive(false);
+        m_Horn1.gameObject.SetActive(false);
+        m_Horn2.gameObject.SetActive(false);
 
-        // if (g_left != null  && g_left.IsValid && g_right != null && g_right.IsValid)
-        // {
-        //     scale_x = 2f;
-        // }
+        m_Line1.localScale = Vector3.one;
+        m_Line2.localScale = Vector3.one;
 
-        // m_Entity.transform.Find("frame").localScale = new Vector3(scale_x, scale_y, 0);
+
+
+        var up      = Field.Instance.GetGridByDirection(this, _C.DIRECTION.UP);
+        var down    = Field.Instance.GetGridByDirection(this, _C.DIRECTION.DOWN);
+        var left    = Field.Instance.GetGridByDirection(this, _C.DIRECTION.LEFT);
+        var right   = Field.Instance.GetGridByDirection(this, _C.DIRECTION.RIGHT);
+
+
+        //上左、左下、下右、右上
+        bool is_line_used = false;
+        bool is_horn_used = false;
+
+        if (up == null || !up.IsValid)
+        {
+            if (left != null && left.IsValid && right != null && right.IsValid)
+            {
+                is_line_used = true;
+
+                m_Line1.gameObject.SetActive(true);
+                m_Line1.localEulerAngles = new Vector3(0, 0, -90);
+            }
+
+            if (left == null || !left.IsValid) 
+            {
+                is_horn_used = true;
+                m_Horn1.gameObject.SetActive(true);
+                m_Horn1.localEulerAngles = new Vector3(0, 0, 0);
+            }
+        }
+
+        if (left == null || !left.IsValid)
+        {
+            if (up != null && up.IsValid && down != null && down.IsValid)
+            {
+                Transform transform = is_line_used ? m_Line2 : m_Line1;
+
+                transform.gameObject.SetActive(true);
+                transform.localEulerAngles = new Vector3(0, 0, 0);
+
+                is_line_used = true;
+            }
+
+            if (down == null || !down.IsValid) 
+            {
+                Transform transform = is_horn_used ? m_Horn2 : m_Horn1;
+                transform.gameObject.SetActive(true);
+                transform.localEulerAngles = new Vector3(0, 0, 90);
+
+                is_horn_used = true;
+            }
+        }
+
+        if (down == null || !down.IsValid)
+        {
+            if (left != null && left.IsValid && right != null && right.IsValid)
+            {
+
+                Transform transform = is_line_used ? m_Line2 : m_Line1;
+
+                transform.gameObject.SetActive(true);
+                transform.localEulerAngles = new Vector3(0, 0, 90);
+
+                is_line_used = true;
+            }
+
+            if (right == null || !right.IsValid) 
+            {
+                Transform transform = is_horn_used ? m_Horn2 : m_Horn1;
+                transform.gameObject.SetActive(true);
+                transform.localEulerAngles = new Vector3(0, 0, 180);
+
+                is_horn_used = true;
+            }
+        }
+
+        if (right == null || !right.IsValid)
+        {
+            if (up != null && up.IsValid && down != null && down.IsValid)
+            {
+                Transform transform = is_line_used ? m_Line2 : m_Line1;
+
+                transform.gameObject.SetActive(true);
+                transform.localEulerAngles = new Vector3(0, 0, 180);
+
+                is_line_used = true;
+            }
+
+            if (up == null || !up.IsValid) 
+            {
+                Transform transform = is_horn_used ? m_Horn2 : m_Horn1;
+                transform.gameObject.SetActive(true);
+                transform.localEulerAngles = new Vector3(0, 0, -90);
+
+                is_horn_used = true;
+            }
+        }
+
+
+        //
+        
     }
 
     public void Show(bool flag)
     {
         if (m_Entity != null) {
             m_Entity.gameObject.SetActive(flag);
+
+            Frame.localScale = Vector3.one;
+
+            FlushFrame();
         }
     }
 

@@ -79,7 +79,7 @@ public class DisplayEvent_HideGrid : DisplayEvent
         }
         
 
-        grid.Entity.transform.DOScale(0f, 0.2f);
+        grid.Frame.transform.DOScale(0f, 0.2f);
     }
 
     public override void Update(float deltaTime)
