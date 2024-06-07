@@ -186,7 +186,20 @@ public class Field : MonoBehaviour
     //获取格子
     public Grid GetGrid(int x, int y)
     {
+        if (x >= m_Grids.GetLength(0) || x < 0) return null;
+        if (y >= m_Grids.GetLength(1) || y < 0) return null;
+
         return m_Grids[x, y];
+    }
+
+    //获取有效格子
+    public Grid GetValidGrid(int x, int y)
+    {
+        var grid = this.GetGrid(x, y);
+        if (grid != null && grid.IsValid == true) {
+            return grid;
+        }
+        return null;
     }
 
     //清理残影

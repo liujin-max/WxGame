@@ -59,10 +59,11 @@ public class Grid
         m_Horn1 = m_Entity.transform.Find("Horn1Pivot");
         m_Horn2 = m_Entity.transform.Find("Horn2Pivot");
 
-        FlushFrame();
+        DrawLines();
     }
 
-    void FlushFrame()
+    //绘制描边线
+    void DrawLines()
     {
         m_Line1.gameObject.SetActive(false);
         m_Line2.gameObject.SetActive(false);
@@ -71,6 +72,9 @@ public class Grid
 
         m_Line1.localScale = Vector3.one;
         m_Line2.localScale = Vector3.one;
+
+        m_Line1.transform.localPosition = Vector3.zero;
+        m_Line2.transform.localPosition = Vector3.zero;
 
 
 
@@ -88,10 +92,26 @@ public class Grid
         {
             if (left != null && left.IsValid && right != null && right.IsValid)
             {
+                
+                Transform transform = is_line_used ? m_Line2 : m_Line1;
+
+                transform.gameObject.SetActive(true);
+                transform.localEulerAngles = new Vector3(0, 0, -90);
+
                 is_line_used = true;
 
-                m_Line1.gameObject.SetActive(true);
-                m_Line1.localEulerAngles = new Vector3(0, 0, -90);
+                //斜对角
+                if (Field.Instance.GetValidGrid(X - 1, Y + 1) != null)
+                {
+                    transform.localPosition = new Vector3(0.15f, 0, 0);
+                    transform.localScale = new Vector3(1, 0.473f, 1);
+                }
+
+                if (Field.Instance.GetValidGrid(X + 1, Y + 1) != null)
+                {
+                    transform.localPosition = new Vector3(-0.15f, 0, 0);
+                    transform.localScale = new Vector3(1, 0.473f, 1);
+                }
             }
 
             if (left == null || !left.IsValid) 
@@ -112,6 +132,13 @@ public class Grid
                 transform.localEulerAngles = new Vector3(0, 0, 0);
 
                 is_line_used = true;
+
+                //斜对角
+                if (Field.Instance.GetValidGrid(X - 1, Y + 1) != null || Field.Instance.GetValidGrid(X - 1, Y - 1) != null)
+                {
+                    transform.localScale = new Vector3(1, 0.28f, 1);
+                }
+
             }
 
             if (down == null || !down.IsValid) 
@@ -135,6 +162,19 @@ public class Grid
                 transform.localEulerAngles = new Vector3(0, 0, 90);
 
                 is_line_used = true;
+
+                //斜对角
+                if (Field.Instance.GetValidGrid(X - 1, Y - 1) != null)
+                {
+                    transform.localPosition = new Vector3(0.15f, 0, 0);
+                    transform.localScale = new Vector3(1, 0.473f, 1);
+                }
+
+                if (Field.Instance.GetValidGrid(X + 1, Y - 1) != null)
+                {
+                    transform.localPosition = new Vector3(-0.15f, 0, 0);
+                    transform.localScale = new Vector3(1, 0.473f, 1);
+                }
             }
 
             if (right == null || !right.IsValid) 
@@ -157,6 +197,12 @@ public class Grid
                 transform.localEulerAngles = new Vector3(0, 0, 180);
 
                 is_line_used = true;
+
+                //斜对角
+                if (Field.Instance.GetValidGrid(X + 1, Y + 1) != null || Field.Instance.GetValidGrid(X + 1, Y - 1) != null)
+                {
+                    transform.localScale = new Vector3(1, 0.28f, 1);
+                }
             }
 
             if (up == null || !up.IsValid) 
@@ -170,8 +216,6 @@ public class Grid
         }
 
 
-        //
-        
     }
 
     public void Show(bool flag)
@@ -181,7 +225,7 @@ public class Grid
 
             Frame.localScale = Vector3.one;
 
-            FlushFrame();
+            DrawLines();
         }
     }
 
