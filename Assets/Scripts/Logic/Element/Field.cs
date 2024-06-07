@@ -63,7 +63,7 @@ public class Field : MonoBehaviour
 
     public void Enter(int stage)
     {
-        m_Stage     = new Stage(GameFacade.Instance.DataCenter.Level.GetStageData(stage));
+        m_Stage     = new Stage(GameFacade.Instance.DataCenter.Level.GetStageJSON(stage));
 
         m_Weight    = m_Stage.Weight;
         m_Height    = m_Stage.Height;

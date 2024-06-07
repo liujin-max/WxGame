@@ -11,17 +11,41 @@ public class CardData
     public _C.CARD_TYPE Type;
 }
 
-//数据体
-public class StageData
+
+
+
+
+
+
+
+
+
+
+
+//从本地Json文件读取
+[System.Serializable]
+public class StageJSON
 {
     public int ID;
-    public string Name;
     public int Weight;
     public int Height;
     public int Step;
-    public string Condition;
     public int Coin;
-    public string Cards;
+    public List<string> Conditions;
+    public List<int> CardPool;
+    public List<GridJSON> Grids;
+}
+
+//从本地Json文件读取
+[System.Serializable]
+public class GridJSON
+{
+    public int Order;
+    public int X;
+    public int Y;
+
+    public bool IsValid = true;
+    public int JellyID;
 }
 
 

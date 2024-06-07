@@ -128,68 +128,54 @@ public class Matrix_1 : Matrix
     
 }
 
-//第2关
-public class Matrix_2 : Matrix
-{
-    public override void InitCards()
-    {
-        Field.Instance.PutCard(_C.CARD_STATE.NORMAL, GameFacade.Instance.DataCenter.GetCardData(10001), Field.Instance.GetGrid(2, 3));
-        Field.Instance.PutCard(_C.CARD_STATE.NORMAL, GameFacade.Instance.DataCenter.GetCardData(10001), Field.Instance.GetGrid(2, 1));
-        Field.Instance.PutCard(_C.CARD_STATE.NORMAL, GameFacade.Instance.DataCenter.GetCardData(10001), Field.Instance.GetGrid(1, 2));
-        Field.Instance.PutCard(_C.CARD_STATE.NORMAL, GameFacade.Instance.DataCenter.GetCardData(10001), Field.Instance.GetGrid(3, 2));
-    }
-}
-
-//第3关
-public class Matrix_3 : Matrix
-{
-    public override void FilterGrids()
-    {
-
-    }
-
-    public override void InitCards()
-    {
-        Field.Instance.PutCard(_C.CARD_STATE.NORMAL, GameFacade.Instance.DataCenter.GetCardData(10020), Field.Instance.GetGrid(2, 2));
-
-        Field.Instance.PutCard(_C.CARD_STATE.NORMAL, GameFacade.Instance.DataCenter.GetCardData(10001), Field.Instance.GetGrid(2, 3));
-        Field.Instance.PutCard(_C.CARD_STATE.NORMAL, GameFacade.Instance.DataCenter.GetCardData(10002), Field.Instance.GetGrid(2, 1));
-        Field.Instance.PutCard(_C.CARD_STATE.NORMAL, GameFacade.Instance.DataCenter.GetCardData(10003), Field.Instance.GetGrid(1, 2));
-        Field.Instance.PutCard(_C.CARD_STATE.NORMAL, GameFacade.Instance.DataCenter.GetCardData(10004), Field.Instance.GetGrid(3, 2));
-    }
-}
-
-
-
 
 
 
 //负责各关卡的特殊处理
 public class Matrix
 {
+    protected Stage m_Stage;
+
+    public void Init(Stage stage)
+    {
+        m_Stage = stage;
+    }
+
     public virtual void FilterGrids()
     {
-
+        m_Stage.GridJSONs.ForEach(grid_json => {
+            var grid        = Field.Instance.GetGrid(grid_json.X, grid_json.Y);
+            grid.IsValid    = grid_json.IsValid;
+        });
     }
 
 
-    //初始生成：默认随机生成
+    //初始生成：读取配置
     public virtual void InitCards()
     {
-        Stage stage = Field.Instance.Stage;
+        bool is_preset = false;
 
-        //获取空着的Grid
-        List<object> grid_list = Field.Instance.GetEmptyGrids();
+        m_Stage.GridJSONs.ForEach(grid_json => {
+            if (grid_json.JellyID > 0) {
+                is_preset   = true;
 
-        int count = 3;
-        List<object> grid_datas = RandomUtility.Pick(count, grid_list);
+                var grid    = Field.Instance.GetGrid(grid_json.X, grid_json.Y);
+                Field.Instance.PutCard(_C.CARD_STATE.NORMAL, GameFacade.Instance.DataCenter.GetCardData(grid_json.JellyID), grid);
+            }
+        });
+
+
+        if (is_preset) return;
+
+        //没有预设，则随机生成
+        List<object> grid_datas = RandomUtility.Pick(3, Field.Instance.GetEmptyGrids());
 
         for (int i = 0; i < grid_datas.Count; i++)
         {
             Grid grid   = grid_datas[i] as Grid;
-            int rand    = RandomUtility.Random(0, stage.Cards.Count);
+            int rand    = RandomUtility.Random(0, m_Stage.Cards.Count);
 
-            Field.Instance.PutCard(_C.CARD_STATE.NORMAL, stage.Cards[rand], grid);
+            Field.Instance.PutCard(_C.CARD_STATE.NORMAL, m_Stage.Cards[rand], grid);
         }
     }
 

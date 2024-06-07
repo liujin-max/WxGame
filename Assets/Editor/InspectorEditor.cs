@@ -1,5 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
+#if UNITY_EDITOR
 using UnityEditor;
 using UnityEngine;
 
@@ -20,15 +19,16 @@ public class InspectorEditor : Editor
             map.Clear();
         }
 
+        if (GUILayout.Button("读取关卡数据"))
+        {
+            map.Load();
+        }
+
         if (GUILayout.Button("生成Grids"))
         {
             map.InitGrids();
         }
 
-        if (GUILayout.Button("读取关卡数据"))
-        {
-            map.Load();
-        }
 
         if (GUILayout.Button("导出Json"))
         {
@@ -36,3 +36,5 @@ public class InspectorEditor : Editor
         }
     }
 }
+
+#endif

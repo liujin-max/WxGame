@@ -7,12 +7,13 @@ using UnityEngine;
 //关卡数据
 public class Stage
 {
-    private StageData m_Data;
+    private StageJSON m_Data;
 
     public int ID {get{return m_Data.ID;}}
     public int Weight {get{return m_Data.Weight;}}
     public int Height {get{return m_Data.Height;}}
     public int Coin {get{return m_Data.Coin;}}
+    public List<GridJSON> GridJSONs {get {return m_Data.Grids;}}
 
 
     private List<Condition> m_Conditions = new List<Condition>();
@@ -28,11 +29,9 @@ public class Stage
 
     private static Dictionary<int, Func<Matrix>> m_classDictionary = new Dictionary<int, Func<Matrix>> {
         { 1, () => new Matrix_1()},
-        { 2, () => new Matrix_2()},
-        { 3, () => new Matrix_3()},
     };
 
-    public Stage(StageData stageData)
+    public Stage(StageJSON stageData)
     {
         m_Data  = stageData;
 
@@ -43,6 +42,7 @@ public class Stage
         } else {
             m_Matrix = new Matrix();
         }
+        m_Matrix.Init(this);
 
         ParseCardPool();
         ParseCondition();
@@ -58,29 +58,19 @@ public class Stage
         m_Cards.Clear();
         m_CardDic.Clear();
 
-        foreach (var id in m_Data.Cards.Split('|')) {
-            int card_id = Convert.ToInt32(id);
+        foreach (var card_id in m_Data.CardPool) {
             CardData card_data = GameFacade.Instance.DataCenter.GetCardData(card_id);
             m_Cards.Add(card_data);
             m_CardDic[card_id] = card_data;
         }
     }
 
-    // public CardData GetCardData(int card_id)
-    // {
-    //     CardData cardData;
-    //     if (m_CardDic.TryGetValue(card_id, out cardData)) {
-    //         return cardData;
-    //     }
-
-    //     return null;
-    // }
 
     void ParseCondition()
     {
         m_Conditions.Clear();
 
-        foreach (var item in m_Data.Condition.Split('|')) {
+        foreach (var item in m_Data.Conditions) {
             string[] conditions = item.Split(':');
             var condition = new Condition(Convert.ToInt32(conditions[0]), Convert.ToInt32(conditions[1]));
             m_Conditions.Add(condition);

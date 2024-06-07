@@ -1,41 +1,16 @@
-using System;
-using System.Collections;
+#if UNITY_EDITOR
 using System.Collections.Generic;
 using System.IO;
-using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
 
 
-[System.Serializable]
-public class MapJSON
-{
-    public int Stage;
-    public int Weight;
-    public int Height;
-    public int Step;
-    public int Coin;
-    public List<string> Conditions;
-    public List<int> CardPool;
 
-    public List<GridJSON> Grids;
-}
-
-[System.Serializable]
-public class GridJSON
-{
-    public int Order;
-    public int X;
-    public int Y;
-
-    public bool IsValid = true;
-    public int JellyID;
-}
 
 public class MapEditor : MonoBehaviour
 {
      [Header("关卡ID")]
-    [SerializeField] private int m_Stage;
+    [SerializeField] private int m_ID;
 
     [Header("尺寸")]
     [SerializeField] private int m_Weight;
@@ -78,7 +53,7 @@ public class MapEditor : MonoBehaviour
 
     public void Clear()
     {
-        m_Stage     = 0;
+        m_ID        = 0;
         m_Weight    = 0;
         m_Height    = 0;
         m_Step      = 0;
@@ -114,16 +89,16 @@ public class MapEditor : MonoBehaviour
     //读取数据
     public void Load()
     {
-        if (m_Stage == 0) {
+        if (m_ID == 0) {
             EditorUtility.DisplayDialog("提示", "未填写Stage", "确定");
             return;
         }
 
-        string json = ReadJsonFromFile(m_Stage);
+        string json = ReadJsonFromFile(m_ID);
 
-        MapJSON mapJSON = JsonUtility.FromJson<MapJSON>(json);
+        StageJSON mapJSON = JsonUtility.FromJson<StageJSON>(json);
 
-        m_Stage     = mapJSON.Stage;
+        m_ID        = mapJSON.ID;
         m_Weight    = mapJSON.Weight;
         m_Height    = mapJSON.Height;
         m_Step      = mapJSON.Step;
@@ -147,13 +122,13 @@ public class MapEditor : MonoBehaviour
     //导出数据
     public void Export()
     {
-        if (m_Stage == 0) {
+        if (m_ID == 0) {
             EditorUtility.DisplayDialog("提示", "未填写Stage", "确定");
             return;
         }
 
-        MapJSON mapData = new MapJSON();
-        mapData.Stage   = m_Stage;
+        StageJSON mapData = new StageJSON();
+        mapData.ID      = m_ID;
         mapData.Weight  = m_Weight;
         mapData.Height  = m_Height;
         mapData.Step    = m_Step;
@@ -184,7 +159,7 @@ public class MapEditor : MonoBehaviour
 
     void WriteJsonToFile(string json)
     {
-        var path = _C.JSON_PATH + "/Stage_" + this.m_Stage + ".json";
+        var path = _C.JSON_PATH + "/Stage_" + this.m_ID + ".json";
         Debug.Log("写入路径 " + path + ", Json : " + json);
 
 
@@ -209,7 +184,7 @@ public class MapEditor : MonoBehaviour
 
     string ReadJsonFromFile(int stage)
     {
-        var path = _C.JSON_PATH + "/Stage_" + this.m_Stage + ".json";
+        var path = _C.JSON_PATH + "/Stage_" + this.m_ID + ".json";
 
         string json = File.ReadAllText(path);
         Debug.Log("读取路径 " + path + ", Json : " + json);
@@ -218,3 +193,4 @@ public class MapEditor : MonoBehaviour
         return json;
     }
 }
+#endif

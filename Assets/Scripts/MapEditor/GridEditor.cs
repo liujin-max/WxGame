@@ -1,5 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
+#if UNITY_EDITOR
 using TMPro;
 using UnityEditor;
 using UnityEngine;
@@ -34,7 +33,6 @@ public class GridEditor : MonoBehaviour
     }
 
     // 注册Editor更新事件
-    [InitializeOnLoadMethod]
     private void StartListeningToUpdates()
     {
         EditorApplication.update += OnEditorUpdate;
@@ -51,3 +49,4 @@ public class GridEditor : MonoBehaviour
             transform.Find("Text").GetComponent<TextMeshPro>().text = "";
     }
 }
+#endif

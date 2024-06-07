@@ -10,7 +10,7 @@ public class CsvManager: MonoBehaviour
 {
     //表名
     public const string TableKey_Card   = "Card";
-    public const string TableKey_Stage  = "Stage";
+
 
 
     //表名与表结构
@@ -22,7 +22,6 @@ public class CsvManager: MonoBehaviour
     public void ReadCsvs()
     {
         this.ReadCsv(CsvManager.TableKey_Card,          "CSV/Card");
-        this.ReadCsv(CsvManager.TableKey_Stage,         "CSV/Stage");
     }
 
     public string[] GetStringArray(string excel_name, int id)
