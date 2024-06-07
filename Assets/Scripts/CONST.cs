@@ -9,7 +9,10 @@ public static class _C
     public static string CLOUD_ENV = "cbcloud-6ght5vboe6f0f8c0";    //云开发环境ID
 
 
+    public static string JSON_PATH = Application.dataPath + "/Resources/Json";
 
+    public static float DEFAULT_GRID_WEIGHT = 1.24f;
+    public static float DEFAULT_GRID_HEIGHT = 1.26f;
 
 
  

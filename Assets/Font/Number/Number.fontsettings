@@ -19,7 +19,7 @@ Font:
   m_ConvertCase: 0
   m_CharacterRects:
   - serializedVersion: 2
-    index: 48
+    index: 49
     uv:
       serializedVersion: 2
       x: 0
@@ -35,7 +35,7 @@ Font:
     advance: 39
     flipped: 0
   - serializedVersion: 2
-    index: 49
+    index: 50
     uv:
       serializedVersion: 2
       x: 0.07109005
@@ -51,7 +51,7 @@ Font:
     advance: 61
     flipped: 0
   - serializedVersion: 2
-    index: 50
+    index: 51
     uv:
       serializedVersion: 2
       x: 0.17377567
@@ -67,7 +67,7 @@ Font:
     advance: 62
     flipped: 0
   - serializedVersion: 2
-    index: 51
+    index: 52
     uv:
       serializedVersion: 2
       x: 0.27804106
@@ -83,7 +83,7 @@ Font:
     advance: 62
     flipped: 0
   - serializedVersion: 2
-    index: 52
+    index: 53
     uv:
       serializedVersion: 2
       x: 0.38546604
@@ -99,7 +99,7 @@ Font:
     advance: 61
     flipped: 0
   - serializedVersion: 2
-    index: 53
+    index: 54
     uv:
       serializedVersion: 2
       x: 0.49131122
@@ -115,7 +115,7 @@ Font:
     advance: 62
     flipped: 0
   - serializedVersion: 2
-    index: 54
+    index: 55
     uv:
       serializedVersion: 2
       x: 0.59557664
@@ -131,7 +131,7 @@ Font:
     advance: 61
     flipped: 0
   - serializedVersion: 2
-    index: 55
+    index: 56
     uv:
       serializedVersion: 2
       x: 0.69984204
@@ -147,7 +147,7 @@ Font:
     advance: 62
     flipped: 0
   - serializedVersion: 2
-    index: 56
+    index: 57
     uv:
       serializedVersion: 2
       x: 0.8056872
@@ -163,7 +163,7 @@ Font:
     advance: 61
     flipped: 0
   - serializedVersion: 2
-    index: 57
+    index: 48
     uv:
       serializedVersion: 2
       x: 0.9115324
