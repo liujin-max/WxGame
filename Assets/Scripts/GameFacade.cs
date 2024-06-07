@@ -10,18 +10,6 @@ public class GameFacade : MonoBehaviour
 
     public string Version = "1.0.0";
 
-
-    private User m_User;
-    public User User
-    {
-        get {
-            if (m_User == null) {
-                m_User = transform.AddComponent<User>();
-            }
-            return m_User;
-        }
-    }
-
     private DataCenter m_DataCenter = null;
     public DataCenter DataCenter
     {
@@ -165,7 +153,7 @@ public class GameFacade : MonoBehaviour
     {
         Platform.Instance.INIT(()=>{
             //加载账号数据
-            User.Sync();
+            m_DataCenter.User.Sync();
         });
 
         UIManager.LoadWindow("MaskWindow", UIManager.TIP);

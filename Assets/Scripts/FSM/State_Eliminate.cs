@@ -22,35 +22,6 @@ public class State_Eliminate<T> : State<Field>
                 GameFacade.Instance.DisplayEngine.Put(DisplayEngine.Track.Common, new DisplayEvent_BrokenCard(card));
             });
         } 
-
-
-        // //有宝石要消除，则消除并进入连锁反应
-        // if (_Removes.Count > 0) {
-        //     _Removes.ForEach(card => {
-        //         Field.Instance.Stage.Collect(card.ID, 1);
-
-        //         GameFacade.Instance.DisplayEngine.Put(DisplayEngine.Track.Common, new DisplayEvent_BrokenCard(card));
-        //     });
-            
-        //     Field.Instance.Transist(_C.FSMSTATE.CHAIN, _Removes);
-        // } else {
-        //     //无宝石需要消除
-        //     //先判断是否满足胜利或失败条件
-        //     //然后判断是否行动过，未行动则进入行动阶段，否则进入下一回合
-        //     _C.RESULT result = Field.Instance.CheckResult();
-        //     if (result == _C.RESULT.NONE)
-        //     {
-        //         if (Field.Instance.IsMoved == true) {
-        //             Field.Instance.Transist(_C.FSMSTATE.CHECK);
-        //         } else {
-        //             Field.Instance.Transist(_C.FSMSTATE.IDLE);
-        //         }
-        //     }
-        //     else
-        //     {
-        //         Field.Instance.Transist(_C.FSMSTATE.RESULT, result);
-        //     }
-        // }
     }
 
     public override void Update()

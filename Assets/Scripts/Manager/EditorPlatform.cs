@@ -34,7 +34,7 @@ public class EditorPlatform : Platform
     //编辑器模式下 存档数据在Login的时候直接都从本地获取到了
     public override void SYNC(BaseData baseData, GameUserData userData)
     {
-        GameFacade.Instance.User.SyncRecords(userData);
+        GameFacade.Instance.DataCenter.User.SyncRecords(userData);
 
 
     }

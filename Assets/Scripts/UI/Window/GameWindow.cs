@@ -12,6 +12,7 @@ public class GameWindow : MonoBehaviour
     [SerializeField] private Transform m_ConditionPivot;
     [SerializeField] private Transform m_CardPivot;
     [SerializeField] private Text m_Stage;
+    [SerializeField] private Text m_Coin;
     [SerializeField] private Text m_Step;
 
 
@@ -75,6 +76,7 @@ public class GameWindow : MonoBehaviour
     private void OnReponseEnterStage(GameEvent @event)
     {
         m_Stage.text    = Field.Instance.Stage.ID.ToString();
+        m_Coin.text     = GameFacade.Instance.DataCenter.User.Coin.ToString();
         m_Step.text     = Field.Instance.Stage.MoveStep.Current.ToString();
 
         //初始化条件

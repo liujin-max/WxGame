@@ -123,7 +123,7 @@ public class Field : MonoBehaviour
         int count = 1;
         for (int i = 0; i < m_Weight; i++) {
             for (int j = 0; j < m_Height; j++) {
-                var grid = new Grid(count, i, j, new Vector2((i - ((m_Weight - 1) / 2.0f)) * 1.24f, (j - ((m_Height - 1) / 2.0f)) * 1.26f));
+                var grid = new Grid(count, i, j, new Vector2((i - ((m_Weight - 1) / 2.0f)) * _C.DEFAULT_GRID_WEIGHT, (j - ((m_Height - 1) / 2.0f)) * _C.DEFAULT_GRID_HEIGHT));
                 m_Grids[i, j] = grid;
 
                 count++;
@@ -206,7 +206,6 @@ public class Field : MonoBehaviour
 
     void UpdateMoveStep(int value)
     {
-        Debug.Log("UpdateMoveStep : " + value);
         m_Stage.MoveStep.UpdateCurrent(value);
     }
 
@@ -268,36 +267,40 @@ public class Field : MonoBehaviour
     {
         switch (direction)
         {
-            case _C.DIRECTION.TOP:
+            case _C.DIRECTION.UP:
+            {
                 if (g.Y == m_Height - 1)
                     return null;
 
-                var g_top = Field.Instance.Grids[g.X, g.Y + 1];
-                return g_top;
+                return Field.Instance.Grids[g.X, g.Y + 1];
+            }
             
 
             case _C.DIRECTION.DOWN:
+            {
                 if (g.Y == 0)
                     return null;
 
-                var g_down = Field.Instance.Grids[g.X, g.Y - 1];
-                return g_down;
+                return Field.Instance.Grids[g.X, g.Y - 1];
+            }
 
             
             case _C.DIRECTION.LEFT:
+            {
                 if (g.X == 0)
                     return null;
 
-                var g_left = Field.Instance.Grids[g.X - 1, g.Y];
-                return g_left;
+                return Field.Instance.Grids[g.X - 1, g.Y];
+            }
 
 
             case _C.DIRECTION.RIGHT:
+            {
                 if (g.X == m_Weight - 1)
                     return null;
 
-                var g_right = Field.Instance.Grids[g.X + 1, g.Y];
-                return g_right;
+                return Field.Instance.Grids[g.X + 1, g.Y];
+            }
         }
 
 
@@ -337,137 +340,139 @@ public class Field : MonoBehaviour
         return target_card;
     }
 
-    //向上移动(单个)
-    public Grid MoveTop(Card card, bool is_manual = false)
+    #region 移动
+    public Grid Move(Card card, _C.DIRECTION direction, bool is_manual = false)
     {
         Grid origin = card.Grid;
 
-        if (origin.Y == m_Height - 1 || card.IsFixed) return null;
-
-        Grid target = null;
-
-        for (int j = origin.Y + 1; j < m_Height; j++)
+        switch (direction) 
         {
-            Grid grid = m_Grids[origin.X, j];
-            if (!grid.IsEmpty || !grid.IsValid) break;
+            case _C.DIRECTION.LEFT: //向左
+            {
+                if (origin.X == 0  || card.IsFixed) return null;
+
+                Grid target = null;
+
+                for (int i = origin.X -1; i >= 0; i--)
+                {
+                    Grid grid = m_Grids[i, origin.Y];
+                    if (!grid.IsEmpty || !grid.IsValid) break;
+                    
+                    target  = grid;
+                }
+                
+                if (target == null)  return null;
+
+                int offset  = Mathf.Abs(target.X - origin.X);
+
+                origin.Card = null;
+                target.Card = card;
+                card.Grid   = target;
+
+                ClearGhost(card);
+                if (is_manual == true) UpdateMoveStep(-1);
+
+                GameFacade.Instance.DisplayEngine.Put(DisplayEngine.Track.Common, new DisplayEvent_MoveCard(card, _C.DIRECTION.LEFT, offset));
+
+                return target;
+            }
+
+            case _C.DIRECTION.RIGHT:    //向右
+            {
+                if (origin.X == m_Weight - 1  || card.IsFixed) return null;
+
+                Grid target = null;
+
+                for (int i = origin.X + 1; i < m_Weight; i++)
+                {
+                    Grid grid = m_Grids[i, origin.Y];
+                    if (!grid.IsEmpty || !grid.IsValid) break;
+                    
+                    target  = grid;
+                }
+
+                if (target == null)  return null;
+
+                int offset  = Mathf.Abs(target.X - origin.X);
+
+                origin.Card = null;
+                target.Card = card;
+                card.Grid   = target;
+
+                ClearGhost(card);
+                if (is_manual == true) UpdateMoveStep(-1);
+
+                GameFacade.Instance.DisplayEngine.Put(DisplayEngine.Track.Common, new DisplayEvent_MoveCard(card, _C.DIRECTION.RIGHT, offset));
+
+                return target;
+            }
+
+            case _C.DIRECTION.UP:  //向上
+            {
+                if (origin.Y == m_Height - 1 || card.IsFixed) return null;
+
+                Grid target = null;
+
+                for (int j = origin.Y + 1; j < m_Height; j++)
+                {
+                    Grid grid = m_Grids[origin.X, j];
+                    if (!grid.IsEmpty || !grid.IsValid) break;
+                    
+                    target  = grid;
+                }
+
+                if (target == null)  return null;
+
+                int offset  = Mathf.Abs(target.Y - origin.Y);
+
+                origin.Card = null;
+                target.Card = card;
+                card.Grid   = target;
+
+                ClearGhost(card);
+
+                if (is_manual == true) UpdateMoveStep(-1);
+
+                GameFacade.Instance.DisplayEngine.Put(DisplayEngine.Track.Common, new DisplayEvent_MoveCard(card, _C.DIRECTION.UP, offset));
+
+                return target;
+            }
             
-            target  = grid;
+
+            case _C.DIRECTION.DOWN:  //向下
+            {
+                if (origin.Y == 0  || card.IsFixed) return null;
+
+                Grid target = null;
+
+                for (int j = origin.Y -1; j >= 0; j--)
+                {
+                    Grid grid = m_Grids[origin.X, j];
+                    if (!grid.IsEmpty || !grid.IsValid) break;
+                    
+                    target  = grid;
+                }
+
+                if (target == null)  return null;
+
+                int offset  = Mathf.Abs(target.Y - origin.Y);
+
+                origin.Card = null;
+                target.Card = card;
+                card.Grid   = target;
+
+                ClearGhost(card);
+                if (is_manual == true) UpdateMoveStep(-1);
+
+                GameFacade.Instance.DisplayEngine.Put(DisplayEngine.Track.Common, new DisplayEvent_MoveCard(card, _C.DIRECTION.DOWN, offset));
+
+                return target;
+            }
         }
 
-        if (target == null)  return null;
-
-        int offset  = Mathf.Abs(target.Y - origin.Y);
-
-        origin.Card = null;
-        target.Card = card;
-        card.Grid   = target;
-
-        ClearGhost(card);
-
-        if (is_manual == true) UpdateMoveStep(-1);
-
-        GameFacade.Instance.DisplayEngine.Put(DisplayEngine.Track.Common, new DisplayEvent_MoveCard(card, _C.DIRECTION.TOP, offset));
-
-        return target;
-    } 
-
-    //向下移动
-    public Grid MoveDown(Card card, bool is_manual = false)
-    {
-        Grid origin = card.Grid;
-
-        if (origin.Y == 0  || card.IsFixed) return null;
-
-        Grid target = null;
-
-        for (int j = origin.Y -1; j >= 0; j--)
-        {
-            Grid grid = m_Grids[origin.X, j];
-            if (!grid.IsEmpty || !grid.IsValid) break;
-            
-            target  = grid;
-        }
-
-        if (target == null)  return null;
-
-        int offset  = Mathf.Abs(target.Y - origin.Y);
-
-        origin.Card = null;
-        target.Card = card;
-        card.Grid   = target;
-
-        ClearGhost(card);
-        if (is_manual == true) UpdateMoveStep(-1);
-
-        GameFacade.Instance.DisplayEngine.Put(DisplayEngine.Track.Common, new DisplayEvent_MoveCard(card, _C.DIRECTION.DOWN, offset));
-
-        return target;
+        return null;
     }
-
-    //向左移动
-    public Grid MoveLeft(Card card, bool is_manual = false)
-    {
-        Grid origin = card.Grid;
-        if (origin.X == 0  || card.IsFixed) return null;
-
-        Grid target = null;
-
-        for (int i = origin.X -1; i >= 0; i--)
-        {
-            Grid grid = m_Grids[i, origin.Y];
-            if (!grid.IsEmpty || !grid.IsValid) break;
-            
-            target  = grid;
-        }
-        
-        if (target == null)  return null;
-
-        int offset  = Mathf.Abs(target.X - origin.X);
-
-        origin.Card = null;
-        target.Card = card;
-        card.Grid   = target;
-
-        ClearGhost(card);
-        if (is_manual == true) UpdateMoveStep(-1);
-
-        GameFacade.Instance.DisplayEngine.Put(DisplayEngine.Track.Common, new DisplayEvent_MoveCard(card, _C.DIRECTION.LEFT, offset));
-
-        return target;
-    }
-
-    //向右移动
-    public Grid MoveRight(Card card, bool is_manual = false)
-    {
-        Grid origin = card.Grid;
-
-        if (origin.X == m_Weight - 1  || card.IsFixed) return null;
-
-        Grid target = null;
-
-        for (int i = origin.X + 1; i < m_Weight; i++)
-        {
-            Grid grid = m_Grids[i, origin.Y];
-            if (!grid.IsEmpty || !grid.IsValid) break;
-            
-            target  = grid;
-        }
-
-        if (target == null)  return null;
-
-        int offset  = Mathf.Abs(target.X - origin.X);
-
-        origin.Card = null;
-        target.Card = card;
-        card.Grid   = target;
-
-        ClearGhost(card);
-        if (is_manual == true) UpdateMoveStep(-1);
-
-        GameFacade.Instance.DisplayEngine.Put(DisplayEngine.Track.Common, new DisplayEvent_MoveCard(card, _C.DIRECTION.RIGHT, offset));
-
-        return target;
-    }
+    #endregion
 
     //计算消除
     //相邻的

@@ -17,25 +17,13 @@ public class BaseData
 [System.Serializable]
 public class GameUserData
 {
-    public string Name = "Unkown";
+    public string Name = "未知";
     public string HeadUrl;
-    public int Score = 0;   //通关记录
-    public List<int> AchiveRecords = new List<int>();
+    public int Level = 0;   //通关记录
+    public int Coin = 0;    //金币
 }
 
-//临时关卡存档数据
-[System.Serializable]
-public class ArchiveRecord
-{
-    public bool Valid = false;  //是否有效
 
-    public int Order;
-    public int Coin;
-    public int Glass;
-    public List<string> BallRecords;    //弹珠不是唯一的，所以不能用Dictionary
-    public List<string> RelicsRecords;
-    public int SeatAddition;
-}
 
 
 //负责管理账号的各种数据
@@ -47,13 +35,13 @@ public class User : MonoBehaviour
 
     public string OpenID{ get{ return m_Base.openId;}}
     public string Name{ get{ return m_Data.Name;}}
-    public int Score{ get{ return m_Data.Score;}}
     public string HeadURL{ get{ return m_Data.HeadUrl;}}
+    public int Level{ get{ return m_Data.Level;}}
+    public int Coin{ get{ return m_Data.Coin;}}
 
 
-    private bool m_scoreUpdate = false; //记录变动标记
-    public bool IsScoreUpdate {get { return m_scoreUpdate;}}
     private bool m_userUpdate = false;  //账号数据变动标记
+    private bool m_scoreUpdate = false; //记录变动标记
     public bool IsDirty {get { return m_userUpdate || m_scoreUpdate;}}
     
     //从本地存档里同步数据
@@ -82,47 +70,21 @@ public class User : MonoBehaviour
         m_userUpdate    = false;
     }
 
-    public void SetScore(int value)
+    public void SetLevel(int value)
     {
-        if (value <= m_Data.Score ) return;
+        if (value <= m_Data.Level ) return;
 
-        m_Data.Score    = value;
+        m_Data.Level    = value;
 
-        m_scoreUpdate   = true;
+
         m_userUpdate    = true;
     }
 
-    public void SetAchievement(int id)
+    public void SetCoin(int value)
     {
-        if (!m_Data.AchiveRecords.Contains(id)) {
-            m_Data.AchiveRecords.Add(id);
+        m_Data.Coin = value;
 
-            m_userUpdate    = true;
-        }
-    }
-
-    public bool IsNewScore(int score)
-    {
-        if (m_Data.Score == 0) return false;
-
-        return score > m_Data.Score;
-    }
-
-    public ArchiveRecord GetArchiveRecord()
-    {
-        string json = PlayerPrefs.GetString(SystemManager.KEY_ARCHIVE);
-
-        if (string.IsNullOrEmpty(json) == true) {
-            return null;
-        }
-
-        Debug.Log("读取关卡存档：" + json);
-        ArchiveRecord record = JsonUtility.FromJson<ArchiveRecord>(json);
-        if (!record.Valid) {
-            return null;
-        }
-
-        return record;
+        m_userUpdate    = true;
     }
 }
 

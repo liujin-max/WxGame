@@ -67,7 +67,7 @@ public class Jelly : MonoBehaviour
 
         switch (direction)
         {
-            case _C.DIRECTION.TOP:
+            case _C.DIRECTION.UP:
                 this.Shake(new Vector2(0, 0.2f));
                 break;
 
@@ -184,17 +184,17 @@ public class Jelly : MonoBehaviour
         if (Mathf.Abs(offset.x) > Mathf.Abs(offset.y))  //左右拖动
         {
             if (offset.x < 0) {
-                Field.Instance.IsMoved = Field.Instance.MoveLeft(m_Card, true) != null;
+                Field.Instance.IsMoved = Field.Instance.Move(m_Card, _C.DIRECTION.LEFT, true) != null;
             } else {
-                Field.Instance.IsMoved = Field.Instance.MoveRight(m_Card, true) != null;
+                Field.Instance.IsMoved = Field.Instance.Move(m_Card, _C.DIRECTION.RIGHT, true) != null;
             }
         }
         else    //上下拖动
         {
             if (offset.y < 0) {
-                Field.Instance.IsMoved = Field.Instance.MoveDown(m_Card, true) != null;
+                Field.Instance.IsMoved = Field.Instance.Move(m_Card, _C.DIRECTION.DOWN, true) != null;
             } else {
-                Field.Instance.IsMoved = Field.Instance.MoveTop(m_Card, true) != null;
+                Field.Instance.IsMoved = Field.Instance.Move(m_Card, _C.DIRECTION.UP, true) != null;
             }
         }
 

@@ -12,16 +12,6 @@ public class CardData
 }
 
 
-
-
-
-
-
-
-
-
-
-
 //从本地Json文件读取
 [System.Serializable]
 public class StageJSON
@@ -57,11 +47,18 @@ public class DataCenter
     private Dictionary<int, CardData> m_CardDic = new Dictionary<int, CardData>();
     private List<CardData> m_Cards = new List<CardData>();
 
+
+    //账号信息
+    public User User;
     //章节信息
     public Levels Level;
 
     public void Init()
     {
+        //
+        User = new User();
+
+
         //章节数据
         Level = new Levels();
         Level.Init();

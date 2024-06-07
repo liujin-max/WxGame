@@ -29,7 +29,7 @@ public static class _C
     //方向
     public enum DIRECTION
     {
-        TOP,
+        UP,
         DOWN,
         LEFT,
         RIGHT

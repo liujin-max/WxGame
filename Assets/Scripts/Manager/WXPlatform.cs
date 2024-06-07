@@ -120,7 +120,7 @@ public class WXPlatform : Platform
             complete = (res) =>
             {
                 Debug.Log("====获取账号数据结束====");
-                GameFacade.Instance.User.SyncRecords(userData);
+                GameFacade.Instance.DataCenter.User.SyncRecords(userData);
                 
                 EventManager.SendEvent(new GameEvent(EVENT.UI_FLUSHUSER));
                 EventManager.SendEvent(new GameEvent(EVENT.UI_NETUPDATE, false));
@@ -149,7 +149,7 @@ public class WXPlatform : Platform
 
     public override void UPLOAD(GameUserData userData)
     {
-        if (GameFacade.Instance.User.IsDirty == true)
+        if (GameFacade.Instance.DataCenter.User.IsDirty == true)
         {
             //上传账号数据
             Debug.Log("====开始上传账号数据====");

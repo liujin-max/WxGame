@@ -65,6 +65,12 @@ public class Card
         m_Entity.Init(this);
     }
 
+    //连锁反应
+    public void OnChain(_C.DIRECTION direction)
+    {
+        
+    }
+
     public void Dispose()
     {
         if (m_Grid != null) {
@@ -76,6 +82,5 @@ public class Card
         m_Entity.Dispose();
         m_Entity = null;
 
-    }
-    
+    } 
 }

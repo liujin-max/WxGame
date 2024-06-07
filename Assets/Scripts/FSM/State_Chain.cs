@@ -13,30 +13,30 @@ public class State_Chain<T> : State<Field>
         List<Card> cards = values[0] as List<Card>;
 
         cards.ForEach(c => {
-            var top = Field.Instance.GetCardByDirection(c, _C.DIRECTION.TOP);
+            var top = Field.Instance.GetCardByDirection(c, _C.DIRECTION.UP);
             if (top != null) {
-                if (Field.Instance.MoveTop(top) != null) {
+                if (Field.Instance.Move(top, _C.DIRECTION.UP) != null) {
 
                 }
             }
 
             var down = Field.Instance.GetCardByDirection(c, _C.DIRECTION.DOWN);
             if (down != null) {
-                if (Field.Instance.MoveDown(down) != null) {
+                if (Field.Instance.Move(down, _C.DIRECTION.DOWN) != null) {
 
                 }
             }
 
             var left = Field.Instance.GetCardByDirection(c, _C.DIRECTION.LEFT);
             if (left != null) {
-                if (Field.Instance.MoveLeft(left) != null) {
+                if (Field.Instance.Move(left, _C.DIRECTION.LEFT) != null) {
 
                 }
             }
 
             var right = Field.Instance.GetCardByDirection(c, _C.DIRECTION.RIGHT);
             if (right != null) {
-                if (Field.Instance.MoveRight(right) != null) {
+                if (Field.Instance.Move(right, _C.DIRECTION.RIGHT) != null) {
 
                 }
             }
