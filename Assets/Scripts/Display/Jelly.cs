@@ -178,23 +178,23 @@ public class Jelly : MonoBehaviour
         Vector3 offset = Input.mousePosition - m_TouchPos;
 
         //滑动距离太短了
-        float distance = 40f;
+        float distance = 50f;
         if (Mathf.Abs(offset.x) <= distance && Mathf.Abs(offset.y) <= distance) return;
 
         if (Mathf.Abs(offset.x) > Mathf.Abs(offset.y))  //左右拖动
         {
             if (offset.x < 0) {
-                Field.Instance.IsMoved = Field.Instance.MoveLeft(m_Card) != null;
+                Field.Instance.IsMoved = Field.Instance.MoveLeft(m_Card, true) != null;
             } else {
-                Field.Instance.IsMoved = Field.Instance.MoveRight(m_Card) != null;
+                Field.Instance.IsMoved = Field.Instance.MoveRight(m_Card, true) != null;
             }
         }
         else    //上下拖动
         {
             if (offset.y < 0) {
-                Field.Instance.IsMoved = Field.Instance.MoveDown(m_Card) != null;
+                Field.Instance.IsMoved = Field.Instance.MoveDown(m_Card, true) != null;
             } else {
-                Field.Instance.IsMoved = Field.Instance.MoveTop(m_Card) != null;
+                Field.Instance.IsMoved = Field.Instance.MoveTop(m_Card, true) != null;
             }
         }
 

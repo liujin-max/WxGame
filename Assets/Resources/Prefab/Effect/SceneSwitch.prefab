@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1279219751420797748}
   - component: {fileID: 4838435889510607960}
   - component: {fileID: 533389593673779258}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: SceneSwitch
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -75,7 +75,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7724207838394151432}
   - component: {fileID: 404316245469793557}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: MaskTop
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -159,7 +159,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4550234827871797667}
   - component: {fileID: 8221510940364833729}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: MaskBottom
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -242,7 +242,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4123842671791225556}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Pivot
   m_TagString: Untagged
   m_Icon: {fileID: 0}

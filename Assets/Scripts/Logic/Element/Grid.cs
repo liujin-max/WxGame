@@ -46,6 +46,27 @@ public class Grid
 
         m_Entity.transform.Find("1").gameObject.SetActive(Order % 2 != 0);
         m_Entity.transform.Find("2").gameObject.SetActive(Order % 2 == 0);
+
+
+        // float scale_x = 1f;
+        // float scale_y = 1f;
+
+        // var g_top   = Field.Instance.GetGridByDirection(this, _C.DIRECTION.TOP);
+        // var g_dowm  = Field.Instance.GetGridByDirection(this, _C.DIRECTION.DOWN);
+        // var g_left  = Field.Instance.GetGridByDirection(this, _C.DIRECTION.LEFT);
+        // var g_right = Field.Instance.GetGridByDirection(this, _C.DIRECTION.RIGHT);
+
+        // if (g_top != null  && g_top.IsValid && g_dowm != null && g_dowm.IsValid)
+        // {
+        //     scale_y = 2f;
+        // }
+
+        // if (g_left != null  && g_left.IsValid && g_right != null && g_right.IsValid)
+        // {
+        //     scale_x = 2f;
+        // }
+
+        // m_Entity.transform.Find("frame").localScale = new Vector3(scale_x, scale_y, 0);
     }
 
     public void Show(bool flag)

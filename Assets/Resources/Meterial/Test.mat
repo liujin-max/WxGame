@@ -9,7 +9,7 @@ Material:
   m_PrefabAsset: {fileID: 0}
   m_Name: Test
   m_Shader: {fileID: 4800000, guid: a36b7719ff0465b42ab1407d67672c5f, type: 3}
-  m_ShaderKeywords: FLICKER_ON
+  m_ShaderKeywords: 
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
@@ -66,8 +66,8 @@ Material:
     - _BillboardY: 0
     - _BlurHD: 0
     - _BlurIntensity: 10
-    - _ChromAberrAlpha: 0.4
-    - _ChromAberrAmount: 1
+    - _ChromAberrAlpha: 0.114
+    - _ChromAberrAmount: 0.433
     - _ClipUvDown: 0
     - _ClipUvLeft: 0
     - _ClipUvRight: 0
@@ -87,7 +87,7 @@ Material:
     - _FadeBurnTransition: 0.145
     - _FadeBurnWidth: 0.037
     - _FishEyeUvAmount: 0.35
-    - _FlickerAlpha: 0
+    - _FlickerAlpha: 0.764
     - _FlickerFreq: 0.2
     - _FlickerPercent: 0.05
     - _GhostColorBoost: 1
@@ -111,12 +111,12 @@ Material:
     - _HologramMinAlpha: 0
     - _HologramStripesAmount: 0
     - _HologramStripesSpeed: 5
-    - _HologramUnmodAmount: 0.4
+    - _HologramUnmodAmount: 0.699
     - _HsvBright: 1
     - _HsvSaturation: 1
     - _HsvShift: 180
     - _InnerOutlineAlpha: 1
-    - _InnerOutlineGlow: 1
+    - _InnerOutlineGlow: 10.6
     - _InnerOutlineThickness: 1
     - _MaxXUV: 1
     - _MaxYUV: 1
@@ -137,7 +137,7 @@ Material:
     - _OutlineDistortTexXSpeed: 5
     - _OutlineDistortTexYSpeed: 5
     - _OutlineDistortToggle: 0
-    - _OutlineGlow: 1.5
+    - _OutlineGlow: 23.1
     - _OutlineIsPixel: 0
     - _OutlinePixelWidth: 1
     - _OutlineTexGrey: 0
@@ -146,7 +146,7 @@ Material:
     - _OutlineTexYSpeed: 0
     - _OutlineWidth: 0
     - _PinchUvAmount: 0.35
-    - _PixelateSize: 407
+    - _PixelateSize: 31
     - _PosterizeGamma: 0.75
     - _PosterizeNumColors: 8
     - _PosterizeOutline: 0

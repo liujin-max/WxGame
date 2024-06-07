@@ -69,6 +69,7 @@
     <Compile Include="Assets\Scripts\EFFECT.cs" />
     <Compile Include="Assets\Scripts\Effect\BezierCurveAnimation.cs" />
     <Compile Include="Assets\Scripts\Utility\UrlImageUtility.cs" />
+    <Compile Include="Assets\Scripts\UI\Window\MaskWindow.cs" />
     <Compile Include="Assets\Scripts\FSM\State_Check.cs" />
     <Compile Include="Assets\Scripts\Effect\Floating.cs" />
     <Compile Include="Assets\Scripts\Manager\SoundManager.cs" />
@@ -87,6 +88,7 @@
     <Compile Include="Assets\Scripts\Struct\CDTimer.cs" />
     <Compile Include="Assets\Scripts\Manager\EditorPlatform.cs" />
     <Compile Include="Assets\Scripts\Manager\OBJManager.cs" />
+    <Compile Include="Assets\Scripts\Logic\Element\Matrix.cs" />
     <Compile Include="Assets\Scripts\EVENT.cs" />
     <Compile Include="Assets\Scripts\Utility\UIMaskUtility.cs" />
     <Compile Include="Assets\Scripts\Manager\SceneManager.cs" />
@@ -121,6 +123,7 @@
     <Compile Include="Assets\Scripts\FSM\FSM.cs" />
     <Compile Include="Assets\Scripts\Effect\FlyCoin.cs" />
     <Compile Include="Assets\Scripts\Utility\MouseClickHandler.cs" />
+    <Compile Include="Assets\Scripts\Utility\BoxColliderUtility.cs" />
     <Compile Include="Assets\Scripts\Logic\Element\Stage.cs" />
     <Compile Include="Assets\Scripts\Manager\CsvManager.cs" />
     <Compile Include="Assets\Scripts\Utility\TextureImporterSettings.cs" />
@@ -144,19 +147,16 @@
     <Compile Include="Assets\Scripts\Utility\RandomUtility.cs" />
     <Compile Include="Assets\Scripts\Logic\Element\Field.cs" />
     <Compile Include="Assets\AllIn1SpriteShader\Scripts\RandomSeed.cs" />
+    <Compile Include="Assets\Scripts\Effect\SceneSwitch.cs" />
     <Compile Include="Assets\Scripts\FSM\State.cs" />
     <Compile Include="Assets\Scripts\Logic\Element\Condition.cs" />
     <Compile Include="Assets\Scripts\Logic\DataCenter.cs" />
     <Compile Include="Assets\Scripts\Utility\SuperScrollView.cs" />
     <Compile Include="Assets\Scripts\Manager\Effect.cs" />
     <Compile Include="Assets\AllIn1SpriteShader\Demo\Scripts\DemoCircleExpositor.cs" />
+    <Compile Include="Assets\Scripts\UI\Window\LoginWindow.cs" />
     <Compile Include="Assets\Scripts\Effect\Shine.cs" />
     <Compile Include="Assets\DOTween\Modules\DOTweenModuleUnityVersion.cs" />
-    <Compile Include="Assets\Scripts\Logic\Element\Matrix.cs" />
-    <Compile Include="Assets\Scripts\Utility\BoxColliderUtility.cs" />
-    <Compile Include="Assets\Scripts\UI\Window\MaskWindow.cs" />
-    <Compile Include="Assets\Scripts\UI\Window\LoginWindow.cs" />
-    <Compile Include="Assets\Scripts\Effect\SceneSwitch.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Resources\Shader\SpriteGray.shader" />

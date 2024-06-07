@@ -206,6 +206,7 @@ public class Field : MonoBehaviour
 
     void UpdateMoveStep(int value)
     {
+        Debug.Log("UpdateMoveStep : " + value);
         m_Stage.MoveStep.UpdateCurrent(value);
     }
 
@@ -261,44 +262,55 @@ public class Field : MonoBehaviour
 
         return false;
     }
-    
-    //获取四个方向相邻的方块
-    public Card GetCardByDirection(Card card, _C.DIRECTION direction)
+
+    //
+    public Grid GetGridByDirection(Grid g, _C.DIRECTION direction)
     {
         switch (direction)
         {
             case _C.DIRECTION.TOP:
-                if (card.Grid.Y == m_Height - 1)
+                if (g.Y == m_Height - 1)
                     return null;
 
-                var g_top = Field.Instance.Grids[card.Grid.X, card.Grid.Y + 1];
-                return g_top.Card;
+                var g_top = Field.Instance.Grids[g.X, g.Y + 1];
+                return g_top;
             
 
             case _C.DIRECTION.DOWN:
-                if (card.Grid.Y == 0)
+                if (g.Y == 0)
                     return null;
 
-                var g_down = Field.Instance.Grids[card.Grid.X, card.Grid.Y - 1];
-                return g_down.Card;
+                var g_down = Field.Instance.Grids[g.X, g.Y - 1];
+                return g_down;
 
             
             case _C.DIRECTION.LEFT:
-                if (card.Grid.X == 0)
+                if (g.X == 0)
                     return null;
 
-                var g_left = Field.Instance.Grids[card.Grid.X - 1, card.Grid.Y];
-                return g_left.Card;
+                var g_left = Field.Instance.Grids[g.X - 1, g.Y];
+                return g_left;
 
 
             case _C.DIRECTION.RIGHT:
-                if (card.Grid.X == m_Weight - 1)
+                if (g.X == m_Weight - 1)
                     return null;
 
-                var g_right = Field.Instance.Grids[card.Grid.X + 1, card.Grid.Y];
-                return g_right.Card;
+                var g_right = Field.Instance.Grids[g.X + 1, g.Y];
+                return g_right;
         }
 
+
+        return null;
+    }
+    
+    //获取四个方向相邻的方块
+    public Card GetCardByDirection(Card card, _C.DIRECTION direction)
+    {
+        var grid = this.GetGridByDirection(card.Grid, direction);
+        if (grid != null) {
+            return grid.Card;
+        }
 
         return null;
     }
@@ -326,7 +338,7 @@ public class Field : MonoBehaviour
     }
 
     //向上移动(单个)
-    public Grid MoveTop(Card card)
+    public Grid MoveTop(Card card, bool is_manual = false)
     {
         Grid origin = card.Grid;
 
@@ -351,7 +363,8 @@ public class Field : MonoBehaviour
         card.Grid   = target;
 
         ClearGhost(card);
-        UpdateMoveStep(-1);
+
+        if (is_manual == true) UpdateMoveStep(-1);
 
         GameFacade.Instance.DisplayEngine.Put(DisplayEngine.Track.Common, new DisplayEvent_MoveCard(card, _C.DIRECTION.TOP, offset));
 
@@ -359,7 +372,7 @@ public class Field : MonoBehaviour
     } 
 
     //向下移动
-    public Grid MoveDown(Card card)
+    public Grid MoveDown(Card card, bool is_manual = false)
     {
         Grid origin = card.Grid;
 
@@ -384,7 +397,7 @@ public class Field : MonoBehaviour
         card.Grid   = target;
 
         ClearGhost(card);
-        UpdateMoveStep(-1);
+        if (is_manual == true) UpdateMoveStep(-1);
 
         GameFacade.Instance.DisplayEngine.Put(DisplayEngine.Track.Common, new DisplayEvent_MoveCard(card, _C.DIRECTION.DOWN, offset));
 
@@ -392,7 +405,7 @@ public class Field : MonoBehaviour
     }
 
     //向左移动
-    public Grid MoveLeft(Card card)
+    public Grid MoveLeft(Card card, bool is_manual = false)
     {
         Grid origin = card.Grid;
         if (origin.X == 0  || card.IsFixed) return null;
@@ -416,7 +429,7 @@ public class Field : MonoBehaviour
         card.Grid   = target;
 
         ClearGhost(card);
-        UpdateMoveStep(-1);
+        if (is_manual == true) UpdateMoveStep(-1);
 
         GameFacade.Instance.DisplayEngine.Put(DisplayEngine.Track.Common, new DisplayEvent_MoveCard(card, _C.DIRECTION.LEFT, offset));
 
@@ -424,7 +437,7 @@ public class Field : MonoBehaviour
     }
 
     //向右移动
-    public Grid MoveRight(Card card)
+    public Grid MoveRight(Card card, bool is_manual = false)
     {
         Grid origin = card.Grid;
 
@@ -449,7 +462,7 @@ public class Field : MonoBehaviour
         card.Grid   = target;
 
         ClearGhost(card);
-        UpdateMoveStep(-1);
+        if (is_manual == true) UpdateMoveStep(-1);
 
         GameFacade.Instance.DisplayEngine.Put(DisplayEngine.Track.Common, new DisplayEvent_MoveCard(card, _C.DIRECTION.RIGHT, offset));
 
