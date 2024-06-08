@@ -55,6 +55,7 @@ SpriteAtlas:
   m_PackedSprites:
   - {fileID: 21300000, guid: 4269ac0068007e74a817a62124caa310, type: 3}
   - {fileID: 21300000, guid: 47b00f134ed4d2a48a85f19807a0e13f, type: 3}
+  - {fileID: 21300000, guid: b20a1504b31a2cc4db5e902a6b1a1029, type: 3}
   - {fileID: 21300000, guid: ca33c3f41dbc58e4ca15095221746c4a, type: 3}
   - {fileID: 21300000, guid: 0b6c08d5e7ac49b4ba26e3638f732e02, type: 3}
   - {fileID: 21300000, guid: 60953e47ff8007146b5174b8a4cc883d, type: 3}
@@ -65,6 +66,7 @@ SpriteAtlas:
   m_PackedSpriteNamesToIndex:
   - grid_2
   - jelly_10020
+  - jelly_10021
   - grid_1
   - jelly_10002
   - grid_horn

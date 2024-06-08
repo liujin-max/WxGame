@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6103326559194792489}
   - component: {fileID: 963741478572174989}
+  - component: {fileID: 9192118006450878092}
   m_Layer: 0
   m_Name: fx_broken
   m_TagString: Untagged
@@ -49,6 +50,19 @@ MonoBehaviour:
   m_IsLoop: 0
   m_IsRecycle: 0
   ResPath: 
+--- !u!114 &9192118006450878092
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 277068218838994864}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0ccb089aa16599049a1f1bb18e9216a0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_ParticleSystem: {fileID: 1862376845058913384}
 --- !u!1 &8384185568148967982
 GameObject:
   m_ObjectHideFlags: 0
@@ -165,7 +179,7 @@ ParticleSystem:
     startLifetime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 0.6
+      scalar: 0.5
       minScalar: 5
       maxCurve:
         serializedVersion: 2
@@ -218,7 +232,7 @@ ParticleSystem:
     startSpeed:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 2
+      scalar: 2.5
       minScalar: 5
       maxCurve:
         serializedVersion: 2
@@ -1470,8 +1484,8 @@ ParticleSystem:
         m_NumAlphaKeys: 2
   UVModule:
     serializedVersion: 2
-    enabled: 0
-    mode: 0
+    enabled: 1
+    mode: 1
     timeMode: 0
     fps: 30
     frameOverTime:

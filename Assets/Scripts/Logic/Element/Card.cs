@@ -26,6 +26,7 @@ public class Card
     //死亡分解中
     public bool IsEliminating = false;
 
+
     //固定的
     private bool m_IsFixed = false;
     public bool IsFixed {
@@ -68,7 +69,23 @@ public class Card
     //连锁反应
     public void OnChain(_C.DIRECTION direction)
     {
-        
+        //木箱
+        //爆炸且在原地生成新的方块
+        if (this.ID == (int)_C.CARD.WOOD)   
+        {
+            Field.Instance.Cards.Remove(this);
+
+            var grid    = m_Grid;
+            GameFacade.Instance.DisplayEngine.Put(DisplayEngine.Track.Common, new DisplayEvent_BrokenCard(this));
+
+            int rand    = RandomUtility.Random(0, Field.Instance.Stage.Cards.Count);
+            Field.Instance.PutCard(_C.CARD_STATE.NORMAL, Field.Instance.Stage.Cards[rand], grid);
+
+            return;
+        }
+
+        //普通方块会被推走逻辑
+        Field.Instance.Move(this, direction);
     }
 
     public void Dispose()

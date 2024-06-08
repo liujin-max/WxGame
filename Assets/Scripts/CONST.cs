@@ -49,6 +49,13 @@ public static class _C
         GHOST    
     }
 
+    //方块ID
+    public enum CARD
+    {
+        STONE   = 10020,
+        WOOD    = 10021,
+    }
+
     public enum RESULT
     {
         VICTORY,

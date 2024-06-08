@@ -169,6 +169,8 @@ public class MapEditor : MonoBehaviour
             if (flag == true)
             {
                 File.WriteAllText(path, json);
+                // 在需要刷新的地方调用以下函数
+                AssetDatabase.Refresh();
 
                 EditorUtility.DisplayDialog("提示", "导出成功：" + path, "确定");
             }
@@ -176,6 +178,8 @@ public class MapEditor : MonoBehaviour
         else
         {
             File.WriteAllText(path, json);
+            // 在需要刷新的地方调用以下函数
+            AssetDatabase.Refresh();
 
             EditorUtility.DisplayDialog("提示", "导出成功：" + path, "确定");
         }

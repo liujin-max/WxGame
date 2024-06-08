@@ -165,6 +165,19 @@ public class Field : MonoBehaviour
         return m_Stage.AddCards();
     }
 
+    //场上可移动的方块
+    public List<Card> GetDragableCards()
+    {
+        List<Card> cards = new List<Card>();
+        m_Cards.ForEach(c => {
+            if (c.Dragable) {
+                cards.Add(c);
+            }
+        });
+
+        return cards;
+    }
+
 
     //获取空位格子
     public List<object> GetEmptyGrids()
@@ -494,9 +507,11 @@ public class Field : MonoBehaviour
         List<Card> _Removes = new List<Card>();
 
         m_Cards.ForEach(card => {
-            if (IsSameCardNear(card) == true) {
+            if (card.TYPE == _C.CARD_TYPE.JELLY && IsSameCardNear(card) == true) 
+            {
                 _Removes.Add(card);
             }
+
         });
 
         _Removes.ForEach(c => {

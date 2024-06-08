@@ -95,7 +95,7 @@ public class Jelly : MonoBehaviour
         m_ScaleTweener = Entity.transform.DOShakeScale(0.5f, 0.2f , 8, 50);
     }
 
-    public void DoScale(Vector3 scale, float time, Action callback = null)
+    public Tweener DoScale(Vector3 scale, float time, Action callback = null)
     {
         if (m_ScaleTweener != null) {
             Entity.transform.localScale = Vector3.one;
@@ -105,6 +105,8 @@ public class Jelly : MonoBehaviour
         m_ScaleTweener = Entity.transform.DOScale(scale, time).OnComplete(()=>{
             if (callback != null) callback();
         });
+
+        return m_ScaleTweener;
     }
 
     void FixedUpdate()
@@ -114,7 +116,7 @@ public class Jelly : MonoBehaviour
         {
             if (m_Card.IsEliminating) return;
 
-            if (m_Card.STATE == _C.CARD_STATE.NORMAL)
+            if (m_Card.STATE == _C.CARD_STATE.NORMAL && m_Card.TYPE == _C.CARD_TYPE.JELLY)
             {
                 m_Eye_Left.gameObject.SetActive(true);
                 m_Eye_Right.gameObject.SetActive(true);

@@ -196,7 +196,7 @@ public class Matrix
         List<Card> add_cards = new List<Card>();
 
         //获取空着的Grid
-        int count = RandomUtility.Random(1, 4);
+        int count = RandomUtility.Random(2, 4);
         List<object> grid_datas = RandomUtility.Pick(count, Field.Instance.GetEmptyGrids());
 
         for (int i = 0; i < grid_datas.Count; i++)

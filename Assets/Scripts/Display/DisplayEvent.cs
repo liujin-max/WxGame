@@ -93,7 +93,7 @@ public class DisplayEvent_HideGrid : DisplayEvent
 
 
 
-//添加虚化果冻
+//添加虚化方块
 public class DisplayEvent_GhostCard : DisplayEvent
 {
     public DisplayEvent_GhostCard(params object[] values) : base(values) {}
@@ -109,7 +109,7 @@ public class DisplayEvent_GhostCard : DisplayEvent
     }
 }
 
-//添加实体果冻
+//添加实体方块
 public class DisplayEvent_NormalCard : DisplayEvent
 {
     public DisplayEvent_NormalCard(params object[] values) : base(values) {}
@@ -130,13 +130,13 @@ public class DisplayEvent_NormalCard : DisplayEvent
             m_State = _C.DISPLAY_STATE.END;
 
         } else {
-            card.Entity.Entity.transform.localScale = new Vector3(0.8f, 0.8f, 0.8f);
-            card.Entity.Entity.transform.DOScale(1f, 0.1f).SetEase(Ease.OutBack);
+            card.Entity.Entity.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
+            card.Entity.DoScale(Vector3.one, 0.2f).SetEase(Ease.OutBack);
 
-            card.Entity.transform.DOJump(card.Grid.Position, 0.6f, 1, 0.25f).SetEase(Ease.OutQuad).OnComplete(() => {
+            card.Entity.transform.DOJump(card.Grid.Position, 0.5f, 1, 0.25f).SetEase(Ease.OutQuad).OnComplete(() => {
                 m_State = _C.DISPLAY_STATE.END;
 
-                card.Entity.Shake(new Vector2(0.05f, 0.05f));
+                card.Entity.Shake(new Vector2(0.03f, 0.03f));
             });
         }
     }
@@ -193,7 +193,16 @@ public class DisplayEvent_BrokenCard : DisplayEvent
         base.Start();
 
         var card = m_Params[0] as Card;
+
+        if (card.IsEliminating) {
+            m_State = _C.DISPLAY_STATE.END;
+            return;
+        }
+
         card.IsEliminating = true;
+
+        //收集
+        Field.Instance.Stage.Collect(card.ID, 1);
     }
 
     public override void Update(float dealta_time)
@@ -206,10 +215,11 @@ public class DisplayEvent_BrokenCard : DisplayEvent
         RectTransform rect = card.Entity.Entity.GetComponent<RectTransform>();
         rect.sizeDelta = new Vector2(rect.sizeDelta.x, height);
 
-        if (card.Entity.Entity.size.y >= 2.0f) {
+        if (card.Entity.Entity.size.y >= 1.9f) {
             m_State = _C.DISPLAY_STATE.END;
 
-            GameFacade.Instance.EffectManager.Load(EFFECT.BROKEN, card.Entity.transform.position);
+            var broken = GameFacade.Instance.EffectManager.Load(EFFECT.BROKEN, card.Entity.transform.position).GetComponent<BrokenEffect>();
+            broken.Init(card.ID);
 
             card.Dispose();
 
