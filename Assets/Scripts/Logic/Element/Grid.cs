@@ -88,6 +88,7 @@ public class Grid
         bool is_line_used = false;
         bool is_horn_used = false;
 
+        //左上
         if (up == null || !up.IsValid)
         {
             if (left != null && left.IsValid && right != null && right.IsValid)
@@ -103,27 +104,44 @@ public class Grid
                 //斜对角
                 if (Field.Instance.GetValidGrid(X - 1, Y + 1) != null)
                 {
-                    transform.localPosition = new Vector3(0.15f, 0, 0);
-                    transform.localScale = new Vector3(1, 0.473f, 1);
+                    transform.localPosition = new Vector3(0.4f, 0, 0);
+                    transform.localScale = new Vector3(1, 0.67f, 1);
                 }
 
                 if (Field.Instance.GetValidGrid(X + 1, Y + 1) != null)
                 {
-                    transform.localPosition = new Vector3(-0.15f, 0, 0);
-                    transform.localScale = new Vector3(1, 0.473f, 1);
+                    transform.localPosition = new Vector3(-0.4f, 0, 0);
+                    transform.localScale = new Vector3(1, 0.67f, 1);
                 }
             }
 
             if (left == null || !left.IsValid) 
             {
-                is_horn_used = true;
-                m_Horn1.gameObject.SetActive(true);
-                m_Horn1.localEulerAngles = new Vector3(0, 0, 0);
+                {
+                    is_horn_used = true;
+                    m_Horn1.gameObject.SetActive(true);
+                    m_Horn1.localEulerAngles = new Vector3(0, 0, 0);
+                }
+
+                //如果下面有格子
+                if (down != null && down.IsValid)
+                {
+                    Transform transform = is_line_used ? m_Line2 : m_Line1;
+
+                    transform.gameObject.SetActive(true);
+                    transform.localEulerAngles  = new Vector3(0, 0, 0);
+                    transform.localScale        = new Vector3(1, 0.3f, 1);
+                    transform.localPosition     = new Vector3(0, -0.3f, 0);
+
+                    is_line_used    = true;
+                }
             }
         }
 
+        //左下
         if (left == null || !left.IsValid)
         {
+            //上下都有格子，则处理线条
             if (up != null && up.IsValid && down != null && down.IsValid)
             {
                 Transform transform = is_line_used ? m_Line2 : m_Line1;
@@ -141,16 +159,33 @@ public class Grid
 
             }
 
+            //下面没有格子，则处理拐角
             if (down == null || !down.IsValid) 
             {
-                Transform transform = is_horn_used ? m_Horn2 : m_Horn1;
-                transform.gameObject.SetActive(true);
-                transform.localEulerAngles = new Vector3(0, 0, 90);
+                {
+                    Transform transform = is_horn_used ? m_Horn2 : m_Horn1;
+                    transform.gameObject.SetActive(true);
+                    transform.localEulerAngles = new Vector3(0, 0, 90);
 
-                is_horn_used = true;
+                    is_horn_used = true;
+                }
+
+                //如果上面有格子
+                if (up != null && up.IsValid)
+                {
+                    Transform transform = is_line_used ? m_Line2 : m_Line1;
+
+                    transform.gameObject.SetActive(true);
+                    transform.localEulerAngles  = new Vector3(0, 0, 0);
+                    transform.localScale        = new Vector3(1, 0.3f, 1);
+                    transform.localPosition     = new Vector3(0, 0.3f, 0);
+
+                    is_line_used    = true;
+                }
             }
         }
 
+        //右下
         if (down == null || !down.IsValid)
         {
             if (left != null && left.IsValid && right != null && right.IsValid)
@@ -166,27 +201,43 @@ public class Grid
                 //斜对角
                 if (Field.Instance.GetValidGrid(X - 1, Y - 1) != null)
                 {
-                    transform.localPosition = new Vector3(0.15f, 0, 0);
-                    transform.localScale = new Vector3(1, 0.473f, 1);
+                    transform.localPosition = new Vector3(0.4f, 0, 0);
+                    transform.localScale = new Vector3(1, 0.67f, 1);
                 }
 
                 if (Field.Instance.GetValidGrid(X + 1, Y - 1) != null)
                 {
-                    transform.localPosition = new Vector3(-0.15f, 0, 0);
-                    transform.localScale = new Vector3(1, 0.473f, 1);
+                    transform.localPosition = new Vector3(-0.4f, 0, 0);
+                    transform.localScale = new Vector3(1, 0.67f, 1);
                 }
             }
 
             if (right == null || !right.IsValid) 
             {
-                Transform transform = is_horn_used ? m_Horn2 : m_Horn1;
-                transform.gameObject.SetActive(true);
-                transform.localEulerAngles = new Vector3(0, 0, 180);
+                {
+                    Transform transform = is_horn_used ? m_Horn2 : m_Horn1;
+                    transform.gameObject.SetActive(true);
+                    transform.localEulerAngles = new Vector3(0, 0, 180);
 
-                is_horn_used = true;
+                    is_horn_used = true;
+                }
+
+                //如果上面有格子
+                if (up != null && up.IsValid)
+                {
+                    Transform transform = is_line_used ? m_Line2 : m_Line1;
+
+                    transform.gameObject.SetActive(true);
+                    transform.localEulerAngles  = new Vector3(0, 0, 180);
+                    transform.localScale        = new Vector3(1, 0.3f, 1);
+                    transform.localPosition     = new Vector3(0, 0.3f, 0);
+
+                    is_line_used    = true;
+                }
             }
         }
 
+        //右上
         if (right == null || !right.IsValid)
         {
             if (up != null && up.IsValid && down != null && down.IsValid)
@@ -207,11 +258,26 @@ public class Grid
 
             if (up == null || !up.IsValid) 
             {
-                Transform transform = is_horn_used ? m_Horn2 : m_Horn1;
-                transform.gameObject.SetActive(true);
-                transform.localEulerAngles = new Vector3(0, 0, -90);
+                {
+                    Transform transform = is_horn_used ? m_Horn2 : m_Horn1;
+                    transform.gameObject.SetActive(true);
+                    transform.localEulerAngles = new Vector3(0, 0, -90);
 
-                is_horn_used = true;
+                    is_horn_used = true;
+                }
+
+                //如果下面有格子
+                if (down != null && down.IsValid)
+                {
+                    Transform transform = is_line_used ? m_Line2 : m_Line1;
+
+                    transform.gameObject.SetActive(true);
+                    transform.localEulerAngles  = new Vector3(0, 0, 180);
+                    transform.localScale        = new Vector3(1, 0.3f, 1);
+                    transform.localPosition     = new Vector3(0, -0.3f, 0);
+
+                    is_line_used    = true;
+                }
             }
         }
 
