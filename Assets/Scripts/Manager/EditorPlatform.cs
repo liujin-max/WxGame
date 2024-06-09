@@ -52,16 +52,20 @@ public class EditorPlatform : Platform
 
     }
 
-    public override void SHARE()
+    public override void SHARE(string text)
     {
 
     }
 
     //激励广告
-    public override void REWARDVIDEO()
+    public override void REWARD_VIDEOAD(string ad_id, Action callback) 
     {
-
+        if (callback != null) callback();
     }
+
+    public override void BANNER_VIDEOAD(string ad_id, bool is_show, int top = -1) {}
+    public override void INTER_VIDEOAD(string ad_id) {}
+    public override void GRID_VIDEOAD(string ad_id, bool is_show) {}
 
     public override void VIBRATE(string level)
     {

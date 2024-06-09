@@ -67,6 +67,7 @@ public class DisplayEngine : MonoBehaviour
 
             _removes.ForEach(e => {
                 events.Remove(e);
+                e.Terminate();
             });
         }
 
@@ -85,6 +86,7 @@ public class DisplayEngine : MonoBehaviour
 
                 if (e.IsFinished() == true) {
                     events.Remove(e);
+                    e.Terminate();
                 }
             }
         }

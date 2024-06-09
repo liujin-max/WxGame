@@ -171,9 +171,25 @@ public class Field : MonoBehaviour
         return card;
     }
 
-    public List<Card> AddCards()
+    //添加虚化方块
+    public List<Card> PutGhostCards(int count)
     {
-        return m_Stage.AddCards();
+        List<Card> add_cards = new List<Card>();
+
+        //获取空着的Grid
+        List<object> grid_datas = RandomUtility.Pick(count, Field.Instance.GetEmptyGrids());
+
+        for (int i = 0; i < grid_datas.Count; i++)
+        {
+            Grid grid   = grid_datas[i] as Grid;
+
+            int rand    = RandomUtility.Random(0, Field.Instance.Stage.Cards.Count);
+            Card card   = Field.Instance.PutCard(_C.CARD_STATE.GHOST, Field.Instance.Stage.Cards[rand], grid);
+
+            add_cards.Add(card);
+        }
+
+        return add_cards;
     }
 
     //场上可移动的方块
@@ -590,7 +606,7 @@ public class Field : MonoBehaviour
 
                 m_Stage.UpdateCountDown(-1);
 
-                EventManager.SendEvent(new GameEvent(EVENT.UI_UPDATETIME));
+                EventManager.SendEvent(new GameEvent(EVENT.UI_UPDATETIME, false));
             }
         }
     }
@@ -602,17 +618,54 @@ public class Field : MonoBehaviour
     //添加时间
     public void ad_add_time(int second)
     {
+        if (!m_Stage.NeedCheckTimer()) return;
+
         m_Stage.UpdateCountDown(second);
 
-        EventManager.SendEvent(new GameEvent(EVENT.UI_UPDATETIME));
+        EventManager.SendEvent(new GameEvent(EVENT.UI_UPDATETIME, true));
     }
 
     //添加步数
     public void ad_add_step(int value)
     {
+        if (!m_Stage.NeedCheckStep()) return;
+
         m_Stage.UpdateMoveStep(value);
 
-        EventManager.SendEvent(new GameEvent(EVENT.UI_UPDATESTEP));
+        EventManager.SendEvent(new GameEvent(EVENT.UI_UPDATESTEP, true));
+    }
+
+    //打乱方块
+    //为场上的方块重新指定位置
+    public void ad_shuffle()
+    {
+        m_GhostCards.ForEach(c => {
+            c.Dispose();
+        });
+        m_GhostCards.Clear();
+
+        m_Cards.ForEach(card => {
+            if (card.TYPE == _C.CARD_TYPE.JELLY) {
+                card.Grid.Card = null;
+            }
+        });
+
+        List<object> grid_datas = RandomUtility.Pick(m_Cards.Count, Field.Instance.GetEmptyGrids());
+
+        m_Cards.ForEach(card => {
+            Grid grid = grid_datas[RandomUtility.Random(0, grid_datas.Count)] as Grid;
+            card.Grid = grid;
+            grid.Card = card;
+
+            grid_datas.Remove(grid);
+        });
+
+        //添加虚化方块
+        int count = RandomUtility.Random(1, 4);
+        Field.Instance.PutGhostCards(count);
+
+
+        GameFacade.Instance.DisplayEngine.Put(DisplayEngine.Track.Common, new DisplayEvent_ShuffleCard(m_Cards));
     }
 
 

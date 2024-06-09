@@ -178,7 +178,7 @@ public class DisplayEvent_MoveCard : DisplayEvent
             }
 
             EventManager.SendEvent(new GameEvent(EVENT.ONCARDMOVED, card));
-            EventManager.SendEvent(new GameEvent(EVENT.UI_UPDATESTEP));
+            EventManager.SendEvent(new GameEvent(EVENT.UI_UPDATESTEP, false));
         });
     }
 }
@@ -186,7 +186,6 @@ public class DisplayEvent_MoveCard : DisplayEvent
 //卡牌消除
 public class DisplayEvent_BrokenCard : DisplayEvent
 {
-
     public DisplayEvent_BrokenCard(params object[] values) : base(values) {}
 
     public override void Start()
@@ -230,6 +229,43 @@ public class DisplayEvent_BrokenCard : DisplayEvent
     }
 }
 
+//打乱卡牌
+public class DisplayEvent_ShuffleCard : DisplayEvent
+{
+    private CDTimer m_Timer = new CDTimer(0.3f);
+    public DisplayEvent_ShuffleCard(params object[] values) : base(values) {}
+
+    public override void Start()
+    {
+        base.Start();
+
+        EventManager.SendEvent(new GameEvent(EVENT.UI_POPUPMASK, true));
+
+        var cards = m_Params[0] as List<Card>;
+
+        cards.ForEach(card => {
+            card.Entity.transform.DOLocalMove(card.Grid.Position, 0.2f).OnComplete(()=>{
+                card.Entity.DoScale(Vector3.one, 0.1f); //不在缩放结束后处理了，有可能被顶掉
+            });
+        });
+    }
+
+    public override void Update(float deltaTime)
+    {
+        m_Timer.Update(deltaTime);
+        if (!m_Timer.IsFinished()) return;
+
+     
+        m_State = _C.DISPLAY_STATE.END;
+    }
+
+    public override void Terminate()
+    {
+        EventManager.SendEvent(new GameEvent(EVENT.UI_POPUPMASK, false));
+
+        Field.Instance.Transist(_C.FSMSTATE.ELIMINATE);
+    }
+}
 
 
 //动画节点
@@ -250,6 +286,11 @@ public class DisplayEvent
     }
 
     public virtual void Update(float dealta_time)
+    {
+
+    }
+
+    public virtual void Terminate()
     {
 
     }

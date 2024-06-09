@@ -28,9 +28,13 @@ public abstract class Platform
     //拉取排行榜
     public abstract void PULLRANK();
     //分享
-    public abstract void SHARE();
+    public abstract void SHARE(string text);
     //激励广告
-    public abstract void REWARDVIDEO();
+    public abstract void REWARD_VIDEOAD(string ad_id, Action callback);
+    public abstract void BANNER_VIDEOAD(string ad_id, bool is_show, int top = -1);
+    public abstract void INTER_VIDEOAD(string ad_id);
+    public abstract void GRID_VIDEOAD(string ad_id, bool is_show);
+
 
     //设备振动
     public abstract void VIBRATE(string level);

@@ -20,7 +20,10 @@ public class GameWindow : MonoBehaviour
     [SerializeField] private GameObject m_TimePivot;
     [SerializeField] private Text m_Time;
 
-
+    [Header("按钮")]
+    [SerializeField] private Button m_BtnTime;
+    [SerializeField] private Button m_BtnStep;
+    [SerializeField] private Button m_BtnShuffle;
 
 
     private List<ConditionItem> m_ConditionItems = new List<ConditionItem>();
@@ -48,6 +51,30 @@ public class GameWindow : MonoBehaviour
 
         EventManager.AddHandler(EVENT.UI_UPDATESTEP,    OnReponseStepUpdate);
         EventManager.AddHandler(EVENT.UI_UPDATETIME,    OnReponseTimeUpdate);
+    }
+
+    void Start()
+    {
+        //添加时间
+        m_BtnTime.onClick.AddListener(()=>{
+            Platform.Instance.REWARD_VIDEOAD("", ()=>{
+                Field.Instance.ad_add_time(60);
+            });
+        });
+
+        //添加步数
+        m_BtnStep.onClick.AddListener(()=>{
+            Platform.Instance.REWARD_VIDEOAD("", ()=>{
+                Field.Instance.ad_add_step(5);
+            });
+        });
+
+        //打乱方块
+        m_BtnShuffle.onClick.AddListener(()=>{
+            Platform.Instance.REWARD_VIDEOAD("", ()=>{
+                Field.Instance.ad_shuffle();
+            });
+        });
     }
 
     void OnDestroy()
@@ -88,11 +115,13 @@ public class GameWindow : MonoBehaviour
 
     private void OnReponseStepUpdate(GameEvent @event)
     {
+        bool will_shake = (bool)@event.GetParam(0);
+        
         int step    = Field.Instance.Stage.GetCurrentStep();
         m_Step.text = step.ToString();
         m_Step.color= step <= 5 ? Color.red : Color.white;
 
-        if (step <= 5) 
+        if (will_shake || step <= 5) 
         {
             m_Step.transform.DOShakePosition(0.4f, 5f, 15, 60);
         }
@@ -100,11 +129,13 @@ public class GameWindow : MonoBehaviour
 
     private void OnReponseTimeUpdate(GameEvent @event)
     {
+        bool will_shake = (bool)@event.GetParam(0);
+
         float second= Field.Instance.Stage.GetCurrentTimer();
         m_Time.text = ToolUtility.Second2Minute(Mathf.CeilToInt(second));
         m_Time.color= second <= 30 ? Color.red : Color.white;
 
-        if (second <= 30) 
+        if (will_shake || second <= 30) 
         {
             m_Time.transform.DOShakePosition(0.4f, 5f, 15, 60);
         }

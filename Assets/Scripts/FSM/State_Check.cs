@@ -11,7 +11,7 @@ public class State_Check<T> : State<Field>
     {
         Field.Instance.IsMoved = false;
 
-        Field.Instance.AddCards();
+        Field.Instance.Stage.AddCards();
         
     }
 

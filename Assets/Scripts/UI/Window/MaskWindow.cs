@@ -7,6 +7,8 @@ public class MaskWindow : MonoBehaviour
 {
     [SerializeField] private GameObject m_Mask;
 
+
+    private int m_MaskCount = 0;
     void Awake()
     {
         m_Mask.SetActive(false);
@@ -23,6 +25,8 @@ public class MaskWindow : MonoBehaviour
     {
         bool flag = (bool)@event.GetParam(0);
 
-        m_Mask.SetActive(flag);
+        m_MaskCount += flag ? 1 : -1;
+
+        m_Mask.SetActive(m_MaskCount > 0);
     }
 }

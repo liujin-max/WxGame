@@ -294,7 +294,7 @@ public class Matrix
     //默认
     public virtual List<Card> AddCards(int random_count = -1)
     {
-        //将残影方块实体化
+        //将虚化方块实体化
         Field.Instance.GhostCards.ForEach(card => {
             if (card.Grid.IsEmpty == true) {
                 Field.Instance.PutCard(_C.CARD_STATE.NORMAL, card, card.Grid);
@@ -305,23 +305,10 @@ public class Matrix
         Field.Instance.GhostCards.Clear();
 
 
-        List<Card> add_cards = new List<Card>();
-
-        //获取空着的Grid
+        //添加虚化方块
         int count = random_count == -1 ? RandomUtility.Random(2, 4) : random_count;
-        List<object> grid_datas = RandomUtility.Pick(count, Field.Instance.GetEmptyGrids());
 
-        for (int i = 0; i < grid_datas.Count; i++)
-        {
-            Grid grid   = grid_datas[i] as Grid;
-
-            int rand    = RandomUtility.Random(0, Field.Instance.Stage.Cards.Count);
-            Card card   = Field.Instance.PutCard(_C.CARD_STATE.GHOST, Field.Instance.Stage.Cards[rand], grid);
-
-            add_cards.Add(card);
-        }
-
-        return add_cards;
+        return Field.Instance.PutGhostCards(count);
     }
 
     public virtual void Dispose()
