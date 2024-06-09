@@ -18,6 +18,7 @@ public class Jelly : MonoBehaviour
     private Card m_Card;
     private Vector3 m_TouchPos;
     private bool m_Dragging = false;
+    private bool m_Dragged = false;
 
     public void Init(Card card)
     {
@@ -36,7 +37,7 @@ public class Jelly : MonoBehaviour
     public void Flush()
     {
         if (m_Card.STATE == _C.CARD_STATE.GHOST) {
-            Entity.color = new Color(Entity.color.r, Entity.color.g, Entity.color.b, 0.4f);
+            Entity.color = new Color(Entity.color.r, Entity.color.g, Entity.color.b, 0.5f);
         } else {
             Entity.color = new Color(Entity.color.r, Entity.color.g, Entity.color.b, 1.0f);
         }
@@ -95,59 +96,63 @@ public class Jelly : MonoBehaviour
         m_ScaleTweener = Entity.transform.DOShakeScale(0.5f, 0.2f , 8, 50);
     }
 
-    public Tweener DoScale(Vector3 scale, float time, Action callback = null)
+    //不要传入callback了，被Kill的时候callback会不执行了
+    //如果非要callback，记录下callback，在kill的同时执行callback, 在callback内部销毁记录着的callback自身
+    public Tweener DoScale(Vector3 scale, float time)
     {
         if (m_ScaleTweener != null) {
             Entity.transform.localScale = Vector3.one;
             m_ScaleTweener.Kill();
         }
 
-        m_ScaleTweener = Entity.transform.DOScale(scale, time).OnComplete(()=>{
-            if (callback != null) callback();
-        });
+        m_ScaleTweener = Entity.transform.DOScale(scale, time);
 
         return m_ScaleTweener;
+    }
+
+    void DrawEyes()
+    {
+        if (m_Card.IsEliminating) return;
+
+        if (m_Card.STATE == _C.CARD_STATE.NORMAL && m_Card.TYPE == _C.CARD_TYPE.JELLY)
+        {
+            m_Eye_Left.gameObject.SetActive(true);
+            m_Eye_Right.gameObject.SetActive(true);
+
+            var card = Field.Instance.GetMinDistanceSameCard(m_Card);
+            if (card != null)
+            {
+                Vector2 t_pos = card.Entity.transform.localPosition;
+                Vector2 o_pos = m_Card.Entity.transform.localPosition;
+
+                float angle = Vector2.Angle(t_pos - o_pos, Vector2.right);
+                if (t_pos.y < o_pos.y) {
+                    angle *= -1;
+                }
+
+                m_Eye_Left.transform.localPosition = ToolUtility.FindPointOnCircle(new Vector2(-0.2f, 0.9f), 0.15f, angle);
+                m_Eye_Right.transform.localPosition = ToolUtility.FindPointOnCircle(new Vector2( 0.2f, 0.9f), 0.15f, angle);
+
+            }
+            else 
+            {
+                m_Eye_Left.transform.localPosition = new Vector2(-0.2f, 0.9f);
+                m_Eye_Right.transform.localPosition = new Vector2(0.2f, 0.9f);
+            }
+        }
+        else
+        {
+            m_Eye_Left.gameObject.SetActive(false);
+            m_Eye_Right.gameObject.SetActive(false);
+        }
     }
 
     void FixedUpdate()
     {
         OnMouseDrag();
 
-        {
-            if (m_Card.IsEliminating) return;
-
-            if (m_Card.STATE == _C.CARD_STATE.NORMAL && m_Card.TYPE == _C.CARD_TYPE.JELLY)
-            {
-                m_Eye_Left.gameObject.SetActive(true);
-                m_Eye_Right.gameObject.SetActive(true);
-
-                var card = Field.Instance.GetMinDistanceSameCard(m_Card);
-                if (card != null)
-                {
-                    Vector2 t_pos = card.Entity.transform.localPosition;
-                    Vector2 o_pos = m_Card.Entity.transform.localPosition;
-
-                    float angle = Vector2.Angle(t_pos - o_pos, Vector2.right);
-                    if (t_pos.y < o_pos.y) {
-                        angle *= -1;
-                    }
-
-                    m_Eye_Left.transform.localPosition = ToolUtility.FindPointOnCircle(new Vector2(-0.2f, 1), 0.15f, angle);
-                    m_Eye_Right.transform.localPosition = ToolUtility.FindPointOnCircle(new Vector2( 0.2f, 1), 0.15f, angle);
-
-                }
-                else 
-                {
-                    m_Eye_Left.transform.localPosition = new Vector2(-0.2f, 1f);
-                    m_Eye_Right.transform.localPosition = new Vector2(0.2f, 1f);
-                }
-            }
-            else
-            {
-                m_Eye_Left.gameObject.SetActive(false);
-                m_Eye_Right.gameObject.SetActive(false);
-            }
-        }
+        //眼睛动画
+        DrawEyes();
     }
 
 
@@ -157,11 +162,9 @@ public class Jelly : MonoBehaviour
     }
 
     #region 监听事件
+
     void OnMouseDown()
     {   
-        if (m_Card.TYPE == _C.CARD_TYPE.FRAME || m_Card.STATE == _C.CARD_STATE.GHOST) return;
-
-        ClickShake();
         if (!m_Card.Dragable) return;   //无法拖动的
         if (Field.Instance.Stage.MoveStep.IsClear()) return;    //没有行动步数了
         if (Field.Instance.GetCurrentFSMState() != _C.FSMSTATE.IDLE) return;
@@ -201,12 +204,20 @@ public class Jelly : MonoBehaviour
         }
 
 
-        m_Dragging = false;
+        m_Dragging  = false;
+        m_Dragged   = true;
     }
 
     void OnMouseUp()
     {
-        m_Dragging = false;
+        if (!m_Dragged) {
+            Field.Instance.GetCards(m_Card.ID, _C.CARD_STATE.NORMAL).ForEach(c => {
+                c.Entity.ClickShake();
+            });
+        }
+
+        m_Dragging  = false;
+        m_Dragged   = false;
     }
 
     #endregion

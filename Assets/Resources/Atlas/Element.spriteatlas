@@ -61,6 +61,8 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 60953e47ff8007146b5174b8a4cc883d, type: 3}
   - {fileID: 21300000, guid: 5e55f1b8e0ca69541b898aa6443eae2b, type: 3}
   - {fileID: 21300000, guid: 3c99f3f92b1515b478b3705aac09cd31, type: 3}
+  - {fileID: 21300000, guid: 0d66d62aec6600a489cf5634e1c038e1, type: 3}
+  - {fileID: 21300000, guid: fbae33ab1f76d75478eb5095af9cb0cb, type: 3}
   - {fileID: 21300000, guid: 92ecd29c8fd5b124fb9e47970afe62bc, type: 3}
   - {fileID: 21300000, guid: 7a28bd1fab77c724aa1ada1ee2dbf96d, type: 3}
   m_PackedSpriteNamesToIndex:
@@ -72,6 +74,8 @@ SpriteAtlas:
   - grid_horn
   - grid_line
   - jelly_10004
+  - jelly_10005
+  - jelly_10006
   - jelly_10001
   - jelly_10003
   m_RenderDataMap: {}

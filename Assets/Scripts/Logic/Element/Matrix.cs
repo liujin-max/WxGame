@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-//第1关
+#region 第1关
 public class Matrix_1 : Matrix
 {
     private int m_Step = 0;
@@ -35,7 +35,7 @@ public class Matrix_1 : Matrix
         }
     }
 
-    public override void InitCards()
+    public override void InitCards(int count)
     {
         CardData cardData = GameFacade.Instance.DataCenter.GetCardData(10001);
 
@@ -43,7 +43,7 @@ public class Matrix_1 : Matrix
         Field.Instance.PutCard(_C.CARD_STATE.NORMAL, cardData, Field.Instance.GetGrid(5, 2)).Dragable = false;
     }
 
-    public override List<Card> AddCards()
+    public override List<Card> AddCards(int random_count = -1)
     {
         List<Card> add_cards = new List<Card>();
 
@@ -127,9 +127,52 @@ public class Matrix_1 : Matrix
 
     
 }
+#endregion
 
 
+#region 第10关
+public class Matrix_10 : Matrix
+{
+    public override void InitCards(int count)
+    {
+        List<CardData> card_datas = new List<CardData>();
 
+        foreach (var cardData in  m_Stage.Cards)
+        {
+            for (int j = 0; j < 8; j++)
+            {
+                card_datas.Add(cardData);
+            }
+        }
+
+        List<object> grid_datas = Field.Instance.GetEmptyGrids();
+
+        for (int i = card_datas.Count - 1; i >= 0; i--)
+        {
+            var data    = card_datas[i];
+
+            int rand    = RandomUtility.Random(0, grid_datas.Count);
+            Grid grid   = grid_datas[rand] as Grid;
+            
+            while (Field.Instance.IsSameCardNear(grid, data.ID))
+            {
+                rand    = RandomUtility.Random(0, grid_datas.Count);
+                grid    = grid_datas[rand] as Grid;
+            }
+
+            Field.Instance.PutCard(_C.CARD_STATE.NORMAL, data, grid);
+
+            grid_datas.Remove(grid);
+        }
+    }
+
+    public override List<Card> AddCards(int random_count = -1)
+    {
+        // return base.AddCards(1);
+        return new List<Card>();
+    }
+}
+#endregion
 
 //负责各关卡的特殊处理
 public class Matrix
@@ -151,7 +194,7 @@ public class Matrix
 
 
     //初始生成：读取配置
-    public virtual void InitCards()
+    public virtual void InitCards(int count = 3)
     {
         bool is_preset = false;
 
@@ -164,23 +207,32 @@ public class Matrix
             }
         });
 
-
+        //已经预设好了
         if (is_preset) return;
 
-        //没有预设，则随机生成
-        List<object> grid_datas = RandomUtility.Pick(3, Field.Instance.GetEmptyGrids());
+        //没有预设，则随机生成(同色不相邻)
+        List<object> grid_datas = Field.Instance.GetEmptyGrids();
 
-        for (int i = 0; i < grid_datas.Count; i++)
+        for (int i = 0; i < count; i++)
         {
-            Grid grid   = grid_datas[i] as Grid;
-            int rand    = RandomUtility.Random(0, m_Stage.Cards.Count);
+            var data    = m_Stage.Cards[RandomUtility.Random(0, m_Stage.Cards.Count)];
 
-            Field.Instance.PutCard(_C.CARD_STATE.NORMAL, m_Stage.Cards[rand], grid);
+            Grid grid   = grid_datas[RandomUtility.Random(0, grid_datas.Count)] as Grid;
+            
+            while (Field.Instance.IsSameCardNear(grid, data.ID))
+            {
+                grid   = grid_datas[RandomUtility.Random(0, grid_datas.Count)] as Grid;
+            }
+
+            Field.Instance.PutCard(_C.CARD_STATE.NORMAL, data, grid);
+
+            grid_datas.Remove(grid);
         }
+
     }
 
     //默认
-    public virtual List<Card> AddCards()
+    public virtual List<Card> AddCards(int random_count = -1)
     {
         //将残影方块实体化
         Field.Instance.GhostCards.ForEach(card => {
@@ -196,7 +248,7 @@ public class Matrix
         List<Card> add_cards = new List<Card>();
 
         //获取空着的Grid
-        int count = RandomUtility.Random(2, 4);
+        int count = random_count == -1 ? RandomUtility.Random(2, 4) : random_count;
         List<object> grid_datas = RandomUtility.Pick(count, Field.Instance.GetEmptyGrids());
 
         for (int i = 0; i < grid_datas.Count; i++)

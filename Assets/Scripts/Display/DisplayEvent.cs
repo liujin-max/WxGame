@@ -168,16 +168,16 @@ public class DisplayEvent_MoveCard : DisplayEvent
         }
 
         card.Entity.transform.DOLocalMove(card.Grid.Position, time).OnComplete(()=>{
-            card.Entity.DoScale(Vector3.one, 0.1f, ()=>{
-                m_State = _C.DISPLAY_STATE.END;
+            m_State = _C.DISPLAY_STATE.END;
 
-                var hit = Field.Instance.GetCardByDirection(card, direction);
-                if (hit != null) {
-                    hit.Entity.Shake(direction);
-                }
+            card.Entity.DoScale(Vector3.one, 0.1f); //不在缩放结束后处理了，有可能被顶掉
 
-                EventManager.SendEvent(new GameEvent(EVENT.ONCARDMOVED, card));
-            });
+            var hit = Field.Instance.GetCardByDirection(card, direction);
+            if (hit != null) {
+                hit.Entity.Shake(direction);
+            }
+
+            EventManager.SendEvent(new GameEvent(EVENT.ONCARDMOVED, card));
         });
     }
 }

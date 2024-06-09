@@ -140,6 +140,7 @@
     <Compile Include="Assets\DOTween\Modules\DOTweenModuleUI.cs" />
     <Compile Include="Assets\Scripts\Display\Jelly.cs" />
     <Compile Include="Assets\Scripts\Logic\Element\Levels.cs" />
+    <Compile Include="Assets\Scripts\Effect\BrokenEffect.cs" />
     <Compile Include="Assets\AllIn1SpriteShader\Scripts\AllIn1ShaderWindow.cs" />
     <Compile Include="Assets\Scripts\FSM\State_Chain.cs" />
     <Compile Include="Assets\Scripts\Utility\BGM.cs" />
@@ -159,7 +160,6 @@
     <Compile Include="Assets\Scripts\UI\Window\LoginWindow.cs" />
     <Compile Include="Assets\Scripts\Effect\Shine.cs" />
     <Compile Include="Assets\DOTween\Modules\DOTweenModuleUnityVersion.cs" />
-    <Compile Include="Assets\Scripts\Effect\BrokenEffect.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Resources\Shader\SpriteGray.shader" />

@@ -29,6 +29,7 @@ public class Stage
 
     private static Dictionary<int, Func<Matrix>> m_classDictionary = new Dictionary<int, Func<Matrix>> {
         { 1, () => new Matrix_1()},
+        { 10, () => new Matrix_10()},
     };
 
     public Stage(StageJSON stageData)

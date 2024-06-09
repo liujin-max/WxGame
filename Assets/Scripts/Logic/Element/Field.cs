@@ -215,6 +215,20 @@ public class Field : MonoBehaviour
         return null;
     }
 
+    //获取所有同色方块
+    public List<Card> GetCards(int card_id, _C.CARD_STATE state)
+    {   
+        List<Card> cards= new List<Card>();
+
+        m_Cards.ForEach(card => {
+            if (card.ID == card_id && card.STATE == state) {
+                cards.Add(card);
+            }
+        });
+
+        return cards;
+    }
+
     //清理残影
     //如果当前位置有残影，则清空残影
     void ClearGhost(Card card)
@@ -245,44 +259,54 @@ public class Field : MonoBehaviour
         return false;
     }
 
-    bool IsSameCardNear(Card card)
+    bool IsGridHasCard(Grid grid, int card_id)
     {
-        Grid card_grid = card.Grid;
+        if (grid == null) return true;
+
+        if (grid.Card != null && grid.Card.ID == card_id) {
+            return true;
+        }
+        return false;
+    }
+
+    public bool IsSameCardNear(Grid grid, int card_id)
+    {
+        Grid card_grid = grid; //card.Grid;
 
         Grid top_grid = null;
         if (card_grid.Y < m_Height - 1) {
             top_grid = m_Grids[card_grid.X, card_grid.Y + 1];
+
+            if (IsGridHasCard(top_grid, card_id)) {
+                return true;
+            }
         }
 
         Grid down_grid = null;
         if (card_grid.Y > 0) {
             down_grid = m_Grids[card_grid.X, card_grid.Y - 1];
+
+            if (IsGridHasCard(down_grid, card_id)) {
+                return true;
+            }
         }
 
         Grid left_grid = null;
         if (card_grid.X > 0) {
             left_grid = m_Grids[card_grid.X - 1, card_grid.Y];
+
+            if (IsGridHasCard(left_grid, card_id)) {
+                return true;
+            }
         }
 
         Grid right_grid = null;
         if (card_grid.X < m_Weight - 1) {
             right_grid = m_Grids[card_grid.X + 1, card_grid.Y];
-        }
 
-        if (IsGridSame(card_grid, top_grid)) {
-            return true;
-        }
-
-        if (IsGridSame(card_grid, down_grid)) {
-            return true;
-        }
-
-        if (IsGridSame(card_grid, left_grid)) {
-            return true;
-        }
-
-        if (IsGridSame(card_grid, right_grid)) {
-            return true;
+            if (IsGridHasCard(right_grid, card_id)) {
+                return true;
+            }
         }
 
         return false;
@@ -507,7 +531,7 @@ public class Field : MonoBehaviour
         List<Card> _Removes = new List<Card>();
 
         m_Cards.ForEach(card => {
-            if (card.TYPE == _C.CARD_TYPE.JELLY && IsSameCardNear(card) == true) 
+            if (card.TYPE == _C.CARD_TYPE.JELLY && IsSameCardNear(card.Grid, card.ID) == true) 
             {
                 _Removes.Add(card);
             }
