@@ -6,6 +6,7 @@ using UnityEngine;
 public class Card
 {
     private CardData m_Data;
+    public CardData Data {get {return m_Data;}}
 
     public int ID {get {return m_Data.ID;}}
     public _C.CARD_TYPE TYPE {get {return m_Data.Type;}}
@@ -27,24 +28,13 @@ public class Card
     public bool IsEliminating = false;
 
 
-    //固定的
-    private bool m_IsFixed = false;
-    public bool IsFixed {
-        get {
-            if (TYPE == _C.CARD_TYPE.FRAME) return true;
-
-            return m_IsFixed;
-        } 
-        set {m_IsFixed = value;}
-    }
-
     //可滑动
     private bool m_Dragable = true;
     public bool Dragable {
         get {
             if (TYPE == _C.CARD_TYPE.FRAME) return false;
             if (STATE == _C.CARD_STATE.GHOST) return false;
-            if (IsEliminating || IsFixed) return false;
+            if (IsEliminating) return false;
 
             return m_Dragable;
         }

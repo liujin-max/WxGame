@@ -160,6 +160,8 @@
     <Compile Include="Assets\Scripts\UI\Window\LoginWindow.cs" />
     <Compile Include="Assets\Scripts\Effect\Shine.cs" />
     <Compile Include="Assets\DOTween\Modules\DOTweenModuleUnityVersion.cs" />
+    <Compile Include="Assets\Scripts\Effect\JellyDrop.cs" />
+    <Compile Include="Assets\Scripts\Logic\Element\History.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Resources\Shader\SpriteGray.shader" />

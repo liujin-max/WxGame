@@ -20,6 +20,11 @@ public class Pair
         m_Curret += offset;
     }
 
+    public void SetCurrent(int value)
+    {
+        m_Curret = value;
+    }
+
     public bool IsFull()
     {
         return m_Curret >= m_Total;

@@ -15,12 +15,13 @@ public class ConditionItem : MonoBehaviour
 
     void Awake()
     {
-        EventManager.AddHandler(EVENT.UI_BROKENCARD,   OnCardBroken);
+        EventManager.AddHandler(EVENT.UI_UPDATECONDITION,   OnFlushUI);
+        
     }
 
     void OnDestroy()
     {
-        EventManager.DelHandler(EVENT.UI_BROKENCARD,   OnCardBroken);
+        EventManager.DelHandler(EVENT.UI_UPDATECONDITION,   OnFlushUI);
     }
 
     public void Init(Condition condition)
@@ -52,7 +53,7 @@ public class ConditionItem : MonoBehaviour
 
 
     #region 监听事件
-    private void OnCardBroken(GameEvent @event)
+    private void OnFlushUI(GameEvent @event)
     {
         FlushUI();
     }

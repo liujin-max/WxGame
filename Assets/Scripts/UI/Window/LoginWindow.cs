@@ -5,7 +5,12 @@ using UnityEngine.UI;
 
 public class LoginWindow : MonoBehaviour
 {
+    [SerializeField] private Text m_Coin;
+    [SerializeField] private Text m_Food;
+
+
     [SerializeField] private Button m_BtnStage;
+    
 
     void Awake()
     {
@@ -20,4 +25,10 @@ public class LoginWindow : MonoBehaviour
         });
     }
 
+
+    public void Init()
+    {
+        m_Coin.text = GameFacade.Instance.DataCenter.User.Coin.ToString();
+        m_Food.text = GameFacade.Instance.DataCenter.User.Food.ToString();
+    }
 }

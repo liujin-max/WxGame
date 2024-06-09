@@ -13,7 +13,8 @@ public static class NavigationController
 
         //加载loading界面
         GameFacade.Instance.ScenePool.LoadSceneAsync("Login", () => {
-            GameFacade.Instance.UIManager.LoadWindow("LoginWindow", UIManager.BOTTOM);
+            var window = GameFacade.Instance.UIManager.LoadWindow("LoginWindow", UIManager.BOTTOM).GetComponent<LoginWindow>();
+            window.Init();
         });
     }
 

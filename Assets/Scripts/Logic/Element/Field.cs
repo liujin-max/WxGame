@@ -28,7 +28,6 @@ public class Field : MonoBehaviour
     private Grid[,] m_Grids;
     public Grid[,] Grids {get{ return m_Grids;}}
 
-
     private List<Card> m_Cards = new List<Card>();
     public List<Card> Cards { get { return m_Cards;}}
 
@@ -36,13 +35,22 @@ public class Field : MonoBehaviour
     public List<Card> GhostCards { get { return m_GhostCards;}}
 
 
+    //记录每回合的状态
+    private int m_Turn = 0;
+    public int Turn {
+        get {return m_Turn;}
+        set {m_Turn = value;}
+    }
+
+    private Dictionary<int, History> m_Historys = new Dictionary<int, History>();
+
     private CDTimer m_SecondTimer = new CDTimer(1);
+
+
 
     void Awake()
     {
         m_Instance = this;
-
-        m_Land = new Land();
     }
 
     void OnDestroy()
@@ -67,6 +75,7 @@ public class Field : MonoBehaviour
     {
         STATE       = _C.GAME_STATE.PLAY;
 
+        m_Land      = new Land();
         m_Stage     = new Stage(GameFacade.Instance.DataCenter.Level.GetStageJSON(stage));
 
         m_Weight    = m_Stage.Weight;
@@ -271,11 +280,6 @@ public class Field : MonoBehaviour
         }
     }
 
-    void UpdateMoveStep(int value)
-    {
-        m_Stage.UpdateMoveStep(value);
-    }
-
     bool IsGridSame(Grid g1, Grid g2)
     {
         if (g1 == null || g2 == null) return false;
@@ -420,13 +424,15 @@ public class Field : MonoBehaviour
     #region 移动
     public Grid Move(Card card, _C.DIRECTION direction, bool is_manual = false)
     {
+        if (!card.Dragable) return null;
+
         Grid origin = card.Grid;
 
         switch (direction) 
         {
             case _C.DIRECTION.LEFT: //向左
             {
-                if (origin.X == 0  || card.IsFixed) return null;
+                if (origin.X == 0) return null;
 
                 Grid target = null;
 
@@ -447,7 +453,7 @@ public class Field : MonoBehaviour
                 card.Grid   = target;
 
                 ClearGhost(card);
-                if (is_manual == true) UpdateMoveStep(-1);
+                if (is_manual == true) m_Stage.UpdateMoveStep(-1);
 
                 GameFacade.Instance.DisplayEngine.Put(DisplayEngine.Track.Common, new DisplayEvent_MoveCard(card, _C.DIRECTION.LEFT, offset));
 
@@ -456,7 +462,7 @@ public class Field : MonoBehaviour
 
             case _C.DIRECTION.RIGHT:    //向右
             {
-                if (origin.X == m_Weight - 1  || card.IsFixed) return null;
+                if (origin.X == m_Weight - 1) return null;
 
                 Grid target = null;
 
@@ -477,7 +483,7 @@ public class Field : MonoBehaviour
                 card.Grid   = target;
 
                 ClearGhost(card);
-                if (is_manual == true) UpdateMoveStep(-1);
+                if (is_manual == true) m_Stage.UpdateMoveStep(-1);
 
                 GameFacade.Instance.DisplayEngine.Put(DisplayEngine.Track.Common, new DisplayEvent_MoveCard(card, _C.DIRECTION.RIGHT, offset));
 
@@ -486,7 +492,7 @@ public class Field : MonoBehaviour
 
             case _C.DIRECTION.UP:  //向上
             {
-                if (origin.Y == m_Height - 1 || card.IsFixed) return null;
+                if (origin.Y == m_Height - 1) return null;
 
                 Grid target = null;
 
@@ -508,7 +514,7 @@ public class Field : MonoBehaviour
 
                 ClearGhost(card);
 
-                if (is_manual == true) UpdateMoveStep(-1);
+                if (is_manual == true) m_Stage.UpdateMoveStep(-1);
 
                 GameFacade.Instance.DisplayEngine.Put(DisplayEngine.Track.Common, new DisplayEvent_MoveCard(card, _C.DIRECTION.UP, offset));
 
@@ -518,7 +524,7 @@ public class Field : MonoBehaviour
 
             case _C.DIRECTION.DOWN:  //向下
             {
-                if (origin.Y == 0  || card.IsFixed) return null;
+                if (origin.Y == 0) return null;
 
                 Grid target = null;
 
@@ -539,7 +545,7 @@ public class Field : MonoBehaviour
                 card.Grid   = target;
 
                 ClearGhost(card);
-                if (is_manual == true) UpdateMoveStep(-1);
+                if (is_manual == true) m_Stage.UpdateMoveStep(-1);
 
                 GameFacade.Instance.DisplayEngine.Put(DisplayEngine.Track.Common, new DisplayEvent_MoveCard(card, _C.DIRECTION.DOWN, offset));
 
@@ -590,6 +596,14 @@ public class Field : MonoBehaviour
 
 
         return _C.RESULT.NONE;
+    }
+
+    public void RecordHistory()
+    {
+        History history     = new History(m_Turn);
+        m_Historys[m_Turn]  = history;
+
+        history.Record();
     }
 
     void Update()
@@ -666,6 +680,16 @@ public class Field : MonoBehaviour
 
 
         GameFacade.Instance.DisplayEngine.Put(DisplayEngine.Track.Common, new DisplayEvent_ShuffleCard(m_Cards));
+    }
+
+    //撤销
+    //撤销上一步操作
+    public void ad_revoke()
+    {
+        History history;
+        if (m_Historys.TryGetValue(m_Turn - 1, out history)) {
+            history.Revoke();
+        }
     }
 
 

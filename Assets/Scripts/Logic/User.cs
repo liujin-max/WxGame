@@ -21,6 +21,7 @@ public class GameUserData
     public string HeadUrl;
     public int Level = 0;   //通关记录
     public int Coin = 0;    //金币
+    public int Food = 0;    //体力
 }
 
 
@@ -38,7 +39,7 @@ public class User : MonoBehaviour
     public string HeadURL{ get{ return m_Data.HeadUrl;}}
     public int Level{ get{ return m_Data.Level;}}
     public int Coin{ get{ return m_Data.Coin;}}
-
+    public int Food{ get{ return m_Data.Food;}}
 
     private bool m_userUpdate = false;  //账号数据变动标记
     private bool m_scoreUpdate = false; //记录变动标记

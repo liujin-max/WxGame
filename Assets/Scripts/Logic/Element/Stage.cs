@@ -97,6 +97,11 @@ public class Stage
         m_MoveStep.UpdateCurrent(step);
     }
 
+    public void SetMoveStep(int step)
+    {
+        m_MoveStep.SetCurrent(step);
+    }
+
     public int GetCurrentStep()
     {
         return m_MoveStep.Current;
@@ -115,6 +120,11 @@ public class Stage
     public void UpdateCountDown(float time)
     {
         m_CountDownTimer.Update(time);
+    }
+
+    public void SetCountDown(float time)
+    {
+        m_CountDownTimer.SetCurrent(time);
     }
 
     public float GetCurrentTimer()

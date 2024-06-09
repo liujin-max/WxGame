@@ -52,7 +52,7 @@ public class Jelly : MonoBehaviour
 
     public void Shake(Vector2 strength)
     {
-        if (m_Card.IsFixed) return;
+        if (!m_Card.Dragable) return;
 
         if (m_ScaleTweener != null) {
             Entity.transform.localScale = Vector3.one;
@@ -64,7 +64,7 @@ public class Jelly : MonoBehaviour
 
     public void Shake(_C.DIRECTION direction)
     {
-        if (m_Card.IsFixed) return;
+        if (!m_Card.Dragable) return;
 
         switch (direction)
         {

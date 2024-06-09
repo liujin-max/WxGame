@@ -27,9 +27,9 @@ SpriteAtlas:
       padding: 8
       blockOffset: 1
       allowAlphaSplitting: 0
-      enableRotation: 1
+      enableRotation: 0
       enableTightPacking: 1
-      enableAlphaDilation: 0
+      enableAlphaDilation: 1
     secondaryTextureSettings: {}
     transparentPlaceholder: 0
     variantMultiplier: 1
@@ -40,6 +40,7 @@ SpriteAtlas:
     cachedData: {fileID: 0}
   m_MasterAtlas: {fileID: 0}
   m_PackedSprites:
+  - {fileID: 21300000, guid: ce643fe3c6cfdf54b81d4b31916286ab, type: 3}
   - {fileID: 21300000, guid: a83d38b53af8c644099fe1c5817e8e31, type: 3}
   - {fileID: 21300000, guid: 26232cd8afea6e848a46f6f7164ef104, type: 3}
   - {fileID: 21300000, guid: 696f2ed82c2c4d84b89d8c3d5c558c8f, type: 3}
@@ -47,6 +48,7 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 22e7179cb245f3740836b26716756a0b, type: 3}
   - {fileID: 21300000, guid: 8d95876d6ff8c894e9026fce8e55ed01, type: 3}
   m_PackedSpriteNamesToIndex:
+  - Universal_food
   - Universal_mask_white
   - Universal_count_frame
   - Universal_btnSet

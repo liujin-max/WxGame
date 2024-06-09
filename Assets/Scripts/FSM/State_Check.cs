@@ -11,8 +11,7 @@ public class State_Check<T> : State<Field>
     {
         Field.Instance.IsMoved = false;
 
-        Field.Instance.Stage.AddCards();
-        
+        Field.Instance.Stage.AddCards(); 
     }
 
     public override void Update()
@@ -20,7 +19,6 @@ public class State_Check<T> : State<Field>
         if (!GameFacade.Instance.DisplayEngine.IsIdle()) return;
 
         Field.Instance.Transist(_C.FSMSTATE.ELIMINATE);
-
     }
 }
 

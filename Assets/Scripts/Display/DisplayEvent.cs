@@ -224,7 +224,8 @@ public class DisplayEvent_BrokenCard : DisplayEvent
             card.Dispose();
 
             EventManager.SendEvent(new GameEvent(EVENT.ONBROKENCARD, card));
-            EventManager.SendEvent(new GameEvent(EVENT.UI_BROKENCARD, card));
+
+            EventManager.SendEvent(new GameEvent(EVENT.UI_UPDATECONDITION));
         }
     }
 }

@@ -30,6 +30,11 @@ public class Condition
         Count.UpdateCurrent(-count);
     }
 
+    public void SetCount(int count)
+    {
+        Count.SetCurrent(count);
+    }
+
     public bool IsFinished()
     {
         return Count.IsClear();

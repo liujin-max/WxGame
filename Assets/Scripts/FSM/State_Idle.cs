@@ -21,8 +21,15 @@ public class State_Idle<T> : State<Field>
         }
         
         //场上没有可移动的方块
-        if (Field.Instance.GetDragableCards().Count == 0) 
+        if (Field.Instance.GetDragableCards().Count == 0) {
             Field.Instance.Transist(_C.FSMSTATE.CHECK);
+            return;
+        }
+            
+
+        //记录当前布局
+        Field.Instance.Turn++;
+        Field.Instance.RecordHistory();
     }
 
     public override void Exit()

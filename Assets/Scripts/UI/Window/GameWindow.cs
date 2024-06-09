@@ -24,6 +24,7 @@ public class GameWindow : MonoBehaviour
     [SerializeField] private Button m_BtnTime;
     [SerializeField] private Button m_BtnStep;
     [SerializeField] private Button m_BtnShuffle;
+    [SerializeField] private Button m_BtnRevoke;
 
 
     private List<ConditionItem> m_ConditionItems = new List<ConditionItem>();
@@ -73,6 +74,13 @@ public class GameWindow : MonoBehaviour
         m_BtnShuffle.onClick.AddListener(()=>{
             Platform.Instance.REWARD_VIDEOAD("", ()=>{
                 Field.Instance.ad_shuffle();
+            });
+        });
+
+        //撤销操作
+        m_BtnRevoke.onClick.AddListener(()=>{
+            Platform.Instance.REWARD_VIDEOAD("", ()=>{
+                Field.Instance.ad_revoke();
             });
         });
     }

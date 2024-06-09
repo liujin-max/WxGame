@@ -168,7 +168,6 @@ public class Matrix_10 : Matrix
 
     public override List<Card> AddCards(int random_count = -1)
     {
-        // return base.AddCards(1);
         return new List<Card>();
     }
 }

@@ -27,15 +27,15 @@ public class SceneSwitch : MonoBehaviour
         m_MaskTop.localPosition     = new Vector3(0, 22, 0);
         m_MaskBottom.localPosition  = new Vector3(0,-22, 0);
 
-        m_MaskTop.DOLocalMove(new Vector3(0, 12.5f, 0), 0.3f).SetEase(Ease.OutBack);
-        m_MaskBottom.DOLocalMove(new Vector3(0, -12.5f, 0), 0.3f).SetEase(Ease.OutBack);
+        m_MaskTop.DOLocalMove(new Vector3(0, 12f, 0), 0.3f).SetEase(Ease.OutBack);
+        m_MaskBottom.DOLocalMove(new Vector3(0, -12f, 0), 0.3f).SetEase(Ease.OutBack);
 
         
         yield return new WaitForSeconds(0.3f);
 
         if (m_Callback != null) m_Callback();
 
-        yield return new WaitForSeconds(0.1f);
+        yield return new WaitForSeconds(0.15f);
 
         m_MaskTop.DOLocalMove(new Vector3(0, 25, 0), 0.2f).SetEase(Ease.InQuad);
         m_MaskBottom.DOLocalMove(new Vector3(0, -25, 0), 0.2f).SetEase(Ease.InQuad);
