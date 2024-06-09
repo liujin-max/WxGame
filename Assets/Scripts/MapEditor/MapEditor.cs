@@ -19,6 +19,9 @@ public class MapEditor : MonoBehaviour
     [Header("行动步数")]
     [SerializeField] private int m_Step;
 
+    [Header("倒计时")]
+    [SerializeField] private int m_Time;
+
     [Header("通关金币")]
     [SerializeField] private int m_Coin;
 
@@ -57,6 +60,7 @@ public class MapEditor : MonoBehaviour
         m_Weight    = 0;
         m_Height    = 0;
         m_Step      = 0;
+        m_Time      = 0;
         m_Coin      = 0;
 
         m_Conditions.Clear();
@@ -102,6 +106,7 @@ public class MapEditor : MonoBehaviour
         m_Weight    = mapJSON.Weight;
         m_Height    = mapJSON.Height;
         m_Step      = mapJSON.Step;
+        m_Time      = mapJSON.Time;
         m_Coin      = mapJSON.Coin;
         m_Conditions= mapJSON.Conditions;
         m_CardPool  = mapJSON.CardPool;
@@ -132,6 +137,7 @@ public class MapEditor : MonoBehaviour
         mapData.Weight  = m_Weight;
         mapData.Height  = m_Height;
         mapData.Step    = m_Step;
+        mapData.Time    = m_Time;
         mapData.Coin    = m_Coin;
         mapData.Conditions = m_Conditions;
         mapData.CardPool = m_CardPool;

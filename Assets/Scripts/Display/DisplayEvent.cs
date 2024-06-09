@@ -178,6 +178,7 @@ public class DisplayEvent_MoveCard : DisplayEvent
             }
 
             EventManager.SendEvent(new GameEvent(EVENT.ONCARDMOVED, card));
+            EventManager.SendEvent(new GameEvent(EVENT.UI_UPDATESTEP));
         });
     }
 }

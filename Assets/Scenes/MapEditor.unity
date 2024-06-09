@@ -287,6 +287,7 @@ MonoBehaviour:
   m_Weight: 0
   m_Height: 0
   m_Step: 0
+  m_Time: 0
   m_Coin: 0
   m_Conditions: []
   m_CardPool: 

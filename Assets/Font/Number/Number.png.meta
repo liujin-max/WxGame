@@ -125,7 +125,7 @@ TextureImporter:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 39
+        width: 57
         height: 67
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
@@ -144,9 +144,9 @@ TextureImporter:
       name: Number_1
       rect:
         serializedVersion: 2
-        x: 45
+        x: 60
         y: 0
-        width: 61
+        width: 48
         height: 67
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
@@ -312,9 +312,9 @@ TextureImporter:
       name: Number_9
       rect:
         serializedVersion: 2
-        x: 577
+        x: 575
         y: 0
-        width: 56
+        width: 62
         height: 67
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
@@ -325,6 +325,27 @@ TextureImporter:
       bones: []
       spriteID: 704923c5a8795dc4fbb01acdfc869f9d
       internalID: 682623349
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Number_10
+      rect:
+        serializedVersion: 2
+        x: 643
+        y: 0
+        width: 22
+        height: 49
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 73f7c0f7008087847a5be1ec4619a5cf
+      internalID: 1989830060
       vertices: []
       indices: 
       edges: []
@@ -343,6 +364,7 @@ TextureImporter:
       Number_5: 1488776107
       Number_6: 617925656
       Number_4: -1322340755
+      Number_10: 1989830060
       Number_0: -1717052575
       Number_3: 2009412937
       Number_7: 243689447

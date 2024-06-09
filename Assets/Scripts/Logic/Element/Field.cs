@@ -20,6 +20,8 @@ public class Field : MonoBehaviour
 
     private int m_Weight = 5;
     private int m_Height = 6;
+
+    public _C.GAME_STATE STATE = _C.GAME_STATE.NONE;
     
     public bool IsMoved = false;
 
@@ -34,7 +36,7 @@ public class Field : MonoBehaviour
     public List<Card> GhostCards { get { return m_GhostCards;}}
 
 
-    
+    private CDTimer m_SecondTimer = new CDTimer(1);
 
     void Awake()
     {
@@ -63,6 +65,8 @@ public class Field : MonoBehaviour
 
     public void Enter(int stage)
     {
+        STATE       = _C.GAME_STATE.PLAY;
+
         m_Stage     = new Stage(GameFacade.Instance.DataCenter.Level.GetStageJSON(stage));
 
         m_Weight    = m_Stage.Weight;
@@ -79,8 +83,15 @@ public class Field : MonoBehaviour
         m_FSM.Transist(_C.FSMSTATE.IDLE);
     }
 
+    public void Pause()
+    {
+        STATE   = _C.GAME_STATE.PAUSE;
+    }
+
+
     public void Dispose()
     {
+        STATE   = _C.GAME_STATE.NONE;
         IsMoved = false;
 
         m_Stage.Dispose();
@@ -246,7 +257,7 @@ public class Field : MonoBehaviour
 
     void UpdateMoveStep(int value)
     {
-        m_Stage.MoveStep.UpdateCurrent(value);
+        m_Stage.UpdateMoveStep(value);
     }
 
     bool IsGridSame(Grid g1, Grid g2)
@@ -551,7 +562,15 @@ public class Field : MonoBehaviour
     {
         if (m_Stage.IsFinished() == true) return _C.RESULT.VICTORY;
 
-        if (m_Stage.MoveStep.IsClear() == true) return _C.RESULT.LOSE;
+        //检查步数
+        if (m_Stage.NeedCheckStep()) {
+            if (m_Stage.IsStepClear() == true) return _C.RESULT.LOSE;
+        }
+
+        //检查时间
+        if (m_Stage.NeedCheckTimer()) {
+            if (m_Stage.IsTimerClear() == true) return _C.RESULT.LOSE;
+        }
 
 
         return _C.RESULT.NONE;
@@ -559,13 +578,43 @@ public class Field : MonoBehaviour
 
     void Update()
     {
+        if (this.STATE != _C.GAME_STATE.PLAY) return;
+
         if (m_FSM != null) m_FSM.Update();
+
+        //倒计时
+        if (m_Stage != null && m_Stage.NeedCheckTimer()) {
+            m_SecondTimer.Update(Time.deltaTime);
+            if (m_SecondTimer.IsFinished() == true) {
+                m_SecondTimer.Reset();
+
+                m_Stage.UpdateCountDown(-1);
+
+                EventManager.SendEvent(new GameEvent(EVENT.UI_UPDATETIME));
+            }
+        }
     }
 
 
 
 
-    #region 监听事件
+    #region 广告逻辑
+    //添加时间
+    public void ad_add_time(int second)
+    {
+        m_Stage.UpdateCountDown(second);
+
+        EventManager.SendEvent(new GameEvent(EVENT.UI_UPDATETIME));
+    }
+
+    //添加步数
+    public void ad_add_step(int value)
+    {
+        m_Stage.UpdateMoveStep(value);
+
+        EventManager.SendEvent(new GameEvent(EVENT.UI_UPDATESTEP));
+    }
+
 
     #endregion
 }

@@ -11,6 +11,8 @@ public class State_Result<T> : State<Field>
     {
         var result = (_C.RESULT)values[0];
 
+        m_FSM.Owner.STATE   = _C.GAME_STATE.END;
+
         if (result == _C.RESULT.VICTORY) {  //成功
             //结算奖励
             GameFacade.Instance.DataCenter.User.SetCoin(GameFacade.Instance.DataCenter.User.Coin + Field.Instance.Stage.Coin);

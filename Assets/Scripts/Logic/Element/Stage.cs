@@ -24,19 +24,23 @@ public class Stage
     public List<CardData> Cards {get{return this.m_Cards;}}
 
     //行动次数
-    public Pair MoveStep;
+    private Pair m_MoveStep;
+    private CDTimer m_CountDownTimer;
     private Matrix m_Matrix;
 
     private static Dictionary<int, Func<Matrix>> m_classDictionary = new Dictionary<int, Func<Matrix>> {
         { 1, () => new Matrix_1()},
         { 10, () => new Matrix_10()},
+        { 11, () => new Matrix_11()},
     };
 
     public Stage(StageJSON stageData)
     {
         m_Data  = stageData;
 
-        MoveStep = new Pair(m_Data.Step, m_Data.Step);
+        m_MoveStep = new Pair(m_Data.Step, m_Data.Step);
+        m_CountDownTimer = new CDTimer(m_Data.Time, true);
+
 
         if (m_classDictionary.ContainsKey(this.ID)) {
             m_Matrix = m_classDictionary[this.ID]();
@@ -77,6 +81,47 @@ public class Stage
             m_Conditions.Add(condition);
         }
     }
+
+    public bool NeedCheckStep()
+    {
+        return m_MoveStep.Total > 0;
+    }
+
+    public bool IsStepClear()
+    {
+        return m_MoveStep.IsClear();
+    }
+
+    public void UpdateMoveStep(int step)
+    {
+        m_MoveStep.UpdateCurrent(step);
+    }
+
+    public int GetCurrentStep()
+    {
+        return m_MoveStep.Current;
+    }
+
+    public bool NeedCheckTimer()
+    {
+        return m_CountDownTimer.Duration > 0;
+    }
+
+    public bool IsTimerClear()
+    {
+        return m_CountDownTimer.IsFinished();
+    }
+
+    public void UpdateCountDown(float time)
+    {
+        m_CountDownTimer.Update(time);
+    }
+
+    public float GetCurrentTimer()
+    {
+        return m_CountDownTimer.Current;
+    }
+
 
     public Condition GetCondition(int condition_id)
     {

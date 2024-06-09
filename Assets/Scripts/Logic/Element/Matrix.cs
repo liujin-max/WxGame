@@ -174,6 +174,66 @@ public class Matrix_10 : Matrix
 }
 #endregion
 
+
+#region 第11关
+public class Matrix_11 : Matrix
+{
+    public override void InitCards(int count)
+    {
+        m_Stage.GridJSONs.ForEach(grid_json => {
+            if (grid_json.JellyID > 0) {
+                var grid    = Field.Instance.GetGrid(grid_json.X, grid_json.Y);
+                Field.Instance.PutCard(_C.CARD_STATE.NORMAL, GameFacade.Instance.DataCenter.GetCardData(grid_json.JellyID), grid);
+            }
+        });
+
+
+
+        List<CardData> card_datas = new List<CardData>();
+
+        foreach (var cardData in  m_Stage.Cards)
+        {
+            for (int j = 0; j < 8; j++)
+            {
+                card_datas.Add(cardData);
+            }
+        }
+
+        List<object> grid_datas = Field.Instance.GetEmptyGrids();
+
+        for (int i = card_datas.Count - 1; i >= 0; i--)
+        {
+            var data    = card_datas[i];
+
+            int rand    = RandomUtility.Random(0, grid_datas.Count);
+            Grid grid   = grid_datas[rand] as Grid;
+            
+            while (Field.Instance.IsSameCardNear(grid, data.ID))
+            {
+                rand    = RandomUtility.Random(0, grid_datas.Count);
+                grid    = grid_datas[rand] as Grid;
+            }
+
+            Field.Instance.PutCard(_C.CARD_STATE.NORMAL, data, grid);
+
+            grid_datas.Remove(grid);
+        }
+    }
+
+    public override List<Card> AddCards(int random_count = -1)
+    {
+        return new List<Card>();
+    }
+}
+#endregion
+
+
+
+
+
+
+
+
 //负责各关卡的特殊处理
 public class Matrix
 {

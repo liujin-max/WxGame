@@ -20,6 +20,7 @@ public class StageJSON
     public int Weight;
     public int Height;
     public int Step;
+    public int Time;
     public int Coin;
     public List<string> Conditions;
     public List<int> CardPool;

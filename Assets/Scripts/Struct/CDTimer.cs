@@ -18,10 +18,16 @@ public class CDTimer
         }
     }
 
-    public CDTimer(float duration)
+    //倒计时
+    private bool m_IsCountDown = false;
+
+    public CDTimer(float duration, bool is_countdown = false)
     {
-        m_current = 0;
-        m_duration = duration;
+        m_IsCountDown   = is_countdown;
+
+        
+        m_duration  = duration;
+        m_current   = m_IsCountDown ? duration : 0;
     }
 
     public void Full()
@@ -31,8 +37,10 @@ public class CDTimer
 
     public void Reset()
     {
-        m_current = 0;
+        m_current -= m_duration;
     }
+
+
 
     public void Reset(float duration)
     {
@@ -52,6 +60,8 @@ public class CDTimer
 
     public bool IsFinished()
     {
+        if (m_IsCountDown) return m_current <= 0;
+
         return m_current >= m_duration;
     }
 

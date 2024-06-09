@@ -12,9 +12,14 @@ public class State_Idle<T> : State<Field>
     public override void Enter(params object[] values)
     {
         EventManager.AddHandler(EVENT.ONCARDMOVED,      OnCardMoved);
-        
-        // Field.Instance.IsMoved = true;
 
+        _C.RESULT result = Field.Instance.CheckResult();
+        if (result != _C.RESULT.NONE)
+        {
+            Field.Instance.Transist(_C.FSMSTATE.RESULT, result);
+            return;
+        }
+        
         //场上没有可移动的方块
         if (Field.Instance.GetDragableCards().Count == 0) 
             Field.Instance.Transist(_C.FSMSTATE.CHECK);
@@ -25,6 +30,14 @@ public class State_Idle<T> : State<Field>
         EventManager.DelHandler(EVENT.ONCARDMOVED,      OnCardMoved);
     }
 
+    public override void Update()
+    {
+        _C.RESULT result = Field.Instance.CheckResult();
+        if (result != _C.RESULT.NONE)
+        {
+            Field.Instance.Transist(_C.FSMSTATE.RESULT, result);
+        }
+    }
 
 
     private void OnCardMoved(GameEvent @event)

@@ -56,6 +56,15 @@ public static class _C
         WOOD    = 10021,
     }
 
+    //游戏状态
+    public enum GAME_STATE
+    {
+        NONE,
+        PLAY,
+        PAUSE,
+        END
+    }
+
     public enum RESULT
     {
         VICTORY,

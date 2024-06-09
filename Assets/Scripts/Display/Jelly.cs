@@ -166,10 +166,9 @@ public class Jelly : MonoBehaviour
     void OnMouseDown()
     {   
         if (!m_Card.Dragable) return;   //无法拖动的
-        if (Field.Instance.Stage.MoveStep.IsClear()) return;    //没有行动步数了
+        if (Field.Instance.Stage.IsStepClear()) return;    //没有行动步数了
         if (Field.Instance.GetCurrentFSMState() != _C.FSMSTATE.IDLE) return;
         if (Field.Instance.IsMoved) return;
-
 
         m_Dragging  = true;
         m_TouchPos  = Input.mousePosition;
@@ -211,9 +210,11 @@ public class Jelly : MonoBehaviour
     void OnMouseUp()
     {
         if (!m_Dragged) {
-            Field.Instance.GetCards(m_Card.ID, _C.CARD_STATE.NORMAL).ForEach(c => {
-                c.Entity.ClickShake();
-            });
+            if (m_Card.TYPE == _C.CARD_TYPE.JELLY && m_Card.STATE == _C.CARD_STATE.NORMAL) {
+                Field.Instance.GetCards(m_Card.ID, _C.CARD_STATE.NORMAL).ForEach(c => {
+                    c.Entity.ClickShake();
+                });
+            }
         }
 
         m_Dragging  = false;

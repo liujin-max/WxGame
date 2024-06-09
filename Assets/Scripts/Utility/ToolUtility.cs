@@ -69,6 +69,15 @@ public static class ToolUtility
         return timestamp;
     }
 
+    public static string Second2Minute(int seconds)
+    {
+        int minutes = Mathf.FloorToInt(seconds / 60);
+        int secondsLeft = seconds % 60;
+        string result = minutes.ToString("D1") + ":" + secondsLeft.ToString("D2");
+
+        return result;
+    }
+
     public static Vector2 FindPointOnCircle(Vector3 center, float radius, float angle)
     {
         // 将角度转换为弧度
