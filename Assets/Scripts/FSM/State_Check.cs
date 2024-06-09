@@ -18,6 +18,7 @@ public class State_Check<T> : State<Field>
     {
         if (!GameFacade.Instance.DisplayEngine.IsIdle()) return;
 
+        //生成后先检测一遍
         Field.Instance.Transist(_C.FSMSTATE.ELIMINATE);
     }
 }

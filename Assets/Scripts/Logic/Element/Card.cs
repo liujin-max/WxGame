@@ -27,14 +27,23 @@ public class Card
     //死亡分解中
     public bool IsEliminating = false;
 
+    //是否固定的(不可拖动，也不可移动)
+    private bool m_IsFixed = false;
+    public bool IsFixed {
+        get {
+            if (TYPE == _C.CARD_TYPE.FRAME) return true;
 
-    //可滑动
+            return m_IsFixed;
+        }
+    }
+
+    //可拖动(不可拖动，但是不代表不能移动(可被连锁反应推动))
     private bool m_Dragable = true;
     public bool Dragable {
         get {
             if (TYPE == _C.CARD_TYPE.FRAME) return false;
             if (STATE == _C.CARD_STATE.GHOST) return false;
-            if (IsEliminating) return false;
+            if (IsEliminating || IsFixed) return false;
 
             return m_Dragable;
         }

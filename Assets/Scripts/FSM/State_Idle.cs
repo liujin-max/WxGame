@@ -39,6 +39,8 @@ public class State_Idle<T> : State<Field>
 
     public override void Update()
     {
+        if (!GameFacade.Instance.DisplayEngine.IsIdle() == true) return;
+        
         _C.RESULT result = Field.Instance.CheckResult();
         if (result != _C.RESULT.NONE)
         {

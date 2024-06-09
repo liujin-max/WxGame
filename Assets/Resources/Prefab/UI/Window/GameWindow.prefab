@@ -349,6 +349,7 @@ MonoBehaviour:
   m_Step: {fileID: 4364838908149467652}
   m_TimePivot: {fileID: 8148392162432696407}
   m_Time: {fileID: 2180716234365206306}
+  m_ButtonPivot: {fileID: 5841029606560262295}
   m_BtnTime: {fileID: 7147663262129477524}
   m_BtnStep: {fileID: 3204097816462767377}
   m_BtnShuffle: {fileID: 1436056913753489398}

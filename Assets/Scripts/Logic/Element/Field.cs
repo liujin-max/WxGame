@@ -102,8 +102,12 @@ public class Field : MonoBehaviour
     {
         STATE   = _C.GAME_STATE.NONE;
         IsMoved = false;
+        m_Turn  = 0;
 
         m_Stage.Dispose();
+
+        m_Historys.Clear();
+        m_SecondTimer.Reset();
 
         for (int i = 0; i < m_Weight; i++) {
             for (int j = 0; j < m_Height; j++) {
@@ -424,7 +428,7 @@ public class Field : MonoBehaviour
     #region 移动
     public Grid Move(Card card, _C.DIRECTION direction, bool is_manual = false)
     {
-        if (!card.Dragable) return null;
+        if (card.IsFixed) return null;
 
         Grid origin = card.Grid;
 
@@ -586,7 +590,10 @@ public class Field : MonoBehaviour
 
         //检查步数
         if (m_Stage.NeedCheckStep()) {
-            if (m_Stage.IsStepClear() == true) return _C.RESULT.LOSE;
+            if (m_Stage.IsStepClear() == true) {
+                Debug.Log("Lose");
+                return _C.RESULT.LOSE;
+            }
         }
 
         //检查时间

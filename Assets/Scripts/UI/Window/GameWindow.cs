@@ -21,6 +21,7 @@ public class GameWindow : MonoBehaviour
     [SerializeField] private Text m_Time;
 
     [Header("按钮")]
+    [SerializeField] GameObject m_ButtonPivot;
     [SerializeField] private Button m_BtnTime;
     [SerializeField] private Button m_BtnStep;
     [SerializeField] private Button m_BtnShuffle;
@@ -100,6 +101,8 @@ public class GameWindow : MonoBehaviour
     #region 监听事件
     private void OnReponseEnterStage(GameEvent @event)
     {
+        m_ButtonPivot.SetActive(Field.Instance.Stage.ID > 1);
+
         m_Stage.text = Field.Instance.Stage.ID.ToString();
         m_Coin.text = GameFacade.Instance.DataCenter.User.Coin.ToString();
 
