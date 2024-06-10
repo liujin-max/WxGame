@@ -11,10 +11,12 @@ public class VictoryWindow : MonoBehaviour
     void Start()
     {
         m_BtnContinue.onClick.AddListener(()=>{
-            Field.Instance.Dispose();
-            Field.Instance.Enter(Field.Instance.Stage.ID + 1);
+            GameFacade.Instance.EffectManager.Load(EFFECT.SWITCH, Vector3.zero, UIManager.EFFECT.gameObject).GetComponent<SceneSwitch>().Enter(()=>{
+                Field.Instance.Dispose();
+                Field.Instance.Enter(Field.Instance.Stage.ID + 1);
 
-            GameFacade.Instance.UIManager.UnloadWindow(gameObject);
+                GameFacade.Instance.UIManager.UnloadWindow(gameObject);
+            });     
         });
     }
 }

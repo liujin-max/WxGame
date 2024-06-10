@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-//继承了MonoBehaviour 所以没法用单例
 public class ScenePool: MonoBehaviour
 {
      // 异步加载场景的方法

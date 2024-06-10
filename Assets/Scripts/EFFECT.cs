@@ -4,6 +4,7 @@ using UnityEngine;
 
 public static class EFFECT
 {
-    public const string BROKEN        = "Prefab/Effect/fx_broken";
+    public const string SWITCH      = "Prefab/Effect/SceneSwitch";
+    public const string BROKEN      = "Prefab/Effect/fx_broken";
 
 }

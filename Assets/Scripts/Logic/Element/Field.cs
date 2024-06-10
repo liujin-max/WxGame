@@ -185,7 +185,7 @@ public class Field : MonoBehaviour
     }
 
     //添加虚化方块
-    public List<Card> PutGhostCards(int count)
+    public List<Card> InitGhostCards(int count)
     {
         List<Card> add_cards = new List<Card>();
 
@@ -203,6 +203,21 @@ public class Field : MonoBehaviour
         }
 
         return add_cards;
+    }
+
+    //将虚化方块实体化
+    public void CorporealCards()
+    {
+        //将虚化方块实体化
+        m_GhostCards.ForEach(card => {
+            if (card.Grid.IsEmpty == true) {
+                Field.Instance.PutCard(_C.CARD_STATE.NORMAL, card, card.Grid);
+            } else {
+                Debug.LogError("实体化时，当前坐标已经有方块了：" + card.Grid.X + ", " + card.Grid.Y);
+            }
+        });
+
+        m_GhostCards.Clear();
     }
 
     //场上可移动的方块
@@ -525,7 +540,6 @@ public class Field : MonoBehaviour
                 return target;
             }
             
-
             case _C.DIRECTION.DOWN:  //向下
             {
                 if (origin.Y == 0) return null;
@@ -683,7 +697,7 @@ public class Field : MonoBehaviour
 
         //添加虚化方块
         int count = RandomUtility.Random(1, 4);
-        Field.Instance.PutGhostCards(count);
+        Field.Instance.InitGhostCards(count);
 
 
         GameFacade.Instance.DisplayEngine.Put(DisplayEngine.Track.Common, new DisplayEvent_ShuffleCard(m_Cards));

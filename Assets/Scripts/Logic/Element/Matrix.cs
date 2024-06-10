@@ -227,6 +227,61 @@ public class Matrix_11 : Matrix
 #endregion
 
 
+#region 第12关
+public class Matrix_12 : Matrix
+{
+    public override List<Card> AddCards(int random_count = -1)
+    {
+        //将虚化方块实体化
+        Field.Instance.CorporealCards();
+
+        List<Card> cards    = new List<Card>();
+
+        //上下两个区域，各生成2个虚化方块
+        //上区域只生成10001和10004
+        //下区域只生成10002和10003
+
+        List<object> top_grids  = new List<object>();
+        int[] top_cards         = {10001, 10004};
+
+        List<object> bom_grids  = new List<object>();
+        int[] bottom_cards      = {10002, 10003};
+
+        Field.Instance.GetEmptyGrids().ForEach(o => {
+            Grid g = o as Grid;
+
+            if (g.Y >= 4) {
+                top_grids.Add(o);
+            } else {
+                bom_grids.Add(o);
+            }   
+        });
+
+        //
+        List<object> tops   = RandomUtility.Pick(2, top_grids);
+        List<object> bottoms= RandomUtility.Pick(2, bom_grids);
+        
+        foreach (Grid g in tops)
+        {
+            int card_id = top_cards[RandomUtility.Random(0, top_cards.Length)];
+            var c = Field.Instance.PutCard(_C.CARD_STATE.GHOST, GameFacade.Instance.DataCenter.GetCardData(card_id), g);
+
+            cards.Add(c);
+        }
+
+        foreach (Grid g in bottoms)
+        {
+            int card_id = bottom_cards[RandomUtility.Random(0, bottom_cards.Length)];
+            var c = Field.Instance.PutCard(_C.CARD_STATE.GHOST, GameFacade.Instance.DataCenter.GetCardData(card_id), g);
+
+            cards.Add(c);
+        }
+
+        return cards;
+    }
+}
+#endregion
+
 
 
 
@@ -294,20 +349,13 @@ public class Matrix
     public virtual List<Card> AddCards(int random_count = -1)
     {
         //将虚化方块实体化
-        Field.Instance.GhostCards.ForEach(card => {
-            if (card.Grid.IsEmpty == true) {
-                Field.Instance.PutCard(_C.CARD_STATE.NORMAL, card, card.Grid);
-            } else {
-                Debug.LogError("实体化时，当前坐标已经有方块了：" + card.Grid.X + ", " + card.Grid.Y);
-            }
-        });
-        Field.Instance.GhostCards.Clear();
+        Field.Instance.CorporealCards();
 
 
         //添加虚化方块
         int count = random_count == -1 ? RandomUtility.Random(2, 4) : random_count;
 
-        return Field.Instance.PutGhostCards(count);
+        return Field.Instance.InitGhostCards(count);
     }
 
     public virtual void Dispose()

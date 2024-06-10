@@ -15,8 +15,7 @@ public class LoginWindow : MonoBehaviour
     void Awake()
     {
         m_BtnStage.onClick.AddListener(()=>{
-
-            GameFacade.Instance.EffectManager.Load("Prefab/Effect/SceneSwitch", Vector3.zero, UIManager.EFFECT.gameObject).GetComponent<SceneSwitch>().Enter(()=>{
+            GameFacade.Instance.EffectManager.Load(EFFECT.SWITCH, Vector3.zero, UIManager.EFFECT.gameObject).GetComponent<SceneSwitch>().Enter(()=>{
                 //进入游戏
                 NavigationController.GotoGame();
             });

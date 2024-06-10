@@ -76,6 +76,7 @@
     <Compile Include="Assets\Scripts\Manager\SoundManager.cs" />
     <Compile Include="Assets\Scripts\UI\Item\GridView.cs" />
     <Compile Include="Assets\Scripts\Effect\ShakeText.cs" />
+    <Compile Include="Assets\Scripts\Logic\Element\History.cs" />
     <Compile Include="Assets\Scripts\Utility\DIYScrollView.cs" />
     <Compile Include="Assets\DOTween\Modules\DOTweenModulePhysics2D.cs" />
     <Compile Include="Assets\Scripts\Manager\UIManager.cs" />
@@ -125,6 +126,7 @@
     <Compile Include="Assets\Scripts\FSM\FSM.cs" />
     <Compile Include="Assets\Scripts\Effect\FlyCoin.cs" />
     <Compile Include="Assets\Scripts\Utility\MouseClickHandler.cs" />
+    <Compile Include="Assets\Scripts\Effect\JellyDrop.cs" />
     <Compile Include="Assets\Scripts\Utility\BoxColliderUtility.cs" />
     <Compile Include="Assets\Scripts\Logic\Element\Stage.cs" />
     <Compile Include="Assets\Scripts\Manager\CsvManager.cs" />
@@ -160,8 +162,6 @@
     <Compile Include="Assets\Scripts\UI\Window\LoginWindow.cs" />
     <Compile Include="Assets\Scripts\Effect\Shine.cs" />
     <Compile Include="Assets\DOTween\Modules\DOTweenModuleUnityVersion.cs" />
-    <Compile Include="Assets\Scripts\Effect\JellyDrop.cs" />
-    <Compile Include="Assets\Scripts\Logic\Element\History.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Resources\Shader\SpriteGray.shader" />

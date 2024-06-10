@@ -32,6 +32,7 @@ public class Stage
         { 1, () => new Matrix_1()},
         { 10, () => new Matrix_10()},
         { 11, () => new Matrix_11()},
+        { 12, () => new Matrix_12()},
     };
 
     public Stage(StageJSON stageData)

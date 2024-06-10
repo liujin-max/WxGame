@@ -129,12 +129,19 @@ public class GameWindow : MonoBehaviour
         bool will_shake = (bool)@event.GetParam(0);
         
         int step    = Field.Instance.Stage.GetCurrentStep();
+        var color   = step <= 5 ? Color.red : Color.white;
+
         m_Step.text = step.ToString();
-        m_Step.color= step <= 5 ? Color.red : Color.white;
+        m_Step.color= color;
 
         if (will_shake || step <= 5) 
         {
             m_Step.transform.DOShakePosition(0.4f, 5f, 15, 60);
+
+            if (will_shake) {
+                m_Step.color= Color.green;
+                m_Step.DOColor(color, 0.5f);
+            }
         }
     }
 
@@ -143,12 +150,19 @@ public class GameWindow : MonoBehaviour
         bool will_shake = (bool)@event.GetParam(0);
 
         float second= Field.Instance.Stage.GetCurrentTimer();
+        var color   = second <= 30 ? Color.red : Color.white;
+
         m_Time.text = ToolUtility.Second2Minute(Mathf.CeilToInt(second));
-        m_Time.color= second <= 30 ? Color.red : Color.white;
+        m_Time.color= color;
 
         if (will_shake || second <= 30) 
         {
             m_Time.transform.DOShakePosition(0.4f, 5f, 15, 60);
+
+            if (will_shake) {
+                m_Time.color= Color.green;
+                m_Time.DOColor(color, 0.5f);
+            }
         }
 
     }
