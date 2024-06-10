@@ -697,7 +697,6 @@ public class Field : MonoBehaviour
         //检查步数
         if (m_Stage.NeedCheckStep()) {
             if (m_Stage.IsStepClear() == true) {
-                Debug.Log("Lose");
                 return _C.RESULT.LOSE;
             }
         }
