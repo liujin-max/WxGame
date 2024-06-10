@@ -9,7 +9,7 @@ Material:
   m_PrefabAsset: {fileID: 0}
   m_Name: HandDraw
   m_Shader: {fileID: 4800000, guid: a36b7719ff0465b42ab1407d67672c5f, type: 3}
-  m_ShaderKeywords: DOODLE_ON
+  m_ShaderKeywords: CHROMABERR_ON DOODLE_ON
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
@@ -66,8 +66,8 @@ Material:
     - _BillboardY: 0
     - _BlurHD: 0
     - _BlurIntensity: 10
-    - _ChromAberrAlpha: 0.114
-    - _ChromAberrAmount: 0.433
+    - _ChromAberrAlpha: 0.327
+    - _ChromAberrAmount: 0.423
     - _ClipUvDown: 0
     - _ClipUvLeft: 0
     - _ClipUvRight: 0
@@ -92,7 +92,7 @@ Material:
     - _FlickerPercent: 0.05
     - _GhostColorBoost: 1
     - _GhostTransparency: 0
-    - _GlitchAmount: 3
+    - _GlitchAmount: 2
     - _GlitchSize: 1
     - _Glow: 10
     - _GlowTexUsed: 0
@@ -103,13 +103,13 @@ Material:
     - _GrassWind: 20
     - _GreyscaleLuminosity: 0
     - _GreyscaleOutline: 0
-    - _HandDrawnAmount: 6
-    - _HandDrawnSpeed: 3
+    - _HandDrawnAmount: 15
+    - _HandDrawnSpeed: 2
     - _HitEffectBlend: 1
     - _HitEffectGlow: 5
     - _HologramMaxAlpha: 1
     - _HologramMinAlpha: 0
-    - _HologramStripesAmount: 0
+    - _HologramStripesAmount: 0.321
     - _HologramStripesSpeed: 5
     - _HologramUnmodAmount: 0.699
     - _HsvBright: 1
