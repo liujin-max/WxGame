@@ -284,6 +284,51 @@ public class Matrix_12 : Matrix
 
 
 
+#region 第14关
+public class Matrix_14 : Matrix
+{
+    public override List<Card> AddCards(int random_count = -1)
+    {
+        //将虚化方块实体化
+        Field.Instance.CorporealCards();
+
+        List<Card> cards    = new List<Card>();
+
+        //只在下半区域生成
+
+
+        List<Grid> grids  = new List<Grid>();
+
+        Field.Instance.GetEmptyGrids().ForEach(o => {
+            Grid g = o as Grid;
+
+            if (g.Y <= 2) {
+                grids.Add(g);
+            }  
+        });
+
+        for (int i = 0; i < 3; i++)
+        {
+            var data    = m_Stage.Cards[RandomUtility.Random(0, m_Stage.Cards.Count)];
+
+            Grid grid   = grids[RandomUtility.Random(0, grids.Count)];
+            while (Field.Instance.IsSameCardNear(grid, data.ID)) {
+                grid    = grids[RandomUtility.Random(0, grids.Count)];
+            }
+
+            Card card   = Field.Instance.PutCard(_C.CARD_STATE.GHOST, data, grid);
+
+            cards.Add(card);
+        }
+
+        return cards;
+    }
+}
+#endregion
+
+
+
+
 
 
 

@@ -40,11 +40,21 @@ SpriteAtlas:
     cachedData: {fileID: 0}
   m_MasterAtlas: {fileID: 0}
   m_PackedSprites:
+  - {fileID: 21300000, guid: 10953b12f7b1fc84987b04555273b5c9, type: 3}
   - {fileID: 21300000, guid: 1f30940379d8f8d4988b6a8641f8ced3, type: 3}
+  - {fileID: 21300000, guid: ca98ce5312dad4545a5af0639c25ede6, type: 3}
   - {fileID: 21300000, guid: 2a0fb5c402e48134dacbad69a0e23bb9, type: 3}
+  - {fileID: 21300000, guid: b032df9c5a3b0a045a528783f7535a92, type: 3}
+  - {fileID: 21300000, guid: 71cd227d720386249bae7789d8cfc782, type: 3}
+  - {fileID: 21300000, guid: 0af792ff06874a742a1478adcaf9a634, type: 3}
   m_PackedSpriteNamesToIndex:
+  - Game_effect_star
   - Game_condition_frame
+  - Game_text_li
   - Game_topbar
+  - Game_text_sheng
+  - Game_text_shi
+  - Game_text_bai
   m_RenderDataMap: {}
   m_Tag: Game
   m_IsVariant: 0

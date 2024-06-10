@@ -40,18 +40,30 @@ SpriteAtlas:
     cachedData: {fileID: 0}
   m_MasterAtlas: {fileID: 0}
   m_PackedSprites:
+  - {fileID: 21300000, guid: 8d30f1f109e461a4ba718305ac9ccf47, type: 3}
   - {fileID: 21300000, guid: ce643fe3c6cfdf54b81d4b31916286ab, type: 3}
   - {fileID: 21300000, guid: a83d38b53af8c644099fe1c5817e8e31, type: 3}
+  - {fileID: 21300000, guid: f51e564741494ce489b48982392a33be, type: 3}
   - {fileID: 21300000, guid: 26232cd8afea6e848a46f6f7164ef104, type: 3}
   - {fileID: 21300000, guid: 696f2ed82c2c4d84b89d8c3d5c558c8f, type: 3}
+  - {fileID: 21300000, guid: ace57d6a0b6461e45b45e364bbf575f5, type: 3}
+  - {fileID: 21300000, guid: 218e7b8a5b0d72849bf7e88e3bbeec1e, type: 3}
+  - {fileID: 21300000, guid: b32f926b44b2bb348bc1551ac69a2bcd, type: 3}
+  - {fileID: 21300000, guid: 8822ee6b9b893634e889ef62e0875085, type: 3}
   - {fileID: 21300000, guid: 5db9497c10021dd4cb202a1f8daab959, type: 3}
   - {fileID: 21300000, guid: 22e7179cb245f3740836b26716756a0b, type: 3}
   - {fileID: 21300000, guid: 8d95876d6ff8c894e9026fce8e55ed01, type: 3}
   m_PackedSpriteNamesToIndex:
+  - Universal_detail_frame
   - Universal_food
   - Universal_mask_white
+  - Universal_text_frame
   - Universal_count_frame
   - Universal_btnSet
+  - Universal_icon_video
+  - Universal_item_frame
+  - Universal_btn_green
+  - Universal_btn_yellow
   - Universal_coin
   - Universal_time
   - Universal_step

@@ -77,8 +77,8 @@ public class Card
             var grid    = m_Grid;
             GameFacade.Instance.DisplayEngine.Put(DisplayEngine.Track.Common, new DisplayEvent_BrokenCard(this));
 
-            int rand    = RandomUtility.Random(0, Field.Instance.Stage.Cards.Count);
-            Field.Instance.PutCard(_C.CARD_STATE.NORMAL, Field.Instance.Stage.Cards[rand], grid);
+            // int rand    = RandomUtility.Random(0, Field.Instance.Stage.Cards.Count);
+            // Field.Instance.PutCard(_C.CARD_STATE.NORMAL, Field.Instance.Stage.Cards[rand], grid);
 
             return;
         }

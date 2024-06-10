@@ -27,7 +27,7 @@ public class JellyDrop : MonoBehaviour
 
             float pos_x     = RandomUtility.Random(0, 100) / 100.0f;
             float pos_y     = RandomUtility.Random(0, 100) / 100.0f * -1;
-            // if (RandomUtility.IsHit(50)) pos_x *= -1;
+
             if (pos.x > 0) {
                 pos_x *= -1;
             }

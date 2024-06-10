@@ -33,12 +33,15 @@ public class Stage
     private CDTimer m_CountDownTimer;
     private Matrix m_Matrix;
 
+    #region 配置关卡
     private static Dictionary<int, Func<Matrix>> m_classDictionary = new Dictionary<int, Func<Matrix>> {
-        { 1, () => new Matrix_1()},
+        {  1, () => new Matrix_1()},
         { 10, () => new Matrix_10()},
         { 11, () => new Matrix_11()},
         { 12, () => new Matrix_12()},
+        { 14, ()=> new Matrix_14()},
     };
+    #endregion
 
     public Stage(StageJSON stageData)
     {
