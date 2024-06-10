@@ -4,9 +4,10 @@ using UnityEngine;
 
 public class Grid
 {
-    public int Order;
-    public int X;
-    public int Y;
+    private GridJSON m_Data;
+    public int Order {get{return m_Data.Order;}}
+    public int X {get{return m_Data.X;}}
+    public int Y {get{return m_Data.Y;}}
 
     private Vector2 m_Position;
     public Vector2 Position {get {return m_Position;}}
@@ -25,6 +26,20 @@ public class Grid
         set {m_Card = value;}
     }
 
+    //对应传送门
+    public Grid m_Portal = null;
+    public Grid Portal {get {
+        if (m_Card != null && m_Card.ID == (int)_C.CARD.PORTAL) {
+            if (m_Portal == null) {
+                m_Portal = Field.Instance.GetGrid((int)m_Data.Portal.x, (int)m_Data.Portal.y);
+            }
+            return m_Portal;
+        }
+
+        return null;
+    }}
+
+
     private GameObject m_Entity;
     public GameObject Entity {get {return m_Entity;} }
     public Transform Frame;
@@ -33,13 +48,13 @@ public class Grid
     private Transform m_Horn1;
     private Transform m_Horn2;
 
-    public Grid(int order, int x, int y, Vector2 position)
-    {
-        Order   = order;
-        X       = x;
-        Y       = y;
 
-        m_Position = position;
+    public Grid(GridJSON gridJSON, Vector2 position)
+    {
+        m_Data      = gridJSON;
+        m_Position  = position;
+
+
     }
 
 
@@ -295,6 +310,29 @@ public class Grid
         }
     }
 
+    //当前传送门能否穿越
+    public bool IsPortalCanCross(Card card, _C.DIRECTION direction)
+    {
+        //不是传送门
+        if (this.Portal == null) return false;
+
+        int offset_x    = 0;
+        int offset_y    = 0;
+        if (direction == _C.DIRECTION.LEFT) offset_x = -1;
+        else if (direction == _C.DIRECTION.RIGHT) offset_x = 1;
+        else if (direction == _C.DIRECTION.UP) offset_y = 1;
+        else if (direction == _C.DIRECTION.DOWN) offset_y = -1;
+
+        var near_grid = Field.Instance.GetGrid(Portal.X + offset_x, Portal.Y + offset_y);
+        if (near_grid == null) return false;
+
+        if (!near_grid.IsValid || !near_grid.IsEmpty)
+        {
+            return false;
+        }
+
+        return true;
+    }
 
     public void Dispose()
     {

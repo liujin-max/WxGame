@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -147,7 +148,8 @@ public class Field : MonoBehaviour
         int count = 1;
         for (int i = 0; i < m_Weight; i++) {
             for (int j = 0; j < m_Height; j++) {
-                var grid = new Grid(count, i, j, new Vector2((i - ((m_Weight - 1) / 2.0f)) * _C.DEFAULT_GRID_WEIGHT, (j - ((m_Height - 1) / 2.0f)) * _C.DEFAULT_GRID_HEIGHT));
+                var json = m_Stage.GetGridJSON(i, j);
+                var grid = new Grid(json, new Vector2((i - ((m_Weight - 1) / 2.0f)) * _C.DEFAULT_GRID_WEIGHT, (j - ((m_Height - 1) / 2.0f)) * _C.DEFAULT_GRID_HEIGHT));
                 m_Grids[i, j] = grid;
 
                 count++;
@@ -447,25 +449,49 @@ public class Field : MonoBehaviour
 
         Grid origin = card.Grid;
 
+        List<Grid> grid_path = new List<Grid>();
+
         switch (direction) 
         {
-            case _C.DIRECTION.LEFT: //向左
+            case _C.DIRECTION.LEFT:     //向左
             {
                 if (origin.X == 0) return null;
 
-                Grid target = null;
+                int pos_x   = origin.X - 1;
+                int pos_y   = origin.Y;
 
-                for (int i = origin.X -1; i >= 0; i--)
+                while (pos_x >= 0 && pos_x < m_Weight && pos_y >= 0 && pos_y < m_Height)
                 {
-                    Grid grid = m_Grids[i, origin.Y];
-                    if (!grid.IsEmpty || !grid.IsValid) break;
-                    
-                    target  = grid;
-                }
-                
-                if (target == null)  return null;
+                    Grid grid = this.GetGrid(pos_x, pos_y);;
 
-                int offset  = Mathf.Abs(target.X - origin.X);
+                    if (!grid.IsValid) break;
+
+                    if (grid.IsEmpty)
+                    {
+                        grid_path.Add(grid);
+
+                        pos_x--;
+                    }
+                    else 
+                    {
+                        if (grid.IsPortalCanCross(card, direction) == true)    //传送门
+                        {
+                            grid_path.Add(grid);
+                            grid_path.Add(grid.Portal);
+
+                            pos_x = grid.Portal.X - 1;
+                            pos_y = grid.Portal.Y;
+                        }
+                        else
+                        {
+                            break;
+                        }
+                    }
+                }
+
+                if (grid_path.Count == 0)  return null;
+
+                Grid target = grid_path.Last();
 
                 origin.Card = null;
                 target.Card = card;
@@ -474,7 +500,7 @@ public class Field : MonoBehaviour
                 ClearGhost(card);
                 if (is_manual == true) m_Stage.UpdateMoveStep(-1);
 
-                GameFacade.Instance.DisplayEngine.Put(DisplayEngine.Track.Common, new DisplayEvent_MoveCard(card, _C.DIRECTION.LEFT, offset));
+                GameFacade.Instance.DisplayEngine.Put(DisplayEngine.Track.Common, new DisplayEvent_MoveCard(card, _C.DIRECTION.LEFT, grid_path));
 
                 return target;
             }
@@ -483,19 +509,41 @@ public class Field : MonoBehaviour
             {
                 if (origin.X == m_Weight - 1) return null;
 
-                Grid target = null;
+                int pos_x   = origin.X + 1;
+                int pos_y   = origin.Y;
 
-                for (int i = origin.X + 1; i < m_Weight; i++)
+                while (pos_x >= 0 && pos_x < m_Weight && pos_y >= 0 && pos_y < m_Height)
                 {
-                    Grid grid = m_Grids[i, origin.Y];
-                    if (!grid.IsEmpty || !grid.IsValid) break;
-                    
-                    target  = grid;
+                    Grid grid = this.GetGrid(pos_x, pos_y);;
+
+                    if (!grid.IsValid) break;
+
+                    if (grid.IsEmpty)
+                    {
+                        grid_path.Add(grid);
+
+                        pos_x++;
+                    }
+                    else 
+                    {
+                        if (grid.IsPortalCanCross(card, direction) == true)    //传送门
+                        {
+                            grid_path.Add(grid);
+                            grid_path.Add(grid.Portal);
+
+                            pos_x = grid.Portal.X + 1;
+                            pos_y = grid.Portal.Y;
+                        }
+                        else
+                        {
+                            break;
+                        }
+                    }
                 }
 
-                if (target == null)  return null;
+                if (grid_path.Count == 0)  return null;
 
-                int offset  = Mathf.Abs(target.X - origin.X);
+                Grid target = grid_path.Last();
 
                 origin.Card = null;
                 target.Card = card;
@@ -504,28 +552,50 @@ public class Field : MonoBehaviour
                 ClearGhost(card);
                 if (is_manual == true) m_Stage.UpdateMoveStep(-1);
 
-                GameFacade.Instance.DisplayEngine.Put(DisplayEngine.Track.Common, new DisplayEvent_MoveCard(card, _C.DIRECTION.RIGHT, offset));
+                GameFacade.Instance.DisplayEngine.Put(DisplayEngine.Track.Common, new DisplayEvent_MoveCard(card, _C.DIRECTION.RIGHT, grid_path));
 
                 return target;
             }
 
-            case _C.DIRECTION.UP:  //向上
+            case _C.DIRECTION.UP:       //向上
             {
                 if (origin.Y == m_Height - 1) return null;
 
-                Grid target = null;
+                int pos_x   = origin.X;
+                int pos_y   = origin.Y + 1;
 
-                for (int j = origin.Y + 1; j < m_Height; j++)
+                while (pos_x >= 0 && pos_x < m_Weight && pos_y >= 0 && pos_y < m_Height)
                 {
-                    Grid grid = m_Grids[origin.X, j];
-                    if (!grid.IsEmpty || !grid.IsValid) break;
-                    
-                    target  = grid;
+                    Grid grid = this.GetGrid(pos_x, pos_y);;
+
+                    if (!grid.IsValid) break;
+
+                    if (grid.IsEmpty)
+                    {
+                        grid_path.Add(grid);
+
+                        pos_y++;
+                    }
+                    else 
+                    {
+                        if (grid.IsPortalCanCross(card, direction) == true)    //传送门
+                        {
+                            grid_path.Add(grid);
+                            grid_path.Add(grid.Portal);
+
+                            pos_x = grid.Portal.X;
+                            pos_y = grid.Portal.Y + 1;
+                        }
+                        else
+                        {
+                            break;
+                        }
+                    }
                 }
 
-                if (target == null)  return null;
+                if (grid_path.Count == 0)  return null;
 
-                int offset  = Mathf.Abs(target.Y - origin.Y);
+                Grid target = grid_path.Last();
 
                 origin.Card = null;
                 target.Card = card;
@@ -535,29 +605,51 @@ public class Field : MonoBehaviour
 
                 if (is_manual == true) m_Stage.UpdateMoveStep(-1);
 
-                GameFacade.Instance.DisplayEngine.Put(DisplayEngine.Track.Common, new DisplayEvent_MoveCard(card, _C.DIRECTION.UP, offset));
+                GameFacade.Instance.DisplayEngine.Put(DisplayEngine.Track.Common, new DisplayEvent_MoveCard(card, _C.DIRECTION.UP, grid_path));
 
                 return target;
             }
             
-            case _C.DIRECTION.DOWN:  //向下
+            case _C.DIRECTION.DOWN:     //向下
             {
                 if (origin.Y == 0) return null;
 
-                Grid target = null;
 
-                for (int j = origin.Y -1; j >= 0; j--)
+                int pos_x   = origin.X;
+                int pos_y   = origin.Y - 1;
+
+                while (pos_x >= 0 && pos_x < m_Weight && pos_y >= 0 && pos_y < m_Height)
                 {
-                    Grid grid = m_Grids[origin.X, j];
-                    if (!grid.IsEmpty || !grid.IsValid) break;
-                    
-                    target  = grid;
+                    Grid grid = this.GetGrid(pos_x, pos_y);;
+
+                    if (!grid.IsValid) break;
+
+                    if (grid.IsEmpty)
+                    {
+                        grid_path.Add(grid);
+
+                        pos_y--;
+                    }
+                    else 
+                    {
+                        if (grid.IsPortalCanCross(card, direction) == true)    //传送门
+                        {
+                            grid_path.Add(grid);
+                            grid_path.Add(grid.Portal);
+
+                            pos_x = grid.Portal.X;
+                            pos_y = grid.Portal.Y - 1;
+                        }
+                        else
+                        {
+                            break;
+                        }
+                    }
                 }
 
-                if (target == null)  return null;
+                if (grid_path.Count == 0)  return null;
 
-                int offset  = Mathf.Abs(target.Y - origin.Y);
-
+                Grid target = grid_path.Last();
                 origin.Card = null;
                 target.Card = card;
                 card.Grid   = target;
@@ -565,7 +657,7 @@ public class Field : MonoBehaviour
                 ClearGhost(card);
                 if (is_manual == true) m_Stage.UpdateMoveStep(-1);
 
-                GameFacade.Instance.DisplayEngine.Put(DisplayEngine.Track.Common, new DisplayEvent_MoveCard(card, _C.DIRECTION.DOWN, offset));
+                GameFacade.Instance.DisplayEngine.Put(DisplayEngine.Track.Common, new DisplayEvent_MoveCard(card, _C.DIRECTION.DOWN, grid_path));
 
                 return target;
             }

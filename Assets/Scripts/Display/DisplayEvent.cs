@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using DG.Tweening;
 using UnityEngine;
 
@@ -145,6 +146,9 @@ public class DisplayEvent_NormalCard : DisplayEvent
 //移动卡牌
 public class DisplayEvent_MoveCard : DisplayEvent
 {
+    private List<Grid> m_GridPaths = new List<Grid>();
+    private CDTimer m_Timer;
+
     public DisplayEvent_MoveCard(params object[] values) : base(values) {}
 
     public override void Start()
@@ -153,10 +157,10 @@ public class DisplayEvent_MoveCard : DisplayEvent
 
         var card        = m_Params[0] as Card;
         var direction   = (_C.DIRECTION)m_Params[1];
-        int offset      = (int)m_Params[2];
+        m_GridPaths     = (List<Grid>)m_Params[2];
 
-        float time      = 0.1f + (offset * 0.05f);
-
+        m_Timer = new CDTimer(0.05f);
+        m_Timer.Full();
 
         if (direction == _C.DIRECTION.LEFT || direction == _C.DIRECTION.RIGHT)
         {
@@ -166,20 +170,57 @@ public class DisplayEvent_MoveCard : DisplayEvent
         {
             card.Entity.DoScale(new Vector3(0.8f, 1.2f, 0), 0.1f);
         }
+    }
 
-        card.Entity.transform.DOLocalMove(card.Grid.Position, time).OnComplete(()=>{
-            m_State = _C.DISPLAY_STATE.END;
+    public override void Update(float dt)
+    {
+        m_Timer.Update(dt);
+        if (m_Timer.IsFinished() == true) {
+            m_Timer.ForceReset();
 
-            card.Entity.DoScale(Vector3.one, 0.1f); //不在缩放结束后处理了，有可能被顶掉
+            var card        = m_Params[0] as Card;
+            var direction   = (_C.DIRECTION)m_Params[1];
 
-            var hit = Field.Instance.GetCardByDirection(card, direction);
-            if (hit != null) {
-                hit.Entity.Shake(direction);
+            if (m_GridPaths.Count > 0)
+            {
+                var grid = m_GridPaths.First();
+                m_GridPaths.Remove(grid);
+                
+                Vector2 to_pos = grid.Position;
+                if (Vector3.Distance(card.Entity.transform.localPosition, to_pos) >= 1.5f)
+                {
+                    m_Timer.Full();
+
+                    card.Entity.transform.localPosition = to_pos;
+                }
+                else
+                {
+                    card.Entity.transform.DOLocalMove(to_pos, m_Timer.Duration).SetEase(Ease.Linear);
+                }
+                
             }
+            else
+            {
+                m_State = _C.DISPLAY_STATE.END;
 
-            EventManager.SendEvent(new GameEvent(EVENT.ONCARDMOVED, card));
-            EventManager.SendEvent(new GameEvent(EVENT.UI_UPDATESTEP, false));
-        });
+                card.Entity.transform.localPosition = card.Grid.Position;
+                card.Entity.DoScale(Vector3.one, 0.1f); //不在缩放结束后处理了，有可能被顶掉
+
+                var hit = Field.Instance.GetCardByDirection(card, direction);
+                if (hit != null) {
+                    hit.Entity.Shake(direction);
+                }
+            }
+            
+        }
+    }
+
+    public override void Terminate()
+    {
+        var card        = m_Params[0] as Card;
+
+        EventManager.SendEvent(new GameEvent(EVENT.ONCARDMOVED, card));
+        EventManager.SendEvent(new GameEvent(EVENT.UI_UPDATESTEP, false));
     }
 }
 

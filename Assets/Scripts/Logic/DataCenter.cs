@@ -1,5 +1,7 @@
 using System;
 using System.Collections.Generic;
+using UnityEngine;
+
 
 
 
@@ -37,6 +39,7 @@ public class GridJSON
 
     public bool IsValid = true;
     public int JellyID;
+    public Vector2 Portal;
 }
 
 

@@ -15,6 +15,9 @@ public class GridEditor : MonoBehaviour
     public bool IsValid = true;
     public int JellyID;
 
+    [Header("对应传送门")]
+    public Vector2 Portal;
+
 
     public void Init(int order, int x, int y, Vector2 position)
     {

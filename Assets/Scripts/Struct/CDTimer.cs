@@ -40,7 +40,10 @@ public class CDTimer
         m_current -= m_duration;
     }
 
-
+    public void ForceReset()
+    {
+        m_current = 0;
+    }
 
     public void Reset(float duration)
     {

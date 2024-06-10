@@ -54,6 +54,7 @@ public static class _C
     {
         STONE   = 10020,
         WOOD    = 10021,
+        PORTAL  = 10022,    //传送门
     }
 
     //游戏状态

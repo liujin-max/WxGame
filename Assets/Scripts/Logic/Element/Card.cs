@@ -32,7 +32,6 @@ public class Card
     public bool IsFixed {
         get {
             if (TYPE == _C.CARD_TYPE.FRAME) return true;
-
             return m_IsFixed;
         }
     }
@@ -52,6 +51,7 @@ public class Card
 
     //状态
     public _C.CARD_STATE STATE;
+
 
     public Card(CardData cardData)
     {

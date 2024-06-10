@@ -120,6 +120,7 @@ public class MapEditor : MonoBehaviour
             grid.Init(grid_json.Order, grid_json.X, grid_json.Y, pos);
             grid.IsValid = grid_json.IsValid;
             grid.JellyID = grid_json.JellyID;
+            grid.Portal  = grid_json.Portal;
         });
 
     }
@@ -153,6 +154,7 @@ public class MapEditor : MonoBehaviour
             gj.Y = g.Y;
             gj.IsValid = g.IsValid;
             gj.JellyID = g.JellyID;
+            gj.Portal  = g.Portal;
 
             mapData.Grids.Add(gj);
         }

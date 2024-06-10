@@ -13,6 +13,11 @@ public class Stage
     public int Weight {get{return m_Data.Weight;}}
     public int Height {get{return m_Data.Height;}}
     public int Coin {get{return m_Data.Coin;}}
+    
+
+
+    private List<GridJSON> m_GridJSONs = new List<GridJSON>();
+    private GridJSON[,] m_GridJSONDic;
     public List<GridJSON> GridJSONs {get {return m_Data.Grids;}}
 
 
@@ -50,6 +55,7 @@ public class Stage
         }
         m_Matrix.Init(this);
 
+        ParseJSONs();
         ParseCardPool();
         ParseCondition();
     }
@@ -57,6 +63,16 @@ public class Stage
     public void Dispose()
     {
         m_Matrix.Dispose();
+    }
+
+    void ParseJSONs()
+    {
+        m_GridJSONDic = new GridJSON[Weight, Height];
+
+        m_Data.Grids.ForEach(g => {
+            m_GridJSONs.Add(g);
+            m_GridJSONDic[g.X, g.Y] = g;
+        });
     }
 
     void ParseCardPool()
@@ -81,6 +97,13 @@ public class Stage
             var condition = new Condition(Convert.ToInt32(conditions[0]), Convert.ToInt32(conditions[1]));
             m_Conditions.Add(condition);
         }
+    }
+
+
+
+    public GridJSON GetGridJSON(int x, int y)
+    {
+        return m_GridJSONDic[x, y];
     }
 
     public bool NeedCheckStep()
