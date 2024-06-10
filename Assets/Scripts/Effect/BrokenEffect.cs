@@ -8,7 +8,7 @@ public class BrokenEffect : MonoBehaviour
 
     public void Init(int jelly_id)
     {
-        ParticleSystem.ShapeModule shape = m_ParticleSystem.shape;
-        shape.texture = Resources.Load<Texture2D>("UI/Element/jelly_" + jelly_id);
+        // ParticleSystem.ShapeModule shape = m_ParticleSystem.shape;
+        // shape.texture = Resources.Load<Texture2D>("UI/Element/jelly_" + jelly_id);
     }
 }

@@ -259,8 +259,8 @@ public class DisplayEvent_BrokenCard : DisplayEvent
         if (card.Entity.Entity.size.y >= 1.9f) {
             m_State = _C.DISPLAY_STATE.END;
 
-            var broken = GameFacade.Instance.EffectManager.Load(EFFECT.BROKEN, card.Entity.transform.position).GetComponent<BrokenEffect>();
-            broken.Init(card.ID);
+            GameFacade.Instance.EffectManager.Load("Prefab/Effect/fx_broken_" + card.ID, card.Entity.transform.position);
+
 
             card.Dispose();
 
