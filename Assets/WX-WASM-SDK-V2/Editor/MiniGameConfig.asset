@@ -13,13 +13,13 @@ MonoBehaviour:
   m_Name: MiniGameConfig
   m_EditorClassIdentifier: 
   ProjectConf:
-    projectName: "\u5408\u6210\u5F39\u73E0"
-    Appid: wx3eeae3a7e9821066
-    CDN: https://a.unity.cn/client_api/v1/buckets/af9f455f-c0e4-49f5-ade7-cfbc976b74b8/release_by_badge/v3/content
+    projectName: "\u6307\u5C16\u65B9\u5757\u5BF9\u5BF9\u6D88"
+    Appid: wx4084a464d1d00b1d
+    CDN: 
     assetLoadType: 1
     compressDataPackage: 0
     VideoUrl: 
-    DST: D:/Work/Output
+    DST: D:/Work/WxGame_OutPut
     StreamCDN: 
     bundleHashLength: 32
     bundlePathIdentifier: StreamingAssets;AS;CUS/CustomAB
@@ -29,7 +29,7 @@ MonoBehaviour:
     HideAfterCallMain: 1
     preloadFiles: 
     Orientation: 0
-    bgImageSrc: Assets/Resources/UI/Scape/ScreenLoading.png
+    bgImageSrc: Assets/Resources/UI/Scape/game_bg.png
     dataFileSubPrefix: CUS
     maxStorage: 200
     defaultReleaseSize: 31457280

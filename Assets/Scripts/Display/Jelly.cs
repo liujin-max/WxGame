@@ -215,6 +215,14 @@ public class Jelly : MonoBehaviour
                     c.Entity.ClickShake();
                 });
             }
+
+            if (m_Card.ID == (int)_C.CARD.PORTAL) {
+                if (m_Card.Grid.Portal != null) {
+                    this.ClickShake();
+                    m_Card.Grid.Portal.Card.Entity.ClickShake();
+                }
+                    
+            }
         }
 
         m_Dragging  = false;

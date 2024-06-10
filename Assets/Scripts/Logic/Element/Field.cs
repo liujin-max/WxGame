@@ -215,7 +215,7 @@ public class Field : MonoBehaviour
             if (card.Grid.IsEmpty == true) {
                 Field.Instance.PutCard(_C.CARD_STATE.NORMAL, card, card.Grid);
             } else {
-                Debug.LogError("实体化时，当前坐标已经有方块了：" + card.Grid.X + ", " + card.Grid.Y);
+                Debug.LogError("实体化时，当前坐标已经有方块了：" + card.Grid.X + ", " + card.Grid.Y + " => " + card.Grid.Card.ID);
             }
         });
 

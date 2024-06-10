@@ -295,8 +295,6 @@ public class Matrix_14 : Matrix
         List<Card> cards    = new List<Card>();
 
         //只在下半区域生成
-
-
         List<Grid> grids  = new List<Grid>();
 
         Field.Instance.GetEmptyGrids().ForEach(o => {
@@ -307,17 +305,15 @@ public class Matrix_14 : Matrix
             }  
         });
 
-        for (int i = 0; i < 3; i++)
+        int count = Mathf.Min(RandomUtility.Random(1, 3), grids.Count);
+        List<Grid> test = new List<Grid>();
+        for (int i = 0; i < count; i++)
         {
             var data    = m_Stage.Cards[RandomUtility.Random(0, m_Stage.Cards.Count)];
-
             Grid grid   = grids[RandomUtility.Random(0, grids.Count)];
-            while (Field.Instance.IsSameCardNear(grid, data.ID)) {
-                grid    = grids[RandomUtility.Random(0, grids.Count)];
-            }
-
             Card card   = Field.Instance.PutCard(_C.CARD_STATE.GHOST, data, grid);
 
+            grids.Remove(grid);
             cards.Add(card);
         }
 
