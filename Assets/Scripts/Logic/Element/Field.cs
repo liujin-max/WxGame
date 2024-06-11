@@ -58,7 +58,7 @@ public class Field : MonoBehaviour
 
     void OnDestroy()
     {
-
+        GameFacade.Instance.UIManager.UnloadWindow(GameWindow.gameObject);
     }
 
     void Start()

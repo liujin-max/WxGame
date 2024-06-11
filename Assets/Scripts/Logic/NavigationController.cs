@@ -18,25 +18,32 @@ public static class NavigationController
         });
     }
 
-    public static void GotoGame()
+    public static bool GotoGame()
     {
         //判断体力
         // GameFacade.Instance.DataCenter.User.Level + 1
-        int level       = GameFacade.Instance.TestMode == true ? GameFacade.Instance.TestStage : 1;
-        if (!GameFacade.Instance.DataCenter.Level.IsFoodEnough2Next(level))
-        {
+        int level   = GameFacade.Instance.TestMode == true ? GameFacade.Instance.TestStage : GameFacade.Instance.DataCenter.User.Level + 1;
+        var json    = GameFacade.Instance.DataCenter.Level.GetStageJSON(level);
 
-            return;
+        if (!GameFacade.Instance.DataCenter.Level.IsFoodEnough2Next(json))
+        {
+            EventManager.SendEvent(new GameEvent(EVENT.UI_POPUPTIP, "体力不足"));
+            return false;
         }
 
+        //扣除体力
+        GameFacade.Instance.DataCenter.User.UpdateFood(-json.Food);
 
-        GameFacade.Instance.SoundManager.PlayBGM(SOUND.BGM);
+        GameFacade.Instance.EffectManager.Load(EFFECT.SWITCH, Vector3.zero, UIManager.EFFECT.gameObject).GetComponent<SceneSwitch>().Enter(()=>{
+            GameFacade.Instance.SoundManager.PlayBGM(SOUND.BGM);
 
-        GameFacade.Instance.ScenePool.LoadSceneAsync("Game", () => {
-            Field.Instance.Enter(level);
-
-            GameFacade.Instance.DataCenter.User.UpdateFood(-Field.Instance.Stage.Food);
+            GameFacade.Instance.ScenePool.LoadSceneAsync("Game", () => {
+                Field.Instance.Enter(level);
+            });
         });
+
+
+        return true;
     }
 }
 

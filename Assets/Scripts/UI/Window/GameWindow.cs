@@ -99,7 +99,7 @@ public class GameWindow : MonoBehaviour
     {
         for (int i = 0; i < m_ConditionItems.Count; i++)  {
             var item = m_ConditionItems[i];
-            if (item.Condition.ID == id) 
+            if (item.Condition.ID == id && item.gameObject.activeSelf) 
                 return item;
         }
         return null;

@@ -72,10 +72,10 @@ public class User
 
 
         //每次启动后，根据当前时间和上一次记录的恢复时间，计算恢复了多少体力，做体力恢复处理，并记录恢复时间
-        long last_stamp = m_Data.RecoveryTimestamp;
+        long last_stamp     = m_Data.RecoveryTimestamp;
+        long current_stamp  = ToolUtility.GetUnixTimestamp();
         if (last_stamp > 0)
         {
-            long current_stamp = ToolUtility.GetUnixTimestamp();
             int offset = Convert.ToInt32(current_stamp - last_stamp);
 
             int food = offset / _C.FOOD_RECOVERYTIME;
@@ -87,6 +87,7 @@ public class User
             this.SetRecoveryTimestamp(current_stamp);
             Debug.Log("恢复体力：" + food + ", 剩余时间：" + time);
         }
+        else this.SetRecoveryTimestamp(current_stamp);
     }
 
 
@@ -110,6 +111,13 @@ public class User
     public void SetCoin(int value)
     {
         m_Data.Coin = value;
+
+        m_userUpdate = true;
+    }
+
+    public void UpdateCoin(int value)
+    {
+        m_Data.Coin  = Mathf.Max(0, m_Data.Coin + value);
 
         m_userUpdate = true;
     }

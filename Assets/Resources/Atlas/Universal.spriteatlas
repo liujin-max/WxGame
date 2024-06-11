@@ -41,6 +41,7 @@ SpriteAtlas:
   m_MasterAtlas: {fileID: 0}
   m_PackedSprites:
   - {fileID: 21300000, guid: 8d30f1f109e461a4ba718305ac9ccf47, type: 3}
+  - {fileID: 21300000, guid: 6d926c23a743f124196ad06a696dfead, type: 3}
   - {fileID: 21300000, guid: ce643fe3c6cfdf54b81d4b31916286ab, type: 3}
   - {fileID: 21300000, guid: a83d38b53af8c644099fe1c5817e8e31, type: 3}
   - {fileID: 21300000, guid: f51e564741494ce489b48982392a33be, type: 3}
@@ -55,6 +56,7 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 8d95876d6ff8c894e9026fce8e55ed01, type: 3}
   m_PackedSpriteNamesToIndex:
   - Universal_detail_frame
+  - Universal_black_frame
   - Universal_food
   - Universal_mask_white
   - Universal_text_frame

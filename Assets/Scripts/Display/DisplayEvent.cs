@@ -290,8 +290,8 @@ public class DisplayEvent_FlyJelly : DisplayEvent
         GameFacade.Instance.EffectManager.Load("Prefab/Effect/fx_broken_" + card.ID, pos);
 
         
-        var item = Field.Instance.GameWindow.GetConditionItem(10000);
-        if (item == null) item = Field.Instance.GameWindow.GetConditionItem(card.ID);
+        var item = Field.Instance.GameWindow.GetConditionItem(card.ID);
+        if (item == null) item = Field.Instance.GameWindow.GetConditionItem(10000);
         if (item != null)
         {
             var effect = GameFacade.Instance.EffectManager.Load("Prefab/Effect/fx_jelly_fly", pos);

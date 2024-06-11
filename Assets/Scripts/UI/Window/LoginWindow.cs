@@ -16,12 +16,10 @@ public class LoginWindow : MonoBehaviour
     void Awake()
     {
         m_BtnStage.onClick.AddListener(()=>{
-            GameFacade.Instance.EffectManager.Load(EFFECT.SWITCH, Vector3.zero, UIManager.EFFECT.gameObject).GetComponent<SceneSwitch>().Enter(()=>{
-                //进入游戏
-                NavigationController.GotoGame();
-            });
-
-            GameFacade.Instance.UIManager.UnloadWindow(gameObject);
+            //进入游戏
+            if (NavigationController.GotoGame()) {
+                GameFacade.Instance.UIManager.UnloadWindow(gameObject);
+            }
         });
     }
 
@@ -47,7 +45,7 @@ public class LoginWindow : MonoBehaviour
             {
                 pivot.transform.Find("Cost").GetComponent<TextMeshProUGUI>().text = food.ToString();
             }
-            else pivot.transform.Find("Cost").GetComponent<TextMeshProUGUI>().text = Color.red + food.ToString();
+            else pivot.transform.Find("Cost").GetComponent<TextMeshProUGUI>().text = "<#FF0000>" + food.ToString();
         } else {
             pivot.SetActive(false);
         }

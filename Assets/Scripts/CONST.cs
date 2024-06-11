@@ -15,7 +15,7 @@ public static class _C
     public static float DEFAULT_GRID_HEIGHT = 1.26f;
 
     public static int DEFAULT_FOOD      = 30;       //体力上限
-    public static int FOOD_RECOVERYTIME = 60;      //体力恢复时间 300秒
+    public static int FOOD_RECOVERYTIME = 300;      //体力恢复时间 300秒
 
 
  

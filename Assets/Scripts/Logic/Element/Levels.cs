@@ -23,9 +23,9 @@ public class Levels
     }
 
     //判断进入关卡的体力是否足够
-    public bool IsFoodEnough2Next(int level)
+    public bool IsFoodEnough2Next(StageJSON stage_json)
     {
-        var stage_json  = this.GetStageJSON(level);
+        // var stage_json  = this.GetStageJSON(level);
 
         if (stage_json == null) return false;
 

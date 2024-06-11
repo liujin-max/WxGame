@@ -32,12 +32,19 @@ public class State_Result<T> : State<Field>
             Field.Instance.STATE   = _C.GAME_STATE.END;
 
             if (m_Result == _C.RESULT.VICTORY) {  //成功
+                //记录关卡序列
+                GameFacade.Instance.DataCenter.User.SetLevel(Field.Instance.Stage.ID);
                 //结算奖励
-                GameFacade.Instance.DataCenter.User.SetCoin(GameFacade.Instance.DataCenter.User.Coin + Field.Instance.Stage.Coin);
+                GameFacade.Instance.DataCenter.User.UpdateCoin(Field.Instance.Stage.Coin);
+                GameFacade.Instance.DataCenter.User.UpdateFood(Field.Instance.Stage.Food);
 
-                GameFacade.Instance.UIManager.LoadWindow("VictoryWindow", UIManager.BOARD).GetComponent<VictoryWindow>();
+
+                var window = GameFacade.Instance.UIManager.LoadWindow("VictoryWindow", UIManager.BOARD).GetComponent<VictoryWindow>();
+                window.Init();
+
             } else {    //失败
-                GameFacade.Instance.UIManager.LoadWindow("LoseWindow", UIManager.BOARD).GetComponent<LoseWindow>();
+                var window = GameFacade.Instance.UIManager.LoadWindow("LoseWindow", UIManager.BOARD).GetComponent<LoseWindow>();
+                window.Init();
             }
         }
     }
