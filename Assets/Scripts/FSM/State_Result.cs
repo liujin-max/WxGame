@@ -38,6 +38,7 @@ public class State_Result<T> : State<Field>
                 GameFacade.Instance.DataCenter.User.UpdateCoin(Field.Instance.Stage.Coin);
                 GameFacade.Instance.DataCenter.User.UpdateFood(Field.Instance.Stage.Food);
 
+                EventManager.SendEvent(new GameEvent(EVENT.UI_UPDATECOIN));
 
                 var window = GameFacade.Instance.UIManager.LoadWindow("VictoryWindow", UIManager.BOARD).GetComponent<VictoryWindow>();
                 window.Init();

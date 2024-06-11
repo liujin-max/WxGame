@@ -10,9 +10,8 @@ public class GameWindow : MonoBehaviour
 {
 
     [SerializeField] private Transform m_ConditionPivot;
-    [SerializeField] private Transform m_CardPivot;
     [SerializeField] private Text m_Stage;
-    [SerializeField] private Text m_Coin;
+    [SerializeField] private NumberTransition m_Coin;
 
     [SerializeField] private GameObject m_StepPivot;
     [SerializeField] private Text m_Step;
@@ -51,6 +50,7 @@ public class GameWindow : MonoBehaviour
     {
         EventManager.AddHandler(EVENT.ONENTERSTAGE,     OnReponseEnterStage);
 
+        EventManager.AddHandler(EVENT.UI_UPDATECOIN,    OnReponseCoinUpdate);
         EventManager.AddHandler(EVENT.UI_UPDATESTEP,    OnReponseStepUpdate);
         EventManager.AddHandler(EVENT.UI_UPDATETIME,    OnReponseTimeUpdate);
     }
@@ -90,6 +90,7 @@ public class GameWindow : MonoBehaviour
     {
         EventManager.DelHandler(EVENT.ONENTERSTAGE,     OnReponseEnterStage);
 
+        EventManager.DelHandler(EVENT.UI_UPDATECOIN,    OnReponseCoinUpdate);
         EventManager.DelHandler(EVENT.UI_UPDATESTEP,    OnReponseStepUpdate);
         EventManager.DelHandler(EVENT.UI_UPDATETIME,    OnReponseTimeUpdate);
         
@@ -112,7 +113,7 @@ public class GameWindow : MonoBehaviour
         m_ButtonPivot.SetActive(Field.Instance.Stage.ID > 1);
 
         m_Stage.text = Field.Instance.Stage.ID.ToString();
-        m_Coin.text = GameFacade.Instance.DataCenter.User.Coin.ToString();
+        m_Coin.ForceValue(GameFacade.Instance.DataCenter.User.Coin);
 
         m_StepPivot.SetActive(Field.Instance.Stage.NeedCheckStep());
         m_Step.text = Field.Instance.Stage.GetCurrentStep().ToString();
@@ -131,6 +132,10 @@ public class GameWindow : MonoBehaviour
         }
     }
     
+    private void OnReponseCoinUpdate(GameEvent @event)
+    {
+        m_Coin.SetValue(GameFacade.Instance.DataCenter.User.Coin);
+    }
 
     private void OnReponseStepUpdate(GameEvent @event)
     {

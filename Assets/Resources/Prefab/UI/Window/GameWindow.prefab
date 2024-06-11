@@ -342,9 +342,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_ConditionPivot: {fileID: 6933029076851814228}
-  m_CardPivot: {fileID: 0}
+  m_CardPivot: {fileID: 1839143742200854256}
   m_Stage: {fileID: 2964190214591358110}
-  m_Coin: {fileID: 5303012563933810209}
+  m_Coin: {fileID: 3713840522573495757}
   m_StepPivot: {fileID: 7185010672011909590}
   m_Step: {fileID: 4364838908149467652}
   m_TimePivot: {fileID: 8148392162432696407}
@@ -1266,6 +1266,7 @@ GameObject:
   - component: {fileID: 1839143742200854256}
   - component: {fileID: 8027656152415211332}
   - component: {fileID: 5303012563933810209}
+  - component: {fileID: 3713840522573495757}
   m_Layer: 5
   m_Name: Coin
   m_TagString: Untagged
@@ -1335,6 +1336,19 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: 99999
+--- !u!114 &3713840522573495757
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3887696729631267639}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4b81c16ddde6ae64aad42dd4f677fc33, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SpeedMin: 0.3
 --- !u!1 &3998675587595468284
 GameObject:
   m_ObjectHideFlags: 0
@@ -2815,7 +2829,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 100, y: -33.17578}
+  m_AnchoredPosition: {x: 288.91498, y: -33.17578}
   m_SizeDelta: {x: 200, y: 66}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2487475463678412734

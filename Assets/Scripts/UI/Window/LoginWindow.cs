@@ -17,7 +17,11 @@ public class LoginWindow : MonoBehaviour
     {
         m_BtnStage.onClick.AddListener(()=>{
             //进入游戏
-            if (NavigationController.GotoGame()) {
+            StageJSON json = NavigationController.GotoGame();
+            if (json != null) {
+                var e = GameFacade.Instance.EffectManager.Load(EFFECT.FLYFOOD, m_BtnStage.transform.position);
+                e.GetComponent<FlyFood>().SetValue(-json.Food);
+
                 GameFacade.Instance.UIManager.UnloadWindow(gameObject);
             }
         });
@@ -27,7 +31,7 @@ public class LoginWindow : MonoBehaviour
     public void Init()
     {
         m_Coin.text = GameFacade.Instance.DataCenter.User.Coin.ToString();
-        m_Food.text = GameFacade.Instance.DataCenter.User.Food.ToString();
+        m_Food.text = GameFacade.Instance.DataCenter.User.Food.ToString();  // + "/" + _C.DEFAULT_FOOD;
 
         FlushCost();
     }

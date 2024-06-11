@@ -119,7 +119,7 @@ public class Jelly : MonoBehaviour
 
     void DrawEmoji()
     {
-        if (m_Card.STATE == _C.CARD_STATE.GHOST) {
+        if (m_Card.STATE == _C.CARD_STATE.GHOST || m_Card.TYPE == _C.CARD_TYPE.FRAME) {
             m_Emoji.gameObject.SetActive(false);
             return;
         }

@@ -12,20 +12,26 @@ public class SceneSwitch : MonoBehaviour
 
 
     private Action m_Callback;
+    private float m_Delay;
 
 
-    public void Enter(Action callback)
+    public void Enter(Action callback, float delay = 0)
     {
-        m_Callback = callback;
+        m_Callback  = callback;
+        m_Delay     = delay;
 
         StartCoroutine(Move());
     }
 
     IEnumerator Move()
     {
+        EventManager.SendEvent(new GameEvent(EVENT.UI_POPUPMASK, true));
+
         m_Pivot.localEulerAngles    = new Vector3(0, 0, 20f);
-        m_MaskTop.localPosition     = new Vector3(0, 22, 0);
-        m_MaskBottom.localPosition  = new Vector3(0,-22, 0);
+        m_MaskTop.localPosition     = new Vector3(0, 25, 0);
+        m_MaskBottom.localPosition  = new Vector3(0,-25, 0);
+
+        yield return new WaitForSeconds(m_Delay);
 
         m_MaskTop.DOLocalMove(new Vector3(0, 12f, 0), 0.3f).SetEase(Ease.OutBack);
         m_MaskBottom.DOLocalMove(new Vector3(0, -12f, 0), 0.3f).SetEase(Ease.OutBack);
@@ -39,6 +45,9 @@ public class SceneSwitch : MonoBehaviour
 
         m_MaskTop.DOLocalMove(new Vector3(0, 25, 0), 0.2f).SetEase(Ease.InQuad);
         m_MaskBottom.DOLocalMove(new Vector3(0, -25, 0), 0.2f).SetEase(Ease.InQuad);
+
+        yield return new WaitForSeconds(0.2f);
+        EventManager.SendEvent(new GameEvent(EVENT.UI_POPUPMASK, false));
 
         yield return null;
     }

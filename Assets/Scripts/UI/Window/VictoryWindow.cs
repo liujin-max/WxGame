@@ -31,12 +31,15 @@ public class VictoryWindow : MonoBehaviour
             //扣除体力
             GameFacade.Instance.DataCenter.User.UpdateFood(-json.Food);
 
+            var e = GameFacade.Instance.EffectManager.Load(EFFECT.FLYFOOD, m_BtnContinue.transform.position);
+            e.GetComponent<FlyFood>().SetValue(-json.Food);
+
             GameFacade.Instance.EffectManager.Load(EFFECT.SWITCH, Vector3.zero, UIManager.EFFECT.gameObject).GetComponent<SceneSwitch>().Enter(()=>{
                 Field.Instance.Dispose();
                 Field.Instance.Enter(level);
 
                 GameFacade.Instance.UIManager.UnloadWindow(gameObject);
-            });     
+            }, 0.4f);     
         });
 
         //返回
@@ -50,13 +53,15 @@ public class VictoryWindow : MonoBehaviour
             }); 
         });
 
-        //奖励翻倍
+        //激励广告：奖励翻倍
         m_BtnReward.onClick.AddListener(()=>{
             Platform.Instance.REWARD_VIDEOAD("", ()=>{
                 m_BtnReward.gameObject.SetActive(false);
 
                 GameFacade.Instance.DataCenter.User.UpdateCoin(Field.Instance.Stage.Coin);
                 GameFacade.Instance.DataCenter.User.UpdateFood(Field.Instance.Stage.Food);
+
+                EventManager.SendEvent(new GameEvent(EVENT.UI_UPDATECOIN));
 
                 m_CoinPivot.Find("-/Value").GetComponent<NumberTransition>().SetValue(Field.Instance.Stage.Coin * 2);
                 m_FoodPivot.Find("-/Value").GetComponent<NumberTransition>().SetValue(Field.Instance.Stage.Food * 2);
@@ -66,7 +71,10 @@ public class VictoryWindow : MonoBehaviour
 
     public void Init()
     {
+        m_CoinPivot.gameObject.SetActive(Field.Instance.Stage.Coin > 0);
         m_CoinPivot.Find("-/Value").GetComponent<NumberTransition>().SetValue(Field.Instance.Stage.Coin);
+
+        m_FoodPivot.gameObject.SetActive(Field.Instance.Stage.Food > 0);
         m_FoodPivot.Find("-/Value").GetComponent<NumberTransition>().SetValue(Field.Instance.Stage.Food);
 
         FlushUI();

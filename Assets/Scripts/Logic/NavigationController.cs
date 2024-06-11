@@ -18,7 +18,7 @@ public static class NavigationController
         });
     }
 
-    public static bool GotoGame()
+    public static StageJSON GotoGame()
     {
         //判断体力
         // GameFacade.Instance.DataCenter.User.Level + 1
@@ -28,7 +28,7 @@ public static class NavigationController
         if (!GameFacade.Instance.DataCenter.Level.IsFoodEnough2Next(json))
         {
             EventManager.SendEvent(new GameEvent(EVENT.UI_POPUPTIP, "体力不足"));
-            return false;
+            return null;
         }
 
         //扣除体力
@@ -43,7 +43,7 @@ public static class NavigationController
         });
 
 
-        return true;
+        return json;
     }
 }
 
