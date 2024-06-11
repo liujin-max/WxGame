@@ -67,6 +67,11 @@ public class LoseWindow : MonoBehaviour
 
         int food = json.Food;
 
+        if (food == 0) {
+            m_BtnRestart.transform.Find("CostPivot").gameObject.SetActive(false);
+            return;
+        }
+
         if (GameFacade.Instance.DataCenter.User.Food >= food)  {
             m_BtnRestart.transform.Find("CostPivot/Cost").GetComponent<TextMeshProUGUI>().text = food.ToString();
         }

@@ -1805,6 +1805,8 @@ MonoBehaviour:
   m_Coin: {fileID: 805468177684768878}
   m_Food: {fileID: 46573896893412264}
   m_BtnStage: {fileID: 8609717503441558502}
+  m_BtnEndless: {fileID: 4005550043556463598}
+  m_BtnSetting: {fileID: 1948773824170351380}
 --- !u!114 &1504737152070402823
 MonoBehaviour:
   m_ObjectHideFlags: 0

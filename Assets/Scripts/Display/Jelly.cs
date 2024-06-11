@@ -196,7 +196,8 @@ public class Jelly : MonoBehaviour
     void OnMouseDown()
     {   
         if (!m_Card.Dragable) return;   //无法拖动的
-        if (Field.Instance.Stage.IsStepClear()) return;    //没有行动步数了
+        if (Field.Instance.Stage.NeedCheckStep() && Field.Instance.Stage.IsStepClear()) return;    //没有行动步数了
+        if (Field.Instance.Stage.NeedCheckTimer() && Field.Instance.Stage.IsTimerClear()) return;    //没有时间了
         if (Field.Instance.GetCurrentFSMState() != _C.FSMSTATE.IDLE) return;
         if (Field.Instance.IsMoved) return;
 

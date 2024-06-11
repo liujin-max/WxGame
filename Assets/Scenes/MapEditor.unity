@@ -289,6 +289,7 @@ MonoBehaviour:
   m_Step: 0
   m_Time: 0
   m_Coin: 0
+  m_Food: 0
   m_Conditions: []
   m_CardPool: 
   GridPivot: {fileID: 202769784}

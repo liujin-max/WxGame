@@ -307,7 +307,6 @@ public class Matrix_14 : Matrix
         });
 
         int count = Mathf.Min(RandomUtility.Random(1, 3), grids.Count);
-        List<Grid> test = new List<Grid>();
         for (int i = 0; i < count; i++)
         {
             var data    = m_Stage.Cards[RandomUtility.Random(0, m_Stage.Cards.Count)];
@@ -315,6 +314,44 @@ public class Matrix_14 : Matrix
             Card card   = Field.Instance.PutCard(_C.CARD_STATE.GHOST, data, grid);
 
             grids.Remove(grid);
+            cards.Add(card);
+        }
+
+        return cards;
+    }
+}
+#endregion
+
+
+
+#region 无尽模式
+public class Matrix_999 : Matrix
+{
+    private int m_Count = -1;
+    public override List<Card> AddCards(int random_count = -1)
+    {
+        //将虚化方块实体化
+        Field.Instance.CorporealCards();
+
+        List<Card> cards    = new List<Card>();
+
+        //获取3个空白格
+        List<object> grids  = RandomUtility.Pick(3, Field.Instance.GetEmptyGrids());
+        m_Count++;
+        Debug.Log("Count : " + m_Count);
+        //目前每回合都会生成一个石块
+        for (int i = 0; i < grids.Count; i++)
+        {
+            CardData data = null;
+            if (i == 0 && m_Count == 2) {
+                m_Count = 0;
+                data    = GameFacade.Instance.DataCenter.GetCardData((int)_C.CARD.STONE);
+            } else  {
+                data    = m_Stage.Cards[RandomUtility.Random(0, m_Stage.Cards.Count)];
+            }
+            Grid grid   = grids[i] as Grid;
+            Card card   = Field.Instance.PutCard(_C.CARD_STATE.GHOST, data, grid);
+
             cards.Add(card);
         }
 

@@ -7,6 +7,7 @@ using UnityEngine;
 
 public static class NavigationController
 {
+    //前往主页
     public static void GotoLogin()
     {
         GameFacade.Instance.SoundManager.PlayBGM(SOUND.BGM);
@@ -18,6 +19,7 @@ public static class NavigationController
         });
     }
 
+    //前往关卡模式
     public static StageJSON GotoGame()
     {
         //判断体力
@@ -44,6 +46,18 @@ public static class NavigationController
 
 
         return json;
+    }
+
+    //前往无尽模式
+    public static void GotoEndless()
+    {
+        GameFacade.Instance.EffectManager.Load(EFFECT.SWITCH, Vector3.zero, UIManager.EFFECT.gameObject).GetComponent<SceneSwitch>().Enter(()=>{
+            GameFacade.Instance.SoundManager.PlayBGM(SOUND.BGM);
+
+            GameFacade.Instance.ScenePool.LoadSceneAsync("Game", () => {
+                Field.Instance.Enter(999);
+            });
+        });
     }
 }
 

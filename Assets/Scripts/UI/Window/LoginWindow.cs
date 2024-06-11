@@ -9,11 +9,13 @@ public class LoginWindow : MonoBehaviour
     [SerializeField] private Text m_Coin;
     [SerializeField] private Text m_Food;
 
-
+    [Header("按钮")]
     [SerializeField] private Button m_BtnStage;
+    [SerializeField] private Button m_BtnEndless;
+    [SerializeField] private Button m_BtnSetting;
     
 
-    void Awake()
+    void Start()
     {
         m_BtnStage.onClick.AddListener(()=>{
             //进入游戏
@@ -24,6 +26,12 @@ public class LoginWindow : MonoBehaviour
 
                 GameFacade.Instance.UIManager.UnloadWindow(gameObject);
             }
+        });
+
+        m_BtnEndless.onClick.AddListener(()=>{
+            NavigationController.GotoEndless();
+
+            GameFacade.Instance.UIManager.UnloadWindow(gameObject);
         });
     }
 
