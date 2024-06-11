@@ -250,24 +250,56 @@ public class DisplayEvent_BrokenCard : DisplayEvent
     {
         var card = m_Params[0] as Card;
 
-        float height = card.Entity.Entity.size.y + dealta_time * 3;
+        float height = card.Entity.Entity.size.y + dealta_time * 2.8f;
         card.Entity.Entity.size = new Vector2(card.Entity.Entity.size.x, height);
 
         RectTransform rect = card.Entity.Entity.GetComponent<RectTransform>();
         rect.sizeDelta = new Vector2(rect.sizeDelta.x, height);
 
-        if (card.Entity.Entity.size.y >= 1.9f) {
+        if (card.Entity.Entity.size.y >= 2.2f) {
             m_State = _C.DISPLAY_STATE.END;
-
-            GameFacade.Instance.EffectManager.Load("Prefab/Effect/fx_broken_" + card.ID, card.Entity.transform.position);
-
-
-            card.Dispose();
-
-            EventManager.SendEvent(new GameEvent(EVENT.ONBROKENCARD, card));
-
-            EventManager.SendEvent(new GameEvent(EVENT.UI_UPDATECONDITION));
         }
+    }
+
+    public override void Terminate()
+    {
+        var card = m_Params[0] as Card;
+        var pos  = card.Entity.transform.position;
+        card.Dispose();
+
+        EventManager.SendEvent(new GameEvent(EVENT.ONBROKENCARD, card));
+
+        GameFacade.Instance.DisplayEngine.Put(DisplayEngine.Track.Common, new DisplayEvent_FlyJelly(card, pos));    
+    }
+}
+
+//方块飞行特效
+public class DisplayEvent_FlyJelly : DisplayEvent
+{
+    public DisplayEvent_FlyJelly(params object[] values) : base(values) {}
+
+    public override void Start()
+    {
+        base.Start();
+        
+        m_State = _C.DISPLAY_STATE.END;
+
+        var card    = m_Params[0] as Card;
+        var pos     = (Vector3)m_Params[1];
+
+        GameFacade.Instance.EffectManager.Load("Prefab/Effect/fx_broken_" + card.ID, pos);
+
+        var effect = GameFacade.Instance.EffectManager.Load("Prefab/Effect/fx_jelly_fly", pos);
+        effect.GetComponent<FlyJelly>().Init(card);
+        
+        var item = Field.Instance.GameWindow.GetConditionItem(10000);
+        if (item == null) item = Field.Instance.GameWindow.GetConditionItem(card.ID);
+        if (item != null)
+        {
+            effect.GetComponent<BezierCurveAnimation>().Fly(item.transform.position, ()=>{
+                EventManager.SendEvent(new GameEvent(EVENT.UI_UPDATECONDITION, item.Condition));
+            });
+        }  
     }
 }
 

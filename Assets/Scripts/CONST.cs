@@ -52,6 +52,7 @@ public static class _C
     //方块ID
     public enum CARD
     {
+        UNIVERSAL   = 10000,
         STONE   = 10020,
         WOOD    = 10021,
         PORTAL  = 10022,    //传送门

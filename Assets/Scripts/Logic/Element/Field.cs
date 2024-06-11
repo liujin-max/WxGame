@@ -12,6 +12,8 @@ public class Field : MonoBehaviour
 
     private FSM<Field> m_FSM;
 
+    public GameWindow GameWindow;
+
 
     private Stage m_Stage;
     public Stage Stage {get{return m_Stage;}}
@@ -69,7 +71,7 @@ public class Field : MonoBehaviour
             new State_Result<Field>(_C.FSMSTATE.RESULT)
         });
 
-        GameFacade.Instance.UIManager.LoadWindow("GameWindow", UIManager.BOTTOM).GetComponent<GameWindow>();
+        GameWindow = GameFacade.Instance.UIManager.LoadWindow("GameWindow", UIManager.BOTTOM).GetComponent<GameWindow>();
     }
 
     public void Enter(int stage)

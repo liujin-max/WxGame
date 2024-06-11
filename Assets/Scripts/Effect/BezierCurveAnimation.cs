@@ -1,24 +1,27 @@
 using UnityEngine;
 using DG.Tweening;
+using System;
 
 public class BezierCurveAnimation : MonoBehaviour
 {
-    private Vector3 m_StartPos;
-    private Vector3 m_ControlPos;
-    private Vector3 m_EndPos;
+    private Action m_Callback;
+
+    private Vector2 m_StartPos;
+    private Vector2 m_ControlPos;
+    private Vector2 m_EndPos;
 
     private float duration = 0.8f; // 动画持续时间
     private float t = 0f; // 用于插值计算
 
-    public void Fly(Vector3 endPoint)
+    public void Fly(Vector2 endPoint, Action callback = null)
     {
-        m_StartPos = transform.localPosition;
+        m_Callback  = callback;
 
-        Vector3 direction = Quaternion.Euler(0, 0, RandomUtility.Random(0, 360)) * Vector3.right * Vector3.Distance(m_StartPos, endPoint);
-
-        m_ControlPos = m_StartPos + direction;
-
-        m_EndPos = endPoint;
+        m_StartPos  = transform.position;
+        m_EndPos    = endPoint;
+        
+        float distance  = Vector3.Distance(m_StartPos, endPoint);
+        m_ControlPos    = ToolUtility.FindPointOnCircle(m_StartPos, distance * 0.7f, RandomUtility.Random(0, 360));
     }
 
 
@@ -29,9 +32,11 @@ public class BezierCurveAnimation : MonoBehaviour
         {
             t += Time.deltaTime / duration;
 
-            Vector3 newPos = CalculateBezierPoint(t, m_StartPos, m_ControlPos, m_EndPos);
+            Vector2 newPos = CalculateBezierPoint(t, m_StartPos, m_ControlPos, m_EndPos);
             transform.position = newPos;
         } else {
+            if (m_Callback != null) m_Callback();
+
             Destroy(gameObject);
         }
     }

@@ -68,7 +68,7 @@ Material:
     - _BlurIntensity: 10
     - _ChromAberrAlpha: 0.114
     - _ChromAberrAmount: 0.433
-    - _ClipUvDown: 0
+    - _ClipUvDown: 0.24
     - _ClipUvLeft: 0
     - _ClipUvRight: 0
     - _ClipUvUp: 0
@@ -114,10 +114,10 @@ Material:
     - _HologramUnmodAmount: 0.699
     - _HsvBright: 1
     - _HsvSaturation: 1
-    - _HsvShift: 180
+    - _HsvShift: 0
     - _InnerOutlineAlpha: 1
     - _InnerOutlineGlow: 10.6
-    - _InnerOutlineThickness: 1
+    - _InnerOutlineThickness: 0.72
     - _MaxXUV: 1
     - _MaxYUV: 1
     - _MinXUV: 0
@@ -132,12 +132,12 @@ Material:
     - _OnlyInnerOutline: 0
     - _OnlyOutline: 0
     - _Outline8Directions: 0
-    - _OutlineAlpha: 1
+    - _OutlineAlpha: 0.513
     - _OutlineDistortAmount: 0.5
     - _OutlineDistortTexXSpeed: 5
     - _OutlineDistortTexYSpeed: 5
     - _OutlineDistortToggle: 0
-    - _OutlineGlow: 23.1
+    - _OutlineGlow: 34.8
     - _OutlineIsPixel: 0
     - _OutlinePixelWidth: 1
     - _OutlineTexGrey: 0

@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using DG.Tweening;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -8,15 +9,29 @@ using UnityEngine.UI;
 public class ConditionItem : MonoBehaviour
 {
     private Condition m_Condition;
+    public Condition Condition {get { return m_Condition;}}
 
     [SerializeField] private Image m_Icon;
     [SerializeField] private TextMeshProUGUI m_Count;
+
+    private bool m_IsShaking = false;
 
 
     void Awake()
     {
         EventManager.AddHandler(EVENT.UI_UPDATECONDITION,   OnFlushUI);
         
+    }
+
+    void Start()
+    {
+        m_Icon.GetComponent<Button>().onClick.AddListener(()=>{
+            if (m_Condition.ID == (int)_C.CARD.UNIVERSAL) return;
+            
+            Field.Instance.GetCards(m_Condition.ID, _C.CARD_STATE.NORMAL).ForEach(c => {
+                c.Entity.ClickShake();
+            });
+        });
     }
 
     void OnDestroy()
@@ -55,7 +70,18 @@ public class ConditionItem : MonoBehaviour
     #region 监听事件
     private void OnFlushUI(GameEvent @event)
     {
-        FlushUI();
+        Condition cd = @event.GetParam(0) as Condition;
+
+        if (cd == m_Condition) {
+            FlushUI();
+
+            if (m_IsShaking) return;
+
+            m_IsShaking = true;
+            transform.DOShakePosition(0.3f, new Vector3(20, 0, 0), 50, 50).OnComplete(()=>{
+                m_IsShaking = false;
+            });
+        } 
     }
     #endregion
 }

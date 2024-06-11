@@ -5,27 +5,31 @@ using UnityEngine;
 //一步走完后的处理
 public class State_Result<T> : State<Field>
 {
-    private _C.RESULT m_Result;
     private CDTimer m_Timer;
+    private _C.RESULT m_Result;
     public State_Result(_C.FSMSTATE id) : base(id){}
 
     public override void Enter(params object[] values)
     {
         m_Result = (_C.RESULT)values[0];
 
-        m_Timer = new CDTimer(0.4f);
-        
+        m_Timer = new CDTimer(1.0f);
+
+        //子弹时间
+        GameFacade.Instance.TimeManager.BulletTime();
     }
 
     public override void Update()
     {
+        if (!GameFacade.Instance.DisplayEngine.IsIdle() == true) return;
+    
         if (m_Timer == null) return;
-
         m_Timer.Update(Time.deltaTime);
-        if (m_Timer.IsFinished() == true) {
+        if (m_Timer.IsFinished()) {
             m_Timer = null;
 
-            m_FSM.Owner.STATE   = _C.GAME_STATE.END;
+            Time.timeScale = 1f;
+            Field.Instance.STATE   = _C.GAME_STATE.END;
 
             if (m_Result == _C.RESULT.VICTORY) {  //成功
                 //结算奖励

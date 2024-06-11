@@ -95,7 +95,15 @@ public class GameWindow : MonoBehaviour
         
     }
 
-
+    public ConditionItem GetConditionItem(int id)
+    {
+        for (int i = 0; i < m_ConditionItems.Count; i++)  {
+            var item = m_ConditionItems[i];
+            if (item.Condition.ID == id) 
+                return item;
+        }
+        return null;
+    }
 
 
     #region 监听事件

@@ -81,11 +81,11 @@ public class History
         {
             var condition = Field.Instance.Stage.GetCondition(item.Key);
             condition.SetCount(item.Value);
-        }
 
+            EventManager.SendEvent(new GameEvent(EVENT.UI_UPDATECONDITION, condition));
+        }
 
         EventManager.SendEvent(new GameEvent(EVENT.UI_UPDATESTEP, true));
         EventManager.SendEvent(new GameEvent(EVENT.UI_UPDATETIME, true));
-        EventManager.SendEvent(new GameEvent(EVENT.UI_UPDATECONDITION));
     }
 }

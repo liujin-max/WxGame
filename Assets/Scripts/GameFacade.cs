@@ -111,6 +111,17 @@ public class GameFacade : MonoBehaviour
         }
     }
 
+    private TimeManager m_TimeManager = null;
+    public TimeManager TimeManager
+    {
+        get {
+            if (m_TimeManager == null) {
+                m_TimeManager = transform.AddComponent<TimeManager>();
+            }
+            return m_TimeManager;
+        }
+    }
+
     #endregion
 
     private static GameFacade _instance = null;

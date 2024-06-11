@@ -79,9 +79,10 @@ public class Matrix_1 : Matrix
     {
         var card = @event.GetParam(0) as Card;
 
+
         if (m_Step == 0 && card.ID == 10001) {
             m_Step = 1;
-
+;
             //隐藏格子
             for (int i = 0; i < Field.Instance.Grids.GetLength(0); i++) {
                 var grid = Field.Instance.Grids[i, 2];
