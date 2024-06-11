@@ -11,14 +11,21 @@ public class Jelly : MonoBehaviour
     public SpriteRenderer Entity;
     [SerializeField] private SpriteRenderer m_Emoji;
 
+    private Tweener m_ShakeTweener;
     private Tweener m_ScaleTweener;
 
     private Card m_Card;
+    private Vector3 m_EntityPos;
     private Vector3 m_TouchPos;
     private bool m_Dragging = false;
     private bool m_Dragged = false;
 
     private CDTimer m_EmojiTimer = new CDTimer(0.1f);
+
+    void Awake()
+    {
+        m_EntityPos = Entity.transform.localPosition;
+    }
 
     public void Init(Card card)
     {
@@ -54,12 +61,12 @@ public class Jelly : MonoBehaviour
     {
         if (!m_Card.Dragable) return;
 
-        if (m_ScaleTweener != null) {
-            Entity.transform.localScale = Vector3.one;
-            m_ScaleTweener.Kill();
+        if (m_ShakeTweener != null) {
+            Entity.transform.localPosition = m_EntityPos;
+            m_ShakeTweener.Kill();
         }
 
-        m_ScaleTweener = Entity.transform.DOShakeScale(0.4f, strength , 8, 50);
+        m_ShakeTweener = Entity.transform.DOShakePosition(0.3f, strength , 15, 50);
     }
 
     public void Shake(_C.DIRECTION direction)
@@ -69,31 +76,31 @@ public class Jelly : MonoBehaviour
         switch (direction)
         {
             case _C.DIRECTION.UP:
-                this.Shake(new Vector2(0, 0.2f));
+                this.Shake(new Vector2(0, 0.05f));
                 break;
 
             case _C.DIRECTION.DOWN:
-                this.Shake(new Vector2(0, 0.2f));
+                this.Shake(new Vector2(0, 0.05f));
                 break;
 
             case _C.DIRECTION.LEFT:
-                this.Shake(new Vector2(0.2f, 0));
+                this.Shake(new Vector2(0.05f, 0));
                 break;
 
             case _C.DIRECTION.RIGHT:
-                this.Shake(new Vector2(0.2f, 0));
+                this.Shake(new Vector2(0.05f, 0));
                 break;
         }
     }
 
     public void ClickShake()
     {
-        if (m_ScaleTweener != null) {
-            Entity.transform.localScale = Vector3.one;
-            m_ScaleTweener.Kill();
+        if (m_ShakeTweener != null) {
+            Entity.transform.localPosition = m_EntityPos;
+            m_ShakeTweener.Kill();
         }
 
-        m_ScaleTweener = Entity.transform.DOShakeScale(0.5f, 0.2f , 8, 50);
+        m_ShakeTweener = Entity.transform.DOShakePosition(0.3f, 0.05f , 20, 50);
     }
 
     //不要传入callback了，被Kill的时候callback会不执行了

@@ -137,7 +137,7 @@ public class DisplayEvent_NormalCard : DisplayEvent
             card.Entity.transform.DOJump(card.Grid.Position, 0.5f, 1, 0.25f).SetEase(Ease.OutQuad).OnComplete(() => {
                 m_State = _C.DISPLAY_STATE.END;
 
-                card.Entity.Shake(new Vector2(0.03f, 0.03f));
+                card.Entity.Shake(new Vector2(0.02f, 0.02f));
             });
         }
     }

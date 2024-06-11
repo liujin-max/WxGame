@@ -78,7 +78,7 @@ public class ConditionItem : MonoBehaviour
             if (m_IsShaking) return;
 
             m_IsShaking = true;
-            transform.DOShakePosition(0.3f, new Vector3(20, 0, 0), 50, 50).OnComplete(()=>{
+            transform.DOShakeScale(0.3f, 0.2f, 20, 50).OnComplete(()=>{
                 m_IsShaking = false;
             });
         } 
