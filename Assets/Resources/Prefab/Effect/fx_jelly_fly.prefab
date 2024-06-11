@@ -144,9 +144,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d11b1e481f288934380911bc2f2b0339, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Time: 0
-  m_IsLoop: 1
-  m_IsRecycle: 0
+  m_Time: 0.8
+  m_IsLoop: 0
+  m_IsRecycle: 1
   ResPath: 
 --- !u!114 &7347106167842670484
 MonoBehaviour:
@@ -160,3 +160,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 67ad096d43ca72d498d570fcdd219b23, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  duration: 0.8

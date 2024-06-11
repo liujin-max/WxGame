@@ -4926,5 +4926,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Time: 1
   m_IsLoop: 0
-  m_IsRecycle: 0
+  m_IsRecycle: 1
   ResPath: 

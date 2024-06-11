@@ -10,17 +10,19 @@ public class BezierCurveAnimation : MonoBehaviour
     private Vector2 m_ControlPos;
     private Vector2 m_EndPos;
 
-    private float duration = 0.8f; // 动画持续时间
+    public float duration = 0.8f; // 动画持续时间
     private float t = 0f; // 用于插值计算
 
-    public void Fly(Vector2 endPoint, Action callback = null)
+    public void Fly(Vector2 start_pos, Vector2 end_pos, Action callback = null)
     {
         m_Callback  = callback;
 
-        m_StartPos  = transform.position;
-        m_EndPos    = endPoint;
+        m_StartPos  = start_pos;
+        m_EndPos    = end_pos;
+
+        t   = 0;
         
-        float distance  = Vector3.Distance(m_StartPos, endPoint);
+        float distance  = Vector3.Distance(start_pos, end_pos);
         m_ControlPos    = ToolUtility.FindPointOnCircle(m_StartPos, distance * 0.7f, RandomUtility.Random(0, 360));
     }
 
@@ -35,9 +37,8 @@ public class BezierCurveAnimation : MonoBehaviour
             Vector2 newPos = CalculateBezierPoint(t, m_StartPos, m_ControlPos, m_EndPos);
             transform.position = newPos;
         } else {
-            if (m_Callback != null) m_Callback();
 
-            Destroy(gameObject);
+            // gameObject.SetActive(false);
         }
     }
 

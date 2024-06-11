@@ -289,14 +289,17 @@ public class DisplayEvent_FlyJelly : DisplayEvent
 
         GameFacade.Instance.EffectManager.Load("Prefab/Effect/fx_broken_" + card.ID, pos);
 
-        var effect = GameFacade.Instance.EffectManager.Load("Prefab/Effect/fx_jelly_fly", pos);
-        effect.GetComponent<FlyJelly>().Init(card);
         
         var item = Field.Instance.GameWindow.GetConditionItem(10000);
         if (item == null) item = Field.Instance.GameWindow.GetConditionItem(card.ID);
         if (item != null)
         {
-            effect.GetComponent<BezierCurveAnimation>().Fly(item.transform.position, ()=>{
+            var effect = GameFacade.Instance.EffectManager.Load("Prefab/Effect/fx_jelly_fly", pos);
+            effect.GetComponent<FlyJelly>().Init(card);
+
+            effect.GetComponent<BezierCurveAnimation>().Fly(pos, item.transform.position);
+
+            effect.GetComponent<Effect>().SetCallback(()=>{
                 EventManager.SendEvent(new GameEvent(EVENT.UI_UPDATECONDITION, item.Condition));
             });
         }  
