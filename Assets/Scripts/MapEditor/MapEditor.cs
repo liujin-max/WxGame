@@ -25,6 +25,9 @@ public class MapEditor : MonoBehaviour
     [Header("通关金币")]
     [SerializeField] private int m_Coin;
 
+    [Header("消耗体力")]
+    [SerializeField] private int m_Food;
+
     [Header("过关条件")]
     [SerializeField] private List<string> m_Conditions;
     [Header("方块池")]
@@ -62,6 +65,7 @@ public class MapEditor : MonoBehaviour
         m_Step      = 0;
         m_Time      = 0;
         m_Coin      = 0;
+        m_Food      = 0;
 
         m_Conditions.Clear();
         m_CardPool.Clear();
@@ -108,6 +112,7 @@ public class MapEditor : MonoBehaviour
         m_Step      = mapJSON.Step;
         m_Time      = mapJSON.Time;
         m_Coin      = mapJSON.Coin;
+        m_Food      = mapJSON.Food;
         m_Conditions= mapJSON.Conditions;
         m_CardPool  = mapJSON.CardPool;
 
@@ -140,6 +145,7 @@ public class MapEditor : MonoBehaviour
         mapData.Step    = m_Step;
         mapData.Time    = m_Time;
         mapData.Coin    = m_Coin;
+        mapData.Food    = m_Food;
         mapData.Conditions = m_Conditions;
         mapData.CardPool = m_CardPool;
 

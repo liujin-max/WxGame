@@ -176,4 +176,11 @@ public class GameFacade : MonoBehaviour
         yield return null; 
     }
 
+
+    void Update()
+    {
+        float dt = Time.deltaTime;
+
+        DataCenter.Update(dt);
+    }
 }

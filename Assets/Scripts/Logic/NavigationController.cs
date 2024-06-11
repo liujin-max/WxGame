@@ -20,11 +20,22 @@ public static class NavigationController
 
     public static void GotoGame()
     {
+        //判断体力
+        // GameFacade.Instance.DataCenter.User.Level + 1
+        int level       = GameFacade.Instance.TestMode == true ? GameFacade.Instance.TestStage : 1;
+        if (!GameFacade.Instance.DataCenter.Level.IsFoodEnough2Next(level))
+        {
+
+            return;
+        }
+
+
         GameFacade.Instance.SoundManager.PlayBGM(SOUND.BGM);
 
         GameFacade.Instance.ScenePool.LoadSceneAsync("Game", () => {
-            int stage = GameFacade.Instance.TestMode == true ? GameFacade.Instance.TestStage : 1;
-            Field.Instance.Enter(stage);
+            Field.Instance.Enter(level);
+
+            GameFacade.Instance.DataCenter.User.UpdateFood(-Field.Instance.Stage.Food);
         });
     }
 }

@@ -36,7 +36,7 @@ public class WXPlatform : Platform
         });
     }
 
-    public override GameUserData LOGIN(GameUserData userData, Action<GameUserData> callback)
+    public override void LOGIN(Action callback)
     {
         // GetSettingOption info = new GetSettingOption();
         // info.complete = (aa) => { /*获取完成*/ };
@@ -84,11 +84,10 @@ public class WXPlatform : Platform
         // WX.GetSetting(info);
 
         // return userData;
-        return null;
     }
 
     //启动同步账号数据
-    public override void SYNC(BaseData baseData, GameUserData userData)
+    public override void SYNC()
     {
         // Debug.Log("====开始获取账号数据====");
         // EventManager.SendEvent(new GameEvent(EVENT.UI_NETUPDATE, true));

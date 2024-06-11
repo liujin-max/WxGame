@@ -14,27 +14,25 @@ public class EditorPlatform : Platform
         }
     }
 
-    public override GameUserData LOGIN(GameUserData userData, Action<GameUserData> callback)
+    public override void LOGIN(Action callback)
     {
         string json = PlayerPrefs.GetString(SystemManager.KEY_USER);
 
         if (string.IsNullOrEmpty(json)) {
-            callback.Invoke(userData);
-            return userData;
+            callback.Invoke();
+            return;
         }
         
-        userData    = JsonUtility.FromJson<GameUserData>(json);
+        GameFacade.Instance.DataCenter.User.Data = JsonUtility.FromJson<GameUserData>(json);
 
-        callback.Invoke(userData);
-
-        return userData;
+        callback.Invoke();
     }
 
     //不做别的处理了
     //编辑器模式下 存档数据在Login的时候直接都从本地获取到了
-    public override void SYNC(BaseData baseData, GameUserData userData)
+    public override void SYNC()
     {
-        GameFacade.Instance.DataCenter.User.SyncRecords(userData);
+        GameFacade.Instance.DataCenter.User.SyncRecords();
 
 
     }

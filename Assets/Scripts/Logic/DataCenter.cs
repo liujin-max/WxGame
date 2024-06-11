@@ -24,6 +24,7 @@ public class StageJSON
     public int Step;
     public int Time;
     public int Coin;
+    public int Food;
     public List<string> Conditions;
     public List<int> CardPool;
     public List<GridJSON> Grids;
@@ -59,13 +60,11 @@ public class DataCenter
 
     public void Init()
     {
-        //
+        //账号数据
         User = new User();
-
 
         //章节数据
         Level = new Levels();
-        Level.Init();
 
         //果冻数据
         List<string[]> list = GameFacade.Instance.CsvManager.GetStringArrays(CsvManager.TableKey_Card);
@@ -97,5 +96,13 @@ public class DataCenter
 
 
 
+
+    public void Update(float dt)
+    {
+        if (User != null)
+        {
+            User.Update(dt);
+        }
+    }
 }
 

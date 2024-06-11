@@ -103,7 +103,7 @@ Material:
     - _GrassWind: 20
     - _GreyscaleLuminosity: 0
     - _GreyscaleOutline: 0
-    - _HandDrawnAmount: 6
+    - _HandDrawnAmount: 10
     - _HandDrawnSpeed: 3
     - _HitEffectBlend: 1
     - _HitEffectGlow: 5
@@ -170,10 +170,10 @@ Material:
     - _TwistUvPosX: 0.5
     - _TwistUvPosY: 0.5
     - _TwistUvRadius: 0.75
-    - _WaveAmount: 7
-    - _WaveSpeed: 10
-    - _WaveStrength: 7.5
-    - _WaveX: 0
+    - _WaveAmount: 0
+    - _WaveSpeed: 15
+    - _WaveStrength: 10
+    - _WaveX: 0.5
     - _WaveY: 0.5
     - _ZWrite: 0
     - _ZoomUvAmount: 0.5

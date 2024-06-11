@@ -90,4 +90,11 @@ public static class ToolUtility
 
         return point;
     }
+
+    public static long GetUnixTimestamp()
+    {
+        long unixTimestamp = (long)(DateTime.UtcNow - new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc)).TotalSeconds;
+
+        return unixTimestamp;
+    }
 }

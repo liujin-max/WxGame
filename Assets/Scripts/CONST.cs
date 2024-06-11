@@ -14,6 +14,9 @@ public static class _C
     public static float DEFAULT_GRID_WEIGHT = 1.25f;
     public static float DEFAULT_GRID_HEIGHT = 1.26f;
 
+    public static int DEFAULT_FOOD      = 30;       //体力上限
+    public static int FOOD_RECOVERYTIME = 60;      //体力恢复时间 300秒
+
 
  
     //状态机的状态列表

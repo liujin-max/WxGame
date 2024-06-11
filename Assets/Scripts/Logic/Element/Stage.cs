@@ -13,7 +13,7 @@ public class Stage
     public int Weight {get{return m_Data.Weight;}}
     public int Height {get{return m_Data.Height;}}
     public int Coin {get{return m_Data.Coin;}}
-    
+    public int Food {get{return m_Data.Food;}}
 
 
     private List<GridJSON> m_GridJSONs = new List<GridJSON>();
