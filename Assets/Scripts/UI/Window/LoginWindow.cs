@@ -21,8 +21,11 @@ public class LoginWindow : MonoBehaviour
             //进入游戏
             StageJSON json = NavigationController.GotoGame();
             if (json != null) {
-                var e = GameFacade.Instance.EffectManager.Load(EFFECT.FLYFOOD, m_BtnStage.transform.position);
-                e.GetComponent<FlyFood>().SetValue(-json.Food);
+                if (json.Food > 0) {
+                    var e = GameFacade.Instance.EffectManager.Load(EFFECT.FLYFOOD, m_BtnStage.transform.position);
+                    e.GetComponent<FlyFood>().SetValue(-json.Food);
+                }
+                
 
                 GameFacade.Instance.UIManager.UnloadWindow(gameObject);
             }
