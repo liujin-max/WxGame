@@ -322,9 +322,9 @@ public class Field : MonoBehaviour
         return false;
     }
 
-    bool IsGridHasCard(Grid grid, int card_id)
+    bool IsGridHasSameCard(Grid grid, int card_id)
     {
-        if (grid == null) return true;
+        if (grid == null) return false;
 
         if (grid.Card != null && grid.Card.ID == card_id) {
             return true;
@@ -337,41 +337,12 @@ public class Field : MonoBehaviour
     {
         List<Card> _cards = new List<Card>();
 
-        Grid card_grid = grid; //card.Grid;
-
-        Grid top_grid = null;
-        if (card_grid.Y < m_Height - 1) {
-            top_grid = m_Grids[card_grid.X, card_grid.Y + 1];
-
-            if (IsGridHasCard(top_grid, card_id)) {
-                _cards.Add(top_grid.Card);
-            }
-        }
-
-        Grid down_grid = null;
-        if (card_grid.Y > 0) {
-            down_grid = m_Grids[card_grid.X, card_grid.Y - 1];
-
-            if (IsGridHasCard(down_grid, card_id)) {
-                _cards.Add(down_grid.Card);
-            }
-        }
-
-        Grid left_grid = null;
-        if (card_grid.X > 0) {
-            left_grid = m_Grids[card_grid.X - 1, card_grid.Y];
-
-            if (IsGridHasCard(left_grid, card_id)) {
-                _cards.Add(left_grid.Card);
-            }
-        }
-
-        Grid right_grid = null;
-        if (card_grid.X < m_Weight - 1) {
-            right_grid = m_Grids[card_grid.X + 1, card_grid.Y];
-
-            if (IsGridHasCard(right_grid, card_id)) {
-                _cards.Add(right_grid.Card);
+        foreach (_C.DIRECTION dir in Directions)
+        {
+            var g = this.GetGridByDirection(grid, dir);
+            if (IsGridHasSameCard(g, card_id)) 
+            {
+                _cards.Add(g.Card);
             }
         }
 
@@ -717,45 +688,98 @@ public class Field : MonoBehaviour
         List<Card> _Removes = new List<Card>();
 
         m_Cards.ForEach(card => {
-            if (card.TYPE == _C.CARD_TYPE.JELLY) 
+            if (card.TYPE == _C.CARD_TYPE.JELLY && !card.IsBomb()) 
             {   
                 List<Card> nears = this.GetSameCardNear(card.Grid, card.ID);
-                if (!card.IsBomb() && nears.Count > 0)
-                {
-                    _Removes.Add(card); 
-
-
-                    //消除3个同色方块，产生一枚飞弹
-                    //消除4个同色方块，产生一枚炸弹
-                    //15关开放
-                    if (m_Stage.ID >= _C.BOMB_UNLOCK_STAGE)
-                    {
-                        if (nears.Count == 2) {
-                            card.DerivedID = (int)_C.CARD.MISSILE;
-                        }
-
-                        if (nears.Count > 2) {
-                            card.DerivedID = (int)_C.CARD.BOMB;
-                        }
-                    }
-                    
+                if (nears.Count > 0) {
+                    card.IsReady2Eliminate = true;  
                 }
             }
 
-            if (card.IsReady2Eliminate && !_Removes.Contains(card))
+            if (card.IsReady2Eliminate)
             {
                 _Removes.Add(card); 
             }
 
         });
 
-        // _Removes.ForEach(c => {
-        //     c.Grid.Card = null;
-        //     // c.Grid = null;       //不置空，否则会影响连锁反应的判断
-        //     m_Cards.Remove(c);
-        // });
+        CheckLink(_Removes);
 
         return _Removes;
+    }
+
+    //某关开放
+    //计算消除是否生成飞弹、炸弹
+    void CheckLink(List<Card> remove_cards)
+    {
+        if (m_Stage.ID < _C.BOMB_UNLOCK_STAGE) return;
+
+
+        for (int i = remove_cards.Count - 1; i >= 0; i--)
+        {
+            Card card   = remove_cards[i];
+
+            if (card.IsBomb() || card.TYPE == _C.CARD_TYPE.FRAME) continue;
+
+            List<Card> links = this.GenerateLinkCards(card);
+            if (links.Count > 1)
+            {
+                int near_count  = 1;
+                Card cs_card    = null;
+                for (int j = 0; j < links.Count; j++)
+                {
+                    var c = links[j];
+                    int count = this.GetSameCardNear(c.Grid, c.ID).Count;
+                    if (count > near_count)
+                    {
+                        near_count = count;
+                        cs_card = c;
+                    }
+                }
+
+                if (cs_card != null)
+                {
+                    //消除3个同色方块，产生一枚飞弹
+                    //消除4个同色方块，产生一枚炸弹
+                    if (links.Count == 3) {
+                        cs_card.DerivedID = (int)_C.CARD.MISSILE;
+                    }
+
+                    if (links.Count > 3) {
+                        cs_card.DerivedID = (int)_C.CARD.BOMB;
+                    }
+                }
+            }
+        }
+    }
+
+    //获取当前方块所处的Link
+    List<Card> GenerateLinkCards(Card card)
+    {
+        List<Card> link_cards = new List<Card>();
+
+        if (card.Link != null) {
+            return link_cards;
+        }
+
+        card.Link = card;
+        link_cards.Add(card);
+
+        var near_cards = this.GetSameCardNear(card.Grid, card.ID);
+
+        while (near_cards.Count > 0) {
+            var c = near_cards[0];
+            //未访问过 且 能被消除的(并不一定相邻就一定会消除，石块木块这类特殊方块)
+            if (c.Link == null && c.IsReady2Eliminate == true) {
+                c.Link = card;
+                link_cards.Add(c);
+                near_cards.AddRange(this.GetSameCardNear(c.Grid, c.ID));
+            }
+            near_cards.Remove(c);
+        }
+
+
+        return link_cards;
     }
 
     //死局

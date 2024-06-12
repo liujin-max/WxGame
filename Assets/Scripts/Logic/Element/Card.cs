@@ -63,6 +63,18 @@ public class Card
     //准备分解
     public bool IsReady2Eliminate = false;
 
+
+    //消除所处的方块link
+    public Card Link;
+
+
+
+
+
+
+
+
+
     public Card(CardData cardData)
     {
         m_Data = cardData;

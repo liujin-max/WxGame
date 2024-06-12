@@ -304,7 +304,6 @@ public class Matrix_12 : Matrix
 #endregion
 
 
-
 #region 第17关
 public class Matrix_17 : Matrix
 {
