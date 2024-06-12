@@ -692,6 +692,58 @@ public class Field : MonoBehaviour
         return _Removes;
     }
 
+    //死局
+    //无路可走
+    bool IsImpasse()
+    {
+        var grids = this.GetEmptyGrids();
+
+        if (grids.Count == 0) return true;
+
+        //无路可走了
+        if (grids.Count == 1 && m_GhostCards.Count > 0) {
+            Grid g = grids[0] as Grid;
+
+            Dictionary<int, int> _records = new Dictionary<int, int>();
+
+            var top = this.GetGridByDirection(g, _C.DIRECTION.UP);
+            if (top != null) {
+                if (_records.ContainsKey(top.Card.ID)) {
+                    return false;
+                }
+                _records[top.Card.ID] = 1;
+            }
+
+            var down = this.GetGridByDirection(g, _C.DIRECTION.DOWN);
+            if (down != null) {
+                if (_records.ContainsKey(down.Card.ID)) {
+                    return false;
+                }
+                _records[down.Card.ID] = 1;
+            }
+
+            var left = this.GetGridByDirection(g, _C.DIRECTION.LEFT);
+            if (left != null) {
+                if (_records.ContainsKey(left.Card.ID)) {
+                    return false;
+                }
+                _records[left.Card.ID] = 1;
+            }
+
+            var right = this.GetGridByDirection(g, _C.DIRECTION.RIGHT);
+            if (right != null) {
+                if (_records.ContainsKey(right.Card.ID)) {
+                    return false;
+                }
+                _records[right.Card.ID] = 1;
+            }
+
+            return true;
+        }
+
+        return false;
+    }
+
     public _C.RESULT CheckResult()
     {
         if (m_Stage.IsFinished() == true) return _C.RESULT.VICTORY;
@@ -706,6 +758,11 @@ public class Field : MonoBehaviour
         //检查时间
         if (m_Stage.NeedCheckTimer()) {
             if (m_Stage.IsTimerClear() == true) return _C.RESULT.LOSE;
+        }
+
+        //无路可走了
+        if (this.IsImpasse() == true) {
+            return _C.RESULT.LOSE;
         }
 
 

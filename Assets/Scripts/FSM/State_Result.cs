@@ -31,22 +31,27 @@ public class State_Result<T> : State<Field>
             Time.timeScale = 1f;
             Field.Instance.STATE   = _C.GAME_STATE.END;
 
-            if (m_Result == _C.RESULT.VICTORY) {  //成功
-                //记录关卡序列
-                GameFacade.Instance.DataCenter.User.SetLevel(Field.Instance.Stage.ID);
-                //结算奖励
-                GameFacade.Instance.DataCenter.User.UpdateCoin(Field.Instance.Stage.Coin);
-                GameFacade.Instance.DataCenter.User.UpdateFood(Field.Instance.Stage.Food);
+            //关卡模式
+            if (Field.Instance.Stage.MODE == _C.MODE.CHAPTER)
+            {
+                if (m_Result == _C.RESULT.VICTORY) {  //成功
+                    //记录关卡序列
+                    GameFacade.Instance.DataCenter.User.SetLevel(Field.Instance.Stage.ID);
+                    //结算奖励
+                    GameFacade.Instance.DataCenter.User.UpdateCoin(Field.Instance.Stage.Coin);
+                    GameFacade.Instance.DataCenter.User.UpdateFood(Field.Instance.Stage.Food);
 
-                EventManager.SendEvent(new GameEvent(EVENT.UI_UPDATECOIN));
+                    EventManager.SendEvent(new GameEvent(EVENT.UI_UPDATECOIN));
 
-                var window = GameFacade.Instance.UIManager.LoadWindow("VictoryWindow", UIManager.BOARD).GetComponent<VictoryWindow>();
-                window.Init();
+                    var window = GameFacade.Instance.UIManager.LoadWindow("VictoryWindow", UIManager.BOARD).GetComponent<VictoryWindow>();
+                    window.Init();
 
-            } else {    //失败
-                var window = GameFacade.Instance.UIManager.LoadWindow("LoseWindow", UIManager.BOARD).GetComponent<LoseWindow>();
-                window.Init();
+                } else {    //失败
+                    var window = GameFacade.Instance.UIManager.LoadWindow("LoseWindow", UIManager.BOARD).GetComponent<LoseWindow>();
+                    window.Init();
+                }
             }
+            
         }
     }
 }

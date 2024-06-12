@@ -136,6 +136,8 @@
     <Compile Include="Assets\Scripts\Manager\EffectManager.cs" />
     <Compile Include="Assets\Scripts\Struct\AttributeValue.cs" />
     <Compile Include="Assets\Scripts\Display\DisplayEvent.cs" />
+    <Compile Include="Assets\Scripts\Effect\FlyFood.cs" />
+    <Compile Include="Assets\Scripts\Manager\TimeManager.cs" />
     <Compile Include="Assets\Scripts\GameFacade.cs" />
     <Compile Include="Assets\DOTween\Modules\DOTweenModuleAudio.cs" />
     <Compile Include="Assets\Scripts\Struct\Pair.cs" />
@@ -163,9 +165,7 @@
     <Compile Include="Assets\Scripts\UI\Window\LoginWindow.cs" />
     <Compile Include="Assets\Scripts\Effect\Shine.cs" />
     <Compile Include="Assets\DOTween\Modules\DOTweenModuleUnityVersion.cs" />
-    <Compile Include="Assets\Scripts\Manager\TimeManager.cs" />
     <Compile Include="Assets\Scripts\UI\Window\TipWindow.cs" />
-    <Compile Include="Assets\Scripts\Effect\FlyFood.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Resources\Shader\SpriteGray.shader" />

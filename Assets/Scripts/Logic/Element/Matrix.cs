@@ -325,7 +325,7 @@ public class Matrix_14 : Matrix
 
 
 #region 无尽模式
-public class Matrix_999 : Matrix
+public class Matrix_10000 : Matrix
 {
     private int m_Count = -1;
     public override List<Card> AddCards(int random_count = -1)
@@ -337,9 +337,9 @@ public class Matrix_999 : Matrix
 
         //获取3个空白格
         List<object> grids  = RandomUtility.Pick(3, Field.Instance.GetEmptyGrids());
+
         m_Count++;
-        Debug.Log("Count : " + m_Count);
-        //目前每回合都会生成一个石块
+        //目前2回合生成一个石块
         for (int i = 0; i < grids.Count; i++)
         {
             CardData data = null;

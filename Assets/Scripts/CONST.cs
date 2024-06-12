@@ -85,6 +85,12 @@ public static class _C
         END
     }
 
+    //关卡类型
+    public enum MODE
+    {
+        CHAPTER = 0,
+        ENDLESS
+    }
 
 
 

@@ -55,7 +55,7 @@ public static class NavigationController
             GameFacade.Instance.SoundManager.PlayBGM(SOUND.BGM);
 
             GameFacade.Instance.ScenePool.LoadSceneAsync("Game", () => {
-                Field.Instance.Enter(999);
+                Field.Instance.Enter(10000);
             });
         });
     }

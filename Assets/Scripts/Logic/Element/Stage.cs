@@ -15,6 +15,14 @@ public class Stage
     public int Coin {get{return m_Data.Coin;}}
     public int Food {get{return m_Data.Food;}}
 
+    public _C.MODE MODE {
+        get {
+            if (m_Data.ID >= 10000) return _C.MODE.ENDLESS;
+            
+            return _C.MODE.CHAPTER;
+        }
+    }
+
 
     private List<GridJSON> m_GridJSONs = new List<GridJSON>();
     private GridJSON[,] m_GridJSONDic;
@@ -41,7 +49,7 @@ public class Stage
         { 12, () => new Matrix_12()},
         { 14, ()=> new Matrix_14()},
 
-        {999, ()=> new Matrix_999()},   //无尽模式
+        {10000, ()=> new Matrix_10000()},   //无尽模式
     };
     #endregion
 
