@@ -53,6 +53,10 @@ public class Card
         set {m_Dragable = value;}
     }
 
+    //可击破的
+    //石块只可被炸弹之类的击破
+    public bool Breakable {get {return m_Data.Breakable;}}
+
     //本次移动所经过的格子
     public List<Grid> CrossGrids = new List<Grid>();
    
@@ -106,8 +110,9 @@ public class Card
         if (this.ID == (int)_C.CARD.MISSILE)
         {
             foreach (var card in Field.Instance.Cards) {
-                if (card.Grid == grid && card != this) {
+                if (card.Grid == grid && card != this && card.Breakable == true) {
                     card.DoBomb();
+                    Field.Instance.RemoveCard(card);
                     GameFacade.Instance.DisplayEngine.Put(DisplayEngine.Track.Common, new DisplayEvent_BrokenCard(grid.Card));
                     break;
                 } 
@@ -129,7 +134,7 @@ public class Card
             if (this.ID == (int)_C.CARD.BOMB)
             {
                 foreach (var card in Field.Instance.Cards) {
-                    if (card != this) {
+                    if (card != this && card.Breakable == true) {
                         if (Mathf.Abs(card.Grid.X - m_Grid.X) + Mathf.Abs(card.Grid.Y - m_Grid.Y) <= 2) {
                             card.DoBomb();
                         }
@@ -146,11 +151,11 @@ public class Card
         //爆炸且在原地生成新的方块
         if (this.ID == (int)_C.CARD.WOOD)   
         {
-            var grid    = m_Grid;
+            Field.Instance.RemoveCard(this);
             GameFacade.Instance.DisplayEngine.Put(DisplayEngine.Track.Common, new DisplayEvent_BrokenCard(this));
 
             int rand    = RandomUtility.Random(0, Field.Instance.Stage.Cards.Count);
-            Field.Instance.PutCard(_C.CARD_STATE.NORMAL, Field.Instance.Stage.Cards[rand], grid);
+            Field.Instance.PutCard(_C.CARD_STATE.NORMAL, Field.Instance.Stage.Cards[rand], m_Grid);
 
             return;
         }

@@ -11,6 +11,7 @@ public class CardData
     public int ID;
     public string Name;
     public _C.CARD_TYPE Type;
+    public bool Breakable;
 }
 
 
@@ -73,6 +74,7 @@ public class DataCenter
             config.ID       = Convert.ToInt32(data[0]);
             config.Name     = data[1];
             config.Type     = (_C.CARD_TYPE)Convert.ToInt32(data[2]);
+            config.Breakable= Convert.ToInt32(data[3]) == 1;
 
             m_Cards.Add(config);
             m_CardDic[config.ID]  = config;

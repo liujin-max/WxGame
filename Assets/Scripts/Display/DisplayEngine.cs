@@ -51,11 +51,11 @@ public class DisplayEngine : MonoBehaviour
         {
             List<DisplayEvent> _removes = new List<DisplayEvent>();
 
-            List<DisplayEvent> events = m_Events[Track.Common];
+            List<DisplayEvent> events   = m_Events[Track.Common];
+            List<DisplayEvent> temp     = new List<DisplayEvent>();
+            temp.AddRange(events);
 
-            for (int i = events.Count - 1; i >= 0; i--)
-            {
-                var e = events[i];
+            temp.ForEach(e => {
                 if (e.IsIdle()) {
                     e.Start();
                 } else if (e.IsPlaying()) {
@@ -65,7 +65,7 @@ public class DisplayEngine : MonoBehaviour
                 if (e.IsFinished() == true) {
                     _removes.Add(e);
                 }
-            }
+            });
 
             _removes.ForEach(e => {
                 events.Remove(e);

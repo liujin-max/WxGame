@@ -17,6 +17,7 @@ public class State_Eliminate<T> : State<Field>
         //有宝石要消除，则消除并进入连锁反应
         if (_Removes.Count > 0) {
             _Removes.ForEach(card => {
+                Field.Instance.RemoveCard(card);
                 GameFacade.Instance.DisplayEngine.Put(DisplayEngine.Track.Common, new DisplayEvent_BrokenCard(card));
             });
         } 

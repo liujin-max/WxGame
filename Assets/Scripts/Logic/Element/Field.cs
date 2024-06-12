@@ -197,6 +197,13 @@ public class Field : MonoBehaviour
         return card;
     }
 
+    public void RemoveCard(Card card)
+    {
+        card.Grid.Card = null;
+        // c.Grid = null;       //不置空，否则会影响连锁反应的判断
+        m_Cards.Remove(card);
+    }
+
     //添加虚化方块
     public List<Card> InitGhostCards(int count)
     {

@@ -454,7 +454,7 @@ public class Matrix
         int min = 2;
         int max = 4;
 
-        if (Field.Instance.Cards.Count <= 4) {
+        if (Field.Instance.GetDragableCards().Count <= 4) {
             min++;
             max++;
         }

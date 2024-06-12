@@ -258,11 +258,6 @@ public class DisplayEvent_BrokenCard : DisplayEvent
         }
 
         card.IsEliminating = true;
-        
-        card.Grid.Card = null;
-        // c.Grid = null;       //不置空，否则会影响连锁反应的判断
-        Field.Instance.Cards.Remove(card);
-
     }
 
     public override void Update(float dealta_time)
