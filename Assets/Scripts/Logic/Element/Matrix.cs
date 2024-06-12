@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -9,13 +10,15 @@ public class Matrix_1 : Matrix
     public Matrix_1()
     {
         EventManager.AddHandler(EVENT.ONBROKENCARD,     OnBrokenCard);
+        EventManager.AddHandler(EVENT.ONCARDMOVED,      OnCardMoved);
     }
 
     public override void Dispose()
     {
         EventManager.DelHandler(EVENT.ONBROKENCARD,     OnBrokenCard);
+        EventManager.DelHandler(EVENT.ONCARDMOVED,      OnCardMoved);
     }
-    
+
     public override void FilterGrids()
     {
         for (int i = 0; i < Field.Instance.Grids.GetLength(0); i++)
@@ -41,6 +44,8 @@ public class Matrix_1 : Matrix
 
         Field.Instance.PutCard(_C.CARD_STATE.NORMAL, cardData, Field.Instance.GetGrid(1, 2));
         Field.Instance.PutCard(_C.CARD_STATE.NORMAL, cardData, Field.Instance.GetGrid(5, 2)).Dragable = false;
+
+        EventManager.SendEvent(new GameEvent(EVENT.UI_SHOWGUIDE, 1, true));
     }
 
     public override List<Card> AddCards(int random_count = -1)
@@ -70,19 +75,34 @@ public class Matrix_1 : Matrix
         Field.Instance.PutCard(_C.CARD_STATE.NORMAL, green, Field.Instance.GetGrid(6, 0)).Dragable = false;
         Field.Instance.PutCard(_C.CARD_STATE.NORMAL, green, Field.Instance.GetGrid(6, 2)).Dragable = false;
 
-
+        EventManager.SendEvent(new GameEvent(EVENT.UI_SHOWGUIDE, 2, true));
 
         return add_cards; 
     }
+
+    private void OnCardMoved(GameEvent @event)
+    {
+        var card = @event.GetParam(0) as Card;
+
+        if (m_Step == 0 && card.ID == 10001) 
+        {
+            EventManager.SendEvent(new GameEvent(EVENT.UI_SHOWGUIDE, 1, false));
+        }
+
+        if (m_Step == 1 && card.ID != 10001) 
+        {
+            EventManager.SendEvent(new GameEvent(EVENT.UI_SHOWGUIDE, 2, false));
+        }
+    }
+
 
     private void OnBrokenCard(GameEvent @event)
     {
         var card = @event.GetParam(0) as Card;
 
-
         if (m_Step == 0 && card.ID == 10001) {
             m_Step = 1;
-;
+
             //隐藏格子
             for (int i = 0; i < Field.Instance.Grids.GetLength(0); i++) {
                 var grid = Field.Instance.Grids[i, 2];

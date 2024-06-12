@@ -72,6 +72,8 @@ public class Field : MonoBehaviour
         });
 
         GameWindow = GameFacade.Instance.UIManager.LoadWindow("GameWindow", UIManager.BOTTOM).GetComponent<GameWindow>();
+
+        GameFacade.Instance.UIManager.LoadWindow("GuideWindow", UIManager.GUIDE);
     }
 
     public void Enter(int stage)

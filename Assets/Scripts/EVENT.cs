@@ -6,6 +6,7 @@ public static class EVENT
     public static string UI_UPDATESTEP      = "UI_UPDATESTEP";
     public static string UI_UPDATETIME      = "UI_UPDATETIME";
     public static string UI_UPDATECONDITION = "UI_UPDATECONDITION";
+    public static string UI_SHOWGUIDE       = "UI_SHOWGUIDE";
 
 
     public static string UI_POPUPMASK       = "UI_POPUPMASK";

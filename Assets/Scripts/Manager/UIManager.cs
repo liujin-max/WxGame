@@ -10,6 +10,7 @@ public class UIManager : MonoBehaviour
     public static Transform TIP;
     public static Transform BOARD;
     public static Transform EFFECT;
+    public static Transform GUIDE;
 
 
 
@@ -21,6 +22,7 @@ public class UIManager : MonoBehaviour
         MAJOR   = GameObject.Find("Canvas/MAJOR").transform;
         BOARD   = GameObject.Find("Canvas/BOARD").transform;
         EFFECT  = GameObject.Find("Canvas/EFFECT").transform;
+        GUIDE   = GameObject.Find("Canvas/GUIDE").transform;
         TIP     = GameObject.Find("Canvas/TIP").transform;
     }
 
