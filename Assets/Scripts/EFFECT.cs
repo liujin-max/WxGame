@@ -6,6 +6,7 @@ public static class EFFECT
 {
     public const string SWITCH      = "Prefab/Effect/SceneSwitch";
     public const string FLYFOOD     = "Prefab/Effect/fx_flyfood";
+    public const string BOMB        = "Prefab/Effect/fx_singlebomb";
 
 
     public const string SHINESTAR   = "Prefab/Effect/fx_victory_star";

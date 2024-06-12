@@ -27,6 +27,13 @@ public static class NavigationController
         int level   = GameFacade.Instance.TestMode == true ? GameFacade.Instance.TestStage : GameFacade.Instance.DataCenter.User.Level + 1;
         var json    = GameFacade.Instance.DataCenter.Level.GetStageJSON(level);
 
+        //代表已经通关了
+        if (json == null) 
+        {
+            EventManager.SendEvent(new GameEvent(EVENT.UI_POPUPTIP, "敬请期待"));
+            return null;
+        }
+
         if (!GameFacade.Instance.DataCenter.Level.IsFoodEnough2Next(json))
         {
             EventManager.SendEvent(new GameEvent(EVENT.UI_POPUPTIP, "体力不足"));

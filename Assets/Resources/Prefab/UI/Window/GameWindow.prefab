@@ -342,13 +342,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_ConditionPivot: {fileID: 6933029076851814228}
-  m_CardPivot: {fileID: 1839143742200854256}
   m_Stage: {fileID: 2964190214591358110}
   m_Coin: {fileID: 3713840522573495757}
   m_StepPivot: {fileID: 7185010672011909590}
   m_Step: {fileID: 4364838908149467652}
   m_TimePivot: {fileID: 8148392162432696407}
   m_Time: {fileID: 2180716234365206306}
+  m_BtnSetting: {fileID: 476714455331467629}
   m_ButtonPivot: {fileID: 5841029606560262295}
   m_BtnTime: {fileID: 7147663262129477524}
   m_BtnStep: {fileID: 3204097816462767377}

@@ -6,7 +6,7 @@ using UnityEngine;
 
 
 
-//空白 单纯的等待时间
+#region 空白 单纯的等待时间
 public class DisplayEvent_Wait : DisplayEvent
 {
     private CDTimer m_Timer = new CDTimer(1);
@@ -28,8 +28,10 @@ public class DisplayEvent_Wait : DisplayEvent
     }
 
 }
+#endregion
 
-//展现所有格子
+
+#region 展现所有格子
 public class DisplayEvent_ShowAllGrid : DisplayEvent
 {
     public DisplayEvent_ShowAllGrid(params object[] values) : base(values) {}
@@ -61,8 +63,10 @@ public class DisplayEvent_ShowAllGrid : DisplayEvent
     }
 
 }
+#endregion
 
-//隐藏格子
+
+#region 隐藏格子
 public class DisplayEvent_HideGrid : DisplayEvent
 {
     private CDTimer m_Timer = new CDTimer(0.1f);
@@ -91,10 +95,10 @@ public class DisplayEvent_HideGrid : DisplayEvent
         }
     }
 }
+#endregion
 
 
-
-//添加虚化方块
+#region 添加虚化方块
 public class DisplayEvent_GhostCard : DisplayEvent
 {
     public DisplayEvent_GhostCard(params object[] values) : base(values) {}
@@ -109,8 +113,10 @@ public class DisplayEvent_GhostCard : DisplayEvent
         m_State = _C.DISPLAY_STATE.END;
     }
 }
+#endregion
 
-//添加实体方块
+
+#region 添加实体方块
 public class DisplayEvent_NormalCard : DisplayEvent
 {
     public DisplayEvent_NormalCard(params object[] values) : base(values) {}
@@ -142,8 +148,10 @@ public class DisplayEvent_NormalCard : DisplayEvent
         }
     }
 }
+#endregion
 
-//移动卡牌
+
+#region 移动方块
 public class DisplayEvent_MoveCard : DisplayEvent
 {
     private List<Grid> m_GridPaths = new List<Grid>();
@@ -184,6 +192,7 @@ public class DisplayEvent_MoveCard : DisplayEvent
             if (m_GridPaths.Count > 0)
             {
                 var grid = m_GridPaths.First();
+                card.OnMove(grid, direction);
                 m_GridPaths.Remove(grid);
                 
                 Vector2 to_pos = grid.Position;
@@ -202,14 +211,6 @@ public class DisplayEvent_MoveCard : DisplayEvent
             else
             {
                 m_State = _C.DISPLAY_STATE.END;
-
-                card.Entity.transform.localPosition = card.Grid.Position;
-                card.Entity.DoScale(Vector3.one, 0.1f); //不在缩放结束后处理了，有可能被顶掉
-
-                var hit = Field.Instance.GetCardByDirection(card, direction);
-                if (hit != null) {
-                    hit.Entity.Shake(direction);
-                }
             }
             
         }
@@ -218,13 +219,29 @@ public class DisplayEvent_MoveCard : DisplayEvent
     public override void Terminate()
     {
         var card        = m_Params[0] as Card;
+        var direction   = (_C.DIRECTION)m_Params[1];
+
+        
+        //移动后的处理
+        card.OnAfterMove(direction);
+
+        card.Entity.transform.localPosition = card.Grid.Position;
+        card.Entity.DoScale(Vector3.one, 0.1f); //不在缩放结束后处理了，有可能被顶掉
+
+        var hit = Field.Instance.GetCardByDirection(card.Grid, direction);
+        if (hit != null) {
+            hit.Entity.Shake(direction);
+        }
+
 
         EventManager.SendEvent(new GameEvent(EVENT.ONCARDMOVED, card));
         EventManager.SendEvent(new GameEvent(EVENT.UI_UPDATESTEP, false));
     }
 }
+#endregion
 
-//卡牌消除
+
+#region 卡牌消除
 public class DisplayEvent_BrokenCard : DisplayEvent
 {
     public DisplayEvent_BrokenCard(params object[] values) : base(values) {}
@@ -241,14 +258,22 @@ public class DisplayEvent_BrokenCard : DisplayEvent
         }
 
         card.IsEliminating = true;
+        
+        card.Grid.Card = null;
+        // c.Grid = null;       //不置空，否则会影响连锁反应的判断
+        Field.Instance.Cards.Remove(card);
 
-        //收集
-        Field.Instance.Stage.Collect(card.ID, 1);
     }
 
     public override void Update(float dealta_time)
     {
         var card = m_Params[0] as Card;
+
+        if (card.DeadType == _C.DEAD_TYPE.BOMB) {
+            m_State = _C.DISPLAY_STATE.END;
+            GameFacade.Instance.EffectManager.Load(EFFECT.BOMB, card.Entity.transform.position);
+            return;
+        }
 
         float height = card.Entity.Entity.size.y + dealta_time * 2.8f;
         card.Entity.Entity.size = new Vector2(card.Entity.Entity.size.x, height);
@@ -269,14 +294,18 @@ public class DisplayEvent_BrokenCard : DisplayEvent
 
         EventManager.SendEvent(new GameEvent(EVENT.ONBROKENCARD, card));
 
-        GameFacade.Instance.DisplayEngine.Put(DisplayEngine.Track.Common, new DisplayEvent_FlyJelly(card, pos));    
+        GameFacade.Instance.EffectManager.Load("Prefab/Effect/fx_broken_" + card.ID, pos);
+
+        GameFacade.Instance.DisplayEngine.Put(DisplayEngine.Track.Common, new DisplayEvent_Collect(card, pos));    
     }
 }
+#endregion
 
-//方块飞行特效
-public class DisplayEvent_FlyJelly : DisplayEvent
+
+#region 方块收集
+public class DisplayEvent_Collect : DisplayEvent
 {
-    public DisplayEvent_FlyJelly(params object[] values) : base(values) {}
+    public DisplayEvent_Collect(params object[] values) : base(values) {}
 
     public override void Start()
     {
@@ -287,7 +316,10 @@ public class DisplayEvent_FlyJelly : DisplayEvent
         var card    = m_Params[0] as Card;
         var pos     = (Vector3)m_Params[1];
 
-        GameFacade.Instance.EffectManager.Load("Prefab/Effect/fx_broken_" + card.ID, pos);
+        if (card.IsBomb() == true) return;
+
+        //收集
+        Field.Instance.Stage.Collect(card.ID, 1);
 
         
         var item = Field.Instance.GameWindow.GetConditionItem(card.ID);
@@ -300,13 +332,16 @@ public class DisplayEvent_FlyJelly : DisplayEvent
             effect.GetComponent<BezierCurveAnimation>().Fly(pos, item.transform.position);
 
             effect.GetComponent<Effect>().SetCallback(()=>{
+
                 EventManager.SendEvent(new GameEvent(EVENT.UI_UPDATECONDITION, item.Condition));
             });
         }  
     }
 }
+#endregion
 
-//打乱卡牌
+
+#region 打乱方块
 public class DisplayEvent_ShuffleCard : DisplayEvent
 {
     private CDTimer m_Timer = new CDTimer(0.3f);
@@ -343,6 +378,32 @@ public class DisplayEvent_ShuffleCard : DisplayEvent
         Field.Instance.Transist(_C.FSMSTATE.ELIMINATE);
     }
 }
+#endregion
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 //动画节点

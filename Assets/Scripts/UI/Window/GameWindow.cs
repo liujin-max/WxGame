@@ -20,6 +20,7 @@ public class GameWindow : MonoBehaviour
     [SerializeField] private Text m_Time;
 
     [Header("按钮")]
+    [SerializeField] private Button m_BtnSetting;
     [SerializeField] GameObject m_ButtonPivot;
     [SerializeField] private Button m_BtnTime;
     [SerializeField] private Button m_BtnStep;
@@ -57,6 +58,16 @@ public class GameWindow : MonoBehaviour
 
     void Start()
     {
+        //设置
+        m_BtnSetting.onClick.AddListener(()=>{
+            Field.Instance.Pause();
+
+            GameFacade.Instance.UIManager.LoadWindow("SettingWindow", UIManager.BOARD).GetComponent<SettingWindow>().SetCallback(()=>{
+                Field.Instance.Resume();
+            });
+        });
+
+
         //添加时间
         m_BtnTime.onClick.AddListener(()=>{
             Platform.Instance.REWARD_VIDEOAD("", ()=>{

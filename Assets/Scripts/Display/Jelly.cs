@@ -124,6 +124,11 @@ public class Jelly : MonoBehaviour
             return;
         }
 
+        if (m_Card.IsBomb() == true) {
+            m_Emoji.gameObject.SetActive(false);
+            return;
+        }
+
         m_Emoji.gameObject.SetActive(true);
 
         if (m_Card.IsEliminating) {

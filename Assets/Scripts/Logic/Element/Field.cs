@@ -37,6 +37,8 @@ public class Field : MonoBehaviour
     private List<Card> m_GhostCards = new List<Card>();
     public List<Card> GhostCards { get { return m_GhostCards;}}
 
+    public _C.DIRECTION[] Directions = {_C.DIRECTION.UP, _C.DIRECTION.DOWN, _C.DIRECTION.LEFT, _C.DIRECTION.RIGHT};
+
 
     //记录每回合的状态
     private int m_Turn = 0;
@@ -100,6 +102,11 @@ public class Field : MonoBehaviour
     public void Pause()
     {
         STATE   = _C.GAME_STATE.PAUSE;
+    }
+
+    public void Resume()
+    {
+        STATE   = _C.GAME_STATE.PLAY;
     }
 
 
@@ -325,8 +332,11 @@ public class Field : MonoBehaviour
         return false;
     }
 
-    public bool IsSameCardNear(Grid grid, int card_id)
+    //返回的是相邻同色方块的数组
+    public List<Card> GetSameCardNear(Grid grid, int card_id)
     {
+        List<Card> _cards = new List<Card>();
+
         Grid card_grid = grid; //card.Grid;
 
         Grid top_grid = null;
@@ -334,7 +344,7 @@ public class Field : MonoBehaviour
             top_grid = m_Grids[card_grid.X, card_grid.Y + 1];
 
             if (IsGridHasCard(top_grid, card_id)) {
-                return true;
+                _cards.Add(top_grid.Card);
             }
         }
 
@@ -343,7 +353,7 @@ public class Field : MonoBehaviour
             down_grid = m_Grids[card_grid.X, card_grid.Y - 1];
 
             if (IsGridHasCard(down_grid, card_id)) {
-                return true;
+                _cards.Add(down_grid.Card);
             }
         }
 
@@ -352,7 +362,7 @@ public class Field : MonoBehaviour
             left_grid = m_Grids[card_grid.X - 1, card_grid.Y];
 
             if (IsGridHasCard(left_grid, card_id)) {
-                return true;
+                _cards.Add(left_grid.Card);
             }
         }
 
@@ -361,11 +371,11 @@ public class Field : MonoBehaviour
             right_grid = m_Grids[card_grid.X + 1, card_grid.Y];
 
             if (IsGridHasCard(right_grid, card_id)) {
-                return true;
+                _cards.Add(right_grid.Card);
             }
         }
 
-        return false;
+        return _cards;
     }
 
     //
@@ -414,9 +424,9 @@ public class Field : MonoBehaviour
     }
     
     //获取四个方向相邻的方块
-    public Card GetCardByDirection(Card card, _C.DIRECTION direction)
+    public Card GetCardByDirection(Grid g, _C.DIRECTION direction)
     {
-        var grid = this.GetGridByDirection(card.Grid, direction);
+        var grid = this.GetGridByDirection(g, direction);
         if (grid != null) {
             return grid.Card;
         }
@@ -473,7 +483,6 @@ public class Field : MonoBehaviour
                     if (grid.IsEmpty)
                     {
                         grid_path.Add(grid);
-
                         pos_x--;
                     }
                     else 
@@ -486,6 +495,14 @@ public class Field : MonoBehaviour
                             pos_x = grid.Portal.X - 1;
                             pos_y = grid.Portal.Y;
                         }
+                        else if (card.IsBomb() == true)
+                        {
+                            grid_path.Add(grid);
+                            pos_x--;
+                            if (card.ID == (int)_C.CARD.BOMB) {
+                                break;
+                            }
+                        }
                         else
                         {
                             break;
@@ -494,9 +511,9 @@ public class Field : MonoBehaviour
                 }
 
                 if (grid_path.Count == 0)  return null;
+                card.CrossGrids = grid_path;
 
                 Grid target = grid_path.Last();
-
                 origin.Card = null;
                 target.Card = card;
                 card.Grid   = target;
@@ -525,7 +542,6 @@ public class Field : MonoBehaviour
                     if (grid.IsEmpty)
                     {
                         grid_path.Add(grid);
-
                         pos_x++;
                     }
                     else 
@@ -538,6 +554,14 @@ public class Field : MonoBehaviour
                             pos_x = grid.Portal.X + 1;
                             pos_y = grid.Portal.Y;
                         }
+                        else if (card.IsBomb() == true)
+                        {
+                            grid_path.Add(grid);
+                            pos_x++;
+                            if (card.ID == (int)_C.CARD.BOMB) {
+                                break;
+                            }
+                        }
                         else
                         {
                             break;
@@ -546,9 +570,9 @@ public class Field : MonoBehaviour
                 }
 
                 if (grid_path.Count == 0)  return null;
+                card.CrossGrids = grid_path;
 
                 Grid target = grid_path.Last();
-
                 origin.Card = null;
                 target.Card = card;
                 card.Grid   = target;
@@ -577,7 +601,6 @@ public class Field : MonoBehaviour
                     if (grid.IsEmpty)
                     {
                         grid_path.Add(grid);
-
                         pos_y++;
                     }
                     else 
@@ -590,6 +613,14 @@ public class Field : MonoBehaviour
                             pos_x = grid.Portal.X;
                             pos_y = grid.Portal.Y + 1;
                         }
+                        else if (card.IsBomb() == true)
+                        {
+                            grid_path.Add(grid);
+                            pos_y++;
+                            if (card.ID == (int)_C.CARD.BOMB) {
+                                break;
+                            }
+                        }
                         else
                         {
                             break;
@@ -598,9 +629,9 @@ public class Field : MonoBehaviour
                 }
 
                 if (grid_path.Count == 0)  return null;
+                card.CrossGrids = grid_path;
 
                 Grid target = grid_path.Last();
-
                 origin.Card = null;
                 target.Card = card;
                 card.Grid   = target;
@@ -631,7 +662,6 @@ public class Field : MonoBehaviour
                     if (grid.IsEmpty)
                     {
                         grid_path.Add(grid);
-
                         pos_y--;
                     }
                     else 
@@ -644,6 +674,14 @@ public class Field : MonoBehaviour
                             pos_x = grid.Portal.X;
                             pos_y = grid.Portal.Y - 1;
                         }
+                        else if (card.IsBomb() == true)
+                        {
+                            grid_path.Add(grid);
+                            pos_y--;
+                            if (card.ID == (int)_C.CARD.BOMB) {
+                                break;
+                            }
+                        }
                         else
                         {
                             break;
@@ -652,6 +690,7 @@ public class Field : MonoBehaviour
                 }
 
                 if (grid_path.Count == 0)  return null;
+                card.CrossGrids = grid_path;
 
                 Grid target = grid_path.Last();
                 origin.Card = null;
@@ -678,18 +717,43 @@ public class Field : MonoBehaviour
         List<Card> _Removes = new List<Card>();
 
         m_Cards.ForEach(card => {
-            if (card.TYPE == _C.CARD_TYPE.JELLY && IsSameCardNear(card.Grid, card.ID) == true) 
+            if (card.TYPE == _C.CARD_TYPE.JELLY) 
+            {   
+                List<Card> nears = this.GetSameCardNear(card.Grid, card.ID);
+                if (!card.IsBomb() && nears.Count > 0)
+                {
+                    _Removes.Add(card); 
+
+
+                    //消除3个同色方块，产生一枚飞弹
+                    //消除4个同色方块，产生一枚炸弹
+                    //15关开放
+                    if (m_Stage.ID >= _C.BOMB_UNLOCK_STAGE)
+                    {
+                        if (nears.Count == 2) {
+                            card.DerivedID = (int)_C.CARD.MISSILE;
+                        }
+
+                        if (nears.Count > 2) {
+                            card.DerivedID = (int)_C.CARD.BOMB;
+                        }
+                    }
+                    
+                }
+            }
+
+            if (card.IsReady2Eliminate && !_Removes.Contains(card))
             {
-                _Removes.Add(card);
+                _Removes.Add(card); 
             }
 
         });
 
-        _Removes.ForEach(c => {
-            c.Grid.Card = null;
-            // c.Grid = null;       //不置空，否则会影响连锁反应的判断
-            m_Cards.Remove(c);
-        });
+        // _Removes.ForEach(c => {
+        //     c.Grid.Card = null;
+        //     // c.Grid = null;       //不置空，否则会影响连锁反应的判断
+        //     m_Cards.Remove(c);
+        // });
 
         return _Removes;
     }
@@ -706,38 +770,18 @@ public class Field : MonoBehaviour
         if (grids.Count == 1 && m_GhostCards.Count > 0) {
             Grid g = grids[0] as Grid;
 
-            Dictionary<int, int> _records = new Dictionary<int, int>();
+            HashSet<int> _records = new HashSet<int>();
 
-            var top = this.GetGridByDirection(g, _C.DIRECTION.UP);
-            if (top != null) {
-                if (_records.ContainsKey(top.Card.ID)) {
-                    return false;
+            for (int i = 0; i < Directions.Length; i++)
+            {
+                _C.DIRECTION dir = Directions[i];
+                var grid = this.GetGridByDirection(g, dir);
+                if (grid != null) {
+                    if (_records.Contains(grid.Card.ID)) {
+                        return false;
+                    }
+                    _records.Add(grid.Card.ID);
                 }
-                _records[top.Card.ID] = 1;
-            }
-
-            var down = this.GetGridByDirection(g, _C.DIRECTION.DOWN);
-            if (down != null) {
-                if (_records.ContainsKey(down.Card.ID)) {
-                    return false;
-                }
-                _records[down.Card.ID] = 1;
-            }
-
-            var left = this.GetGridByDirection(g, _C.DIRECTION.LEFT);
-            if (left != null) {
-                if (_records.ContainsKey(left.Card.ID)) {
-                    return false;
-                }
-                _records[left.Card.ID] = 1;
-            }
-
-            var right = this.GetGridByDirection(g, _C.DIRECTION.RIGHT);
-            if (right != null) {
-                if (_records.ContainsKey(right.Card.ID)) {
-                    return false;
-                }
-                _records[right.Card.ID] = 1;
             }
 
             return true;

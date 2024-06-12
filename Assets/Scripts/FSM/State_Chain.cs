@@ -15,25 +15,21 @@ public class State_Chain<T> : State<Field>
         cards.ForEach(c => {
             if (c.TYPE == _C.CARD_TYPE.JELLY)   //普通方块才有连锁反应
             {
-                var top = Field.Instance.GetCardByDirection(c, _C.DIRECTION.UP);
-                if (top != null) {
-                    top.OnChain(_C.DIRECTION.UP);
+                foreach (_C.DIRECTION dir in Field.Instance.Directions) {
+                    Card card = Field.Instance.GetCardByDirection(c.Grid, dir);
+                    if (card != null) {
+                        card.OnChain(dir);
+                    }
                 }
+            }
+        }); 
 
-                var down = Field.Instance.GetCardByDirection(c, _C.DIRECTION.DOWN);
-                if (down != null) {
-                    down.OnChain(_C.DIRECTION.DOWN);
-                }
-
-                var left = Field.Instance.GetCardByDirection(c, _C.DIRECTION.LEFT);
-                if (left != null) {
-                    left.OnChain(_C.DIRECTION.LEFT);
-                }
-
-                var right = Field.Instance.GetCardByDirection(c, _C.DIRECTION.RIGHT);
-                if (right != null) {
-                    right.OnChain(_C.DIRECTION.RIGHT);
-                }
+        //在连锁反应后再处理衍生物的问题
+        //否则衍生物可能被推走
+        cards.ForEach(c => {
+            //衍生物
+            if (c.DerivedID > 0) {
+                Field.Instance.PutCard(_C.CARD_STATE.NORMAL, GameFacade.Instance.DataCenter.GetCardData(c.DerivedID), c.Grid);   
             }
         }); 
     }

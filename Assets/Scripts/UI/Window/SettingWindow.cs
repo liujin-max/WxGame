@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Text;
@@ -12,6 +13,8 @@ public class SettingWindow : MonoBehaviour
     [SerializeField] Slider c_SoundSlider;
     [SerializeField] Toggle c_VibrateToggle;
 
+
+    private Action m_Callback;
 
     void Awake()
     {
@@ -48,5 +51,8 @@ public class SettingWindow : MonoBehaviour
         c_VibrateToggle.isOn    = GameFacade.Instance.SystemManager.VibrateFlag;
     }
 
-
+    public void SetCallback(Action callback)
+    {
+        m_Callback = callback;
+    }
 }

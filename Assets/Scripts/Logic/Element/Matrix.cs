@@ -48,7 +48,7 @@ public class Matrix_1 : Matrix
         EventManager.SendEvent(new GameEvent(EVENT.UI_SHOWGUIDE, 1, true));
     }
 
-    public override List<Card> AddCards(int random_count = -1)
+    public override List<Card> AddCards()
     {
         List<Card> add_cards = new List<Card>();
 
@@ -175,7 +175,7 @@ public class Matrix_10 : Matrix
             int rand    = RandomUtility.Random(0, grid_datas.Count);
             Grid grid   = grid_datas[rand] as Grid;
             
-            while (Field.Instance.IsSameCardNear(grid, data.ID))
+            while (Field.Instance.GetSameCardNear(grid, data.ID).Count > 0)
             {
                 rand    = RandomUtility.Random(0, grid_datas.Count);
                 grid    = grid_datas[rand] as Grid;
@@ -187,7 +187,7 @@ public class Matrix_10 : Matrix
         }
     }
 
-    public override List<Card> AddCards(int random_count = -1)
+    public override List<Card> AddCards()
     {
         return new List<Card>();
     }
@@ -228,7 +228,7 @@ public class Matrix_11 : Matrix
             int rand    = RandomUtility.Random(0, grid_datas.Count);
             Grid grid   = grid_datas[rand] as Grid;
             
-            while (Field.Instance.IsSameCardNear(grid, data.ID))
+            while (Field.Instance.GetSameCardNear(grid, data.ID).Count > 0)
             {
                 rand    = RandomUtility.Random(0, grid_datas.Count);
                 grid    = grid_datas[rand] as Grid;
@@ -240,7 +240,7 @@ public class Matrix_11 : Matrix
         }
     }
 
-    public override List<Card> AddCards(int random_count = -1)
+    public override List<Card> AddCards()
     {
         return new List<Card>();
     }
@@ -251,7 +251,7 @@ public class Matrix_11 : Matrix
 #region 第12关
 public class Matrix_12 : Matrix
 {
-    public override List<Card> AddCards(int random_count = -1)
+    public override List<Card> AddCards()
     {
         //将虚化方块实体化
         Field.Instance.CorporealCards();
@@ -305,10 +305,10 @@ public class Matrix_12 : Matrix
 
 
 
-#region 第14关
-public class Matrix_14 : Matrix
+#region 第17关
+public class Matrix_17 : Matrix
 {
-    public override List<Card> AddCards(int random_count = -1)
+    public override List<Card> AddCards()
     {
         //将虚化方块实体化
         Field.Instance.CorporealCards();
@@ -348,7 +348,7 @@ public class Matrix_14 : Matrix
 public class Matrix_10000 : Matrix
 {
     private int m_Count = -1;
-    public override List<Card> AddCards(int random_count = -1)
+    public override List<Card> AddCards()
     {
         //将虚化方块实体化
         Field.Instance.CorporealCards();
@@ -432,7 +432,7 @@ public class Matrix
 
             Grid grid   = grid_datas[RandomUtility.Random(0, grid_datas.Count)] as Grid;
             
-            while (Field.Instance.IsSameCardNear(grid, data.ID))
+            while (Field.Instance.GetSameCardNear(grid, data.ID).Count > 0)
             {
                 grid   = grid_datas[RandomUtility.Random(0, grid_datas.Count)] as Grid;
             }
@@ -445,14 +445,22 @@ public class Matrix
     }
 
     //默认
-    public virtual List<Card> AddCards(int random_count = -1)
+    public virtual List<Card> AddCards()
     {
         //将虚化方块实体化
         Field.Instance.CorporealCards();
 
 
         //添加虚化方块
-        int count = random_count == -1 ? RandomUtility.Random(2, 4) : random_count;
+        int min = 2;
+        int max = 4;
+
+        if (Field.Instance.Cards.Count <= 4) {
+            min++;
+            max++;
+        }
+
+        int count   = RandomUtility.Random(min, max);
 
         return Field.Instance.InitGhostCards(count);
     }

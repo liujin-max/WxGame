@@ -14,6 +14,8 @@ public static class _C
     public static float DEFAULT_GRID_WEIGHT = 1.25f;
     public static float DEFAULT_GRID_HEIGHT = 1.26f;
 
+
+    public static int BOMB_UNLOCK_STAGE = 13;       //开放合成炸弹
     public static int DEFAULT_FOOD      = 30;       //体力上限
     public static int FOOD_RECOVERYTIME = 300;      //体力恢复时间 300秒
 
@@ -56,9 +58,19 @@ public static class _C
     public enum CARD
     {
         UNIVERSAL   = 10000,
-        STONE   = 10020,
-        WOOD    = 10021,
-        PORTAL  = 10022,    //传送门
+        MISSILE     = 10010,
+        BOMB        = 10011,
+
+        STONE       = 10020,
+        WOOD        = 10021,
+        PORTAL      = 10022,    //传送门
+    }
+
+    //消解方式
+    public enum DEAD_TYPE
+    {
+        NORMAL,
+        BOMB,
     }
 
     //游戏状态

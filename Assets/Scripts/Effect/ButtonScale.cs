@@ -17,6 +17,7 @@ public class ButtonScale : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 
     public void OnPointerDown(PointerEventData eventData)
     {
+        GameFacade.Instance.SoundManager.Load(SOUND.CLICK);
         Platform.Instance.VIBRATE(_C.VIBRATELEVEL.LIGHT);
 
         if (m_Tweener != null) {

@@ -18,6 +18,9 @@ public class LoginWindow : MonoBehaviour
     void Start()
     {
         m_BtnStage.onClick.AddListener(()=>{
+            GameFacade.Instance.SoundManager.Load(SOUND.CLICK);
+            Platform.Instance.VIBRATE(_C.VIBRATELEVEL.LIGHT);
+
             //进入游戏
             StageJSON json = NavigationController.GotoGame();
             if (json != null) {
@@ -32,9 +35,19 @@ public class LoginWindow : MonoBehaviour
         });
 
         m_BtnEndless.onClick.AddListener(()=>{
+            GameFacade.Instance.SoundManager.Load(SOUND.CLICK);
+            Platform.Instance.VIBRATE(_C.VIBRATELEVEL.LIGHT);
+
             NavigationController.GotoEndless();
 
             GameFacade.Instance.UIManager.UnloadWindow(gameObject);
+        });
+
+        m_BtnSetting.onClick.AddListener(()=>{
+            GameFacade.Instance.SoundManager.Load(SOUND.CLICK);
+            Platform.Instance.VIBRATE(_C.VIBRATELEVEL.LIGHT);
+
+            GameFacade.Instance.UIManager.LoadWindow("SettingWindow", UIManager.BOARD);
         });
     }
 
@@ -49,10 +62,19 @@ public class LoginWindow : MonoBehaviour
 
     public void FlushCost()
     {
+        GameObject pivot = m_BtnStage.transform.Find("CostPivot").gameObject;
+
         var stage_json = GameFacade.Instance.DataCenter.Level.GetStageJSON(GameFacade.Instance.DataCenter.User.Level + 1);
+
+        //已通关
+        if (stage_json == null) {
+            pivot.gameObject.SetActive(false);
+            return;
+        }
+
         int food = stage_json.Food;
 
-        GameObject pivot = m_BtnStage.transform.Find("CostPivot").gameObject;
+        
         if (food > 0) {
             pivot.gameObject.SetActive(true);
 

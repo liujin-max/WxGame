@@ -43,8 +43,10 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 4269ac0068007e74a817a62124caa310, type: 3}
   - {fileID: 21300000, guid: 47b00f134ed4d2a48a85f19807a0e13f, type: 3}
   - {fileID: 21300000, guid: b20a1504b31a2cc4db5e902a6b1a1029, type: 3}
+  - {fileID: 21300000, guid: 2dca79c4f0375ab419a10c04f4afff14, type: 3}
   - {fileID: 21300000, guid: ca33c3f41dbc58e4ca15095221746c4a, type: 3}
   - {fileID: 21300000, guid: 0b6c08d5e7ac49b4ba26e3638f732e02, type: 3}
+  - {fileID: 21300000, guid: 1c2dfb1656a01c44d82cf10544b8919e, type: 3}
   - {fileID: 21300000, guid: bcfc8f16c13b34543a3f6a312658e33d, type: 3}
   - {fileID: 21300000, guid: 62a31c96670952d458189b923fcde88c, type: 3}
   - {fileID: 21300000, guid: 60953e47ff8007146b5174b8a4cc883d, type: 3}
@@ -58,8 +60,10 @@ SpriteAtlas:
   - grid_2
   - jelly_10020
   - jelly_10021
+  - jelly_10010
   - grid_1
   - jelly_10002
+  - jelly_10011
   - jelly_10000
   - jelly_10022
   - grid_horn
