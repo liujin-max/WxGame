@@ -270,6 +270,7 @@ public class DisplayEvent_BrokenCard : DisplayEvent
 
         if (card.DeadType == _C.DEAD_TYPE.BOMB) {
             m_State = _C.DISPLAY_STATE.END;
+            Field.Instance.Land.DoSmallShake();
             GameFacade.Instance.EffectManager.Load(EFFECT.BOMB, card.Entity.transform.position);
             return;
         }
@@ -303,13 +304,7 @@ public class DisplayEvent_BrokenCard : DisplayEvent
 
         GameFacade.Instance.EffectManager.Load("Prefab/Effect/fx_broken_" + card.ID, pos);
 
-        var camera = GameObject.Find("SceneCamera");
-        if (camera != null) {
-            Debug.Log("Camera");
-            camera.transform.localPosition = new Vector3(2, 0, 0);
-            // camera.GetComponent<CameraUtility>().DoSmallShake();
-        }
-        
+        if (card.ID == (int)_C.CARD.BOMB) Field.Instance.Land.DoShake();
 
         GameFacade.Instance.DisplayEngine.Put(DisplayEngine.Track.Common, new DisplayEvent_Collect(card, pos));    
     }

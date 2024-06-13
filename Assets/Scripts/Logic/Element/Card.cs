@@ -116,8 +116,6 @@ public class Card
                     Field.Instance.RemoveCard(card);
                     GameFacade.Instance.DisplayEngine.Put(DisplayEngine.Track.Common, new DisplayEvent_BrokenCard(card));
 
-                    GameObject.Find("SceneCamera").GetComponent<CameraUtility>().DoSmallShake();
-
                     break;
                 } 
             }
@@ -143,8 +141,6 @@ public class Card
                     } 
                 }
             }
-
-            GameObject.Find("SceneCamera").GetComponent<CameraUtility>().DoShake();
         }
     }
 
