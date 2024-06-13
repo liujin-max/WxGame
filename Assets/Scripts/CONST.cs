@@ -45,8 +45,9 @@ public static class _C
     //方块类型
     public enum CARD_TYPE
     {
-        JELLY = 1,
-        FRAME    
+        JELLY   = 1,
+        SPECIAL = 2,
+        FRAME   = 3,
     }
 
     //方块状态

@@ -146,40 +146,6 @@ public class Jelly : MonoBehaviour
             int id = RandomUtility.Random(1, 10);
             m_Emoji.sprite = Resources.Load<Sprite>("UI/Emoji/" + id);
         }
-        
-
-
-        // if (m_Card.STATE == _C.CARD_STATE.NORMAL && m_Card.TYPE == _C.CARD_TYPE.JELLY)
-        // {
-        //     m_Eye_Left.gameObject.SetActive(true);
-        //     m_Eye_Right.gameObject.SetActive(true);
-
-        //     var card = Field.Instance.GetMinDistanceSameCard(m_Card);
-        //     if (card != null)
-        //     {
-        //         Vector2 t_pos = card.Entity.transform.localPosition;
-        //         Vector2 o_pos = m_Card.Entity.transform.localPosition;
-
-        //         float angle = Vector2.Angle(t_pos - o_pos, Vector2.right);
-        //         if (t_pos.y < o_pos.y) {
-        //             angle *= -1;
-        //         }
-
-        //         m_Eye_Left.transform.localPosition = ToolUtility.FindPointOnCircle(new Vector2(-0.2f, 0.9f), 0.15f, angle);
-        //         m_Eye_Right.transform.localPosition = ToolUtility.FindPointOnCircle(new Vector2( 0.2f, 0.9f), 0.15f, angle);
-
-        //     }
-        //     else 
-        //     {
-        //         m_Eye_Left.transform.localPosition = new Vector2(-0.2f, 0.9f);
-        //         m_Eye_Right.transform.localPosition = new Vector2(0.2f, 0.9f);
-        //     }
-        // }
-        // else
-        // {
-        //     m_Eye_Left.gameObject.SetActive(false);
-        //     m_Eye_Right.gameObject.SetActive(false);
-        // }
     }
 
     void FixedUpdate()

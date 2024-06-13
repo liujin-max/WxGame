@@ -460,6 +460,8 @@ public class Field : MonoBehaviour
 
                 while (pos_x >= 0 && pos_x < m_Weight && pos_y >= 0 && pos_y < m_Height)
                 {
+                    if (grid_path.Count > 10) break;
+
                     Grid grid = this.GetGrid(pos_x, pos_y);;
 
                     if (!grid.IsValid) break;
@@ -514,6 +516,8 @@ public class Field : MonoBehaviour
 
             case _C.DIRECTION.RIGHT:    //向右
             {
+                if (grid_path.Count > 10) break;
+
                 if (origin.X == m_Weight - 1) return null;
 
                 int pos_x   = origin.X + 1;
@@ -582,6 +586,8 @@ public class Field : MonoBehaviour
 
                 while (pos_x >= 0 && pos_x < m_Weight && pos_y >= 0 && pos_y < m_Height)
                 {
+                    if (grid_path.Count > 10) break;
+
                     Grid grid = this.GetGrid(pos_x, pos_y);;
 
                     if (!grid.IsValid) break;
@@ -647,6 +653,8 @@ public class Field : MonoBehaviour
 
                 while (pos_x >= 0 && pos_x < m_Weight && pos_y >= 0 && pos_y < m_Height)
                 {
+                    if (grid_path.Count > 10) break;
+
                     Grid grid = this.GetGrid(pos_x, pos_y);;
 
                     if (!grid.IsValid) break;
@@ -711,7 +719,7 @@ public class Field : MonoBehaviour
         List<Card> _Removes = new List<Card>();
 
         m_Cards.ForEach(card => {
-            if (card.TYPE == _C.CARD_TYPE.JELLY && !card.IsBomb()) 
+            if (card.TYPE == _C.CARD_TYPE.JELLY) 
             {   
                 List<Card> nears = this.GetSameCardNear(card.Grid, card.ID);
                 if (nears.Count > 0) {
