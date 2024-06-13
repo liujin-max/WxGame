@@ -53,7 +53,7 @@ public class ConditionItem : MonoBehaviour
     {
         if (m_Condition.IsFinished() == true)
         {
-            m_Count.text = "完成";
+            m_Count.text = "<#16AE00>完成";
         }
         else
         {

@@ -44,10 +44,10 @@ public class Stage
     #region 配置关卡
     private static Dictionary<int, Func<Matrix>> m_classDictionary = new Dictionary<int, Func<Matrix>> {
         {  1, () => new Matrix_1()},
-        { 10, () => new Matrix_10()},
-        { 11, () => new Matrix_11()},
-        { 12, () => new Matrix_12()},
-        { 17, () => new Matrix_17()},
+        { 14, () => new Matrix_14()},
+        { 15, () => new Matrix_15()},
+        { 16, () => new Matrix_16()},
+        { 18, () => new Matrix_18()},
 
         {10000, () => new Matrix_10000()},   //无尽模式
     };

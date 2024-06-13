@@ -15,7 +15,7 @@ public static class _C
     public static float DEFAULT_GRID_HEIGHT = 1.26f;
 
     
-    public static int BOMB_UNLOCK_LEVEL     = 13;       //开放合成炸弹
+    public static int BOMB_UNLOCK_LEVEL     = 11;       //开放合成炸弹
     public static int ENDLESS_UNLOCK_LEVEL  = 10;
 
     public static int DEFAULT_FOOD      = 300;       //体力上限

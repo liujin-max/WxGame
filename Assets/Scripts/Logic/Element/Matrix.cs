@@ -151,8 +151,53 @@ public class Matrix_1 : Matrix
 #endregion
 
 
-#region 第10关
-public class Matrix_10 : Matrix
+
+#region 第14关
+public class Matrix_14 : Matrix
+{
+    public override void InitCards(int count)
+    {
+        List<CardData> card_datas = new List<CardData>();
+
+        foreach (var cardData in  m_Stage.Cards)
+        {
+            for (int j = 0; j < 2; j++)
+            {
+                card_datas.Add(cardData);
+            }
+        }
+
+        List<object> grid_datas = Field.Instance.GetEmptyGrids();
+
+        for (int i = card_datas.Count - 1; i >= 0; i--)
+        {
+            var data    = card_datas[i];
+
+            int rand    = RandomUtility.Random(0, grid_datas.Count);
+            Grid grid   = grid_datas[rand] as Grid;
+            
+            while (Field.Instance.GetSameCardNear(grid, data.ID).Count > 0)
+            {
+                rand    = RandomUtility.Random(0, grid_datas.Count);
+                grid    = grid_datas[rand] as Grid;
+            }
+
+            Field.Instance.PutCard(_C.CARD_STATE.NORMAL, data, grid);
+
+            grid_datas.Remove(grid);
+        }
+    }
+
+    public override List<Card> AddCards()
+    {
+        return new List<Card>();
+    }
+}
+#endregion
+
+
+#region 第15关
+public class Matrix_15 : Matrix
 {
     public override void InitCards(int count)
     {
@@ -195,8 +240,8 @@ public class Matrix_10 : Matrix
 #endregion
 
 
-#region 第11关
-public class Matrix_11 : Matrix
+#region 第16关
+public class Matrix_16 : Matrix
 {
     public override void InitCards(int count)
     {
@@ -248,64 +293,8 @@ public class Matrix_11 : Matrix
 #endregion
 
 
-#region 第12关
-public class Matrix_12 : Matrix
-{
-    public override List<Card> AddCards()
-    {
-        //将虚化方块实体化
-        Field.Instance.CorporealCards();
-
-        List<Card> cards    = new List<Card>();
-
-        //上下两个区域，各生成2个虚化方块
-        //上区域只生成10001和10004
-        //下区域只生成10002和10003
-
-        List<object> top_grids  = new List<object>();
-        int[] top_cards         = {10001, 10004};
-
-        List<object> bom_grids  = new List<object>();
-        int[] bottom_cards      = {10002, 10003};
-
-        Field.Instance.GetEmptyGrids().ForEach(o => {
-            Grid g = o as Grid;
-
-            if (g.Y >= 4) {
-                top_grids.Add(o);
-            } else {
-                bom_grids.Add(o);
-            }   
-        });
-
-        //
-        List<object> tops   = RandomUtility.Pick(2, top_grids);
-        List<object> bottoms= RandomUtility.Pick(2, bom_grids);
-        
-        foreach (Grid g in tops)
-        {
-            int card_id = top_cards[RandomUtility.Random(0, top_cards.Length)];
-            var c = Field.Instance.PutCard(_C.CARD_STATE.GHOST, GameFacade.Instance.DataCenter.GetCardData(card_id), g);
-
-            cards.Add(c);
-        }
-
-        foreach (Grid g in bottoms)
-        {
-            int card_id = bottom_cards[RandomUtility.Random(0, bottom_cards.Length)];
-            var c = Field.Instance.PutCard(_C.CARD_STATE.GHOST, GameFacade.Instance.DataCenter.GetCardData(card_id), g);
-
-            cards.Add(c);
-        }
-
-        return cards;
-    }
-}
-#endregion
-
-
-#region 第17关
-public class Matrix_17 : Matrix
+#region 第18关
+public class Matrix_18 : Matrix
 {
     public override List<Card> AddCards()
     {
