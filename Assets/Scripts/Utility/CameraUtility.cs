@@ -74,4 +74,9 @@ public class CameraUtility : MonoBehaviour
         transform.DOShakePosition(0.5f, 0.35f, 12, 60);
         Platform.Instance.VIBRATE(_C.VIBRATELEVEL.HEAVY);
     }
+
+    public void DoSmallShake()
+    {
+        transform.DOShakePosition(0.3f, 0.2f, 12, 60);
+    }
 }
