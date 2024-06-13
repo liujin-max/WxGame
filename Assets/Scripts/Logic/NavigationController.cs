@@ -30,7 +30,7 @@ public static class NavigationController
         //代表已经通关了
         if (json == null) 
         {
-            EventManager.SendEvent(new GameEvent(EVENT.UI_POPUPTIP, "敬请期待"));
+            EventManager.SendEvent(new GameEvent(EVENT.UI_POPUPTIP, "正在加紧制作，敬请期待！"));
             return null;
         }
 
@@ -56,8 +56,14 @@ public static class NavigationController
     }
 
     //前往无尽模式
-    public static void GotoEndless()
+    public static bool GotoEndless()
     {
+        if (GameFacade.Instance.DataCenter.User.Level < _C.ENDLESS_UNLOCK_LEVEL)
+        {
+            EventManager.SendEvent(new GameEvent(EVENT.UI_POPUPTIP, string.Format("通过关卡{0}后开放", _C.ENDLESS_UNLOCK_LEVEL)));
+            return false;
+        }
+
         GameFacade.Instance.EffectManager.Load(EFFECT.SWITCH, Vector3.zero, UIManager.EFFECT.gameObject).GetComponent<SceneSwitch>().Enter(()=>{
             GameFacade.Instance.SoundManager.PlayBGM(SOUND.BGM);
 
@@ -65,6 +71,8 @@ public static class NavigationController
                 Field.Instance.Enter(10000);
             });
         });
+        
+        return true;
     }
 }
 

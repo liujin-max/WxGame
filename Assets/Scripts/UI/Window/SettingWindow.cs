@@ -21,6 +21,8 @@ public class SettingWindow : MonoBehaviour
         // Platform.Instance.BANNER_VIDEOAD("adunit-572e9d91851655e6", true);
 
         c_Mask.onClick.AddListener(()=>{
+            if (m_Callback != null) m_Callback();
+            
             GameFacade.Instance.UIManager.UnloadWindow(gameObject);
         });
 

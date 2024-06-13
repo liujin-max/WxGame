@@ -14,8 +14,10 @@ public static class _C
     public static float DEFAULT_GRID_WEIGHT = 1.25f;
     public static float DEFAULT_GRID_HEIGHT = 1.26f;
 
+    
+    public static int BOMB_UNLOCK_LEVEL     = 13;       //开放合成炸弹
+    public static int ENDLESS_UNLOCK_LEVEL  = 10;
 
-    public static int BOMB_UNLOCK_STAGE = 13;       //开放合成炸弹
     public static int DEFAULT_FOOD      = 300;       //体力上限
     public static int FOOD_RECOVERYTIME = 300;      //体力恢复时间 300秒
 

@@ -106,6 +106,7 @@ public class Field : MonoBehaviour
 
     public void Resume()
     {
+        Debug.Log("恢复");
         STATE   = _C.GAME_STATE.PLAY;
     }
 
@@ -734,7 +735,7 @@ public class Field : MonoBehaviour
     //计算消除是否生成飞弹、炸弹
     void CheckLink(List<Card> remove_cards)
     {
-        if (m_Stage.ID < _C.BOMB_UNLOCK_STAGE) return;
+        if (m_Stage.ID < _C.BOMB_UNLOCK_LEVEL) return;
 
 
         for (int i = remove_cards.Count - 1; i >= 0; i--)

@@ -1007,7 +1007,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Version: 1.0.0
-  TestMode: 1
+  TestMode: 0
   TestStage: 17
 --- !u!1 &1640637242
 GameObject:

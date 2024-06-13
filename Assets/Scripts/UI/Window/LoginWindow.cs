@@ -38,9 +38,11 @@ public class LoginWindow : MonoBehaviour
             GameFacade.Instance.SoundManager.Load(SOUND.CLICK);
             Platform.Instance.VIBRATE(_C.VIBRATELEVEL.LIGHT);
 
-            NavigationController.GotoEndless();
+            if (NavigationController.GotoEndless() == true) {
+                GameFacade.Instance.UIManager.UnloadWindow(gameObject);
+            }
 
-            GameFacade.Instance.UIManager.UnloadWindow(gameObject);
+            
         });
 
         m_BtnSetting.onClick.AddListener(()=>{
@@ -57,7 +59,9 @@ public class LoginWindow : MonoBehaviour
         m_Coin.text = GameFacade.Instance.DataCenter.User.Coin.ToString();
         m_Food.text = GameFacade.Instance.DataCenter.User.Food.ToString();  // + "/" + _C.DEFAULT_FOOD;
 
+
         FlushCost();
+        FlushEndless();
     }
 
     public void FlushCost()
@@ -87,5 +91,24 @@ public class LoginWindow : MonoBehaviour
             pivot.SetActive(false);
         }
         
+    }
+
+    public void FlushEndless()
+    {
+        if (GameFacade.Instance.DataCenter.User.Level < _C.ENDLESS_UNLOCK_LEVEL)
+        {
+            m_BtnEndless.GetComponent<ImageGray>().TurnGray(true);
+            m_BtnEndless.transform.Find("Text").GetComponent<ImageGray>().TurnGray(true);
+
+            m_BtnEndless.transform.Find("LockPivot").gameObject.SetActive(true);
+            m_BtnEndless.transform.Find("LockPivot/Tip").GetComponent<TextMeshProUGUI>().text = string.Format("通过关卡{0}", _C.ENDLESS_UNLOCK_LEVEL);
+        }
+        else
+        {
+            m_BtnEndless.GetComponent<ImageGray>().TurnGray(false);
+            m_BtnEndless.transform.Find("Text").GetComponent<ImageGray>().TurnGray(false);
+
+            m_BtnEndless.transform.Find("LockPivot").gameObject.SetActive(false);
+        }
     }
 }
