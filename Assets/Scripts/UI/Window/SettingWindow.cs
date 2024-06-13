@@ -13,6 +13,11 @@ public class SettingWindow : MonoBehaviour
     [SerializeField] Slider c_SoundSlider;
     [SerializeField] Toggle c_VibrateToggle;
 
+    [SerializeField] GameObject m_ButtonPivot;
+    [SerializeField] Button m_BtnReturn;
+    [SerializeField] Button m_BtnContinue;
+
+    [SerializeField] GameObject m_Tip;
 
     private Action m_Callback;
 
@@ -37,7 +42,27 @@ public class SettingWindow : MonoBehaviour
         c_VibrateToggle.onValueChanged.AddListener((flag)=>{
             GameFacade.Instance.SystemManager.VibrateFlag = flag;
         });
+
+
+        //继续游戏
+        m_BtnContinue.onClick.AddListener(()=>{
+            if (m_Callback != null) m_Callback();
+            
+            GameFacade.Instance.UIManager.UnloadWindow(gameObject);
+        });
+
+        //返回主界面
+        m_BtnReturn.onClick.AddListener(()=>{
+            GameFacade.Instance.EffectManager.Load(EFFECT.SWITCH, Vector3.zero, UIManager.EFFECT.gameObject).GetComponent<SceneSwitch>().Enter(()=>{
+                Field.Instance.Dispose();
+                
+                NavigationController.GotoLogin();
+
+                GameFacade.Instance.UIManager.UnloadWindow(gameObject);
+            }); 
+        });
     }
+
 
     void OnDestroy()
     {
@@ -56,5 +81,11 @@ public class SettingWindow : MonoBehaviour
     public void SetCallback(Action callback)
     {
         m_Callback = callback;
+    }
+
+    public void ShowButton(bool flag)
+    {
+        m_ButtonPivot.SetActive(flag);
+        m_Tip.SetActive(!flag);
     }
 }

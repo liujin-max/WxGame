@@ -167,6 +167,7 @@ public class DisplayEvent_MoveCard : DisplayEvent
         var card        = m_Params[0] as Card;
         var direction   = (_C.DIRECTION)m_Params[1];
         m_GridPaths     = (List<Grid>)m_Params[2];
+        var is_manual   = (bool)m_Params[3];
 
         m_Timer = new CDTimer(0.05f);
         m_Timer.Full();
@@ -181,6 +182,9 @@ public class DisplayEvent_MoveCard : DisplayEvent
         {
             card.Entity.DoScale(new Vector3(0.8f, 1.2f, 0), 0.1f);
         }
+
+        if (is_manual == true)
+            EventManager.SendEvent(new GameEvent(EVENT.UI_UPDATESTEP, false));
     }
 
     public override void Update(float dt)
@@ -228,7 +232,8 @@ public class DisplayEvent_MoveCard : DisplayEvent
         card.OnAfterMove(direction);
 
         card.Entity.transform.localPosition = card.Grid.Position;
-        card.Entity.DoScale(Vector3.one, 0.1f); //不在缩放结束后处理了，有可能被顶掉
+        // card.Entity.DoScale(Vector3.one, 0.1f); //不在缩放结束后处理了，有可能被顶掉
+        card.Entity.DoPunchScale();
 
         var hit = Field.Instance.GetCardByDirection(card.Grid, direction);
         if (hit != null) {
@@ -237,7 +242,6 @@ public class DisplayEvent_MoveCard : DisplayEvent
 
 
         EventManager.SendEvent(new GameEvent(EVENT.ONCARDMOVED, card));
-        EventManager.SendEvent(new GameEvent(EVENT.UI_UPDATESTEP, false));
     }
 }
 #endregion

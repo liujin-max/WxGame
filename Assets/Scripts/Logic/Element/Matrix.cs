@@ -331,6 +331,64 @@ public class Matrix_18 : Matrix
 #endregion
 
 
+#region 第19关
+public class Matrix_19 : Matrix
+{
+    public Matrix_19()
+    {
+        EventManager.AddHandler(EVENT.ONBROKENCARD,     OnBrokenCard);
+    }
+
+    public override void Dispose()
+    {
+        EventManager.DelHandler(EVENT.ONBROKENCARD,     OnBrokenCard);
+    }
+
+    public override void InitCards(int count = 3)
+    {
+        base.InitCards(count);
+
+        List<object> grid_datas = Field.Instance.GetEmptyGrids();
+
+        for (int i = 0; i < 2; i++)
+        {
+            var data    = m_Stage.Cards[0];
+
+            Grid grid   = grid_datas[RandomUtility.Random(0, grid_datas.Count)] as Grid;
+            
+            while (Field.Instance.GetSameCardNear(grid, data.ID).Count > 0) {
+                grid    = grid_datas[RandomUtility.Random(0, grid_datas.Count)] as Grid;
+            }
+
+            Field.Instance.PutCard(_C.CARD_STATE.NORMAL, data, grid);
+
+            grid_datas.Remove(grid);
+        }
+    }
+
+    public override List<Card> AddCards()
+    {
+        return new List<Card>();
+    }
+
+    private void OnBrokenCard(GameEvent @event)
+    {
+        List<object> grid_datas = Field.Instance.GetEmptyGrids();
+
+        var data    = m_Stage.Cards[0];
+
+        Grid grid   = grid_datas[RandomUtility.Random(0, grid_datas.Count)] as Grid;
+        
+        while (Field.Instance.GetSameCardNear(grid, data.ID).Count > 0) {
+            grid    = grid_datas[RandomUtility.Random(0, grid_datas.Count)] as Grid;
+        }
+
+        Field.Instance.PutCard(_C.CARD_STATE.NORMAL, data, grid);
+
+    }
+}
+#endregion
+
 
 #region 无尽模式
 public class Matrix_10000 : Matrix

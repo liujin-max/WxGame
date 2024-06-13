@@ -60,7 +60,7 @@ public class Field : MonoBehaviour
 
     void OnDestroy()
     {
-        GameFacade.Instance.UIManager.UnloadWindow(GameWindow.gameObject);
+        
     }
 
     void Start()
@@ -117,6 +117,7 @@ public class Field : MonoBehaviour
         m_Turn  = 0;
 
         m_Stage.Dispose();
+        
 
         m_Historys.Clear();
         m_SecondTimer.Reset();
@@ -138,7 +139,10 @@ public class Field : MonoBehaviour
         });
         m_GhostCards.Clear();
 
-        
+
+        m_FSM.Dispose();
+
+        GameFacade.Instance.UIManager.UnloadWindow(GameWindow.gameObject);
     }
 
     public void Transist(_C.FSMSTATE state, params object[] values)
@@ -508,7 +512,7 @@ public class Field : MonoBehaviour
                 ClearGhost(card);
                 if (is_manual == true) m_Stage.UpdateMoveStep(-1);
 
-                GameFacade.Instance.DisplayEngine.Put(DisplayEngine.Track.Common, new DisplayEvent_MoveCard(card, _C.DIRECTION.LEFT, grid_path));
+                GameFacade.Instance.DisplayEngine.Put(DisplayEngine.Track.Common, new DisplayEvent_MoveCard(card, _C.DIRECTION.LEFT, grid_path, is_manual));
 
                 return target;
             }
@@ -571,7 +575,7 @@ public class Field : MonoBehaviour
                 ClearGhost(card);
                 if (is_manual == true) m_Stage.UpdateMoveStep(-1);
 
-                GameFacade.Instance.DisplayEngine.Put(DisplayEngine.Track.Common, new DisplayEvent_MoveCard(card, _C.DIRECTION.RIGHT, grid_path));
+                GameFacade.Instance.DisplayEngine.Put(DisplayEngine.Track.Common, new DisplayEvent_MoveCard(card, _C.DIRECTION.RIGHT, grid_path, is_manual));
 
                 return target;
             }
@@ -637,7 +641,7 @@ public class Field : MonoBehaviour
 
                 if (is_manual == true) m_Stage.UpdateMoveStep(-1);
 
-                GameFacade.Instance.DisplayEngine.Put(DisplayEngine.Track.Common, new DisplayEvent_MoveCard(card, _C.DIRECTION.UP, grid_path));
+                GameFacade.Instance.DisplayEngine.Put(DisplayEngine.Track.Common, new DisplayEvent_MoveCard(card, _C.DIRECTION.UP, grid_path, is_manual));
 
                 return target;
             }
@@ -701,7 +705,7 @@ public class Field : MonoBehaviour
                 ClearGhost(card);
                 if (is_manual == true) m_Stage.UpdateMoveStep(-1);
 
-                GameFacade.Instance.DisplayEngine.Put(DisplayEngine.Track.Common, new DisplayEvent_MoveCard(card, _C.DIRECTION.DOWN, grid_path));
+                GameFacade.Instance.DisplayEngine.Put(DisplayEngine.Track.Common, new DisplayEvent_MoveCard(card, _C.DIRECTION.DOWN, grid_path, is_manual));
 
                 return target;
             }
@@ -929,15 +933,18 @@ public class Field : MonoBehaviour
         });
         m_GhostCards.Clear();
 
+        List<Card> shuffle_cards = new List<Card>();
+
         m_Cards.ForEach(card => {
             if (card.TYPE == _C.CARD_TYPE.JELLY) {
                 card.Grid.Card = null;
+                shuffle_cards.Add(card);
             }
         });
 
         List<object> grid_datas = RandomUtility.Pick(m_Cards.Count, Field.Instance.GetEmptyGrids());
 
-        m_Cards.ForEach(card => {
+        shuffle_cards.ForEach(card => {
             Grid grid = grid_datas[RandomUtility.Random(0, grid_datas.Count)] as Grid;
             card.Grid = grid;
             grid.Card = card;

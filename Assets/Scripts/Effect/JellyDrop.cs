@@ -14,7 +14,7 @@ public class JellyDrop : MonoBehaviour
     {
         m_Timer.Update(Time.deltaTime);
         if (m_Timer.IsFinished()) {
-            m_Timer.Reset(RandomUtility.Random(300, 600) / 1000.0f);
+            m_Timer.Reset(RandomUtility.Random(500, 2000) / 1000.0f);
 
 
             Vector3 pos = new Vector3(RandomUtility.Random(-500, 600) / 100.0f, 12, 0);

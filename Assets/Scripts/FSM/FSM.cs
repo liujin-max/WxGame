@@ -52,4 +52,16 @@ public class FSM<T> where T : class
             CurrentState.Update();
         }
     }
+
+    public void Dispose()
+    {
+        if (CurrentState != null)
+        {
+            CurrentState.Exit();
+        }
+        CurrentState = null;
+
+
+        States.Clear();
+    }
 }

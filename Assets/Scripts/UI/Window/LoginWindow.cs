@@ -50,7 +50,8 @@ public class LoginWindow : MonoBehaviour
             GameFacade.Instance.SoundManager.Load(SOUND.CLICK);
             Platform.Instance.VIBRATE(_C.VIBRATELEVEL.LIGHT);
 
-            GameFacade.Instance.UIManager.LoadWindow("SettingWindow", UIManager.BOARD);
+            var window = GameFacade.Instance.UIManager.LoadWindow("SettingWindow", UIManager.BOARD).GetComponent<SettingWindow>();
+            window.ShowButton(false);
         });
     }
 

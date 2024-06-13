@@ -160,6 +160,7 @@
     <Compile Include="Assets\Scripts\Effect\SceneSwitch.cs" />
     <Compile Include="Assets\Scripts\FSM\State.cs" />
     <Compile Include="Assets\Scripts\Logic\Element\Condition.cs" />
+    <Compile Include="Assets\Scripts\UI\Window\ResultWindow.cs" />
     <Compile Include="Assets\Scripts\Logic\DataCenter.cs" />
     <Compile Include="Assets\Scripts\Utility\SuperScrollView.cs" />
     <Compile Include="Assets\Scripts\Manager\Effect.cs" />
@@ -168,7 +169,6 @@
     <Compile Include="Assets\Scripts\Effect\Shine.cs" />
     <Compile Include="Assets\DOTween\Modules\DOTweenModuleUnityVersion.cs" />
     <Compile Include="Assets\Scripts\UI\Window\TipWindow.cs" />
-    <Compile Include="Assets\Scripts\UI\Window\ResultWindow.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Resources\Shader\SpriteGray.shader" />

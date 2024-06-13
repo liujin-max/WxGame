@@ -117,6 +117,16 @@ public class Jelly : MonoBehaviour
         return m_ScaleTweener;
     }
 
+    public void DoPunchScale()
+    {
+        if (m_ScaleTweener != null) {
+            Entity.transform.localScale = Vector3.one;
+            m_ScaleTweener.Kill();
+        }
+
+        Entity.transform.DOPunchScale(new Vector3(0.1f, 0.1f, 0.1f), 0.15f);
+    }
+
     void DrawEmoji()
     {
         if (m_Card.STATE == _C.CARD_STATE.GHOST || m_Card.TYPE == _C.CARD_TYPE.FRAME) {

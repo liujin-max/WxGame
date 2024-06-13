@@ -49,6 +49,8 @@ public class Stage
         { 16, () => new Matrix_16()},
         { 18, () => new Matrix_18()},
 
+        { 19, () => new Matrix_19()},
+
         {10000, () => new Matrix_10000()},   //无尽模式
     };
     #endregion

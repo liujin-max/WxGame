@@ -32,6 +32,10 @@ public class GameWindow : MonoBehaviour
     [SerializeField] private Button m_BtnRevoke;
 
 
+
+    private Tweener m_StepTweener = null;
+    private Tweener m_ScoreTweener = null;
+
     private List<ConditionItem> m_ConditionItems = new List<ConditionItem>();
     private ConditionItem new_condition_item(int order)
     {
@@ -67,7 +71,9 @@ public class GameWindow : MonoBehaviour
         m_BtnSetting.onClick.AddListener(()=>{
             Field.Instance.Pause();
 
-            GameFacade.Instance.UIManager.LoadWindow("SettingWindow", UIManager.BOARD).GetComponent<SettingWindow>().SetCallback(()=>{
+            var window = GameFacade.Instance.UIManager.LoadWindow("SettingWindow", UIManager.BOARD).GetComponent<SettingWindow>();
+            window.ShowButton(true);
+            window.SetCallback(()=>{
                 Field.Instance.Resume();
             });
         });
@@ -167,28 +173,30 @@ public class GameWindow : MonoBehaviour
 
     private void OnReponseStepUpdate(GameEvent @event)
     {
-        bool will_shake = (bool)@event.GetParam(0);
+        bool is_reset = (bool)@event.GetParam(0);
+
+        if (m_StepTweener != null) {
+            m_Step.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
+            m_StepTweener.Kill();
+        }
         
         int step    = Field.Instance.Stage.GetCurrentStep();
         var color   = step <= 5 ? Color.red : Color.white;
 
         m_Step.text = step.ToString();
         m_Step.color= color;
+        
+        m_StepTweener = m_Step.transform.DOPunchScale(new Vector3(0.5f, 0.5f, 0.5f), 0.4f);
 
-        if (will_shake || step <= 5) 
-        {
-            m_Step.transform.DOShakePosition(0.4f, 5f, 15, 60);
-
-            if (will_shake) {
-                m_Step.color= Color.green;
-                m_Step.DOColor(color, 0.5f);
-            }
+        if (is_reset) {
+            m_Step.color= Color.green;
+            m_Step.DOColor(color, 0.5f);
         }
     }
 
     private void OnReponseTimeUpdate(GameEvent @event)
     {
-        bool will_shake = (bool)@event.GetParam(0);
+        bool is_reset = (bool)@event.GetParam(0);
 
         float second= Field.Instance.Stage.GetCurrentTimer();
         var color   = second <= 30 ? Color.red : Color.white;
@@ -196,23 +204,26 @@ public class GameWindow : MonoBehaviour
         m_Time.text = ToolUtility.Second2Minute(Mathf.CeilToInt(second));
         m_Time.color= color;
 
-        if (will_shake || second <= 30) 
-        {
-            m_Time.transform.DOShakePosition(0.4f, 5f, 15, 60);
+        m_Time.transform.DOShakePosition(0.3f, 5f, 15, 60);
 
-            if (will_shake) {
-                m_Time.color= Color.green;
-                m_Time.DOColor(color, 0.5f);
-            }
+        if (is_reset) {
+            m_Time.color= Color.green;
+            m_Time.DOColor(color, 0.5f);
         }
-
     }
 
     private void OnReponseScoreUpdate(GameEvent @event)
     {
         if (Field.Instance.Stage.MODE != _C.MODE.ENDLESS) return;
 
+        if (m_ScoreTweener != null) {
+            m_Score.transform.localScale = Vector3.one;
+            m_ScoreTweener.Kill();
+        }
+
         m_Score.SetValue(Field.Instance.Stage.GetScore());
+        
+        m_ScoreTweener = m_Score.transform.DOPunchScale(new Vector3(0.5f, 0.5f, 0.5f), 0.4f);
     }
 
 
