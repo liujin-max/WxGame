@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using DG.Tweening;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -62,6 +63,8 @@ public class LoginWindow : MonoBehaviour
 
         FlushCost();
         FlushEndless();
+
+        StartCoroutine(Entry());
     }
 
     public void FlushCost()
@@ -110,5 +113,20 @@ public class LoginWindow : MonoBehaviour
 
             m_BtnEndless.transform.Find("LockPivot").gameObject.SetActive(false);
         }
+    }
+
+    IEnumerator Entry()
+    {
+        m_BtnStage.transform.localPosition      = new Vector3(850, 100, 0);
+        m_BtnEndless.transform.localPosition    = new Vector3(850, -155, 0);
+        m_BtnSetting.transform.localPosition    = new Vector3(850, -410, 0);
+
+        yield return new WaitForSeconds(0.2f);
+
+        m_BtnStage.transform.DOLocalMoveX(-75, 0.3f);
+        m_BtnEndless.transform.DOLocalMoveX( 75, 0.6f);
+        m_BtnSetting.transform.DOLocalMoveX(225, 0.9f);
+
+        yield return null;
     }
 }

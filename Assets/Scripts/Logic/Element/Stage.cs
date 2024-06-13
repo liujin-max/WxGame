@@ -121,6 +121,8 @@ public class Stage
 
     public bool NeedCheckStep()
     {
+        if (m_MoveStep.Total >= 9999) return false;
+        
         return m_MoveStep.Total > 0;
     }
 
@@ -201,6 +203,18 @@ public class Stage
                 c.Collect(count);
             }
         }
+    }
+
+    //分数
+    public int GetScore()
+    {
+        int count = 0;
+        for (int i = 0; i < m_Conditions.Count; i++) {
+            var c = m_Conditions[i];
+            count += c.GetScore();
+        }
+
+        return count;
     }
 
     public bool IsFinished()

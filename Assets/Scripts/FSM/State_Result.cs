@@ -28,7 +28,6 @@ public class State_Result<T> : State<Field>
         if (m_Timer.IsFinished()) {
             m_Timer = null;
 
-            Time.timeScale = 1f;
             Field.Instance.STATE   = _C.GAME_STATE.END;
 
             //关卡模式
@@ -51,7 +50,11 @@ public class State_Result<T> : State<Field>
                     window.Init();
                 }
             }
-            
+            else if (Field.Instance.Stage.MODE == _C.MODE.ENDLESS)
+            {
+                var window = GameFacade.Instance.UIManager.LoadWindow("ResultWindow", UIManager.BOARD).GetComponent<ResultWindow>();
+                window.Init();
+            }
         }
     }
 }

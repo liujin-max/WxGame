@@ -168,6 +168,7 @@
     <Compile Include="Assets\Scripts\Effect\Shine.cs" />
     <Compile Include="Assets\DOTween\Modules\DOTweenModuleUnityVersion.cs" />
     <Compile Include="Assets\Scripts\UI\Window\TipWindow.cs" />
+    <Compile Include="Assets\Scripts\UI\Window\ResultWindow.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Resources\Shader\SpriteGray.shader" />

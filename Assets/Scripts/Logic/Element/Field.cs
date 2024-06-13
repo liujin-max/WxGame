@@ -106,7 +106,6 @@ public class Field : MonoBehaviour
 
     public void Resume()
     {
-        Debug.Log("恢复");
         STATE   = _C.GAME_STATE.PLAY;
     }
 

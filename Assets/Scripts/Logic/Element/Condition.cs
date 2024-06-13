@@ -35,6 +35,11 @@ public class Condition
         Count.SetCurrent(count);
     }
 
+    public int GetScore()
+    {
+        return Count.Total - Count.Current;
+    }
+
     public bool IsFinished()
     {
         return Count.IsClear();

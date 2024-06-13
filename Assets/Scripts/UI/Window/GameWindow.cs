@@ -8,9 +8,10 @@ using UnityEngine.UI;
 
 public class GameWindow : MonoBehaviour
 {
-
-    [SerializeField] private Transform m_ConditionPivot;
+    [SerializeField] private GameObject m_StagePivot;
+    [SerializeField] private GameObject m_EndlessPivot;
     [SerializeField] private Text m_Stage;
+    [SerializeField] private NumberTransition m_Score;
     [SerializeField] private NumberTransition m_Coin;
 
     [SerializeField] private GameObject m_StepPivot;
@@ -18,6 +19,9 @@ public class GameWindow : MonoBehaviour
 
     [SerializeField] private GameObject m_TimePivot;
     [SerializeField] private Text m_Time;
+
+    [SerializeField] private GameObject m_ConditionBar;
+    [SerializeField] private Transform m_ConditionPivot;
 
     [Header("按钮")]
     [SerializeField] private Button m_BtnSetting;
@@ -49,11 +53,12 @@ public class GameWindow : MonoBehaviour
 
     void Awake()
     {
-        EventManager.AddHandler(EVENT.ONENTERSTAGE,     OnReponseEnterStage);
+        EventManager.AddHandler(EVENT.ONENTERSTAGE,         OnReponseEnterStage);
 
-        EventManager.AddHandler(EVENT.UI_UPDATECOIN,    OnReponseCoinUpdate);
-        EventManager.AddHandler(EVENT.UI_UPDATESTEP,    OnReponseStepUpdate);
-        EventManager.AddHandler(EVENT.UI_UPDATETIME,    OnReponseTimeUpdate);
+        EventManager.AddHandler(EVENT.UI_UPDATECOIN,        OnReponseCoinUpdate);
+        EventManager.AddHandler(EVENT.UI_UPDATESTEP,        OnReponseStepUpdate);
+        EventManager.AddHandler(EVENT.UI_UPDATETIME,        OnReponseTimeUpdate);
+        EventManager.AddHandler(EVENT.UI_UPDATESCORE,       OnReponseScoreUpdate);
     }
 
     void Start()
@@ -99,12 +104,12 @@ public class GameWindow : MonoBehaviour
 
     void OnDestroy()
     {
-        EventManager.DelHandler(EVENT.ONENTERSTAGE,     OnReponseEnterStage);
+        EventManager.DelHandler(EVENT.ONENTERSTAGE,         OnReponseEnterStage);
 
-        EventManager.DelHandler(EVENT.UI_UPDATECOIN,    OnReponseCoinUpdate);
-        EventManager.DelHandler(EVENT.UI_UPDATESTEP,    OnReponseStepUpdate);
-        EventManager.DelHandler(EVENT.UI_UPDATETIME,    OnReponseTimeUpdate);
-        
+        EventManager.DelHandler(EVENT.UI_UPDATECOIN,        OnReponseCoinUpdate);
+        EventManager.DelHandler(EVENT.UI_UPDATESTEP,        OnReponseStepUpdate);
+        EventManager.DelHandler(EVENT.UI_UPDATETIME,        OnReponseTimeUpdate);
+        EventManager.DelHandler(EVENT.UI_UPDATESCORE,       OnReponseScoreUpdate);
     }
 
     public ConditionItem GetConditionItem(int id)
@@ -123,7 +128,12 @@ public class GameWindow : MonoBehaviour
     {
         m_ButtonPivot.SetActive(Field.Instance.Stage.ID > 1);
 
+        m_StagePivot.SetActive(Field.Instance.Stage.MODE == _C.MODE.CHAPTER);
         m_Stage.text = Field.Instance.Stage.ID.ToString();
+
+        m_EndlessPivot.SetActive(Field.Instance.Stage.MODE == _C.MODE.ENDLESS);
+        m_Score.SetValue(Field.Instance.Stage.GetScore());
+
         m_Coin.ForceValue(GameFacade.Instance.DataCenter.User.Coin);
 
         m_StepPivot.SetActive(Field.Instance.Stage.NeedCheckStep());
@@ -134,7 +144,14 @@ public class GameWindow : MonoBehaviour
         m_Time.text = ToolUtility.Second2Minute(Mathf.CeilToInt(Field.Instance.Stage.GetCurrentTimer()));
         m_Time.color= Color.white;
 
+
+        if (Field.Instance.Stage.MODE == _C.MODE.ENDLESS) {
+            m_ConditionBar.SetActive(false);
+            return;
+        }
+
         //初始化条件
+        m_ConditionBar.SetActive(true);
         m_ConditionItems.ForEach(item => {item.Show(false);});
         for (int i = 0; i < Field.Instance.Stage.Conditions.Count; i++) {
             var condition = Field.Instance.Stage.Conditions[i];
@@ -190,6 +207,14 @@ public class GameWindow : MonoBehaviour
         }
 
     }
+
+    private void OnReponseScoreUpdate(GameEvent @event)
+    {
+        if (Field.Instance.Stage.MODE != _C.MODE.ENDLESS) return;
+
+        m_Score.SetValue(Field.Instance.Stage.GetScore());
+    }
+
 
     #endregion
 }

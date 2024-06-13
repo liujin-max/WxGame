@@ -331,6 +331,7 @@ public class DisplayEvent_Collect : DisplayEvent
         //收集
         Field.Instance.Stage.Collect(card.ID, 1);
 
+        EventManager.SendEvent(new GameEvent(EVENT.UI_UPDATESCORE));
         
         var item = Field.Instance.GameWindow.GetConditionItem(card.ID);
         if (item == null) item = Field.Instance.GameWindow.GetConditionItem(10000);

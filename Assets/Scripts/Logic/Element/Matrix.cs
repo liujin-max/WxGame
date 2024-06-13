@@ -343,8 +343,16 @@ public class Matrix_10000 : Matrix
 
         List<Card> cards    = new List<Card>();
 
+        int min = 3;
+        int max = 4;
+
+        int curent_score = m_Stage.GetScore();
+        max += Mathf.FloorToInt(curent_score / 100);
+
+        int count = RandomUtility.Random(min, max);
+
         //获取3个空白格
-        List<object> grids  = RandomUtility.Pick(3, Field.Instance.GetEmptyGrids());
+        List<object> grids  = RandomUtility.Pick(count, Field.Instance.GetEmptyGrids());
 
         m_Count++;
         //目前2回合生成一个石块
