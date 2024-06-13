@@ -23,7 +23,7 @@ public class BezierCurveAnimation : MonoBehaviour
         t   = 0;
         
         float distance  = Vector3.Distance(start_pos, end_pos);
-        m_ControlPos    = ToolUtility.FindPointOnCircle(m_StartPos, distance * 0.7f, RandomUtility.Random(0, 360));
+        m_ControlPos    = ToolUtility.FindPointOnCircle(m_StartPos, distance * 0.8f, RandomUtility.Random(0, 360));
     }
 
 

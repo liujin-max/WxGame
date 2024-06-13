@@ -10,6 +10,7 @@ public class Card
     public CardData Data {get {return m_Data;}}
 
     public int ID {get {return m_Data.ID;}}
+    public string Name {get {return m_Data.Name;}}
     public _C.CARD_TYPE TYPE {get {return m_Data.Type;}}
 
     //当前格子
@@ -113,13 +114,13 @@ public class Card
                 if (card.Grid == grid && card != this && card.Breakable == true) {
                     card.DoBomb();
                     Field.Instance.RemoveCard(card);
-                    GameFacade.Instance.DisplayEngine.Put(DisplayEngine.Track.Common, new DisplayEvent_BrokenCard(grid.Card));
+                    GameFacade.Instance.DisplayEngine.Put(DisplayEngine.Track.Common, new DisplayEvent_BrokenCard(card));
                     break;
                 } 
             }
+
+            
         }
-
-
     }
 
     //移动后的处理
@@ -151,12 +152,8 @@ public class Card
         //爆炸且在原地生成新的方块
         if (this.ID == (int)_C.CARD.WOOD)   
         {
-            Field.Instance.RemoveCard(this);
-            GameFacade.Instance.DisplayEngine.Put(DisplayEngine.Track.Common, new DisplayEvent_BrokenCard(this));
-
-            int rand    = RandomUtility.Random(0, Field.Instance.Stage.Cards.Count);
-            Field.Instance.PutCard(_C.CARD_STATE.NORMAL, Field.Instance.Stage.Cards[rand], m_Grid);
-
+            m_DeadType = _C.DEAD_TYPE.DIGESTE;
+            IsReady2Eliminate = true;
             return;
         }
 
@@ -164,6 +161,19 @@ public class Card
         Field.Instance.Move(this, direction);
     }
 
+    //击破后
+    public void OnAfterBroken()
+    {
+        //木箱
+        //爆炸且在原地生成新的方块
+        if (this.ID == (int)_C.CARD.WOOD)   
+        {
+            int rand    = RandomUtility.Random(0, Field.Instance.Stage.Cards.Count);
+            Card card   = Field.Instance.PutCard(_C.CARD_STATE.NORMAL, Field.Instance.Stage.Cards[rand], m_Grid);
+
+            // Debug.Log("木箱爆炸 产生：" + card.Name + " => " + card.Grid.X + ", " + card.Grid.Y);
+        }
+    }
 
     public void Dispose()
     {

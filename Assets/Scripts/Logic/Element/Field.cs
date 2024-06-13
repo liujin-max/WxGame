@@ -199,8 +199,13 @@ public class Field : MonoBehaviour
 
     public void RemoveCard(Card card)
     {
-        card.Grid.Card = null;
         // c.Grid = null;       //不置空，否则会影响连锁反应的判断
+
+        //炸弹类方块不占用目标格子，所以不需要处理
+        if (!card.IsBomb()) {
+            card.Grid.Card = null;
+        }
+        
         m_Cards.Remove(card);
     }
 
@@ -492,9 +497,11 @@ public class Field : MonoBehaviour
                 card.CrossGrids = grid_path;
 
                 Grid target = grid_path.Last();
-                origin.Card = null;
-                target.Card = card;
                 card.Grid   = target;
+                origin.Card = null;
+                if (!card.IsBomb()) {    //炸弹类方块不占用格子
+                    target.Card = card;
+                } 
 
                 ClearGhost(card);
                 if (is_manual == true) m_Stage.UpdateMoveStep(-1);
@@ -551,9 +558,11 @@ public class Field : MonoBehaviour
                 card.CrossGrids = grid_path;
 
                 Grid target = grid_path.Last();
-                origin.Card = null;
-                target.Card = card;
                 card.Grid   = target;
+                origin.Card = null;
+                if (!card.IsBomb()) {    //炸弹类方块不占用格子
+                    target.Card = card;
+                } 
 
                 ClearGhost(card);
                 if (is_manual == true) m_Stage.UpdateMoveStep(-1);
@@ -610,9 +619,13 @@ public class Field : MonoBehaviour
                 card.CrossGrids = grid_path;
 
                 Grid target = grid_path.Last();
-                origin.Card = null;
-                target.Card = card;
                 card.Grid   = target;
+                origin.Card = null;
+                if (!card.IsBomb()) {    //炸弹类方块不占用格子
+                    target.Card = card;
+                } 
+                
+                
 
                 ClearGhost(card);
 
@@ -671,9 +684,11 @@ public class Field : MonoBehaviour
                 card.CrossGrids = grid_path;
 
                 Grid target = grid_path.Last();
-                origin.Card = null;
-                target.Card = card;
                 card.Grid   = target;
+                origin.Card = null;
+                if (!card.IsBomb()) {    //炸弹类方块不占用格子
+                    target.Card = card;
+                } 
 
                 ClearGhost(card);
                 if (is_manual == true) m_Stage.UpdateMoveStep(-1);

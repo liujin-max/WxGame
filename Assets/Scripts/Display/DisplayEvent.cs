@@ -126,6 +126,7 @@ public class DisplayEvent_NormalCard : DisplayEvent
         base.Start();
         var card = m_Params[0] as Card;
 
+        // Debug.Log("添加实体方块：" + card.Name + " => " + card.Grid.X + ", " + card.Grid.Y);
         if (card.Entity == null) {
             card.Display();
         } else {
@@ -170,6 +171,8 @@ public class DisplayEvent_MoveCard : DisplayEvent
         m_Timer = new CDTimer(0.05f);
         m_Timer.Full();
 
+        // Debug.Log("方块移动去：" + card.Name + " => " + card.Grid.X + ", " + card.Grid.Y );
+
         if (direction == _C.DIRECTION.LEFT || direction == _C.DIRECTION.RIGHT)
         {
             card.Entity.DoScale(new Vector3(1.2f, 0.8f, 0), 0.1f);
@@ -205,8 +208,7 @@ public class DisplayEvent_MoveCard : DisplayEvent
                 else
                 {
                     card.Entity.transform.DOLocalMove(to_pos, m_Timer.Duration).SetEase(Ease.Linear);
-                }
-                
+                }  
             }
             else
             {
@@ -257,7 +259,9 @@ public class DisplayEvent_BrokenCard : DisplayEvent
             return;
         }
 
+        // Debug.Log("消除方块：" + card.Name + " => " + card.Grid.X + ", " + card.Grid.Y);
         card.IsEliminating = true;
+        
     }
 
     public override void Update(float dealta_time)
@@ -270,13 +274,18 @@ public class DisplayEvent_BrokenCard : DisplayEvent
             return;
         }
 
-        float height = card.Entity.Entity.size.y + dealta_time * 2.8f;
+        if (card.DeadType == _C.DEAD_TYPE.DIGESTE) {
+            m_State = _C.DISPLAY_STATE.END;
+            return;
+        }
+
+        float height = card.Entity.Entity.size.y + dealta_time * 3f;
         card.Entity.Entity.size = new Vector2(card.Entity.Entity.size.x, height);
 
         RectTransform rect = card.Entity.Entity.GetComponent<RectTransform>();
         rect.sizeDelta = new Vector2(rect.sizeDelta.x, height);
 
-        if (card.Entity.Entity.size.y >= 2.2f) {
+        if (card.Entity.Entity.size.y >= 2.1f) {
             m_State = _C.DISPLAY_STATE.END;
         }
     }
@@ -285,6 +294,9 @@ public class DisplayEvent_BrokenCard : DisplayEvent
     {
         var card = m_Params[0] as Card;
         var pos  = card.Entity.transform.position;
+        
+        // Debug.Log("消除方块后处理：" + card.Name + " => " + card.Grid.X + ", " + card.Grid.Y);
+        card.OnAfterBroken();
         card.Dispose();
 
         EventManager.SendEvent(new GameEvent(EVENT.ONBROKENCARD, card));

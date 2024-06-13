@@ -69,8 +69,9 @@ public static class _C
     //消解方式
     public enum DEAD_TYPE
     {
-        NORMAL,
-        BOMB,
+        NORMAL,     //变高然后消解
+        DIGESTE,    //直接消解
+        BOMB,       //爆炸
     }
 
     //游戏状态
