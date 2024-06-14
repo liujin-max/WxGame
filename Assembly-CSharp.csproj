@@ -170,6 +170,7 @@
     <Compile Include="Assets\DOTween\Modules\DOTweenModuleUnityVersion.cs" />
     <Compile Include="Assets\Scripts\UI\Window\TipWindow.cs" />
     <Compile Include="Assets\Scripts\Effect\Fly.cs" />
+    <Compile Include="Assets\Scripts\UI\Window\PropUseWindow.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Resources\Shader\SpriteGray.shader" />

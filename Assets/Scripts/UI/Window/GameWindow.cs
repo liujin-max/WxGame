@@ -81,9 +81,10 @@ public class GameWindow : MonoBehaviour
 
         //添加时间
         m_BtnTime.onClick.AddListener(()=>{
-            Platform.Instance.REWARD_VIDEOAD("", ()=>{
-                Field.Instance.ad_add_time(60);
-            });
+            GameFacade.Instance.UIManager.LoadWindow("PropUseWindow", UIManager.BOARD).GetComponent<PropUseWindow>()
+                .Init(100, "Prop_miaobiao", "增加60秒游戏时间", ()=>{
+                    Field.Instance.ad_add_time(60);
+                });
         });
 
         //添加步数
