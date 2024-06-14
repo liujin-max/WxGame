@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 9073754070412711909}
   - component: {fileID: 5735520533647398629}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: Frame
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -99,7 +99,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8716544018496565418}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: Face
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -137,7 +137,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8632964374886086148}
   - component: {fileID: 3056751856280983120}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: Emoji
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -222,7 +222,7 @@ GameObject:
   - component: {fileID: 4748369328479817650}
   - component: {fileID: 800307520156393513}
   - component: {fileID: 8838563604981277817}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: Jelly
   m_TagString: Untagged
   m_Icon: {fileID: 0}

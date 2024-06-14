@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3388037517997616959}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: Horn1Pivot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -42,7 +42,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8254304999015569717}
   - component: {fileID: 464180566063989415}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: '-'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -125,7 +125,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2478599654379063328}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: Grid
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -163,7 +163,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4150273090839809818}
   - component: {fileID: 6168890833609816729}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: Bottom
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -247,7 +247,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5594189013982707963}
   - component: {fileID: 8058308667872021047}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: '-'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -330,7 +330,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6674688749677075728}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: Horn2Pivot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -362,7 +362,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5230260930488495548}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: Line2Pivot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -395,7 +395,7 @@ GameObject:
   m_Component:
   - component: {fileID: 192516951878490051}
   - component: {fileID: 5023851926030079452}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: '-'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -479,7 +479,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5980616406740898328}
   - component: {fileID: 5679261394504582645}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: Frame
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -563,7 +563,7 @@ GameObject:
   m_Component:
   - component: {fileID: 9009831719219587878}
   - component: {fileID: 6527991415880338021}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: '-'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -646,7 +646,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 528357390273187917}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: Line1Pivot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
