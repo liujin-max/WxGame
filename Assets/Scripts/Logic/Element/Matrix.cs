@@ -331,22 +331,44 @@ public class Matrix_18 : Matrix
 
     public override List<Card> AddCards()
     {
-        return new List<Card>();
+        var cards   = new List<Card>();
+
+        if (Field.Instance.GetDragableCards().Count > 0) return cards;
+
+        List<object> grid_datas = Field.Instance.GetEmptyGrids();
+
+        for (int i = 0; i < 2; i++)
+        {
+            var data    = m_Stage.Cards[0];
+            
+            Grid grid   = grid_datas[RandomUtility.Random(0, grid_datas.Count)] as Grid;
+            while (Field.Instance.GetSameCardNear(grid, data.ID).Count > 0) {
+                grid    = grid_datas[RandomUtility.Random(0, grid_datas.Count)] as Grid;
+            }
+
+            Field.Instance.PutCard(_C.CARD_STATE.NORMAL, data, grid);
+
+            grid_datas.Remove(grid);
+        }   
+        
+
+
+        return cards;
     }
 
     private void OnBrokenCard(GameEvent @event)
     {
-        List<object> grid_datas = Field.Instance.GetEmptyGrids();
+        // List<object> grid_datas = Field.Instance.GetEmptyGrids();
 
-        var data    = m_Stage.Cards[0];
+        // var data    = m_Stage.Cards[0];
 
-        Grid grid   = grid_datas[RandomUtility.Random(0, grid_datas.Count)] as Grid;
+        // Grid grid   = grid_datas[RandomUtility.Random(0, grid_datas.Count)] as Grid;
         
-        while (Field.Instance.GetSameCardNear(grid, data.ID).Count > 0) {
-            grid    = grid_datas[RandomUtility.Random(0, grid_datas.Count)] as Grid;
-        }
+        // while (Field.Instance.GetSameCardNear(grid, data.ID).Count > 0) {
+        //     grid    = grid_datas[RandomUtility.Random(0, grid_datas.Count)] as Grid;
+        // }
 
-        Field.Instance.PutCard(_C.CARD_STATE.NORMAL, data, grid);
+        // Field.Instance.PutCard(_C.CARD_STATE.NORMAL, data, grid);
 
     }
 }

@@ -34,6 +34,7 @@ public class VictoryWindow : MonoBehaviour
             var e = GameFacade.Instance.EffectManager.Load(EFFECT.FLYFOOD, m_BtnContinue.transform.position);
             e.GetComponent<FlyFood>().SetValue(-json.Food);
 
+            
             GameFacade.Instance.EffectManager.Load(EFFECT.SWITCH, Vector3.zero, UIManager.EFFECT.gameObject).GetComponent<SceneSwitch>().Enter(()=>{
                 Field.Instance.Dispose();
                 Field.Instance.Enter(level);
@@ -45,7 +46,7 @@ public class VictoryWindow : MonoBehaviour
         //返回
         m_BtnReturn.onClick.AddListener(()=>{
             GameFacade.Instance.EffectManager.Load(EFFECT.SWITCH, Vector3.zero, UIManager.EFFECT.gameObject).GetComponent<SceneSwitch>().Enter(()=>{
-                Field.Instance.Dispose();
+                Field.Instance.Leave();
                 
                 NavigationController.GotoLogin();
 
@@ -110,7 +111,7 @@ public class VictoryWindow : MonoBehaviour
             
             float pos_x     = RandomUtility.Random(-50000, 50000) / 100.0f;
             float pos_y     = RandomUtility.Random(-25000, 25000) / 100.0f;
-            Vector3 pos     = new Vector3(pos_x, 464 + pos_y, 0) / 100.0f;
+            Vector3 pos     = new Vector3(pos_x, 484 + pos_y, 0) / 100.0f;
 
             GameFacade.Instance.EffectManager.LoadUIEffect(EFFECT.SHINESTAR, pos);
         }

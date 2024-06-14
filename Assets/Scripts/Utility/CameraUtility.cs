@@ -10,14 +10,7 @@ public class CameraUtility : MonoBehaviour
     {
         var camera = this.GetComponent<Camera>();
 
-        if (camera.orthographic == true) 
-        {
-            FilterOrthographic(camera);
-        }
-        else
-        {   
-            FilterPerspective(camera);
-        }
+        FilterOrthographic(camera);
     }
 
     void FilterOrthographic(Camera camera)
@@ -57,16 +50,9 @@ public class CameraUtility : MonoBehaviour
         }
     }
 
-    void FilterPerspective(Camera camera)
+    public void AddOSize(float value)
     {
-        //Camera.main.fieldOfView是用来设置摄像机视野的大小
-
-        float targetHight = 1920.0f;
-        if (1080 * Screen.height > 1920 * Screen.width)
-        {
-            targetHight = 1080f * Screen.height / Screen.width;
-        }
-        camera.fieldOfView = 60 * (targetHight/1920.0f);
+        transform.GetComponent<Camera>().orthographicSize += value;
     }
 
     public void DoShake()

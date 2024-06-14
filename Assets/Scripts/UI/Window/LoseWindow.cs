@@ -43,7 +43,7 @@ public class LoseWindow : MonoBehaviour
 
         m_BtnReturn.onClick.AddListener(()=>{
             GameFacade.Instance.EffectManager.Load(EFFECT.SWITCH, Vector3.zero, UIManager.EFFECT.gameObject).GetComponent<SceneSwitch>().Enter(()=>{
-                Field.Instance.Dispose();
+                Field.Instance.Leave();
                 
                 NavigationController.GotoLogin();
 

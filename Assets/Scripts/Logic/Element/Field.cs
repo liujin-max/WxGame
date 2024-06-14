@@ -92,6 +92,7 @@ public class Field : MonoBehaviour
 
         InitGrids();
 
+        m_Land.FilterScene();
         m_Stage.FilterGrids();
         m_Stage.InitCards();
 
@@ -109,6 +110,14 @@ public class Field : MonoBehaviour
         STATE   = _C.GAME_STATE.PLAY;
     }
 
+    public void Leave()
+    {
+        Dispose();
+        m_FSM.Dispose();
+        m_Instance = null;
+
+        GameFacade.Instance.UIManager.UnloadWindow(GameWindow.gameObject);
+    }
 
     public void Dispose()
     {
@@ -139,10 +148,7 @@ public class Field : MonoBehaviour
         });
         m_GhostCards.Clear();
 
-
-        m_FSM.Dispose();
-
-        GameFacade.Instance.UIManager.UnloadWindow(GameWindow.gameObject);
+        
     }
 
     public void Transist(_C.FSMSTATE state, params object[] values)

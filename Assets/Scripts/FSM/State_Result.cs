@@ -17,6 +17,8 @@ public class State_Result<T> : State<Field>
 
         //子弹时间
         GameFacade.Instance.TimeManager.BulletTime();
+
+        EventManager.SendEvent(new GameEvent(EVENT.UI_POPUPMASK, true));
     }
 
     public override void Update()
@@ -29,6 +31,8 @@ public class State_Result<T> : State<Field>
             m_Timer = null;
 
             Field.Instance.STATE   = _C.GAME_STATE.END;
+
+            EventManager.SendEvent(new GameEvent(EVENT.UI_POPUPMASK, false));
 
             //关卡模式
             if (Field.Instance.Stage.MODE == _C.MODE.CHAPTER)
@@ -53,7 +57,7 @@ public class State_Result<T> : State<Field>
             else if (Field.Instance.Stage.MODE == _C.MODE.ENDLESS)
             {
                 var window = GameFacade.Instance.UIManager.LoadWindow("ResultWindow", UIManager.BOARD).GetComponent<ResultWindow>();
-                window.Init();
+                window.Init(Field.Instance.Stage.GetScore());
             }
         }
     }

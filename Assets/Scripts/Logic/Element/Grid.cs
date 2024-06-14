@@ -334,6 +334,7 @@ public class Grid
         return true;
     }
 
+    //传送门指向特效
     public void Fly2Portal()
     {
         if (this.Portal == null) return;

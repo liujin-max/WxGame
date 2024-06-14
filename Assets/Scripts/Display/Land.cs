@@ -23,6 +23,20 @@ public class Land
         ENTITY_ROOT = GameObject.Find("Field/Entitys").transform;
     }
 
+    public void FilterScene()
+    {
+        int offset_weight = Field.Instance.Stage.Weight - 8;
+        int offset_height = Field.Instance.Stage.Height - 9;
+
+        int offset = Mathf.Max(offset_weight, offset_height);
+
+        if (offset > 0)
+        {
+            var camera = GameObject.FindWithTag("SceneCamera").GetComponent<Camera>();
+            camera.orthographicSize += offset * 1.8f;
+        }
+    }
+
     public void DoShake()
     {
         Platform.Instance.VIBRATE(_C.VIBRATELEVEL.HEAVY);
