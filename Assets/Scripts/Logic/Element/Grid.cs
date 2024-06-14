@@ -334,6 +334,16 @@ public class Grid
         return true;
     }
 
+    public void Fly2Portal()
+    {
+        if (this.Portal == null) return;
+
+        var start_pos   = this.Position;
+        var end_pos     = m_Portal.Position;
+        var e = GameFacade.Instance.EffectManager.Load(EFFECT.PORTAL_TRAIL, start_pos);
+        e.GetComponent<Fly>().GO(start_pos, end_pos);
+    }
+
     public void Dispose()
     {
         if (m_Entity != null) {

@@ -230,6 +230,7 @@ public class Jelly : MonoBehaviour
 
             if (m_Card.ID == (int)_C.CARD.PORTAL) {
                 if (m_Card.Grid.Portal != null) {
+                    m_Card.Grid.Fly2Portal();
                     this.ClickShake();
                     m_Card.Grid.Portal.Card.Entity.ClickShake();
                 }

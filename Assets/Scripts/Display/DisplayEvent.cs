@@ -134,8 +134,9 @@ public class DisplayEvent_NormalCard : DisplayEvent
         }
 
         if (card.TYPE == _C.CARD_TYPE.FRAME) {
-            card.Entity.SetPosition(card.Grid.Position);
             m_State = _C.DISPLAY_STATE.END;
+
+            card.Entity.SetPosition(card.Grid.Position);
 
         } else {
             card.Entity.Entity.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
@@ -147,6 +148,8 @@ public class DisplayEvent_NormalCard : DisplayEvent
                 card.Entity.Shake(new Vector2(0.02f, 0.02f));
             });
         }
+
+        card.Grid.Fly2Portal();
     }
 }
 #endregion
