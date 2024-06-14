@@ -928,6 +928,8 @@ public class Field : MonoBehaviour
     //为场上的方块重新指定位置
     public void ad_shuffle()
     {
+        int ghost_count = m_GhostCards.Count;
+
         m_GhostCards.ForEach(c => {
             c.Dispose();
         });
@@ -953,8 +955,7 @@ public class Field : MonoBehaviour
         });
 
         //添加虚化方块
-        int count = RandomUtility.Random(1, 4);
-        Field.Instance.InitGhostCards(count);
+        Field.Instance.InitGhostCards(ghost_count);
 
 
         GameFacade.Instance.DisplayEngine.Put(DisplayEngine.Track.Common, new DisplayEvent_ShuffleCard(m_Cards));
@@ -962,6 +963,11 @@ public class Field : MonoBehaviour
 
     //撤销
     //撤销上一步操作
+    public bool can_revoke()
+    {
+        return m_Historys.ContainsKey(m_Turn - 1);
+    }
+
     public void ad_revoke()
     {
         History history;

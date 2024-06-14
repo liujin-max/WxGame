@@ -102,6 +102,11 @@ public class GameWindow : MonoBehaviour
 
         //撤销操作
         m_BtnRevoke.onClick.AddListener(()=>{
+            if (!Field.Instance.can_revoke()) {
+                EventManager.SendEvent(new GameEvent(EVENT.UI_POPUPTIP, "没有可进行的撤销操作"));
+                return;
+            }
+
             Platform.Instance.REWARD_VIDEOAD("", ()=>{
                 Field.Instance.ad_revoke();
             });

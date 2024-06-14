@@ -155,6 +155,7 @@ public class DisplayEvent_NormalCard : DisplayEvent
 #region 移动方块
 public class DisplayEvent_MoveCard : DisplayEvent
 {
+    private Grid m_LastGrid = null;
     private List<Grid> m_GridPaths = new List<Grid>();
     private CDTimer m_Timer;
 
