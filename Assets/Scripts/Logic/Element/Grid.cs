@@ -311,6 +311,7 @@ public class Grid
     }
 
     //当前传送门能否穿越
+    //如果穿越后后格子有障碍物，则根据当前card是否是炸弹来判断能否穿越
     public bool IsPortalCanCross(Card card, _C.DIRECTION direction)
     {
         //不是传送门
@@ -328,6 +329,9 @@ public class Grid
 
         if (!near_grid.IsValid || !near_grid.IsEmpty)
         {
+            if (card.IsBomb()) {
+                return true;
+            }
             return false;
         }
 

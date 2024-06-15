@@ -1850,6 +1850,7 @@ MonoBehaviour:
   m_BtnReward: {fileID: 1020191307187700201}
   m_BtnContinue: {fileID: 2818697065707993410}
   m_BtnReturn: {fileID: 8579837551306364853}
+  m_ButtonPivot: {fileID: 4432894188284390604}
   m_CoinPivot: {fileID: 4874577710232768230}
   m_FoodPivot: {fileID: 5190272980614249650}
 --- !u!1 &6280067413029618361
@@ -2696,7 +2697,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: d693738d405277248a732452e96f9ba9, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 0.5
+  m_Volume: 1
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -2792,6 +2793,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 45d3534610030564eb00e88b69fbcb96, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  IsPlayLimit: 1
   AutoDestroy: 0
 --- !u!1 &8548629736341713944
 GameObject:

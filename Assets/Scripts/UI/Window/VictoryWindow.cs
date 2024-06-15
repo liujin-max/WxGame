@@ -9,11 +9,19 @@ public class VictoryWindow : MonoBehaviour
     [SerializeField] Button m_BtnReward;
     [SerializeField] Button m_BtnContinue;
     [SerializeField] Button m_BtnReturn;
+    [SerializeField] GameObject m_ButtonPivot;
 
     [SerializeField] Transform m_CoinPivot;
     [SerializeField] Transform m_FoodPivot;
 
+
+    private CDTimer m_Timer = new CDTimer(1f);
     private CDTimer m_StarTimer = new CDTimer(0.1f);
+
+    void Awake()
+    {
+        m_ButtonPivot.SetActive(false);
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -102,13 +110,18 @@ public class VictoryWindow : MonoBehaviour
 
     void Update()
     {
+        m_Timer.Update(Time.deltaTime);
+        if (m_Timer.IsFinished())
+        {
+            m_ButtonPivot.SetActive(true);
+        }
+
+
         m_StarTimer.Update(Time.deltaTime);
         if (m_StarTimer.IsFinished() == true)
         {
             m_StarTimer.Reset(RandomUtility.Random(300, 700) / 1000.0f);
-
-
-            
+  
             float pos_x     = RandomUtility.Random(-50000, 50000) / 100.0f;
             float pos_y     = RandomUtility.Random(-25000, 25000) / 100.0f;
             Vector3 pos     = new Vector3(pos_x, 484 + pos_y, 0) / 100.0f;

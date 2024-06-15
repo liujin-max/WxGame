@@ -11,6 +11,7 @@ public class GameWindow : MonoBehaviour
     [SerializeField] private GameObject m_StagePivot;
     [SerializeField] private GameObject m_EndlessPivot;
     [SerializeField] private Text m_Stage;
+    [SerializeField] private Text m_SubStage;
     [SerializeField] private NumberTransition m_Score;
     [SerializeField] private NumberTransition m_Coin;
 
@@ -146,6 +147,7 @@ public class GameWindow : MonoBehaviour
 
         m_StagePivot.SetActive(Field.Instance.Stage.MODE == _C.MODE.CHAPTER);
         m_Stage.text = Field.Instance.Stage.ID.ToString();
+        m_SubStage.text = Field.Instance.Stage.ID.ToString();
 
         m_EndlessPivot.SetActive(Field.Instance.Stage.MODE == _C.MODE.ENDLESS);
         m_Score.SetValue(Field.Instance.Stage.GetScore());
@@ -174,6 +176,11 @@ public class GameWindow : MonoBehaviour
             var item = new_condition_item(i);
             item.Init(condition);
         }
+        
+
+        //判断道具按钮的显示
+        m_BtnTime.gameObject.SetActive(Field.Instance.Stage.NeedCheckTimer());
+        m_BtnStep.gameObject.SetActive(Field.Instance.Stage.NeedCheckStep());
     }
     
     private void OnReponseCoinUpdate(GameEvent @event)
@@ -196,7 +203,7 @@ public class GameWindow : MonoBehaviour
         m_Step.text = step.ToString();
         m_Step.color= color;
         
-        m_StepTweener = m_Step.transform.DOPunchScale(new Vector3(0.5f, 0.5f, 0.5f), 0.4f);
+        m_StepTweener = m_Step.transform.DOPunchScale(new Vector3(0.4f, 0.4f, 0.4f), 0.4f);
 
         if (is_reset) {
             m_Step.color= Color.green;

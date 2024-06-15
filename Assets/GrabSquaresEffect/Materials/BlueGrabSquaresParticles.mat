@@ -36,7 +36,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _DistTex:
-        m_Texture: {fileID: 2800000, guid: 6968714afc841544e8db1b418cf815be, type: 3}
+        m_Texture: {fileID: 2800000, guid: 218e7b8a5b0d72849bf7e88e3bbeec1e, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _DistortTex:
@@ -87,9 +87,9 @@ Material:
     - _UVSec: 0
     - _ZWrite: 1
     m_Colors:
-    - _Color: {r: 0, g: 0.49478778, b: 1.6684705, a: 1}
+    - _Color: {r: 0, g: 0.034509182, b: 1, a: 1}
     - _DistanceFade: {r: 0, g: 40, b: 0, a: 0.06}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-    - _Params: {r: 0.05, g: 0, b: 0, a: 0}
+    - _Params: {r: -0.02, g: 0, b: 0, a: 0}
     - _TintColor: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
   m_BuildTextureStacks: []

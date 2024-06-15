@@ -5,12 +5,19 @@ using UnityEngine;
 
 public class CameraUtility : MonoBehaviour
 {
+    private Camera m_Camera;
     // Start is called before the first frame update
     void Awake()
     {
-        var camera = this.GetComponent<Camera>();
+        m_Camera = this.GetComponent<Camera>();
 
-        FilterOrthographic(camera);
+        FilterOrthographic(m_Camera);
+    }
+
+    public void Reset()
+    {
+        Debug.Log("Reset");
+        FilterOrthographic(m_Camera);
     }
 
     void FilterOrthographic(Camera camera)
@@ -29,8 +36,8 @@ public class CameraUtility : MonoBehaviour
                 if(aspect < designAspect)
                 {
                     camera.orthographicSize = widthOrthographicSize / aspect;
-                }
-                if (aspect > designAspect)
+                } 
+                else
                 {
                     camera.orthographicSize = designOrthographicSize;
                     //_camera.orthographicSize = designOrthographicSize * (aspect / designAspect);

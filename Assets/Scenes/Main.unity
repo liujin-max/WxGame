@@ -1152,7 +1152,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Version: 1.0.0
   TestMode: 1
-  TestStage: 20
+  TestStage: 21
 --- !u!1 &1640637242
 GameObject:
   m_ObjectHideFlags: 0
@@ -1777,10 +1777,6 @@ PrefabInstance:
     - target: {fileID: 1769023066225325431, guid: f41aa10f8af89c14d8bb33442c495662, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: -71.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 3443707249088144354, guid: f41aa10f8af89c14d8bb33442c495662, type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4874577710232768230, guid: f41aa10f8af89c14d8bb33442c495662, type: 3}
       propertyPath: m_AnchorMax.y

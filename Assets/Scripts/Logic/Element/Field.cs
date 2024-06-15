@@ -148,7 +148,7 @@ public class Field : MonoBehaviour
         });
         m_GhostCards.Clear();
 
-        
+        m_Land.Dispose();
     }
 
     public void Transist(_C.FSMSTATE state, params object[] values)
@@ -242,9 +242,8 @@ public class Field : MonoBehaviour
         //将虚化方块实体化
         m_GhostCards.ForEach(card => {
             if (card.Grid.IsEmpty == true) {
-                // Field.Instance.PutCard(_C.CARD_STATE.NORMAL, card, card.Grid);
                 card.STATE      = _C.CARD_STATE.NORMAL;
-                card.Grid.Card   = card;
+                card.Grid.Card  = card;
 
                 m_Cards.Add(card);
 
@@ -472,7 +471,7 @@ public class Field : MonoBehaviour
 
                 while (pos_x >= 0 && pos_x < m_Weight && pos_y >= 0 && pos_y < m_Height)
                 {
-                    if (grid_path.Count > 10) break;
+                    if (grid_path.Count > 20) break;
 
                     Grid grid = this.GetGrid(pos_x, pos_y);;
 
@@ -528,7 +527,7 @@ public class Field : MonoBehaviour
 
             case _C.DIRECTION.RIGHT:    //向右
             {
-                if (grid_path.Count > 10) break;
+                if (grid_path.Count > 20) break;
 
                 if (origin.X == m_Weight - 1) return null;
 
@@ -598,7 +597,7 @@ public class Field : MonoBehaviour
 
                 while (pos_x >= 0 && pos_x < m_Weight && pos_y >= 0 && pos_y < m_Height)
                 {
-                    if (grid_path.Count > 10) break;
+                    if (grid_path.Count > 20) break;
 
                     Grid grid = this.GetGrid(pos_x, pos_y);;
 
@@ -665,7 +664,7 @@ public class Field : MonoBehaviour
 
                 while (pos_x >= 0 && pos_x < m_Weight && pos_y >= 0 && pos_y < m_Height)
                 {
-                    if (grid_path.Count > 10) break;
+                    if (grid_path.Count > 20) break;
 
                     Grid grid = this.GetGrid(pos_x, pos_y);;
 

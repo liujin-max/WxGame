@@ -293,20 +293,9 @@ public class Matrix_16 : Matrix
 #endregion
 
 
-
 #region 第18关
 public class Matrix_18 : Matrix
 {
-    public Matrix_18()
-    {
-        EventManager.AddHandler(EVENT.ONBROKENCARD,     OnBrokenCard);
-    }
-
-    public override void Dispose()
-    {
-        EventManager.DelHandler(EVENT.ONBROKENCARD,     OnBrokenCard);
-    }
-
     public override void InitCards(int count = 3)
     {
         base.InitCards(count);
@@ -355,28 +344,12 @@ public class Matrix_18 : Matrix
 
         return cards;
     }
-
-    private void OnBrokenCard(GameEvent @event)
-    {
-        // List<object> grid_datas = Field.Instance.GetEmptyGrids();
-
-        // var data    = m_Stage.Cards[0];
-
-        // Grid grid   = grid_datas[RandomUtility.Random(0, grid_datas.Count)] as Grid;
-        
-        // while (Field.Instance.GetSameCardNear(grid, data.ID).Count > 0) {
-        //     grid    = grid_datas[RandomUtility.Random(0, grid_datas.Count)] as Grid;
-        // }
-
-        // Field.Instance.PutCard(_C.CARD_STATE.NORMAL, data, grid);
-
-    }
 }
 #endregion
 
 
-#region 第19关
-public class Matrix_19 : Matrix
+#region 第20关
+public class Matrix_20 : Matrix
 {
     public override List<Card> AddCards()
     {

@@ -23,6 +23,11 @@ public class Land
         ENTITY_ROOT = GameObject.Find("Field/Entitys").transform;
     }
 
+    public void Dispose()
+    {
+        GameObject.FindWithTag("SceneCamera").GetComponent<CameraUtility>().Reset();
+    }
+
     public void FilterScene()
     {
         int offset_weight = Field.Instance.Stage.Weight - 8;
