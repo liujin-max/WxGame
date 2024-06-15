@@ -41,8 +41,14 @@ SpriteAtlas:
   m_MasterAtlas: {fileID: 0}
   m_PackedSprites:
   - {fileID: 21300000, guid: a5c0e610c507c864ca17fa8dbd92854c, type: 3}
+  - {fileID: 21300000, guid: 617ec7c25d44e484b90ca5e9717b9067, type: 3}
+  - {fileID: 21300000, guid: b6d06ee5c94de2a4ead496af38a1ef6f, type: 3}
+  - {fileID: 21300000, guid: 5a46703fa879bbc4aad76866290ef898, type: 3}
   m_PackedSpriteNamesToIndex:
   - Prop_miaobiao
+  - Prop_xie
+  - Prop_daban
+  - Prop_mofang
   m_RenderDataMap: {}
   m_Tag: Prop
   m_IsVariant: 0

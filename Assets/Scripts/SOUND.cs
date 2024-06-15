@@ -11,6 +11,7 @@ public static class SOUND
 
 
     //音效
+    public const string COIN        = "Prefab/Sound/Sound_coin";
     public const string CLICK       = "Prefab/Sound/Sound_click";
     public const string HIT         = "Prefab/Sound/Sound_hit";
     public const string EXCHANGE    = "Prefab/Sound/Sound_exchange";

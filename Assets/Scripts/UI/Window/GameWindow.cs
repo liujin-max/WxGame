@@ -91,7 +91,7 @@ public class GameWindow : MonoBehaviour
         //添加步数
         m_BtnStep.onClick.AddListener(()=>{
             GameFacade.Instance.UIManager.LoadWindow("PropUseWindow", UIManager.BOARD).GetComponent<PropUseWindow>()
-                .Init(100, "Prop_miaobiao", "增加 <#00FFBF>5</color> 行动步数", ()=>{
+                .Init(100, "Prop_xie", "增加 <#00FFBF>5</color> 行动步数", ()=>{
                     Debug.Log("添加步数");
                     Field.Instance.ad_add_step(5);
                 });
@@ -100,7 +100,7 @@ public class GameWindow : MonoBehaviour
         //打乱方块
         m_BtnShuffle.onClick.AddListener(()=>{
             GameFacade.Instance.UIManager.LoadWindow("PropUseWindow", UIManager.BOARD).GetComponent<PropUseWindow>()
-                .Init(100, "Prop_miaobiao", "打乱场上方块重新排列", ()=>{
+                .Init(100, "Prop_mofang", "使场上方块重新排列", ()=>{
                     Field.Instance.ad_shuffle();
                 });
         });
@@ -113,7 +113,7 @@ public class GameWindow : MonoBehaviour
             }
 
             GameFacade.Instance.UIManager.LoadWindow("PropUseWindow", UIManager.BOARD).GetComponent<PropUseWindow>()
-                .Init(50, "Prop_miaobiao", "撤回上一步的操作", ()=>{
+                .Init(50, "Prop_daban", "撤回上一步的操作", ()=>{
                     Field.Instance.ad_revoke();
                 });
         });

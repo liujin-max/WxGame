@@ -35,6 +35,8 @@ public class PropUseWindow : MonoBehaviour
             GameFacade.Instance.DataCenter.User.UpdateCoin(-m_Cost);
             EventManager.SendEvent(new GameEvent(EVENT.UI_UPDATECOIN));
 
+            GameFacade.Instance.SoundManager.Load(SOUND.COIN);
+
             m_Callback();
             GameFacade.Instance.UIManager.UnloadWindow(gameObject);
         });
