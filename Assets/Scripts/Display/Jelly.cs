@@ -100,6 +100,8 @@ public class Jelly : MonoBehaviour
             m_ShakeTweener.Kill();
         }
 
+        GameFacade.Instance.SoundManager.Load(SOUND.HIT);
+
         m_ShakeTweener = Entity.transform.DOShakePosition(0.3f, 0.05f , 20, 50);
     }
 
