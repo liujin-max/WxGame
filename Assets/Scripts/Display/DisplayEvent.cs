@@ -125,6 +125,7 @@ public class DisplayEvent_NormalCard : DisplayEvent
     {
         base.Start();
         var card = m_Params[0] as Card;
+        bool is_corporeal = (bool)m_Params[1];
 
         // Debug.Log("添加实体方块：" + card.Name + " => " + card.Grid.X + ", " + card.Grid.Y);
         if (card.Entity == null) {
@@ -133,12 +134,7 @@ public class DisplayEvent_NormalCard : DisplayEvent
             card.Entity.Flush();
         }
 
-        if (card.TYPE == _C.CARD_TYPE.FRAME) {
-            m_State = _C.DISPLAY_STATE.END;
-
-            card.Entity.SetPosition(card.Grid.Position);
-            card.Grid.Fly2Portal();
-        } else {
+        if (is_corporeal) {
             card.Entity.Entity.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
             card.Entity.DoScale(Vector3.one, 0.2f).SetEase(Ease.OutBack);
 
@@ -148,6 +144,12 @@ public class DisplayEvent_NormalCard : DisplayEvent
 
                 card.Entity.Shake(new Vector2(0.02f, 0.02f));
             });
+
+        } else {
+            m_State = _C.DISPLAY_STATE.END;
+
+            card.Entity.SetPosition(card.Grid.Position);
+            card.Grid.Fly2Portal();
         }
     }
 }
@@ -313,9 +315,6 @@ public class DisplayEvent_BrokenCard : DisplayEvent
 
         if (card.ID == (int)_C.CARD.BOMB) Field.Instance.Land.DoShake();
 
-        if (card.TYPE == _C.CARD_TYPE.JELLY) {
-            GameFacade.Instance.SoundManager.Load(SOUND.BROKEN);
-        }
 
         GameFacade.Instance.DisplayEngine.Put(DisplayEngine.Track.Common, new DisplayEvent_Collect(card, pos));    
     }

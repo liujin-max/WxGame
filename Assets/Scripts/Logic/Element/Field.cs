@@ -178,9 +178,11 @@ public class Field : MonoBehaviour
         }
     }
 
-    //添加果冻
-    public void PutCard(_C.CARD_STATE state, Card card, Grid grid)
+    //放置方块
+    public Card PutCard(_C.CARD_STATE state, CardData cardData, Grid grid)
     {
+        Card card   = new Card(cardData);
+
         card.STATE  = state;
         if (state == _C.CARD_STATE.GHOST) {
             card.Grid   = grid;
@@ -195,14 +197,8 @@ public class Field : MonoBehaviour
 
             m_Cards.Add(card);
 
-            GameFacade.Instance.DisplayEngine.Put(DisplayEngine.Track.Common, new DisplayEvent_NormalCard(card));
+            GameFacade.Instance.DisplayEngine.Put(DisplayEngine.Track.Common, new DisplayEvent_NormalCard(card, false));
         }
-    }
-
-    public Card PutCard(_C.CARD_STATE state, CardData cardData, Grid grid)
-    {
-        Card card   = new Card(cardData);
-        PutCard(state, card, grid);
 
         return card;
     }
@@ -246,7 +242,14 @@ public class Field : MonoBehaviour
         //将虚化方块实体化
         m_GhostCards.ForEach(card => {
             if (card.Grid.IsEmpty == true) {
-                Field.Instance.PutCard(_C.CARD_STATE.NORMAL, card, card.Grid);
+                // Field.Instance.PutCard(_C.CARD_STATE.NORMAL, card, card.Grid);
+                card.STATE      = _C.CARD_STATE.NORMAL;
+                card.Grid.Card   = card;
+
+                m_Cards.Add(card);
+
+                GameFacade.Instance.DisplayEngine.Put(DisplayEngine.Track.Common, new DisplayEvent_NormalCard(card, true));
+
             } else {
                 Debug.LogError("实体化时，当前坐标已经有方块了：" + card.Grid.X + ", " + card.Grid.Y + " => " + card.Grid.Card.ID);
             }
