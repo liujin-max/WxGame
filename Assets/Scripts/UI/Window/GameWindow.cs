@@ -82,23 +82,26 @@ public class GameWindow : MonoBehaviour
         //添加时间
         m_BtnTime.onClick.AddListener(()=>{
             GameFacade.Instance.UIManager.LoadWindow("PropUseWindow", UIManager.BOARD).GetComponent<PropUseWindow>()
-                .Init(100, "Prop_miaobiao", "增加60秒游戏时间", ()=>{
+                .Init(100, "Prop_miaobiao", "增加 <#00FFBF>60</color> 秒游戏时间", ()=>{
                     Field.Instance.ad_add_time(60);
                 });
         });
 
         //添加步数
         m_BtnStep.onClick.AddListener(()=>{
-            Platform.Instance.REWARD_VIDEOAD("", ()=>{
-                Field.Instance.ad_add_step(5);
-            });
+            GameFacade.Instance.UIManager.LoadWindow("PropUseWindow", UIManager.BOARD).GetComponent<PropUseWindow>()
+                .Init(100, "Prop_miaobiao", "增加 <#00FFBF>5</color> 行动步数", ()=>{
+                    Debug.Log("添加步数");
+                    Field.Instance.ad_add_step(5);
+                });
         });
 
         //打乱方块
         m_BtnShuffle.onClick.AddListener(()=>{
-            Platform.Instance.REWARD_VIDEOAD("", ()=>{
-                Field.Instance.ad_shuffle();
-            });
+            GameFacade.Instance.UIManager.LoadWindow("PropUseWindow", UIManager.BOARD).GetComponent<PropUseWindow>()
+                .Init(100, "Prop_miaobiao", "打乱场上方块重新排列", ()=>{
+                    Field.Instance.ad_shuffle();
+                });
         });
 
         //撤销操作
@@ -108,9 +111,10 @@ public class GameWindow : MonoBehaviour
                 return;
             }
 
-            Platform.Instance.REWARD_VIDEOAD("", ()=>{
-                Field.Instance.ad_revoke();
-            });
+            GameFacade.Instance.UIManager.LoadWindow("PropUseWindow", UIManager.BOARD).GetComponent<PropUseWindow>()
+                .Init(50, "Prop_miaobiao", "撤回上一步的操作", ()=>{
+                    Field.Instance.ad_revoke();
+                });
         });
     }
 

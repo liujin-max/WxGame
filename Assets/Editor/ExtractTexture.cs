@@ -11,7 +11,7 @@ public class ExtractTexture : MonoBehaviour
     [MenuItem ("Assets/ExtractTexture")]  
     public static void DoExtractTexture()
     {
-        string fontPath = @"D:\Work\WxGame\Assets\Font\PangMenZhengDaoBiaoTiTiMianFeiBan SDF.asset";
+        string fontPath = @"Assets/Font/PangMenZhengDaoBiaoTiTiMianFeiBan SDF.asset";
 
         string texturePath = fontPath.Replace(".asset", ".png");
         TMP_FontAsset targetFontAsset = AssetDatabase.LoadAssetAtPath<TMP_FontAsset>(fontPath);

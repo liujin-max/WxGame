@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Text;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -47,7 +48,7 @@ public class PropUseWindow : MonoBehaviour
         });
 
          //分享给奖励
-        m_BtnVideo.onClick.AddListener(()=>{
+        m_BtnShare.onClick.AddListener(()=>{
             Platform.Instance.SHARE("快来帮帮我！");
 
             m_Callback(); 
@@ -69,6 +70,10 @@ public class PropUseWindow : MonoBehaviour
 
         m_Description.text = descritpion;
 
-        m_BtnCost.transform.Find("Value").GetComponent<TextMeshProUGUI>().text = cost.ToString();
+        StringBuilder sb = new StringBuilder();
+        if (GameFacade.Instance.DataCenter.User.Coin < m_Cost) sb.Append("<#FF0000>");
+        sb.Append(cost);
+
+        m_BtnCost.transform.Find("Value").GetComponent<TextMeshProUGUI>().text = sb.ToString();
     }
 }

@@ -1429,7 +1429,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "+60s\u6E38\u620F\u65F6\u95F4\u65F6"
+  m_text: "\u4F7F\u573A\u4E0A\u65B9\u5757\u91CD\u65B0\u6392\u5217"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 9da4907aecabeaf4b8aa62a09c26a128, type: 2}
   m_sharedMaterial: {fileID: 4679739225616390393, guid: 9da4907aecabeaf4b8aa62a09c26a128, type: 2}

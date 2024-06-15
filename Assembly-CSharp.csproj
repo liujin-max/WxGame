@@ -76,6 +76,7 @@
     <Compile Include="Assets\Scripts\Manager\SoundManager.cs" />
     <Compile Include="Assets\Scripts\UI\Item\GridView.cs" />
     <Compile Include="Assets\Scripts\UI\Window\GuideWindow.cs" />
+    <Compile Include="Assets\Scripts\UI\Window\PropUseWindow.cs" />
     <Compile Include="Assets\Scripts\Effect\ShakeText.cs" />
     <Compile Include="Assets\Scripts\Logic\Element\History.cs" />
     <Compile Include="Assets\Scripts\Utility\DIYScrollView.cs" />
@@ -121,6 +122,7 @@
     <Compile Include="Assets\Scripts\Effect\FlyJelly.cs" />
     <Compile Include="Assets\Scripts\Utility\BalatroFloating.cs" />
     <Compile Include="Assets\Scripts\UI\Window\LoseWindow.cs" />
+    <Compile Include="Assets\Scripts\Effect\Fly.cs" />
     <Compile Include="Assets\Scripts\MapEditor\MapEditor.cs" />
     <Compile Include="Assets\Scripts\UI\Window\GameWindow.cs" />
     <Compile Include="Assets\Scripts\Logic\NavigationController.cs" />
@@ -169,8 +171,6 @@
     <Compile Include="Assets\Scripts\Effect\Shine.cs" />
     <Compile Include="Assets\DOTween\Modules\DOTweenModuleUnityVersion.cs" />
     <Compile Include="Assets\Scripts\UI\Window\TipWindow.cs" />
-    <Compile Include="Assets\Scripts\Effect\Fly.cs" />
-    <Compile Include="Assets\Scripts\UI\Window\PropUseWindow.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Resources\Shader\SpriteGray.shader" />
