@@ -13,6 +13,7 @@ public class GridEditor : MonoBehaviour
     private Vector2 Position;
 
     public bool IsValid = true;
+    public bool IsBan = false;
     public int JellyID;
 
     [Header("对应传送门")]
@@ -50,6 +51,8 @@ public class GridEditor : MonoBehaviour
             transform.Find("Text").GetComponent<TextMeshPro>().text = JellyID.ToString();
         else
             transform.Find("Text").GetComponent<TextMeshPro>().text = "";
+
+        transform.Find("Ban").gameObject.SetActive(IsBan);
     }
 }
 #endif

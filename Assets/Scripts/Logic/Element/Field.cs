@@ -179,7 +179,7 @@ public class Field : MonoBehaviour
     }
 
     //放置方块
-    public Card PutCard(_C.CARD_STATE state, CardData cardData, Grid grid)
+    public Card PutCard(_C.CARD_STATE state, CardData cardData, Grid grid, bool is_jump = false)
     {
         Card card   = new Card(cardData);
 
@@ -197,7 +197,7 @@ public class Field : MonoBehaviour
 
             m_Cards.Add(card);
 
-            GameFacade.Instance.DisplayEngine.Put(DisplayEngine.Track.Common, new DisplayEvent_NormalCard(card, false));
+            GameFacade.Instance.DisplayEngine.Put(DisplayEngine.Track.Common, new DisplayEvent_NormalCard(card, is_jump));
         }
 
         return card;
@@ -480,6 +480,10 @@ public class Field : MonoBehaviour
                     {
                         grid_path.Add(grid);
                         pos_x--;
+
+                        if (grid.IsBan) {
+                            break;
+                        }
                     }
                     else 
                     {
@@ -501,6 +505,7 @@ public class Field : MonoBehaviour
                                 break;
                             }
                         }
+
                         else
                         {
                             break;
@@ -546,6 +551,10 @@ public class Field : MonoBehaviour
                     {
                         grid_path.Add(grid);
                         pos_x++;
+
+                        if (grid.IsBan) {
+                            break;
+                        }
                     }
                     else 
                     {
@@ -610,6 +619,10 @@ public class Field : MonoBehaviour
                     {
                         grid_path.Add(grid);
                         pos_y++;
+
+                        if (grid.IsBan) {
+                            break;
+                        }
                     }
                     else 
                     {
@@ -678,6 +691,10 @@ public class Field : MonoBehaviour
                     {
                         grid_path.Add(grid);
                         pos_y--;
+
+                        if (grid.IsBan) {
+                            break;
+                        }
                     }
                     else 
                     {
@@ -692,7 +709,7 @@ public class Field : MonoBehaviour
                         else if (card.IsBomb() == true)
                         {
                             if (grid.Portal != null) break;
-                            
+
                             grid_path.Add(grid);
                             pos_y--;
                             if (card.ID == (int)_C.CARD.BOMB) {

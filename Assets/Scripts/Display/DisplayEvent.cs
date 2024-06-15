@@ -125,7 +125,7 @@ public class DisplayEvent_NormalCard : DisplayEvent
     {
         base.Start();
         var card = m_Params[0] as Card;
-        bool is_corporeal = (bool)m_Params[1];
+        bool is_jump = (bool)m_Params[1];
 
         // Debug.Log("添加实体方块：" + card.Name + " => " + card.Grid.X + ", " + card.Grid.Y);
         if (card.Entity == null) {
@@ -134,7 +134,7 @@ public class DisplayEvent_NormalCard : DisplayEvent
             card.Entity.Flush();
         }
 
-        if (is_corporeal) {
+        if (is_jump) {
             card.Entity.Entity.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
             card.Entity.DoScale(Vector3.one, 0.2f).SetEase(Ease.OutBack);
 

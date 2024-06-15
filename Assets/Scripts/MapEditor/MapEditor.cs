@@ -123,9 +123,10 @@ public class MapEditor : MonoBehaviour
             var entity  = Instantiate(Resources.Load<GameObject>("Prefab/MapEditor/GridEditor"), pos, Quaternion.identity, GridPivot);
             var grid    = entity.GetComponent<GridEditor>();
             grid.Init(grid_json.Order, grid_json.X, grid_json.Y, pos);
-            grid.IsValid = grid_json.IsValid;
-            grid.JellyID = grid_json.JellyID;
-            grid.Portal  = grid_json.Portal;
+            grid.IsValid    = grid_json.IsValid;
+            grid.IsBan      = grid_json.IsBan;
+            grid.JellyID    = grid_json.JellyID;
+            grid.Portal     = grid_json.Portal;
         });
 
     }
@@ -155,12 +156,13 @@ public class MapEditor : MonoBehaviour
             var g = GridPivot.GetChild(i).GetComponent<GridEditor>();
 
             GridJSON gj = new GridJSON();
-            gj.Order = g.Order;
-            gj.X = g.X;
-            gj.Y = g.Y;
-            gj.IsValid = g.IsValid;
-            gj.JellyID = g.JellyID;
-            gj.Portal  = g.Portal;
+            gj.Order    = g.Order;
+            gj.X        = g.X;
+            gj.Y        = g.Y;
+            gj.IsValid  = g.IsValid;
+            gj.IsBan    = g.IsBan;
+            gj.JellyID  = g.JellyID;
+            gj.Portal   = g.Portal;
 
             mapData.Grids.Add(gj);
         }

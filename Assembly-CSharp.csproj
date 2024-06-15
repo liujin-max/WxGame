@@ -74,7 +74,6 @@
     <Compile Include="Assets\Scripts\FSM\State_Check.cs" />
     <Compile Include="Assets\Scripts\Effect\Floating.cs" />
     <Compile Include="Assets\Scripts\Manager\SoundManager.cs" />
-    <Compile Include="Assets\Scripts\UI\Item\GridView.cs" />
     <Compile Include="Assets\Scripts\UI\Window\GuideWindow.cs" />
     <Compile Include="Assets\Scripts\UI\Window\PropUseWindow.cs" />
     <Compile Include="Assets\Scripts\Effect\ShakeText.cs" />

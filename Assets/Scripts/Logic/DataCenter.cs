@@ -40,6 +40,7 @@ public class GridJSON
     public int Y;
 
     public bool IsValid = true;
+    public bool IsBan;
     public int JellyID;
     public Vector2 Portal;
 }

@@ -168,7 +168,7 @@ public class Card
         if (this.ID == (int)_C.CARD.WOOD)   
         {
             int rand    = RandomUtility.Random(0, Field.Instance.Stage.Cards.Count);
-            Card card   = Field.Instance.PutCard(_C.CARD_STATE.NORMAL, Field.Instance.Stage.Cards[rand], m_Grid);
+            Card card   = Field.Instance.PutCard(_C.CARD_STATE.NORMAL, Field.Instance.Stage.Cards[rand], m_Grid, true);
 
             // Debug.Log("木箱爆炸 产生：" + card.Name + " => " + card.Grid.X + ", " + card.Grid.Y);
         }

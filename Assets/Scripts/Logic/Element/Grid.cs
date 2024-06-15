@@ -19,6 +19,7 @@ public class Grid
     }
 
     public bool IsEmpty {get { return m_Card == null;}}
+    public bool IsBan {get { return m_Data.IsBan;}}
 
     private Card m_Card;
     public Card Card {
@@ -45,6 +46,7 @@ public class Grid
     private GameObject m_Entity;
     public GameObject Entity {get {return m_Entity;} }
     public Transform Frame;
+    private GameObject m_Ban;
     private Transform m_Line1;
     private Transform m_Line2;
     private Transform m_Horn1;
@@ -70,6 +72,9 @@ public class Grid
         Frame   = m_Entity.transform.Find("Frame");
         Frame.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>(res);
 
+
+        m_Ban   = Frame.Find("Ban").gameObject;
+        m_Ban.SetActive(m_Data.IsBan);
 
         m_Line1 = m_Entity.transform.Find("Line1Pivot");
         m_Line2 = m_Entity.transform.Find("Line2Pivot");
