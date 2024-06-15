@@ -9,6 +9,7 @@ public class LoginWindow : MonoBehaviour
 {
     [SerializeField] private Text m_Coin;
     [SerializeField] private Text m_Food;
+    [SerializeField] private Text m_Stage;
 
     [Header("按钮")]
     [SerializeField] private Button m_BtnStage;
@@ -60,6 +61,8 @@ public class LoginWindow : MonoBehaviour
     {
         m_Coin.text = GameFacade.Instance.DataCenter.User.Coin.ToString();
         m_Food.text = GameFacade.Instance.DataCenter.User.Food.ToString() + "/" + _C.DEFAULT_FOOD;
+
+        m_Stage.text= GameFacade.Instance.DataCenter.User.Level.ToString();
 
 
         FlushCost();

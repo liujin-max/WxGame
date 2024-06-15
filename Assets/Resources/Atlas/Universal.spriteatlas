@@ -55,6 +55,7 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 696f2ed82c2c4d84b89d8c3d5c558c8f, type: 3}
   - {fileID: 21300000, guid: ace57d6a0b6461e45b45e364bbf575f5, type: 3}
   - {fileID: 21300000, guid: 218e7b8a5b0d72849bf7e88e3bbeec1e, type: 3}
+  - {fileID: 21300000, guid: bd8cbe8a23505e14a9c1ea009872048a, type: 3}
   - {fileID: 21300000, guid: b32f926b44b2bb348bc1551ac69a2bcd, type: 3}
   - {fileID: 21300000, guid: 8822ee6b9b893634e889ef62e0875085, type: 3}
   - {fileID: 21300000, guid: 5db9497c10021dd4cb202a1f8daab959, type: 3}
@@ -77,6 +78,7 @@ SpriteAtlas:
   - Universal_btnSet
   - Universal_icon_video
   - Universal_item_frame
+  - Universal_btn_frame_green
   - Universal_btn_blue
   - Universal_btn_yellow
   - Universal_coin
