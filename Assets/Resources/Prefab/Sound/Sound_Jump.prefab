@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &4582669703327094924
+--- !u!1 &6696440719456644198
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,23 +8,23 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 3235003151685602679}
-  - component: {fileID: 6195742040959358637}
-  - component: {fileID: 5036193343202914649}
+  - component: {fileID: 5734044055995709853}
+  - component: {fileID: 3931028968751964743}
+  - component: {fileID: 2779362689248839091}
   m_Layer: 0
-  m_Name: Sound_trigger
+  m_Name: Sound_Jump
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &3235003151685602679
+--- !u!4 &5734044055995709853
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4582669703327094924}
+  m_GameObject: {fileID: 6696440719456644198}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -33,17 +33,17 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!82 &6195742040959358637
+--- !u!82 &3931028968751964743
 AudioSource:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4582669703327094924}
+  m_GameObject: {fileID: 6696440719456644198}
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: f5539056684bc1048a6da56f4491ee44, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 1962988c6dd50b4488d2a6473d3a7a34, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
@@ -129,16 +129,17 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &5036193343202914649
+--- !u!114 &2779362689248839091
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4582669703327094924}
+  m_GameObject: {fileID: 6696440719456644198}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 45d3534610030564eb00e88b69fbcb96, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  IsPlayLimit: 1
   AutoDestroy: 1

@@ -142,6 +142,7 @@ public class DisplayEvent_NormalCard : DisplayEvent
             card.Entity.Entity.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
             card.Entity.DoScale(Vector3.one, 0.2f).SetEase(Ease.OutBack);
 
+            GameFacade.Instance.SoundManager.Load(SOUND.JUMP);
             card.Entity.transform.DOJump(card.Grid.Position, 0.5f, 1, 0.25f).SetEase(Ease.OutQuad).OnComplete(() => {
                 m_State = _C.DISPLAY_STATE.END;
 
@@ -311,6 +312,10 @@ public class DisplayEvent_BrokenCard : DisplayEvent
         GameFacade.Instance.EffectManager.Load("Prefab/Effect/fx_broken_" + card.ID, pos);
 
         if (card.ID == (int)_C.CARD.BOMB) Field.Instance.Land.DoShake();
+
+        if (card.TYPE == _C.CARD_TYPE.JELLY) {
+            GameFacade.Instance.SoundManager.Load(SOUND.BROKEN);
+        }
 
         GameFacade.Instance.DisplayEngine.Put(DisplayEngine.Track.Common, new DisplayEvent_Collect(card, pos));    
     }
