@@ -28,7 +28,7 @@ public class PropUseWindow : MonoBehaviour
         //花费金币购买
         m_BtnCost.onClick.AddListener(()=>{
             if (GameFacade.Instance.DataCenter.User.Coin < m_Cost) {
-                EventManager.SendEvent(new GameEvent(EVENT.UI_POPUPTIP, "金币不足"));
+                EventManager.SendEvent(new GameEvent(EVENT.UI_POPUPTIP, "<sprite=0>不足"));
                 return;
             }
 

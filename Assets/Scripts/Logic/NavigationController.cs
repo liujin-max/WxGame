@@ -36,7 +36,7 @@ public static class NavigationController
 
         if (!GameFacade.Instance.DataCenter.Level.IsFoodEnough2Next(json))
         {
-            EventManager.SendEvent(new GameEvent(EVENT.UI_POPUPTIP, "体力不足"));
+            EventManager.SendEvent(new GameEvent(EVENT.UI_POPUPTIP, "<sprite=1>不足"));
             return null;
         }
 
