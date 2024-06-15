@@ -28,16 +28,18 @@ public class Grid
 
     //对应传送门
     public Grid m_Portal = null;
-    public Grid Portal {get {
-        if (m_Card != null && m_Card.ID == (int)_C.CARD.PORTAL) {
-            if (m_Portal == null) {
-                m_Portal = Field.Instance.GetGrid((int)m_Data.Portal.x, (int)m_Data.Portal.y);
+    public Grid Portal {
+        get {
+            if (m_Card != null && m_Card.ID == (int)_C.CARD.PORTAL) {
+                if (m_Portal == null) {
+                    m_Portal = Field.Instance.GetGrid((int)m_Data.Portal.x, (int)m_Data.Portal.y);
+                }
+                return m_Portal;
             }
-            return m_Portal;
-        }
 
-        return null;
-    }}
+            return null;
+        }
+    }
 
 
     private GameObject m_Entity;
@@ -327,7 +329,11 @@ public class Grid
         var near_grid = Field.Instance.GetGrid(Portal.X + offset_x, Portal.Y + offset_y);
         if (near_grid == null) return false;
 
-        if (!near_grid.IsValid || !near_grid.IsEmpty)
+        if (!near_grid.IsValid) {
+            return false;
+        }
+
+        if (!near_grid.IsEmpty)
         {
             if (card.IsBomb()) {
                 return true;

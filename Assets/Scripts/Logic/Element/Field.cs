@@ -471,11 +471,10 @@ public class Field : MonoBehaviour
 
                 while (pos_x >= 0 && pos_x < m_Weight && pos_y >= 0 && pos_y < m_Height)
                 {
-                    if (grid_path.Count > 20) break;
-
                     Grid grid = this.GetGrid(pos_x, pos_y);;
 
                     if (!grid.IsValid) break;
+                    if (grid_path.Contains(grid)) break;
 
                     if (grid.IsEmpty)
                     {
@@ -494,6 +493,8 @@ public class Field : MonoBehaviour
                         }
                         else if (card.IsBomb() == true)
                         {
+                            if (grid.Portal != null) break;
+
                             grid_path.Add(grid);
                             pos_x--;
                             if (card.ID == (int)_C.CARD.BOMB) {
@@ -539,6 +540,7 @@ public class Field : MonoBehaviour
                     Grid grid = this.GetGrid(pos_x, pos_y);;
 
                     if (!grid.IsValid) break;
+                    if (grid_path.Contains(grid)) break;
 
                     if (grid.IsEmpty)
                     {
@@ -557,6 +559,8 @@ public class Field : MonoBehaviour
                         }
                         else if (card.IsBomb() == true)
                         {
+                            if (grid.Portal != null) break;
+
                             grid_path.Add(grid);
                             pos_x++;
                             if (card.ID == (int)_C.CARD.BOMB) {
@@ -597,11 +601,10 @@ public class Field : MonoBehaviour
 
                 while (pos_x >= 0 && pos_x < m_Weight && pos_y >= 0 && pos_y < m_Height)
                 {
-                    if (grid_path.Count > 20) break;
-
-                    Grid grid = this.GetGrid(pos_x, pos_y);;
+                    Grid grid = this.GetGrid(pos_x, pos_y);
 
                     if (!grid.IsValid) break;
+                    if (grid_path.Contains(grid)) break;
 
                     if (grid.IsEmpty)
                     {
@@ -620,6 +623,8 @@ public class Field : MonoBehaviour
                         }
                         else if (card.IsBomb() == true)
                         {
+                            if (grid.Portal != null) break;
+
                             grid_path.Add(grid);
                             pos_y++;
                             if (card.ID == (int)_C.CARD.BOMB) {
@@ -664,11 +669,10 @@ public class Field : MonoBehaviour
 
                 while (pos_x >= 0 && pos_x < m_Weight && pos_y >= 0 && pos_y < m_Height)
                 {
-                    if (grid_path.Count > 20) break;
-
                     Grid grid = this.GetGrid(pos_x, pos_y);;
 
                     if (!grid.IsValid) break;
+                    if (grid_path.Contains(grid)) break;
 
                     if (grid.IsEmpty)
                     {
@@ -687,6 +691,8 @@ public class Field : MonoBehaviour
                         }
                         else if (card.IsBomb() == true)
                         {
+                            if (grid.Portal != null) break;
+                            
                             grid_path.Add(grid);
                             pos_y--;
                             if (card.ID == (int)_C.CARD.BOMB) {
