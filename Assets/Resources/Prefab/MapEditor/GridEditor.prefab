@@ -107,7 +107,7 @@ MonoBehaviour:
   JellyID: 0
   Portal: {x: 0, y: 0}
   IsBan: 0
-  AutoDirection: 0
+  AutoDirection: 99
 --- !u!1 &5120740367516159619
 GameObject:
   m_ObjectHideFlags: 0

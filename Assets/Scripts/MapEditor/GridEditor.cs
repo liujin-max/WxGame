@@ -20,8 +20,8 @@ public class GridEditor : MonoBehaviour
 
     public bool IsBan = false;
 
-    [Header("自动移动方向")]
-    public _C.DIRECTION AutoDirection;
+    // [Header("自动移动方向")]
+    public _C.DIRECTION AutoDirection = _C.DIRECTION.NONE;
 
 
     public void Init(int order, int x, int y, Vector2 position)
@@ -61,8 +61,8 @@ public class GridEditor : MonoBehaviour
 
         //
         var arrow = transform.Find("Arrow").gameObject;
-        arrow.SetActive(this.AutoDirection != _C.DIRECTION.NONE);
-        if (this.AutoDirection == _C.DIRECTION.LEFT)    arrow.transform.localEulerAngles = Vector3.zero;
+        arrow.SetActive(AutoDirection != _C.DIRECTION.NONE);
+        if (AutoDirection == _C.DIRECTION.LEFT)    arrow.transform.localEulerAngles = Vector3.zero;
         else if (AutoDirection == _C.DIRECTION.RIGHT)   arrow.transform.localEulerAngles = new Vector3(0, 0, 180);
         else if (AutoDirection == _C.DIRECTION.UP)      arrow.transform.localEulerAngles = new Vector3(0, 0, -90);
         else if (AutoDirection == _C.DIRECTION.DOWN)    arrow.transform.localEulerAngles = new Vector3(0, 0, 90);

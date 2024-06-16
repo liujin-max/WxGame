@@ -36,12 +36,12 @@ public static class _C
     //方向
     public enum DIRECTION
     {
-        UP,
+        NONE = 99,
+
+        UP = 0,
         DOWN,
         LEFT,
         RIGHT,
-
-        NONE = 99,
     }
 
     //方块类型
