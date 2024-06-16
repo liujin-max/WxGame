@@ -62,7 +62,7 @@ public class LoginWindow : MonoBehaviour
         m_Coin.text = GameFacade.Instance.DataCenter.User.Coin.ToString();
         m_Food.text = GameFacade.Instance.DataCenter.User.Food.ToString() + "/" + _C.DEFAULT_FOOD;
 
-        m_Stage.text= GameFacade.Instance.DataCenter.User.Level.ToString();
+        m_Stage.text= (GameFacade.Instance.DataCenter.User.Level + 1).ToString();
 
 
         FlushCost();
