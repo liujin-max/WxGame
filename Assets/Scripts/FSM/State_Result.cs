@@ -41,10 +41,7 @@ public class State_Result<T> : State<Field>
                     //记录关卡序列
                     GameFacade.Instance.DataCenter.User.SetLevel(Field.Instance.Stage.ID);
                     //结算奖励
-                    GameFacade.Instance.DataCenter.User.UpdateCoin(Field.Instance.Stage.Coin);
-                    GameFacade.Instance.DataCenter.User.UpdateFood(Field.Instance.Stage.Food);
-
-                    EventManager.SendEvent(new GameEvent(EVENT.UI_UPDATECOIN));
+                    Field.Instance.Stage.ReceiveReward();
 
                     var window = GameFacade.Instance.UIManager.LoadWindow("VictoryWindow", UIManager.BOARD).GetComponent<VictoryWindow>();
                     window.Init();
@@ -56,6 +53,12 @@ public class State_Result<T> : State<Field>
             }
             else if (Field.Instance.Stage.MODE == _C.MODE.ENDLESS)
             {
+                //记录分数
+                GameFacade.Instance.DataCenter.User.SetScore(Field.Instance.Stage.GetScore());
+                //结算奖励
+                Field.Instance.Stage.ReceiveReward();
+
+
                 var window = GameFacade.Instance.UIManager.LoadWindow("ResultWindow", UIManager.BOARD).GetComponent<ResultWindow>();
                 window.Init(Field.Instance.Stage.GetScore());
             }

@@ -112,10 +112,13 @@ public class LoginWindow : MonoBehaviour
         }
         else
         {
+            int score = GameFacade.Instance.DataCenter.User.Score;
+
             m_BtnEndless.GetComponent<ImageGray>().TurnGray(false);
             m_BtnEndless.transform.Find("Text").GetComponent<ImageGray>().TurnGray(false);
 
-            m_BtnEndless.transform.Find("LockPivot").gameObject.SetActive(false);
+            m_BtnEndless.transform.Find("LockPivot").gameObject.SetActive(score > 0);
+            m_BtnEndless.transform.Find("LockPivot/Tip").GetComponent<TextMeshProUGUI>().text = score.ToString();
         }
     }
 

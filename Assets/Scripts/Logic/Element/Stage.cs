@@ -248,6 +248,15 @@ public class Stage
     {
         return m_Matrix.AddCards();
     }    
+
+    //获取奖励
+    public void ReceiveReward()
+    {
+        GameFacade.Instance.DataCenter.User.UpdateCoin(this.Coin);
+        GameFacade.Instance.DataCenter.User.UpdateFood(this.Food);
+
+        EventManager.SendEvent(new GameEvent(EVENT.UI_UPDATECOIN));
+    }
     #endregion
 
 }

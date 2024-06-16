@@ -24,6 +24,7 @@ public class GameUserData
     public int Coin;        //金币
     public int Food = _C.DEFAULT_FOOD;  //体力
     public long RecoveryTimestamp;    //上次体力的恢复时间
+    public int Score;       //无尽分数
 }
 
 
@@ -45,6 +46,7 @@ public class User
     public int Level { get{ return m_Data.Level;}}
     public int Coin { get{ return m_Data.Coin;}}
     public int Food { get{ return m_Data.Food;}}
+    public int Score { get{ return m_Data.Score;}}
 
 
     private bool m_userUpdate = false;  //账号数据变动标记
@@ -139,6 +141,15 @@ public class User
     public void SetRecoveryTimestamp(long value)
     {
         m_Data.RecoveryTimestamp = value;
+
+        m_userUpdate = true;
+    }
+
+    public void SetScore(int value)
+    {
+        if (value <= m_Data.Score ) return;
+
+        m_Data.Score = value;
 
         m_userUpdate = true;
     }
