@@ -8,16 +8,14 @@ using UnityEngine.UI;
 
 public class SettingWindow : MonoBehaviour
 {
-    [SerializeField] Button c_Mask;
-    [SerializeField] Slider c_MusicSlider;
-    [SerializeField] Slider c_SoundSlider;
-    [SerializeField] Toggle c_VibrateToggle;
+    [SerializeField] Button m_BtnClose;
+    [SerializeField] Slider m_MusicSlider;
+    [SerializeField] Slider m_SoundSlider;
+    [SerializeField] Toggle m_VibrateToggle;
 
     [SerializeField] GameObject m_ButtonPivot;
     [SerializeField] Button m_BtnReturn;
     [SerializeField] Button m_BtnContinue;
-
-    [SerializeField] GameObject m_Tip;
 
     private Action m_Callback;
 
@@ -25,21 +23,21 @@ public class SettingWindow : MonoBehaviour
     {
         // Platform.Instance.BANNER_VIDEOAD("adunit-572e9d91851655e6", true);
 
-        c_Mask.onClick.AddListener(()=>{
+        m_BtnClose.onClick.AddListener(()=>{
             if (m_Callback != null) m_Callback();
             
             GameFacade.Instance.UIManager.UnloadWindow(gameObject);
         });
 
-        c_MusicSlider.onValueChanged.AddListener((float value)=>{
+        m_MusicSlider.onValueChanged.AddListener((float value)=>{
             GameFacade.Instance.SystemManager.MusicVolume = value;
         });
 
-        c_SoundSlider.onValueChanged.AddListener((float value)=>{
+        m_SoundSlider.onValueChanged.AddListener((float value)=>{
             GameFacade.Instance.SystemManager.SoundVolume = value;
         });
 
-        c_VibrateToggle.onValueChanged.AddListener((flag)=>{
+        m_VibrateToggle.onValueChanged.AddListener((flag)=>{
             GameFacade.Instance.SystemManager.VibrateFlag = flag;
         });
 
@@ -72,10 +70,10 @@ public class SettingWindow : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        c_MusicSlider.value     = GameFacade.Instance.SystemManager.MusicVolume;
-        c_SoundSlider.value     = GameFacade.Instance.SystemManager.SoundVolume;
+        m_MusicSlider.value     = GameFacade.Instance.SystemManager.MusicVolume;
+        m_SoundSlider.value     = GameFacade.Instance.SystemManager.SoundVolume;
 
-        c_VibrateToggle.isOn    = GameFacade.Instance.SystemManager.VibrateFlag;
+        m_VibrateToggle.isOn    = GameFacade.Instance.SystemManager.VibrateFlag;
     }
 
     public void SetCallback(Action callback)
@@ -86,6 +84,5 @@ public class SettingWindow : MonoBehaviour
     public void ShowButton(bool flag)
     {
         m_ButtonPivot.SetActive(flag);
-        m_Tip.SetActive(!flag);
     }
 }

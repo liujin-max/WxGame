@@ -47,6 +47,7 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 6d926c23a743f124196ad06a696dfead, type: 3}
   - {fileID: 21300000, guid: ce643fe3c6cfdf54b81d4b31916286ab, type: 3}
   - {fileID: 21300000, guid: e3cc5f54c60529e4e9ce45f3f1f23faa, type: 3}
+  - {fileID: 21300000, guid: 9f6165b455982b940b8846ee7f7ff864, type: 3}
   - {fileID: 21300000, guid: a83d38b53af8c644099fe1c5817e8e31, type: 3}
   - {fileID: 21300000, guid: f51e564741494ce489b48982392a33be, type: 3}
   - {fileID: 21300000, guid: 7d2ce4a772c554d4bb9b3afd519e14da, type: 3}
@@ -58,10 +59,12 @@ SpriteAtlas:
   - {fileID: 21300000, guid: bd8cbe8a23505e14a9c1ea009872048a, type: 3}
   - {fileID: 21300000, guid: b32f926b44b2bb348bc1551ac69a2bcd, type: 3}
   - {fileID: 21300000, guid: 8822ee6b9b893634e889ef62e0875085, type: 3}
+  - {fileID: 21300000, guid: cec83b3cd6ba23b41be19aba11e44d2b, type: 3}
   - {fileID: 21300000, guid: 5db9497c10021dd4cb202a1f8daab959, type: 3}
   - {fileID: 21300000, guid: 22e7179cb245f3740836b26716756a0b, type: 3}
   - {fileID: 21300000, guid: 8d95876d6ff8c894e9026fce8e55ed01, type: 3}
   - {fileID: 21300000, guid: f071f88d3e8d7b84681661f9c0694266, type: 3}
+  - {fileID: 21300000, guid: 15f0763e229528a40a2a2b1c94e06e03, type: 3}
   m_PackedSpriteNamesToIndex:
   - Universal_btn_green
   - Universal_gradient
@@ -70,6 +73,7 @@ SpriteAtlas:
   - Universal_black_frame
   - Universal_food
   - Universal_icon_home
+  - Universal_slider_bar
   - Universal_mask_white
   - Universal_text_frame
   - Universal_btn_close
@@ -81,10 +85,12 @@ SpriteAtlas:
   - Universal_btn_frame_green
   - Universal_btn_blue
   - Universal_btn_yellow
+  - Universal_slider_frame
   - Universal_coin
   - Universal_time
   - Universal_step
   - Universal_food_icon
+  - Universal_slider_point
   m_RenderDataMap: {}
   m_Tag: Universal
   m_IsVariant: 0
