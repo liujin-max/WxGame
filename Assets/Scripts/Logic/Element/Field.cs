@@ -257,12 +257,12 @@ public class Field : MonoBehaviour
         m_GhostCards.Clear();
     }
 
-    //场上可移动的方块
-    public List<Card> GetDragableCards()
+    //场上正常的方块
+    public List<Card> GetDragableJellys()
     {
         List<Card> cards = new List<Card>();
         m_Cards.ForEach(c => {
-            if (c.Dragable) {
+            if (c.Dragable && c.TYPE == _C.CARD_TYPE.JELLY) {
                 cards.Add(c);
             }
         });

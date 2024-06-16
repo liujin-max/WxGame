@@ -21,7 +21,7 @@ public class State_Idle<T> : State<Field>
         }
         
         //场上没有可移动的方块
-        if (Field.Instance.GetDragableCards().Count == 0) {
+        if (Field.Instance.GetDragableJellys().Count == 0) {
             Field.Instance.Transist(_C.FSMSTATE.CHECK);
             return;
         }

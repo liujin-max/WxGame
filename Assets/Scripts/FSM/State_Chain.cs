@@ -29,10 +29,7 @@ public class State_Chain<T> : State<Field>
         //在连锁反应后再处理衍生物的问题
         //否则衍生物可能被推走
         cards.ForEach(c => {
-            //衍生物
-            if (c.DerivedID > 0) {
-                Field.Instance.PutCard(_C.CARD_STATE.NORMAL, GameFacade.Instance.DataCenter.GetCardData(c.DerivedID), c.Grid);   
-            }
+            c.OnAfterChain();
         }); 
     }
 

@@ -322,7 +322,7 @@ public class Matrix_18 : Matrix
     {
         var cards   = new List<Card>();
 
-        if (Field.Instance.GetDragableCards().Count > 0) return cards;
+        if (Field.Instance.GetDragableJellys().Count > 0) return cards;
 
         List<object> grid_datas = Field.Instance.GetEmptyGrids();
 
@@ -544,7 +544,7 @@ public class Matrix
         int min = 2;
         int max = 4;
 
-        if (Field.Instance.GetDragableCards().Count <= 4) {
+        if (Field.Instance.GetDragableJellys().Count <= 4) {
             min++;
             max++;
         }

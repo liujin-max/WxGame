@@ -144,7 +144,8 @@ public class Card
         }
     }
 
-    //连锁反应
+
+    //受到连锁反应
     public void OnChain(_C.DIRECTION direction)
     {
         //木箱
@@ -158,6 +159,17 @@ public class Card
 
         //普通方块会被推走逻辑
         Field.Instance.Move(this, direction);
+    }
+
+    //连锁反应结束后
+    public void OnAfterChain()
+    {
+        //衍生物
+        if (this.DerivedID > 0) {
+            Field.Instance.PutCard(_C.CARD_STATE.NORMAL, GameFacade.Instance.DataCenter.GetCardData(DerivedID), m_Grid);   
+        }
+
+        //加时
     }
 
     //击破后

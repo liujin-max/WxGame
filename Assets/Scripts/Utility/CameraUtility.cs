@@ -16,7 +16,6 @@ public class CameraUtility : MonoBehaviour
 
     public void Reset()
     {
-        Debug.Log("Reset");
         FilterOrthographic(m_Camera);
     }
 
