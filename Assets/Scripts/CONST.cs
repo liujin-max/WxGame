@@ -39,7 +39,9 @@ public static class _C
         UP,
         DOWN,
         LEFT,
-        RIGHT
+        RIGHT,
+
+        NONE = 99,
     }
 
     //方块类型

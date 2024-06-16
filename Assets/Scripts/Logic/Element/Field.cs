@@ -323,7 +323,7 @@ public class Field : MonoBehaviour
 
     //清理残影
     //如果当前位置有残影，则清空残影
-    void ClearGhost(Card card)
+    public void ClearGhost(Card card)
     {
         for (int i = 0; i < m_GhostCards.Count; i++)
         {
@@ -523,7 +523,7 @@ public class Field : MonoBehaviour
                     target.Card = card;
                 } 
 
-                ClearGhost(card);
+                // ClearGhost(card);
                 if (is_manual == true) m_Stage.UpdateMoveStep(-1);
 
                 GameFacade.Instance.DisplayEngine.Put(DisplayEngine.Track.Common, new DisplayEvent_MoveCard(card, _C.DIRECTION.LEFT, grid_path, is_manual));
@@ -593,7 +593,7 @@ public class Field : MonoBehaviour
                     target.Card = card;
                 } 
 
-                ClearGhost(card);
+                // ClearGhost(card);
                 if (is_manual == true) m_Stage.UpdateMoveStep(-1);
 
                 GameFacade.Instance.DisplayEngine.Put(DisplayEngine.Track.Common, new DisplayEvent_MoveCard(card, _C.DIRECTION.RIGHT, grid_path, is_manual));
@@ -663,8 +663,7 @@ public class Field : MonoBehaviour
                 
                 
 
-                ClearGhost(card);
-
+                // ClearGhost(card);
                 if (is_manual == true) m_Stage.UpdateMoveStep(-1);
 
                 GameFacade.Instance.DisplayEngine.Put(DisplayEngine.Track.Common, new DisplayEvent_MoveCard(card, _C.DIRECTION.UP, grid_path, is_manual));
@@ -733,7 +732,7 @@ public class Field : MonoBehaviour
                     target.Card = card;
                 } 
 
-                ClearGhost(card);
+                // ClearGhost(card);
                 if (is_manual == true) m_Stage.UpdateMoveStep(-1);
 
                 GameFacade.Instance.DisplayEngine.Put(DisplayEngine.Track.Common, new DisplayEvent_MoveCard(card, _C.DIRECTION.DOWN, grid_path, is_manual));

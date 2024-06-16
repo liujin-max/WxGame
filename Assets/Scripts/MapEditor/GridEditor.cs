@@ -13,11 +13,15 @@ public class GridEditor : MonoBehaviour
     private Vector2 Position;
 
     public bool IsValid = true;
-    public bool IsBan = false;
     public int JellyID;
 
     [Header("对应传送门")]
     public Vector2 Portal;
+
+    public bool IsBan = false;
+
+    [Header("自动移动方向")]
+    public _C.DIRECTION AutoDirection;
 
 
     public void Init(int order, int x, int y, Vector2 position)
@@ -52,7 +56,16 @@ public class GridEditor : MonoBehaviour
         else
             transform.Find("Text").GetComponent<TextMeshPro>().text = "";
 
+        //
         transform.Find("Ban").gameObject.SetActive(IsBan);
+
+        //
+        var arrow = transform.Find("Arrow").gameObject;
+        arrow.SetActive(this.AutoDirection != _C.DIRECTION.NONE);
+        if (this.AutoDirection == _C.DIRECTION.LEFT)    arrow.transform.localEulerAngles = Vector3.zero;
+        else if (AutoDirection == _C.DIRECTION.RIGHT)   arrow.transform.localEulerAngles = new Vector3(0, 0, 180);
+        else if (AutoDirection == _C.DIRECTION.UP)      arrow.transform.localEulerAngles = new Vector3(0, 0, -90);
+        else if (AutoDirection == _C.DIRECTION.DOWN)    arrow.transform.localEulerAngles = new Vector3(0, 0, 90);
     }
 }
 #endif

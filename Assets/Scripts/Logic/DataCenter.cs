@@ -40,9 +40,11 @@ public class GridJSON
     public int Y;
 
     public bool IsValid = true;
-    public bool IsBan;
     public int JellyID;
     public Vector2 Portal;
+
+    public bool IsBan;
+    public _C.DIRECTION AutoDirection = _C.DIRECTION.NONE;
 }
 
 

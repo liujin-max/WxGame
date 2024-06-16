@@ -159,7 +159,6 @@ public class DisplayEvent_NormalCard : DisplayEvent
 #region 移动方块
 public class DisplayEvent_MoveCard : DisplayEvent
 {
-    private Grid m_LastGrid = null;
     private List<Grid> m_GridPaths = new List<Grid>();
     private CDTimer m_Timer;
 
@@ -179,6 +178,8 @@ public class DisplayEvent_MoveCard : DisplayEvent
 
         // Debug.Log("方块移动去：" + card.Name + " => " + card.Grid.X + ", " + card.Grid.Y );
 
+        Field.Instance.ClearGhost(card);
+
         if (direction == _C.DIRECTION.LEFT || direction == _C.DIRECTION.RIGHT)
         {
             card.Entity.DoScale(new Vector3(1.2f, 0.8f, 0), 0.1f);
@@ -187,6 +188,7 @@ public class DisplayEvent_MoveCard : DisplayEvent
         {
             card.Entity.DoScale(new Vector3(0.8f, 1.2f, 0), 0.1f);
         }
+
 
         if (is_manual == true)
             EventManager.SendEvent(new GameEvent(EVENT.UI_UPDATESTEP, false));
@@ -208,11 +210,11 @@ public class DisplayEvent_MoveCard : DisplayEvent
                 m_GridPaths.Remove(grid);
                 
                 Vector2 to_pos = grid.Position;
-                if (Vector3.Distance(card.Entity.transform.localPosition, to_pos) >= 1.5f)
+                if (Vector3.Distance(card.GetPosition(), to_pos) >= 1.5f)
                 {
                     m_Timer.Full();
 
-                    card.Entity.transform.localPosition = to_pos;
+                    card.SetPosition(to_pos);
                 }
                 else
                 {
@@ -236,8 +238,7 @@ public class DisplayEvent_MoveCard : DisplayEvent
         //移动后的处理
         card.OnAfterMove(direction);
 
-        card.Entity.transform.localPosition = card.Grid.Position;
-        // card.Entity.DoScale(Vector3.one, 0.1f); //不在缩放结束后处理了，有可能被顶掉
+        card.SetPosition(card.Grid.Position);
         card.Entity.DoPunchScale();
 
         var hit = Field.Instance.GetCardByDirection(card.Grid, direction);
@@ -247,6 +248,34 @@ public class DisplayEvent_MoveCard : DisplayEvent
 
 
         EventManager.SendEvent(new GameEvent(EVENT.ONCARDMOVED, card));
+    }
+}
+#endregion
+
+
+#region 传送带移动方块
+public class DisplayEvent_BeltCard : DisplayEvent
+{
+    public DisplayEvent_BeltCard(params object[] values) : base(values) {}
+
+    public override void Start()
+    {
+        base.Start();
+
+        var card    = m_Params[0] as Card;
+
+        Field.Instance.ClearGhost(card);
+
+        card.Entity.transform.DOLocalMove(card.Grid.Position, 0.3f).SetEase(Ease.Linear).OnComplete(()=>{
+            m_State = _C.DISPLAY_STATE.END;
+        });
+    }
+
+    public override void Terminate()
+    {
+        var card        = m_Params[0] as Card;
+        
+        card.SetPosition(card.Grid.Position);
     }
 }
 #endregion

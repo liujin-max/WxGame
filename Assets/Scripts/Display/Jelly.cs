@@ -155,7 +155,7 @@ public class Jelly : MonoBehaviour
         if (m_EmojiTimer.IsFinished() == true) {
             m_EmojiTimer.Reset(RandomUtility.Random(200, 800) / 100.0f);
 
-            int id = RandomUtility.Random(1, 10);
+            int id = 1; //RandomUtility.Random(1, 10);
             m_Emoji.sprite = Resources.Load<Sprite>("UI/Emoji/" + id);
         }
     }

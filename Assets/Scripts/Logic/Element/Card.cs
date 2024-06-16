@@ -92,6 +92,19 @@ public class Card
         m_Entity.Init(this);
     }
 
+    public void SetPosition(Vector2 pos)
+    {
+        if (m_Entity == null) return;
+        m_Entity.SetPosition(pos);
+    }
+
+    public Vector2 GetPosition()
+    {
+        if (m_Entity == null) return m_Grid.Position;
+
+        return m_Entity.transform.localPosition;
+    }
+
     public bool IsBomb()
     {
         return this.ID == (int)_C.CARD.MISSILE || this.ID == (int)_C.CARD.BOMB;
@@ -186,12 +199,16 @@ public class Card
 
     public void Dispose()
     {
+        // Debug.Log("销毁：" + this.Name + " => " + m_Grid.X + ", " + m_Grid.Y);
+
         if (m_Grid != null) {
             if (m_Grid.Card == this) {
                 m_Grid.Card = null;
             }
         }
 
+        // if (m_Entity == null) return;
+        
         m_Entity.Dispose();
         m_Entity = null;
 

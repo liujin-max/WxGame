@@ -124,9 +124,11 @@ public class MapEditor : MonoBehaviour
             var grid    = entity.GetComponent<GridEditor>();
             grid.Init(grid_json.Order, grid_json.X, grid_json.Y, pos);
             grid.IsValid    = grid_json.IsValid;
-            grid.IsBan      = grid_json.IsBan;
             grid.JellyID    = grid_json.JellyID;
             grid.Portal     = grid_json.Portal;
+
+            grid.IsBan      = grid_json.IsBan;
+            grid.AutoDirection = grid_json.AutoDirection;
         });
 
     }
@@ -160,9 +162,10 @@ public class MapEditor : MonoBehaviour
             gj.X        = g.X;
             gj.Y        = g.Y;
             gj.IsValid  = g.IsValid;
-            gj.IsBan    = g.IsBan;
             gj.JellyID  = g.JellyID;
             gj.Portal   = g.Portal;
+            gj.IsBan    = g.IsBan;
+            gj.AutoDirection = g.AutoDirection;
 
             mapData.Grids.Add(gj);
         }

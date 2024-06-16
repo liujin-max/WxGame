@@ -20,6 +20,7 @@ public class Grid
 
     public bool IsEmpty {get { return m_Card == null;}}
     public bool IsBan {get { return m_Data.IsBan;}}
+    public _C.DIRECTION AutoDirection {get {return m_Data.AutoDirection;}}
 
     private Card m_Card;
     public Card Card {
@@ -46,11 +47,13 @@ public class Grid
     private GameObject m_Entity;
     public GameObject Entity {get {return m_Entity;} }
     public Transform Frame;
-    private GameObject m_Ban;
     private Transform m_Line1;
     private Transform m_Line2;
     private Transform m_Horn1;
     private Transform m_Horn2;
+
+    private GameObject m_Ban;
+    private GameObject m_Arrow;
 
 
     public Grid(GridJSON gridJSON, Vector2 position)
@@ -72,16 +75,24 @@ public class Grid
         Frame   = m_Entity.transform.Find("Frame");
         Frame.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>(res);
 
-
-        m_Ban   = Frame.Find("Ban").gameObject;
-        m_Ban.SetActive(m_Data.IsBan);
-
         m_Line1 = m_Entity.transform.Find("Line1Pivot");
         m_Line2 = m_Entity.transform.Find("Line2Pivot");
         m_Horn1 = m_Entity.transform.Find("Horn1Pivot");
         m_Horn2 = m_Entity.transform.Find("Horn2Pivot");
 
         DrawLines();
+
+
+        //
+        m_Ban   = Frame.Find("Ban").gameObject;
+        m_Ban.SetActive(m_Data.IsBan);
+
+        m_Arrow = Frame.Find("Arrow").gameObject;
+        m_Arrow.SetActive(this.AutoDirection != _C.DIRECTION.NONE);
+        if (this.AutoDirection == _C.DIRECTION.LEFT)    m_Arrow.transform.localEulerAngles = Vector3.zero;
+        else if (AutoDirection == _C.DIRECTION.RIGHT)   m_Arrow.transform.localEulerAngles = new Vector3(0, 0, 180);
+        else if (AutoDirection == _C.DIRECTION.UP)      m_Arrow.transform.localEulerAngles = new Vector3(0, 0, -90);
+        else if (AutoDirection == _C.DIRECTION.DOWN)    m_Arrow.transform.localEulerAngles = new Vector3(0, 0, 90);
     }
 
     //绘制描边线
