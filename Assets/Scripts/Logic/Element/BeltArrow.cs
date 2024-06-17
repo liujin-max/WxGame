@@ -78,7 +78,7 @@ public class BeltArrow : MonoBehaviour
 
                 m_LastPosition  = transform.localPosition;
 
-                transform.DOLocalRotate(GetAngle(to_grid.BeltDirection), 0.2f * 3).SetEase(Ease.Linear);
+                transform.DOLocalRotate(GetAngle(to_grid.BeltDirection), 0.3f).SetEase(Ease.Linear);
             }
         } else {
             if (m_Percent >= 1) {

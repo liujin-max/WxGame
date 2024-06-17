@@ -9,7 +9,7 @@ using UnityEngine;
 public class Jelly : MonoBehaviour
 {
     public SpriteRenderer Entity;
-    [SerializeField] private SpriteRenderer m_Emoji;
+    [SerializeField] private SpriteSwitch m_Emoji;
 
     private Tweener m_ShakeTweener;
     private Tweener m_ScaleTweener;
@@ -20,7 +20,7 @@ public class Jelly : MonoBehaviour
     private bool m_Dragging = false;
     private bool m_Dragged = false;
 
-    private CDTimer m_EmojiTimer = new CDTimer(0.1f);
+    private CDTimer m_EmojiTimer = new CDTimer(0f);
     private bool m_IsMoving = false;
 
     void Awake()
@@ -145,12 +145,12 @@ public class Jelly : MonoBehaviour
         m_Emoji.gameObject.SetActive(true);
 
         if (m_Card.IsEliminating) {
-            m_Emoji.sprite = Resources.Load<Sprite>("UI/Emoji/5");
+            m_Emoji.SetSprite("UI/Emoji/5", true);
             return;
         }
         
         if (m_IsMoving == true) {
-            m_Emoji.sprite = Resources.Load<Sprite>("UI/Emoji/6");
+            m_Emoji.SetSprite("UI/Emoji/6", true);
             return;
         }
 
@@ -161,7 +161,7 @@ public class Jelly : MonoBehaviour
             m_EmojiTimer.Reset(RandomUtility.Random(200, 800) / 100.0f);
 
             int id = RandomUtility.Random(1, 5);
-            m_Emoji.sprite = Resources.Load<Sprite>("UI/Emoji/" + id);
+            m_Emoji.SetSprite("UI/Emoji/" + id);
         }
     }
 

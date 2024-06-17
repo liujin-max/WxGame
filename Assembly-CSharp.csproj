@@ -171,6 +171,7 @@
     <Compile Include="Assets\DOTween\Modules\DOTweenModuleUnityVersion.cs" />
     <Compile Include="Assets\Scripts\UI\Window\TipWindow.cs" />
     <Compile Include="Assets\Scripts\Logic\Element\BeltArrow.cs" />
+    <Compile Include="Assets\Scripts\Utility\SpriteSwitch.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Resources\Shader\SpriteGray.shader" />
