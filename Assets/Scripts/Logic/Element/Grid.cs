@@ -129,13 +129,19 @@ public class Grid
 
 
                 //斜对角
-                if (Field.Instance.GetValidGrid(X - 1, Y + 1) != null)
+                var g_left  = Field.Instance.GetValidGrid(X - 1, Y + 1);
+                var g_right = Field.Instance.GetValidGrid(X + 1, Y + 1);
+
+                if (g_left != null && g_right != null)
+                {
+                    transform.localScale = new Vector3(1, 0.36f, 1);
+                }
+                else if (g_left != null)
                 {
                     transform.localPosition = new Vector3(0.4f, 0, 0);
                     transform.localScale = new Vector3(1, 0.67f, 1);
                 }
-
-                if (Field.Instance.GetValidGrid(X + 1, Y + 1) != null)
+                else if (g_right != null)
                 {
                     transform.localPosition = new Vector3(-0.4f, 0, 0);
                     transform.localScale = new Vector3(1, 0.67f, 1);
@@ -228,14 +234,19 @@ public class Grid
                 transform.localEulerAngles = new Vector3(0, 0, 90);
 
 
-                //斜对角
-                if (Field.Instance.GetValidGrid(X - 1, Y - 1) != null)
+                var g_left  = Field.Instance.GetValidGrid(X - 1, Y - 1);
+                var g_right = Field.Instance.GetValidGrid(X + 1, Y - 1);
+
+                if (g_left != null && g_right != null)
+                {
+                    transform.localScale = new Vector3(1, 0.36f, 1);
+                }
+                else if (g_left != null)
                 {
                     transform.localPosition = new Vector3(0.4f, 0, 0);
                     transform.localScale = new Vector3(1, 0.67f, 1);
                 }
-
-                if (Field.Instance.GetValidGrid(X + 1, Y - 1) != null)
+                else if (g_right != null)
                 {
                     transform.localPosition = new Vector3(-0.4f, 0, 0);
                     transform.localScale = new Vector3(1, 0.67f, 1);

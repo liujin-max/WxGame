@@ -40,9 +40,19 @@ SpriteAtlas:
     cachedData: {fileID: 0}
   m_MasterAtlas: {fileID: 0}
   m_PackedSprites:
-  - {fileID: 21300000, guid: 5607f127b4dad4c41ae90969f6624101, type: 3}
+  - {fileID: 21300000, guid: c40e53a217d63274ea13840deac665b1, type: 3}
+  - {fileID: 21300000, guid: 7a4de027492540244bad8dc4031d7d66, type: 3}
+  - {fileID: 21300000, guid: 2935838a661f6f84392bcfc0869927c5, type: 3}
+  - {fileID: 21300000, guid: a31030ea83068854692b79d686a91117, type: 3}
+  - {fileID: 21300000, guid: 4df5052d185dd9f40b9127a38d569642, type: 3}
+  - {fileID: 21300000, guid: bcbd849dafe34d6478c52ee940ff2945, type: 3}
   m_PackedSpriteNamesToIndex:
+  - 5
   - 1
+  - 3
+  - 4
+  - 2
+  - 6
   m_RenderDataMap: {}
   m_Tag: Emoji
   m_IsVariant: 0

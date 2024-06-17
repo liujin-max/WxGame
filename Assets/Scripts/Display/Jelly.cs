@@ -21,6 +21,7 @@ public class Jelly : MonoBehaviour
     private bool m_Dragged = false;
 
     private CDTimer m_EmojiTimer = new CDTimer(0.1f);
+    private bool m_IsMoving = false;
 
     void Awake()
     {
@@ -144,10 +145,14 @@ public class Jelly : MonoBehaviour
         m_Emoji.gameObject.SetActive(true);
 
         if (m_Card.IsEliminating) {
-            m_Emoji.sprite = Resources.Load<Sprite>("UI/Emoji/8");
+            m_Emoji.sprite = Resources.Load<Sprite>("UI/Emoji/5");
             return;
         }
         
+        if (m_IsMoving == true) {
+            m_Emoji.sprite = Resources.Load<Sprite>("UI/Emoji/6");
+            return;
+        }
 
         
 
@@ -155,8 +160,28 @@ public class Jelly : MonoBehaviour
         if (m_EmojiTimer.IsFinished() == true) {
             m_EmojiTimer.Reset(RandomUtility.Random(200, 800) / 100.0f);
 
-            int id = 1; //RandomUtility.Random(1, 10);
+            int id = RandomUtility.Random(1, 5);
             m_Emoji.sprite = Resources.Load<Sprite>("UI/Emoji/" + id);
+        }
+    }
+
+    public void DoMove(bool flag, _C.DIRECTION direction)
+    {
+        m_IsMoving = flag;
+        m_EmojiTimer.Full();
+
+        if (flag == true)
+        {
+            if (direction == _C.DIRECTION.LEFT || direction == _C.DIRECTION.RIGHT) {
+                this.DoScale(new Vector3(1.2f, 0.8f, 0), 0.1f);
+            }
+            else {
+                this.DoScale(new Vector3(0.8f, 1.2f, 0), 0.1f);
+            }
+        }
+        else
+        {
+            this.DoPunchScale();
         }
     }
 

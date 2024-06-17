@@ -178,15 +178,8 @@ public class DisplayEvent_MoveCard : DisplayEvent
 
         Field.Instance.ClearGhost(card);
 
-        if (direction == _C.DIRECTION.LEFT || direction == _C.DIRECTION.RIGHT)
-        {
-            card.Entity.DoScale(new Vector3(1.2f, 0.8f, 0), 0.1f);
-        }
-        else
-        {
-            card.Entity.DoScale(new Vector3(0.8f, 1.2f, 0), 0.1f);
-        }
-
+        //实体动画
+        card.Entity.DoMove(true, direction);
 
         if (is_manual == true)
             EventManager.SendEvent(new GameEvent(EVENT.UI_UPDATESTEP, false));
@@ -232,18 +225,16 @@ public class DisplayEvent_MoveCard : DisplayEvent
         var card        = m_Params[0] as Card;
         var direction   = (_C.DIRECTION)m_Params[1];
 
-        
+        card.SetPosition(card.Grid.Position);
         //移动后的处理
         card.OnAfterMove(direction);
 
-        card.SetPosition(card.Grid.Position);
-        card.Entity.DoPunchScale();
+        card.Entity.DoMove(false, direction);
 
         var hit = Field.Instance.GetCardByDirection(card.Grid, direction);
         if (hit != null) {
             hit.Entity.Shake(direction);
-        }
-
+        } 
 
         EventManager.SendEvent(new GameEvent(EVENT.ONCARDMOVED, card));
     }

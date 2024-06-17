@@ -71,12 +71,15 @@ public class Card
     //本次移动所经过的格子
     public List<Grid> CrossGrids = new List<Grid>();
    
+   //准备分解
+    public bool IsReady2Eliminate = false;
     //死亡分解中
     public bool IsEliminating = false;
+
+
     //衍生物ID
     public int DerivedID = -1;
-    //准备分解
-    public bool IsReady2Eliminate = false;
+    
 
 
     //消除所处的方块link
