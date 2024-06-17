@@ -11,6 +11,7 @@ public class Land
     public Transform ENTITY;
     public Transform GRID_ROOT;
     public Transform ENTITY_ROOT;
+    public Transform ELEMENT_ROOT;
 
 
     private Tweener m_Tweener = null;
@@ -21,6 +22,7 @@ public class Land
         ENTITY      = GameObject.Find("Field").transform;
         GRID_ROOT   = GameObject.Find("Field/Grids").transform;
         ENTITY_ROOT = GameObject.Find("Field/Entitys").transform;
+        ELEMENT_ROOT= GameObject.Find("Field/Elements").transform;
     }
 
     public void Dispose()

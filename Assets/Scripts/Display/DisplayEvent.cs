@@ -82,7 +82,6 @@ public class DisplayEvent_HideGrid : DisplayEvent
             return;
         }
         
-
         grid.Frame.transform.DOScale(0f, 0.2f);
     }
 
@@ -378,7 +377,7 @@ public class DisplayEvent_BrokenCard : DisplayEvent
         RectTransform rect = card.Entity.Entity.GetComponent<RectTransform>();
         rect.sizeDelta = new Vector2(rect.sizeDelta.x, height);
 
-        if (card.Entity.Entity.size.y >= 2.1f) {
+        if (card.Entity.Entity.size.y >= 2f) {
             m_State = _C.DISPLAY_STATE.END;
         }
     }

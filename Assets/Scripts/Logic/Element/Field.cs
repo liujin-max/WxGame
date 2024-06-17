@@ -435,6 +435,14 @@ public class Field : MonoBehaviour
         return Vector2.Distance(new Vector2(g1.X, g1.Y), new Vector2(g2.X, g2.Y));
     }
 
+    public bool IsGridNearSide(Grid g)
+    {
+        if (g.X <= 0 || g.X >= m_Weight - 1) return true;
+        if (g.Y <= 0 || g.Y >= m_Height - 1) return true;
+
+        return false;
+    }
+
     #region 移动
     public Grid Move(Card card, _C.DIRECTION direction, bool is_manual = false)
     {

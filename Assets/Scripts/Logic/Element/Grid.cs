@@ -48,10 +48,10 @@ public class Grid
     private GameObject m_Entity;
     public GameObject Entity {get {return m_Entity;} }
     public Transform Frame;
-    private Transform m_Line1;
-    private Transform m_Line2;
     private Transform m_Horn1;
     private Transform m_Horn2;
+
+    private List<GameObject> m_Lines = new List<GameObject>();
 
     private GameObject m_Ban;
 
@@ -65,7 +65,6 @@ public class Grid
 
     }
 
-
     public void Display()
     {
         m_Entity = GameFacade.Instance.UIManager.LoadPrefab("Prefab/Element/Grid", Vector3.zero, Field.Instance.Land.GRID_ROOT);
@@ -76,8 +75,6 @@ public class Grid
         Frame   = m_Entity.transform.Find("Frame");
         Frame.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>(res);
 
-        m_Line1 = m_Entity.transform.Find("Line1Pivot");
-        m_Line2 = m_Entity.transform.Find("Line2Pivot");
         m_Horn1 = m_Entity.transform.Find("Horn1Pivot");
         m_Horn2 = m_Entity.transform.Find("Horn2Pivot");
 
@@ -92,20 +89,24 @@ public class Grid
         DrawBelt();
     }
 
+    Transform GetLine()
+    {
+        var entity  = GameFacade.Instance.UIManager.LoadPrefab("Prefab/Element/GridLine", Vector3.zero, m_Entity.transform);
+        m_Lines.Add(entity);
+
+        return entity.transform;
+    }
+
     //绘制描边线
     void DrawLines()
     {
-        m_Line1.gameObject.SetActive(false);
-        m_Line2.gameObject.SetActive(false);
+        m_Lines.ForEach(line => {
+            GameObject.Destroy(line);
+        });
+        m_Lines.Clear();
+
         m_Horn1.gameObject.SetActive(false);
         m_Horn2.gameObject.SetActive(false);
-
-        m_Line1.localScale = Vector3.one;
-        m_Line2.localScale = Vector3.one;
-
-        m_Line1.transform.localPosition = Vector3.zero;
-        m_Line2.transform.localPosition = Vector3.zero;
-
 
 
         var up      = Field.Instance.GetGridByDirection(this, _C.DIRECTION.UP);
@@ -115,7 +116,6 @@ public class Grid
 
 
         //上左、左下、下右、右上
-        bool is_line_used = false;
         bool is_horn_used = false;
 
         //左上
@@ -124,12 +124,9 @@ public class Grid
             if (left != null && left.IsValid && right != null && right.IsValid)
             {
                 
-                Transform transform = is_line_used ? m_Line2 : m_Line1;
-
-                transform.gameObject.SetActive(true);
+                Transform transform = GetLine();
                 transform.localEulerAngles = new Vector3(0, 0, -90);
 
-                is_line_used = true;
 
                 //斜对角
                 if (Field.Instance.GetValidGrid(X - 1, Y + 1) != null)
@@ -156,14 +153,21 @@ public class Grid
                 //如果下面有格子
                 if (down != null && down.IsValid)
                 {
-                    Transform transform = is_line_used ? m_Line2 : m_Line1;
-
-                    transform.gameObject.SetActive(true);
+                    Transform transform = GetLine();
                     transform.localEulerAngles  = new Vector3(0, 0, 0);
                     transform.localScale        = new Vector3(1, 0.3f, 1);
-                    transform.localPosition     = new Vector3(0, -0.3f, 0);
 
-                    is_line_used    = true;
+                    //判断上面的格子是不是挨边的
+                    transform.localPosition     = Field.Instance.IsGridNearSide(down) ? new Vector3(0, -0.3f, 0) : new Vector3(0, -0.1f, 0);
+                }
+            }
+
+            if (right != null && right.IsValid)
+            {
+                {
+                    Transform transform = GetLine();
+                    transform.localEulerAngles  = new Vector3(0, 0, -90);
+                    transform.localScale        = new Vector3(1, 0.2f, 1);
                 }
             }
         }
@@ -174,12 +178,8 @@ public class Grid
             //上下都有格子，则处理线条
             if (up != null && up.IsValid && down != null && down.IsValid)
             {
-                Transform transform = is_line_used ? m_Line2 : m_Line1;
-
-                transform.gameObject.SetActive(true);
+                Transform transform = GetLine();
                 transform.localEulerAngles = new Vector3(0, 0, 0);
-
-                is_line_used = true;
 
                 //斜对角
                 if (Field.Instance.GetValidGrid(X - 1, Y + 1) != null || Field.Instance.GetValidGrid(X - 1, Y - 1) != null)
@@ -200,17 +200,21 @@ public class Grid
                     is_horn_used = true;
                 }
 
+                {
+                    Transform transform = GetLine();
+                    transform.localEulerAngles  = new Vector3(0, 0, 90);
+                    transform.localScale        = new Vector3(1, 0.2f, 1);
+                }
+
                 //如果上面有格子
                 if (up != null && up.IsValid)
                 {
-                    Transform transform = is_line_used ? m_Line2 : m_Line1;
-
-                    transform.gameObject.SetActive(true);
+                    Transform transform = GetLine();
                     transform.localEulerAngles  = new Vector3(0, 0, 0);
                     transform.localScale        = new Vector3(1, 0.3f, 1);
-                    transform.localPosition     = new Vector3(0, 0.3f, 0);
 
-                    is_line_used    = true;
+                    //判断上面的格子是不是挨边的
+                    transform.localPosition     = Field.Instance.IsGridNearSide(up) ? new Vector3(0, 0.3f, 0) : new Vector3(0, 0.1f, 0);
                 }
             }
         }
@@ -220,13 +224,9 @@ public class Grid
         {
             if (left != null && left.IsValid && right != null && right.IsValid)
             {
-
-                Transform transform = is_line_used ? m_Line2 : m_Line1;
-
-                transform.gameObject.SetActive(true);
+                Transform transform = GetLine();
                 transform.localEulerAngles = new Vector3(0, 0, 90);
 
-                is_line_used = true;
 
                 //斜对角
                 if (Field.Instance.GetValidGrid(X - 1, Y - 1) != null)
@@ -255,14 +255,21 @@ public class Grid
                 //如果上面有格子
                 if (up != null && up.IsValid)
                 {
-                    Transform transform = is_line_used ? m_Line2 : m_Line1;
-
-                    transform.gameObject.SetActive(true);
+                    Transform transform = GetLine();
                     transform.localEulerAngles  = new Vector3(0, 0, 180);
                     transform.localScale        = new Vector3(1, 0.3f, 1);
-                    transform.localPosition     = new Vector3(0, 0.3f, 0);
 
-                    is_line_used    = true;
+                    //判断上面的格子是不是挨边的
+                    transform.localPosition     = Field.Instance.IsGridNearSide(up) ? new Vector3(0, 0.3f, 0) : new Vector3(0, 0.1f, 0);
+                }
+            }
+
+            if (left != null && left.IsValid)
+            {
+                {
+                    Transform transform = GetLine();
+                    transform.localEulerAngles  = new Vector3(0, 0, 90);
+                    transform.localScale        = new Vector3(1, 0.2f, 1);
                 }
             }
         }
@@ -272,12 +279,9 @@ public class Grid
         {
             if (up != null && up.IsValid && down != null && down.IsValid)
             {
-                Transform transform = is_line_used ? m_Line2 : m_Line1;
-
-                transform.gameObject.SetActive(true);
+                Transform transform = GetLine();
                 transform.localEulerAngles = new Vector3(0, 0, 180);
 
-                is_line_used = true;
 
                 //斜对角
                 if (Field.Instance.GetValidGrid(X + 1, Y + 1) != null || Field.Instance.GetValidGrid(X + 1, Y - 1) != null)
@@ -296,17 +300,23 @@ public class Grid
                     is_horn_used = true;
                 }
 
+
+                {
+                    Transform transform = GetLine();
+                    transform.localEulerAngles  = new Vector3(0, 0, -90);
+                    transform.localScale        = new Vector3(1, 0.2f, 1);
+                }
+
+
                 //如果下面有格子
                 if (down != null && down.IsValid)
                 {
-                    Transform transform = is_line_used ? m_Line2 : m_Line1;
-
-                    transform.gameObject.SetActive(true);
+                    Transform transform = GetLine();
                     transform.localEulerAngles  = new Vector3(0, 0, 180);
                     transform.localScale        = new Vector3(1, 0.3f, 1);
-                    transform.localPosition     = new Vector3(0, -0.3f, 0);
 
-                    is_line_used    = true;
+                    //判断上面的格子是不是挨边的
+                    transform.localPosition     = Field.Instance.IsGridNearSide(down) ? new Vector3(0, -0.3f, 0) : new Vector3(0, -0.1f, 0);
                 }
             }
         }
@@ -321,7 +331,7 @@ public class Grid
             return;
         }
 
-        var entity  = GameFacade.Instance.UIManager.LoadPrefab("Prefab/Element/BeltArrow", Vector3.zero, Field.Instance.Land.GRID_ROOT);
+        var entity  = GameFacade.Instance.UIManager.LoadPrefab("Prefab/Element/BeltArrow", Vector3.zero, Field.Instance.Land.ELEMENT_ROOT);
         entity.transform.localPosition      = this.Position;
 
         m_BeltArrow = entity.GetComponent<BeltArrow>();

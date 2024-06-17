@@ -78,6 +78,7 @@ public class UIManager : MonoBehaviour
     {
         var obj = Instantiate(Resources.Load<GameObject>(path), position, Quaternion.identity, parent);
         obj.transform.localEulerAngles = Vector3.zero;
+        obj.transform.localPosition = position;
 
         return obj;
     }
