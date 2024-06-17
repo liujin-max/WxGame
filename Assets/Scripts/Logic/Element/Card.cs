@@ -167,6 +167,10 @@ public class Card
         {
             m_DeadType = _C.DEAD_TYPE.DIGESTE;
             IsReady2Eliminate = true;
+
+            Field.Instance.RemoveCard(this);
+            GameFacade.Instance.DisplayEngine.Put(DisplayEngine.Track.Common, new DisplayEvent_BrokenCard(this));
+
             return;
         }
 

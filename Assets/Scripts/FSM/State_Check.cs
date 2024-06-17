@@ -30,9 +30,9 @@ public class State_Check<T> : State<Field>
         foreach (var card in Field.Instance.Cards)
         {
             var grid = card.Grid;
-            if (grid.AutoDirection == _C.DIRECTION.NONE) continue;
+            if (grid.BeltDirection == _C.DIRECTION.NONE) continue;
 
-            var to_grid = Field.Instance.GetGridByDirection(grid, grid.AutoDirection);
+            var to_grid = Field.Instance.GetGridByDirection(grid, grid.BeltDirection);
             if (to_grid == null) continue;
 
             if (grid.Card == card) grid.Card = null;

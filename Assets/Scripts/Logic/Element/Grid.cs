@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using DG.Tweening;
 using UnityEngine;
 
 public class Grid
@@ -20,7 +21,7 @@ public class Grid
 
     public bool IsEmpty {get { return m_Card == null;}}
     public bool IsBan {get { return m_Data.IsBan;}}
-    public _C.DIRECTION AutoDirection {get {return m_Data.AutoDirection;}}
+    public _C.DIRECTION BeltDirection {get {return m_Data.AutoDirection;}}
 
     private Card m_Card;
     public Card Card {
@@ -53,8 +54,8 @@ public class Grid
     private Transform m_Horn2;
 
     private GameObject m_Ban;
-    private GameObject m_Arrow;
 
+    private BeltArrow m_BeltArrow;
 
     public Grid(GridJSON gridJSON, Vector2 position)
     {
@@ -87,12 +88,8 @@ public class Grid
         m_Ban   = Frame.Find("Ban").gameObject;
         m_Ban.SetActive(m_Data.IsBan);
 
-        m_Arrow = Frame.Find("Arrow").gameObject;
-        m_Arrow.SetActive(this.AutoDirection != _C.DIRECTION.NONE);
-        if (this.AutoDirection == _C.DIRECTION.LEFT)    m_Arrow.transform.localEulerAngles = Vector3.zero;
-        else if (AutoDirection == _C.DIRECTION.RIGHT)   m_Arrow.transform.localEulerAngles = new Vector3(0, 0, 180);
-        else if (AutoDirection == _C.DIRECTION.UP)      m_Arrow.transform.localEulerAngles = new Vector3(0, 0, -90);
-        else if (AutoDirection == _C.DIRECTION.DOWN)    m_Arrow.transform.localEulerAngles = new Vector3(0, 0, 90);
+
+        DrawBelt();
     }
 
     //绘制描边线
@@ -317,6 +314,20 @@ public class Grid
 
     }
 
+    //绘制传送带
+    void DrawBelt()
+    {
+        if (this.BeltDirection == _C.DIRECTION.NONE) {
+            return;
+        }
+
+        var entity  = GameFacade.Instance.UIManager.LoadPrefab("Prefab/Element/BeltArrow", Vector3.zero, Field.Instance.Land.GRID_ROOT);
+        entity.transform.localPosition      = this.Position;
+
+        m_BeltArrow = entity.GetComponent<BeltArrow>();
+        m_BeltArrow.Init(this);
+    }
+
     public void Show(bool flag)
     {
         if (m_Entity != null) {
@@ -376,6 +387,11 @@ public class Grid
         if (m_Entity != null) {
             GameObject.Destroy(m_Entity);
             m_Entity = null;
+        }
+
+        if (m_BeltArrow != null) {
+            m_BeltArrow.Dispose();
+            m_BeltArrow = null;
         }
     }
 }

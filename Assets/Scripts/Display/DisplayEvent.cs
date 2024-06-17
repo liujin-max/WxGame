@@ -57,6 +57,21 @@ public class DisplayEvent_ShowAllGrid : DisplayEvent
                 }
             }
         }
+
+        //根据格子展示转送带
+        for (int i = 0; i < Field.Instance.Grids.GetLength(0); i++) {
+            for (int j = 0; j < Field.Instance.Grids.GetLength(1); j++) {
+                var grid = Field.Instance.Grids[i, j];
+                if (grid.BeltDirection != _C.DIRECTION.NONE) {
+                    var entity = GameFacade.Instance.UIManager.LoadPrefab("Prefab/Element/BeltArrow", Vector3.zero, Field.Instance.Land.GRID_ROOT);
+                    entity.transform.localPosition = grid.Position;
+                    entity.transform.localEulerAngles = Vector3.zero;
+
+                    entity.GetComponent<BeltArrow>().Init(grid);
+                }
+            }
+        }
+
         
 
         m_State = _C.DISPLAY_STATE.END;
@@ -139,7 +154,7 @@ public class DisplayEvent_NormalCard : DisplayEvent
             card.Entity.DoScale(Vector3.one, 0.2f).SetEase(Ease.OutBack);
 
             GameFacade.Instance.SoundManager.Load(SOUND.JUMP);
-            card.Entity.transform.DOJump(card.Grid.Position, 0.5f, 1, 0.25f).SetEase(Ease.OutQuad).OnComplete(() => {
+            card.Entity.transform.DOLocalJump(card.Grid.Position, 0.5f, 1, 0.25f).SetEase(Ease.OutQuad).OnComplete(() => {
                 m_State = _C.DISPLAY_STATE.END;
 
                 card.Entity.Shake(new Vector2(0.02f, 0.02f));
