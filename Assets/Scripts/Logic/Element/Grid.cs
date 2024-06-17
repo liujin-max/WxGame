@@ -341,7 +341,7 @@ public class Grid
 
     //当前传送门能否穿越
     //如果穿越后后格子有障碍物，则根据当前card是否是炸弹来判断能否穿越
-    public bool IsPortalCanCross(Card card, _C.DIRECTION direction)
+    public bool IsPortalCanCross(Card card, _C.DIRECTION direction, bool force_cross = false)
     {
         //不是传送门
         if (this.Portal == null) return false;
@@ -362,7 +362,7 @@ public class Grid
 
         if (!near_grid.IsEmpty)
         {
-            if (card.IsBomb()) {
+            if ((card != null && card.IsBomb()) || force_cross) {
                 return true;
             }
             return false;
@@ -380,6 +380,29 @@ public class Grid
         var end_pos     = m_Portal.Position;
         var e = GameFacade.Instance.EffectManager.Load(EFFECT.PORTAL_TRAIL, start_pos);
         e.GetComponent<Fly>().GO(start_pos, end_pos);
+    }
+
+    //
+    public List<Grid> GetBelt2Grid()
+    {
+        List<Grid> grid_path = new List<Grid>{};
+
+        Grid to_grid = Field.Instance.GetGridByDirection(this, this.BeltDirection);
+
+        if (to_grid == null) return grid_path;
+
+        grid_path.Add(to_grid);
+
+        if (to_grid.IsPortalCanCross(m_Card, to_grid.BeltDirection, true) == true)    //传送门
+        {
+            grid_path.Add(to_grid.Portal);
+
+            to_grid = Field.Instance.GetGridByDirection(to_grid.Portal, to_grid.BeltDirection);
+            grid_path.Add(to_grid);
+        }
+
+
+        return grid_path;
     }
 
     public void Dispose()

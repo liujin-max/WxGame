@@ -43,12 +43,30 @@ public class BeltArrow : MonoBehaviour
         return angle;
     }
 
+    Grid GetBelt2Grid()
+    {
+        Grid to_grid = null;
+
+        if (m_Grid.IsPortalCanCross(m_Grid.Card, m_Grid.BeltDirection, true) == true)    //传送门
+        {
+            to_grid = m_Grid.Portal;
+        }
+        else to_grid = Field.Instance.GetGridByDirection(m_Grid, m_Grid.BeltDirection);
+
+        return to_grid;
+    }
+
     void FixedUpdate()
     {
-        var to_grid = Field.Instance.GetGridByDirection(m_Grid, m_Grid.BeltDirection);
+        var to_grid = this.GetBelt2Grid(); //Field.Instance.GetGridByDirection(m_Grid, m_Grid.BeltDirection);
         if (to_grid == null)  return;
 
-        m_Percent += Time.fixedDeltaTime;
+
+        if (Field.Instance.GetDistanceByGrids(m_Grid, to_grid) > 1) {
+            m_Percent = 1;
+        }
+
+        m_Percent += Time.fixedDeltaTime / 3;
 
         transform.localPosition = Vector2.Lerp(m_LastPosition, to_grid.Position, m_Percent);
 
@@ -60,7 +78,7 @@ public class BeltArrow : MonoBehaviour
 
                 m_LastPosition  = transform.localPosition;
 
-                transform.DOLocalRotate(GetAngle(to_grid.BeltDirection), 0.3f).SetEase(Ease.Linear);
+                transform.DOLocalRotate(GetAngle(to_grid.BeltDirection), 0.2f * 3).SetEase(Ease.Linear);
             }
         } else {
             if (m_Percent >= 1) {
@@ -70,11 +88,10 @@ public class BeltArrow : MonoBehaviour
                 m_LastPosition  = transform.localPosition;
             }
         }
-        
     }
 
     public void Dispose()
     {
-        GameObject.Destroy(gameObject);
+        Destroy(gameObject);
     }
 }

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 //一步走完后的处理
@@ -31,16 +32,18 @@ public class State_Check<T> : State<Field>
         {
             var grid = card.Grid;
             if (grid.BeltDirection == _C.DIRECTION.NONE) continue;
+            if (grid.Card != null && grid.Card.IsInValidByBelt == true) continue;   //无法位移传送门
 
-            var to_grid = Field.Instance.GetGridByDirection(grid, grid.BeltDirection);
-            if (to_grid == null) continue;
+            List<Grid> grid_path = grid.GetBelt2Grid();
+            if (grid_path.Count == 0) continue;
 
             if (grid.Card == card) grid.Card = null;
 
+            var to_grid = grid_path.Last();
             card.Grid   = to_grid;
             to_grid.Card= card;
 
-            GameFacade.Instance.DisplayEngine.Put(DisplayEngine.Track.Common, new DisplayEvent_BeltCard(card));
+            GameFacade.Instance.DisplayEngine.Put(DisplayEngine.Track.Common, new DisplayEvent_BeltCard(card, grid_path));
         }
     }
 }

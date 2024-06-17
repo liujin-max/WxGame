@@ -58,22 +58,6 @@ public class DisplayEvent_ShowAllGrid : DisplayEvent
             }
         }
 
-        //根据格子展示转送带
-        for (int i = 0; i < Field.Instance.Grids.GetLength(0); i++) {
-            for (int j = 0; j < Field.Instance.Grids.GetLength(1); j++) {
-                var grid = Field.Instance.Grids[i, j];
-                if (grid.BeltDirection != _C.DIRECTION.NONE) {
-                    var entity = GameFacade.Instance.UIManager.LoadPrefab("Prefab/Element/BeltArrow", Vector3.zero, Field.Instance.Land.GRID_ROOT);
-                    entity.transform.localPosition = grid.Position;
-                    entity.transform.localEulerAngles = Vector3.zero;
-
-                    entity.GetComponent<BeltArrow>().Init(grid);
-                }
-            }
-        }
-
-        
-
         m_State = _C.DISPLAY_STATE.END;
     }
 
@@ -271,27 +255,82 @@ public class DisplayEvent_MoveCard : DisplayEvent
 #region 传送带移动方块
 public class DisplayEvent_BeltCard : DisplayEvent
 {
+    private List<Grid> m_GridPaths = new List<Grid>();
+    private CDTimer m_Timer;
+
     public DisplayEvent_BeltCard(params object[] values) : base(values) {}
 
     public override void Start()
     {
         base.Start();
 
-        var card    = m_Params[0] as Card;
+        var card        = m_Params[0] as Card;
+        m_GridPaths     = (List<Grid>)m_Params[1];
+
+        m_Timer = new CDTimer(0.3f);
+        m_Timer.Full();
+
+        // Debug.Log("方块移动去：" + card.Name + " => " + card.Grid.X + ", " + card.Grid.Y );
 
         Field.Instance.ClearGhost(card);
+    }
 
-        card.Entity.transform.DOLocalMove(card.Grid.Position, 0.3f).SetEase(Ease.Linear).OnComplete(()=>{
-            m_State = _C.DISPLAY_STATE.END;
-        });
+    public override void Update(float dt)
+    {
+        m_Timer.Update(dt);
+        if (m_Timer.IsFinished() == true) {
+            m_Timer.ForceReset();
+
+            var card        = m_Params[0] as Card;
+
+            if (m_GridPaths.Count > 0)
+            {
+                var grid = m_GridPaths.First();
+                m_GridPaths.Remove(grid);
+                
+                Vector2 to_pos = grid.Position;
+                if (Vector3.Distance(card.GetPosition(), to_pos) >= 1.5f)
+                {
+                    m_Timer.Full();
+
+                    card.SetPosition(to_pos);
+                }
+                else
+                {
+                    card.Entity.transform.DOLocalMove(to_pos, m_Timer.Duration).SetEase(Ease.Linear);
+                }  
+            }
+            else
+            {
+                m_State = _C.DISPLAY_STATE.END;
+            }
+            
+        }
     }
 
     public override void Terminate()
     {
         var card        = m_Params[0] as Card;
-        
+
         card.SetPosition(card.Grid.Position);
     }
+
+    // public DisplayEvent_BeltCard(params object[] values) : base(values) {}
+
+    // public override void Start()
+    // {
+    //     base.Start();
+
+    //     var card    = m_Params[0] as Card;
+
+    //     Field.Instance.ClearGhost(card);
+
+    //     card.Entity.transform.DOLocalMove(card.Grid.Position, 0.3f).SetEase(Ease.Linear).OnComplete(()=>{
+    //         m_State = _C.DISPLAY_STATE.END;
+    //     });
+    // }
+
+
 }
 #endregion
 

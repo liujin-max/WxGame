@@ -32,16 +32,7 @@ public class Card
     private _C.DEAD_TYPE m_DeadType = _C.DEAD_TYPE.NORMAL;
     public _C.DEAD_TYPE DeadType {get {return m_DeadType;}}
 
-    //是否固定的(不可拖动，也不可移动)
-    private bool m_IsFixed = false;
-    public bool IsFixed {
-        get {
-            if (TYPE == _C.CARD_TYPE.FRAME) return true;
-            return m_IsFixed;
-        }
-    }
-
-    //可拖动(不可拖动，但是不代表不能移动(可被连锁反应推动))
+    //可拖动(不可拖动)
     private bool m_Dragable = true;
     public bool Dragable {
         get {
@@ -53,6 +44,25 @@ public class Card
         }
         set {m_Dragable = value;}
     }
+
+    //是否固定的(不可拖动，也不可受连锁反应而移动)
+    private bool m_IsFixed = false;
+    public bool IsFixed {
+        get {
+            if (TYPE == _C.CARD_TYPE.FRAME) return true;
+            return m_IsFixed;
+        }
+    }
+
+    //不受传送带移动
+    public bool IsInValidByBelt {
+        get {
+            if (this.ID == (int)_C.CARD.PORTAL) return true;
+            
+            return false;
+        }
+    }
+    
 
     //可击破的
     //石块只可被炸弹之类的击破

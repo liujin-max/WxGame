@@ -429,26 +429,10 @@ public class Field : MonoBehaviour
         return null;
     }
 
-    //获取离得最近的同色方块
-    public Card GetMinDistanceSameCard(Card card)
+    //获取两个格子间的距离
+    public float GetDistanceByGrids(Grid g1, Grid g2)
     {
-        float min_distance = 1000;
-        Vector2 o_pos = card.Grid.Position;
-
-        Card target_card = null;
-
-        m_Cards.ForEach(c => {
-            if (c.ID == card.ID && c != card) {
-                Vector2 t_pos = c.Grid.Position;
-                float dis = Vector2.Distance(o_pos, t_pos);
-                if (dis < min_distance) {
-                    min_distance = dis;
-                    target_card = c;
-                }
-            }
-        });
-
-        return target_card;
+        return Vector2.Distance(new Vector2(g1.X, g1.Y), new Vector2(g2.X, g2.Y));
     }
 
     #region 移动
