@@ -142,6 +142,11 @@ public class User
         m_userUpdate = true;
     }
 
+    public bool IsFoodFull()
+    {
+        return m_Data.Food >= _C.DEFAULT_FOOD;
+    }
+
     public void UpdateFood(int value)
     {
         m_Data.Food  = Mathf.Clamp(m_Data.Food + value, 0, _C.DEFAULT_FOOD);

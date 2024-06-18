@@ -73,7 +73,6 @@ public class LoginWindow : MonoBehaviour
 
         
         // 添加体力
-        m_BtnFood.gameObject.SetActive(GameFacade.Instance.OpenAdvert == true);
         m_BtnFood.onClick.AddListener(()=>{
             GameFacade.Instance.UIManager.LoadWindow("FoodWindow", UIManager.BOARD).GetComponent<FoodWindow>();
         });
@@ -94,6 +93,7 @@ public class LoginWindow : MonoBehaviour
         FlushUI();
         FlushCost();
         FlushEndless();
+        FlushElements();
 
         StartCoroutine(Entry());
     }
@@ -104,7 +104,14 @@ public class LoginWindow : MonoBehaviour
         m_Food.text = GameFacade.Instance.DataCenter.User.Food.ToString() + "/" + _C.DEFAULT_FOOD;
     }
 
-    public void FlushCost()
+    void FlushElements()
+    {
+        m_BtnFood.gameObject.SetActive(GameFacade.Instance.OpenAdvert == true && !GameFacade.Instance.DataCenter.User.IsFoodFull());
+
+        m_BtnDaily.transform.Find("Point").gameObject.SetActive(GameFacade.Instance.DataCenter.Daily.HasFinishedTask());
+    }
+
+    void FlushCost()
     {
         GameObject pivot = m_BtnStage.transform.Find("CostPivot").gameObject;
 
@@ -133,7 +140,7 @@ public class LoginWindow : MonoBehaviour
         
     }
 
-    public void FlushEndless()
+    void FlushEndless()
     {
         if (GameFacade.Instance.DataCenter.User.Level < _C.ENDLESS_UNLOCK_LEVEL)
         {
@@ -153,6 +160,11 @@ public class LoginWindow : MonoBehaviour
             m_BtnEndless.transform.Find("LockPivot").gameObject.SetActive(score > 0);
             m_BtnEndless.transform.Find("LockPivot/Tip").GetComponent<TextMeshProUGUI>().text = score.ToString();
         }
+    }
+
+    void FixedUpdate()
+    {
+        FlushElements();
     }
 
     IEnumerator Entry()

@@ -44,6 +44,18 @@ public class Daily
         return null;
     }
 
+    public bool HasFinishedTask()
+    {
+        for (int i = 0; i < m_Tasks.Count; i++) {
+            var t = m_Tasks[i];
+            if (t.STATE == _C.TASK_STATE.FINISH) {
+                return true;
+            }
+        }
+        
+        return false;
+    }
+
     //完成任务
     public void FinishTask(int task_id)
     {
