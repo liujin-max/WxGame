@@ -50,7 +50,10 @@ public class Daily
         //已经完成了
         if (GameFacade.Instance.DataCenter.User.Tasks.Contains(task_id) == true) return;
 
-        this.GetTask(task_id).Finish();
+        var task = this.GetTask(task_id);
+        task.Finish();
+
+        EventManager.SendEvent(new GameEvent(EVENT.UI_UPDATETASK, task));
     }
 
     //领取任务奖励
@@ -60,10 +63,11 @@ public class Daily
         if (GameFacade.Instance.DataCenter.User.Tasks.Contains(task.ID) == true) return;
 
         task.Receive();
-        
-        GameFacade.Instance.DataCenter.User.Tasks.Add(task.ID);
+
+        GameFacade.Instance.DataCenter.User.RecordsTask(task);
         GameFacade.Instance.DataCenter.User.UpdateCoin(task.Coin);
 
         EventManager.SendEvent(new GameEvent(EVENT.UI_UPDATECOIN));
+        EventManager.SendEvent(new GameEvent(EVENT.UI_UPDATETASK, task));
     }
 }

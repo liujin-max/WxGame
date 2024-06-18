@@ -8,10 +8,10 @@ public static class EVENT
     public static string UI_UPDATETIME      = "UI_UPDATETIME";
     public static string UI_UPDATECONDITION = "UI_UPDATECONDITION";
     public static string UI_UPDATESCORE     = "UI_UPDATESCORE";
-    public static string UI_SHOWGUIDE       = "UI_SHOWGUIDE";
+    public static string UI_UPDATETASK      = "UI_UPDATETASK";
     
 
-
+    public static string UI_SHOWGUIDE       = "UI_SHOWGUIDE";
     public static string UI_POPUPMASK       = "UI_POPUPMASK";
     public static string UI_POPUPTIP        = "UI_POPUPTIP";
 

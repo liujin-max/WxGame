@@ -73,7 +73,7 @@ public class User
     public void SyncRecords()
     {
         //同步任务信息
-        Tasks.ForEach(id => {
+        m_Data.Tasks.ForEach(id => {
             var t = GameFacade.Instance.DataCenter.Daily.GetTask(id);
             if (t != null) {
                 t.Receive();
@@ -170,6 +170,12 @@ public class User
         return Mathf.CeilToInt(m_FoodTimer.Duration - m_FoodTimer.Current);
     }
 
+    public void RecordsTask(Task task)
+    {
+        m_Data.Tasks.Add(task.ID);
+
+        m_userUpdate = true;
+    }
 
     public void Update(float dt)
     {   

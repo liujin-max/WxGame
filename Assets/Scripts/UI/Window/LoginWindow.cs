@@ -18,6 +18,7 @@ public class LoginWindow : MonoBehaviour
     [SerializeField] private Button m_BtnSetting;
 
     [SerializeField] private Button m_BtnFood;
+    [SerializeField] private Button m_BtnDaily;
     
     void Awake()
     {
@@ -61,6 +62,7 @@ public class LoginWindow : MonoBehaviour
             
         });
 
+
         m_BtnSetting.onClick.AddListener(()=>{
             GameFacade.Instance.SoundManager.Load(SOUND.CLICK);
             Platform.Instance.VIBRATE(_C.VIBRATELEVEL.LIGHT);
@@ -74,6 +76,13 @@ public class LoginWindow : MonoBehaviour
         m_BtnFood.gameObject.SetActive(GameFacade.Instance.OpenAdvert == true);
         m_BtnFood.onClick.AddListener(()=>{
             GameFacade.Instance.UIManager.LoadWindow("FoodWindow", UIManager.BOARD).GetComponent<FoodWindow>();
+        });
+
+
+        //日常任务
+        m_BtnDaily.onClick.AddListener(()=>{
+            var window = GameFacade.Instance.UIManager.LoadWindow("DailyWindow", UIManager.BOARD).GetComponent<DailyWindow>();
+            window.Init();
         });
     }
 
