@@ -33,6 +33,7 @@ public class ResultWindow : MonoBehaviour
         });
 
         //激励广告：奖励翻倍
+        m_BtnReward.gameObject.SetActive(GameFacade.Instance.OpenAdvert == true);
         m_BtnReward.onClick.AddListener(()=>{
             Platform.Instance.REWARD_VIDEOAD("", ()=>{
                 m_BtnReward.gameObject.SetActive(false);

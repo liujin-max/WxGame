@@ -133,6 +133,9 @@ public class GameFacade : MonoBehaviour
     public bool TestMode = false;
     public int TestStage = 0;
 
+    //开放广告
+    public bool OpenAdvert = false;
+
     void Awake()
     {
         _instance = this;

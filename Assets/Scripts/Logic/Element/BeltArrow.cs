@@ -73,7 +73,7 @@ public class BeltArrow : MonoBehaviour
 
         if (to_grid.BeltDirection != m_Grid.BeltDirection) {
             if (m_Percent >= 0.9f) {
-                m_Percent   = 0;
+                m_Percent   -= 0.9f;
                 m_Grid      = to_grid;
 
                 m_LastPosition  = transform.localPosition;
@@ -82,7 +82,7 @@ public class BeltArrow : MonoBehaviour
             }
         } else {
             if (m_Percent >= 1) {
-                m_Percent   = 0;
+                m_Percent   -= 1;
                 m_Grid      = to_grid;
 
                 m_LastPosition  = transform.localPosition;

@@ -18,7 +18,7 @@ public static class _C
     public static int BOMB_UNLOCK_LEVEL     = 11;       //开放合成炸弹
     public static int ENDLESS_UNLOCK_LEVEL  = 10;
 
-    public static int DEFAULT_FOOD      = 300;       //体力上限
+    public static int DEFAULT_FOOD      = 30;       //体力上限
     public static int FOOD_RECOVERYTIME = 300;      //体力恢复时间 300秒
 
 

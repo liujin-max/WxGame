@@ -46,6 +46,7 @@ SpriteAtlas:
   - {fileID: 21300000, guid: eba6d497f15593c4fadd59313c91e533, type: 3}
   - {fileID: 21300000, guid: 7ae2ae387e220ea48b7b97bbaa0b25f3, type: 3}
   - {fileID: 21300000, guid: 77abe958cf6f0b746903d86779c2b4fa, type: 3}
+  - {fileID: 21300000, guid: 41bf754bce6260f42bd64d73f79cfb04, type: 3}
   - {fileID: 21300000, guid: 501bb37ce3fcffc4ab607c2868481bc5, type: 3}
   m_PackedSpriteNamesToIndex:
   - Login_icon_stage
@@ -54,6 +55,7 @@ SpriteAtlas:
   - Login_text_setting
   - Login_icon_setting
   - Login_text_stage
+  - Login_btn_add
   - Login_res_bar
   m_RenderDataMap: {}
   m_Tag: Login

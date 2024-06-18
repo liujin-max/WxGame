@@ -42,6 +42,7 @@ public class PropUseWindow : MonoBehaviour
         });
 
         //看广告给奖励
+        m_BtnVideo.gameObject.SetActive(GameFacade.Instance.OpenAdvert == true);
         m_BtnVideo.onClick.AddListener(()=>{
             Platform.Instance.REWARD_VIDEOAD("", ()=>{
                m_Callback(); 

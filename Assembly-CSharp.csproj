@@ -69,6 +69,7 @@
     <Compile Include="Assets\Scripts\MapEditor\GridEditor.cs" />
     <Compile Include="Assets\Scripts\EFFECT.cs" />
     <Compile Include="Assets\Scripts\Effect\BezierCurveAnimation.cs" />
+    <Compile Include="Assets\Scripts\Logic\Element\BeltArrow.cs" />
     <Compile Include="Assets\Scripts\Utility\UrlImageUtility.cs" />
     <Compile Include="Assets\Scripts\UI\Window\MaskWindow.cs" />
     <Compile Include="Assets\Scripts\FSM\State_Check.cs" />
@@ -82,6 +83,7 @@
     <Compile Include="Assets\DOTween\Modules\DOTweenModulePhysics2D.cs" />
     <Compile Include="Assets\Scripts\Manager\UIManager.cs" />
     <Compile Include="Assets\Scripts\FSM\State_Eliminate.cs" />
+    <Compile Include="Assets\Scripts\Utility\SpriteSwitch.cs" />
     <Compile Include="Assets\Scripts\Utility\Crypt.cs" />
     <Compile Include="Assets\Scripts\Manager\WXPlatform.cs" />
     <Compile Include="Assets\AllIn1SpriteShader\Demo\Scripts\All1ShaderDemoController.cs" />
@@ -170,8 +172,7 @@
     <Compile Include="Assets\Scripts\Effect\Shine.cs" />
     <Compile Include="Assets\DOTween\Modules\DOTweenModuleUnityVersion.cs" />
     <Compile Include="Assets\Scripts\UI\Window\TipWindow.cs" />
-    <Compile Include="Assets\Scripts\Logic\Element\BeltArrow.cs" />
-    <Compile Include="Assets\Scripts\Utility\SpriteSwitch.cs" />
+    <Compile Include="Assets\Scripts\UI\Window\FoodWindow.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Resources\Shader\SpriteGray.shader" />

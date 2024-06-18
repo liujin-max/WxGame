@@ -55,6 +55,7 @@ public class User
     
     //体力恢复计时器
     private CDTimer m_FoodTimer = new CDTimer(_C.FOOD_RECOVERYTIME);
+    private float m_FoodTimeStep= 0;
     
     //从本地存档里同步数据
     public void Sync()
@@ -154,16 +155,27 @@ public class User
         m_userUpdate = true;
     }
 
+    public int GetFoodTimer()
+    {
+        return Mathf.CeilToInt(m_FoodTimer.Duration - m_FoodTimer.Current);
+    }
+
     public void Update(float dt)
     {   
+        float realtime  = Time.realtimeSinceStartup;
+        float offset    = realtime - m_FoodTimeStep;
+        m_FoodTimeStep  = realtime;
+
         //体力恢复线程
-        m_FoodTimer.Update(dt);
+        m_FoodTimer.Update(offset);
         if (m_FoodTimer.IsFinished()) {
             m_FoodTimer.Reset();
 
             this.UpdateFood(1);
             this.SetRecoveryTimestamp(ToolUtility.GetUnixTimestamp());
             Debug.Log("恢复体力：" + ToolUtility.GetUnixTimestamp());
+
+            EventManager.SendEvent(new GameEvent(EVENT.UI_UPDATEFOOD));
         }
 
         if (IsDirty) {

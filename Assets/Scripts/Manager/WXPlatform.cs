@@ -377,6 +377,26 @@ public class WXPlatform : Platform
         rectTransform.offsetMin = Vector2.zero;
         rectTransform.offsetMax = Vector2.zero;
     }
+
+    //打开其他小游戏
+    public override void OPENMINIGAME(string appid)
+    {
+        // WXCreateGameClubButtonParam param = new WXCreateGameClubButtonParam();
+        // param.type = GameClubButtonType.text;
+        // param.icon = GameClubButtonIcon.green;
+        // WX.CreateGameClubButton(param);
+
+
+        //
+        NavigateToMiniProgramOption option = new NavigateToMiniProgramOption();
+        option.appId    = appid;
+        option.fail     = (GeneralCallbackResult callback)=>{
+            EventManager.SendEvent(new GameEvent(EVENT.UI_POPUPTIP, "跳转失败"));
+        };
+
+
+        WX.NavigateToMiniProgram(option);
+    }
 }
 
 #endif

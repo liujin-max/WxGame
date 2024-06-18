@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
@@ -15,7 +16,20 @@ public class LoginWindow : MonoBehaviour
     [SerializeField] private Button m_BtnStage;
     [SerializeField] private Button m_BtnEndless;
     [SerializeField] private Button m_BtnSetting;
+
+    [SerializeField] private Button m_BtnFood;
     
+    void Awake()
+    {
+        EventManager.AddHandler(EVENT.UI_UPDATECOIN,    OnFlushUI);
+        EventManager.AddHandler(EVENT.UI_UPDATEFOOD,    OnFlushUI);
+    }
+
+    void OnDestroy()
+    {
+        EventManager.DelHandler(EVENT.UI_UPDATECOIN,    OnFlushUI);
+        EventManager.DelHandler(EVENT.UI_UPDATEFOOD,    OnFlushUI);
+    }
 
     void Start()
     {
@@ -54,21 +68,31 @@ public class LoginWindow : MonoBehaviour
             var window = GameFacade.Instance.UIManager.LoadWindow("SettingWindow", UIManager.BOARD).GetComponent<SettingWindow>();
             window.ShowButton(false);
         });
+
+        
+        // 添加体力
+        m_BtnFood.gameObject.SetActive(GameFacade.Instance.OpenAdvert == true);
+        m_BtnFood.onClick.AddListener(()=>{
+            GameFacade.Instance.UIManager.LoadWindow("FoodWindow", UIManager.BOARD).GetComponent<FoodWindow>();
+        });
     }
 
 
     public void Init()
     {
-        m_Coin.text = GameFacade.Instance.DataCenter.User.Coin.ToString();
-        m_Food.text = GameFacade.Instance.DataCenter.User.Food.ToString() + "/" + _C.DEFAULT_FOOD;
-
         m_Stage.text= (GameFacade.Instance.DataCenter.User.Level + 1).ToString();
 
-
+        FlushUI();
         FlushCost();
         FlushEndless();
 
         StartCoroutine(Entry());
+    }
+
+    void FlushUI()
+    {
+        m_Coin.text = GameFacade.Instance.DataCenter.User.Coin.ToString();
+        m_Food.text = GameFacade.Instance.DataCenter.User.Food.ToString() + "/" + _C.DEFAULT_FOOD;
     }
 
     public void FlushCost()
@@ -136,4 +160,12 @@ public class LoginWindow : MonoBehaviour
 
         yield return null;
     }
+
+
+    #region 监听事件
+    private void OnFlushUI(GameEvent @event)
+    {
+        FlushUI();
+    }
+    #endregion
 }
