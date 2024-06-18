@@ -925,11 +925,14 @@ public class Field : MonoBehaviour
 
 
 
-    #region 广告逻辑
+    #region 道具逻辑
     //添加时间
     public void ad_add_time(int second)
     {
         if (!m_Stage.NeedCheckTimer()) return;
+
+        //任务：使用道具
+        GameFacade.Instance.DataCenter.Daily.FinishTask((int)_C.TASK.USEPROP);
 
         m_Stage.UpdateCountDown(second);
 
@@ -941,6 +944,9 @@ public class Field : MonoBehaviour
     {
         if (!m_Stage.NeedCheckStep()) return;
 
+        //任务：使用道具
+        GameFacade.Instance.DataCenter.Daily.FinishTask((int)_C.TASK.USEPROP);
+
         m_Stage.UpdateMoveStep(value);
 
         EventManager.SendEvent(new GameEvent(EVENT.UI_UPDATESTEP, true));
@@ -950,6 +956,9 @@ public class Field : MonoBehaviour
     //为场上的方块重新指定位置
     public void ad_shuffle()
     {
+        //任务：使用道具
+        GameFacade.Instance.DataCenter.Daily.FinishTask((int)_C.TASK.USEPROP);
+        
         int ghost_count = m_GhostCards.Count;
 
         m_GhostCards.ForEach(c => {
@@ -992,6 +1001,9 @@ public class Field : MonoBehaviour
 
     public void ad_revoke()
     {
+        //任务：使用道具
+        GameFacade.Instance.DataCenter.Daily.FinishTask((int)_C.TASK.USEPROP);
+
         History history;
         if (m_Historys.TryGetValue(m_Turn - 1, out history)) {
             history.Revoke();

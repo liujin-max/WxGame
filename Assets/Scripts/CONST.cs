@@ -111,7 +111,23 @@ public static class _C
     }
 
 
+    //任务ID
+    public enum TASK
+    {
+        LOGIN   = 8000,
+        SHARE,
+        ENDLESS,
+        USEPROP
+    }
 
+    //任务状态
+    public enum TASK_STATE
+    {
+        NONE,       
+        FINISH,
+        RECEIVED
+
+    }
 
 
 

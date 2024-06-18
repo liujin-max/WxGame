@@ -58,6 +58,9 @@ public class State_Result<T> : State<Field>
                 //结算奖励
                 Field.Instance.Stage.ReceiveReward();
 
+                //任务：每日挑战
+                GameFacade.Instance.DataCenter.Daily.FinishTask((int)_C.TASK.ENDLESS);
+
 
                 var window = GameFacade.Instance.UIManager.LoadWindow("ResultWindow", UIManager.BOARD).GetComponent<ResultWindow>();
                 window.Init(Field.Instance.Stage.GetScore());

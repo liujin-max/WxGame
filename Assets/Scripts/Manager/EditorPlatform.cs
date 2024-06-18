@@ -52,7 +52,8 @@ public class EditorPlatform : Platform
 
     public override void SHARE(string text)
     {
-
+        //任务：每日分享
+        GameFacade.Instance.DataCenter.Daily.FinishTask((int)_C.TASK.SHARE);
     }
 
     //激励广告

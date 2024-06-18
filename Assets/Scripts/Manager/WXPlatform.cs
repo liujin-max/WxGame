@@ -196,6 +196,9 @@ public class WXPlatform : Platform
     //分享
     public override void SHARE(string text)
     {
+        //任务：每日分享
+        GameFacade.Instance.DataCenter.Daily.FinishTask((int)_C.TASK.SHARE);
+
         WX.ShareAppMessage(new ShareAppMessageOption()
         {
             title       = text, //"差一点就破纪录啦！",

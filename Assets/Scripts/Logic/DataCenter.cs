@@ -15,6 +15,7 @@ public class CardData
 }
 
 
+
 //从本地Json文件读取
 [System.Serializable]
 public class StageJSON
@@ -57,10 +58,13 @@ public class DataCenter
     private List<CardData> m_Cards = new List<CardData>();
 
 
+
     //账号信息
     public User User;
     //章节信息
     public Levels Level;
+    //任务信息
+    public Daily Daily;
 
     public void Init()
     {
@@ -70,17 +74,25 @@ public class DataCenter
         //章节数据
         Level = new Levels();
 
-        //果冻数据
-        List<string[]> list = GameFacade.Instance.CsvManager.GetStringArrays(CsvManager.TableKey_Card);
-        foreach (string[] data in list) {
-            CardData config = new CardData();
-            config.ID       = Convert.ToInt32(data[0]);
-            config.Name     = data[1];
-            config.Type     = (_C.CARD_TYPE)Convert.ToInt32(data[2]);
-            config.Breakable= Convert.ToInt32(data[3]) == 1;
+        //任务数据
+        Daily = new Daily();
+        Daily.Init();
 
-            m_Cards.Add(config);
-            m_CardDic[config.ID]  = config;
+
+
+        //方块数据
+        {
+            List<string[]> list = GameFacade.Instance.CsvManager.GetStringArrays(CsvManager.TableKey_Card);
+            foreach (string[] data in list) {
+                CardData config = new CardData();
+                config.ID       = Convert.ToInt32(data[0]);
+                config.Name     = data[1];
+                config.Type     = (_C.CARD_TYPE)Convert.ToInt32(data[2]);
+                config.Breakable= Convert.ToInt32(data[3]) == 1;
+
+                m_Cards.Add(config);
+                m_CardDic[config.ID]  = config;
+            }
         }
     }
 
@@ -98,8 +110,6 @@ public class DataCenter
 
         return data;
     }
-
-
 
 
     public void Update(float dt)
