@@ -145,12 +145,12 @@ public class Jelly : MonoBehaviour
         m_Emoji.gameObject.SetActive(true);
 
         if (m_Card.IsEliminating) {
-            m_Emoji.SetSprite("UI/Emoji/5", true);
+            m_Emoji.SetSprite("UI/Emoji/99", true);
             return;
         }
         
         if (m_IsMoving == true) {
-            m_Emoji.SetSprite("UI/Emoji/6", true);
+            m_Emoji.SetSprite("UI/Emoji/5", true);
             return;
         }
 
@@ -160,7 +160,7 @@ public class Jelly : MonoBehaviour
         if (m_EmojiTimer.IsFinished() == true) {
             m_EmojiTimer.Reset(RandomUtility.Random(200, 800) / 100.0f);
 
-            int id = RandomUtility.Random(1, 5);
+            int id = RandomUtility.Random(1, 6);
             m_Emoji.SetSprite("UI/Emoji/" + id);
         }
     }
