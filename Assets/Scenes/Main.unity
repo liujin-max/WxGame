@@ -1146,9 +1146,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Version: 1.0.0
-  TestMode: 1
-  TestStage: 24
   OpenAdvert: 1
+  TestMode: 1
+  TestStage: 26
 --- !u!224 &1563829194 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 2825307911960532825, guid: 770a8443f63a9cd4b89961c635d310e4, type: 3}

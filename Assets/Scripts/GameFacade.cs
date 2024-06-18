@@ -130,11 +130,13 @@ public class GameFacade : MonoBehaviour
         get {return _instance;} 
     }
 
+    //开放广告
+    public bool OpenAdvert = true;
+
     public bool TestMode = false;
     public int TestStage = 0;
 
-    //开放广告
-    public bool OpenAdvert = false;
+    
 
     void Awake()
     {
