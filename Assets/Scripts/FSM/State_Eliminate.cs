@@ -18,7 +18,7 @@ public class State_Eliminate<T> : State<Field>
         //有宝石要消除，则消除并进入连锁反应
         if (_Removes.Count > 0) {
             _Removes.ForEach(card => {
-                if (!links.Contains(card.StateFlag.Link)) {
+                if (card.TYPE == _C.CARD_TYPE.JELLY && !links.Contains(card.StateFlag.Link)) {
                     links.Add(card.StateFlag.Link);
 
                     Field.Instance.Combo++;

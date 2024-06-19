@@ -10,6 +10,7 @@ public class Jelly : MonoBehaviour
 {
     public SpriteRenderer Entity;
     [SerializeField] private SpriteSwitch m_Emoji;
+    [SerializeField] private SpriteRenderer m_Tag;
 
     private Tweener m_ShakeTweener;
     private Tweener m_ScaleTweener;
@@ -32,8 +33,6 @@ public class Jelly : MonoBehaviour
     {
         m_Card = card;
 
-        Entity.sprite  = Resources.Load<Sprite>("UI/Element/jelly_" + card.ID);
-
         Flush();
     }
 
@@ -44,11 +43,23 @@ public class Jelly : MonoBehaviour
 
     public void Flush()
     {
-        if (m_Card.STATE == _C.CARD_STATE.GHOST) {
-            Entity.color = new Color(Entity.color.r, Entity.color.g, Entity.color.b, 0.5f);
-        } else {
-            Entity.color = new Color(Entity.color.r, Entity.color.g, Entity.color.b, 1.0f);
+        Entity.sprite  = Resources.Load<Sprite>("UI/Element/jelly_" + m_Card.ID);
+
+        float alpha = m_Card.STATE == _C.CARD_STATE.GHOST ? 0.55f : 1.0f;
+        Entity.color = new Color(Entity.color.r, Entity.color.g, Entity.color.b, alpha);
+
+        FlushTag();
+    }
+
+    void FlushTag()
+    {
+        m_Tag.gameObject.SetActive(false);
+
+        if (m_Card.StateFlag.InfectionFlag == true) {
+            m_Tag.gameObject.SetActive(true);
+            m_Tag.sprite = Resources.Load<Sprite>("UI/Element/infection");
         }
+           
     }
 
     public void DoFade(float alpha, float time, Action action)

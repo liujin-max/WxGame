@@ -45,6 +45,7 @@ SpriteAtlas:
   - {fileID: 21300000, guid: b20a1504b31a2cc4db5e902a6b1a1029, type: 3}
   - {fileID: 21300000, guid: 2dca79c4f0375ab419a10c04f4afff14, type: 3}
   - {fileID: 21300000, guid: ca33c3f41dbc58e4ca15095221746c4a, type: 3}
+  - {fileID: 21300000, guid: b63b7ec554e69d747bbd5d25f3aa777d, type: 3}
   - {fileID: 21300000, guid: 0b6c08d5e7ac49b4ba26e3638f732e02, type: 3}
   - {fileID: 21300000, guid: 1c2dfb1656a01c44d82cf10544b8919e, type: 3}
   - {fileID: 21300000, guid: bcfc8f16c13b34543a3f6a312658e33d, type: 3}
@@ -62,6 +63,7 @@ SpriteAtlas:
   - jelly_10021
   - jelly_10010
   - grid_1
+  - infection
   - jelly_10002
   - jelly_10011
   - jelly_10000

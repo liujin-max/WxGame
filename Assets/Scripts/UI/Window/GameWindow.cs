@@ -143,27 +143,29 @@ public class GameWindow : MonoBehaviour
     #region 监听事件
     private void OnReponseEnterStage(GameEvent @event)
     {
-        m_ButtonPivot.SetActive(Field.Instance.Stage.ID > 1);
+        var stage_level = @event.GetParam(0) as Stage;
 
-        m_StagePivot.SetActive(Field.Instance.Stage.MODE == _C.MODE.CHAPTER);
-        m_Stage.text = Field.Instance.Stage.ID.ToString();
-        m_SubStage.text = Field.Instance.Stage.ID.ToString();
+        m_ButtonPivot.SetActive(stage_level.ID > 1);
 
-        m_EndlessPivot.SetActive(Field.Instance.Stage.MODE == _C.MODE.ENDLESS);
-        m_Score.SetValue(Field.Instance.Stage.GetScore());
+        m_StagePivot.SetActive(stage_level.MODE == _C.MODE.CHAPTER);
+        m_Stage.text = stage_level.ID.ToString();
+        m_SubStage.text = stage_level.ID.ToString();
+
+        m_EndlessPivot.SetActive(stage_level.MODE == _C.MODE.ENDLESS);
+        m_Score.SetValue(stage_level.GetScore());
 
         m_Coin.ForceValue(GameFacade.Instance.DataCenter.User.Coin);
 
-        m_StepPivot.SetActive(Field.Instance.Stage.NeedCheckStep());
-        m_Step.text = Field.Instance.Stage.GetCurrentStep().ToString();
+        m_StepPivot.SetActive(stage_level.NeedCheckStep());
+        m_Step.text = stage_level.GetCurrentStep().ToString();
         m_Step.color= Color.white;
 
-        m_TimePivot.SetActive(Field.Instance.Stage.NeedCheckTimer());
-        m_Time.text = ToolUtility.Second2Minute(Mathf.CeilToInt(Field.Instance.Stage.GetCurrentTimer()));
+        m_TimePivot.SetActive(stage_level.NeedCheckTimer());
+        m_Time.text = ToolUtility.Second2Minute(Mathf.CeilToInt(stage_level.GetCurrentTimer()));
         m_Time.color= Color.white;
 
 
-        if (Field.Instance.Stage.MODE == _C.MODE.ENDLESS) {
+        if (stage_level.MODE == _C.MODE.ENDLESS) {
             m_ConditionBar.SetActive(false);
             return;
         }
@@ -171,16 +173,16 @@ public class GameWindow : MonoBehaviour
         //初始化条件
         m_ConditionBar.SetActive(true);
         m_ConditionItems.ForEach(item => {item.Show(false);});
-        for (int i = 0; i < Field.Instance.Stage.Conditions.Count; i++) {
-            var condition = Field.Instance.Stage.Conditions[i];
+        for (int i = 0; i < stage_level.Conditions.Count; i++) {
+            var condition = stage_level.Conditions[i];
             var item = new_condition_item(i);
             item.Init(condition);
         }
         
 
         //判断道具按钮的显示
-        m_BtnTime.gameObject.SetActive(Field.Instance.Stage.NeedCheckTimer());
-        m_BtnStep.gameObject.SetActive(Field.Instance.Stage.NeedCheckStep());
+        m_BtnTime.gameObject.SetActive(stage_level.NeedCheckTimer());
+        m_BtnStep.gameObject.SetActive(stage_level.NeedCheckStep());
     }
     
     private void OnReponseCoinUpdate(GameEvent @event)

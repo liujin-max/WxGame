@@ -13,6 +13,8 @@ public class Field : MonoBehaviour
     private FSM<Field> m_FSM;
 
     public GameWindow GameWindow;
+    private LevelTipsWindow m_LevelTipsWindow;
+    private GuideWindow m_GuideWindow;
 
 
     private Stage m_Stage;
@@ -74,9 +76,10 @@ public class Field : MonoBehaviour
             new State_Result<Field>(_C.FSMSTATE.RESULT)
         });
 
-        GameWindow = GameFacade.Instance.UIManager.LoadWindow("GameWindow", UIManager.BOTTOM).GetComponent<GameWindow>();
-
-        GameFacade.Instance.UIManager.LoadWindow("GuideWindow", UIManager.GUIDE);
+        GameWindow          = GameFacade.Instance.UIManager.LoadWindow("GameWindow", UIManager.BOTTOM).GetComponent<GameWindow>();
+        
+        m_LevelTipsWindow   = GameFacade.Instance.UIManager.LoadWindow("LevelTipsWindow", UIManager.GUIDE).GetComponent<LevelTipsWindow>();
+        m_GuideWindow       = GameFacade.Instance.UIManager.LoadWindow("GuideWindow", UIManager.GUIDE).GetComponent<GuideWindow>();
     }
 
     public void Enter(int stage)
@@ -118,6 +121,8 @@ public class Field : MonoBehaviour
         m_Instance = null;
 
         GameFacade.Instance.UIManager.UnloadWindow(GameWindow.gameObject);
+        GameFacade.Instance.UIManager.UnloadWindow(m_LevelTipsWindow.gameObject);
+        GameFacade.Instance.UIManager.UnloadWindow(m_GuideWindow.gameObject);
     }
 
     public void Dispose()

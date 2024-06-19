@@ -125,6 +125,7 @@ public class MapEditor : MonoBehaviour
             grid.Init(grid_json.Order, grid_json.X, grid_json.Y, pos);
             grid.IsValid    = grid_json.IsValid;
             grid.JellyID    = grid_json.JellyID;
+            grid.InfectionFlag = grid_json.InfectionFlag;
             grid.Portal     = grid_json.Portal;
 
             grid.IsBan      = grid_json.IsBan;
@@ -163,6 +164,7 @@ public class MapEditor : MonoBehaviour
             gj.Y        = g.Y;
             gj.IsValid  = g.IsValid;
             gj.JellyID  = g.JellyID;
+            gj.InfectionFlag = g.InfectionFlag;
             gj.Portal   = g.Portal;
             gj.IsBan    = g.IsBan;
             gj.AutoDirection = g.AutoDirection;

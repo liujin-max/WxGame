@@ -20,6 +20,10 @@ public class CardState
     //当前消除属于第几次Combo
     public int Combo;
 
+    //传染标记
+    //传染物爆炸时会把相邻的方块变成传染物的颜色
+    public bool InfectionFlag = false;
+
 
     public CardState(Card card)
     {

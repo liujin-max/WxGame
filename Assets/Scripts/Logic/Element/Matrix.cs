@@ -505,7 +505,8 @@ public class Matrix
                 is_preset   = true;
 
                 var grid    = Field.Instance.GetGrid(grid_json.X, grid_json.Y);
-                Field.Instance.PutCard(_C.CARD_STATE.NORMAL, GameFacade.Instance.DataCenter.GetCardData(grid_json.JellyID), grid);
+                var card    = Field.Instance.PutCard(_C.CARD_STATE.NORMAL, GameFacade.Instance.DataCenter.GetCardData(grid_json.JellyID), grid);
+                card.StateFlag.InfectionFlag = grid_json.InfectionFlag;
             }
         });
 

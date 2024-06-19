@@ -14,6 +14,7 @@ public class GridEditor : MonoBehaviour
 
     public bool IsValid = true;
     public int JellyID;
+    public bool InfectionFlag;
 
     [Header("对应传送门")]
     public Vector2 Portal;

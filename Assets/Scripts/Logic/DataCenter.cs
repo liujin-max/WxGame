@@ -42,6 +42,7 @@ public class GridJSON
 
     public bool IsValid = true;
     public int JellyID;
+    public bool InfectionFlag = false;
     public Vector2 Portal;
 
     public bool IsBan;

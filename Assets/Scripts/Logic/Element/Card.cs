@@ -170,7 +170,7 @@ public class Card
 
 
     //受到连锁反应
-    public void OnChain(_C.DIRECTION direction)
+    public void OnChain(Card broken_card, _C.DIRECTION direction)
     {
         //木箱
         //爆炸且在原地生成新的方块
@@ -183,6 +183,16 @@ public class Card
             GameFacade.Instance.DisplayEngine.Put(DisplayEngine.Track.Common, new DisplayEvent_BrokenCard(this));
 
             return;
+        }
+
+        //传染源
+        if (broken_card.m_StateFlag.InfectionFlag == true)
+        {
+            m_Data = broken_card.Data;
+            
+            m_StateFlag.InfectionFlag = broken_card.m_StateFlag.InfectionFlag;
+
+            m_Entity.Flush();
         }
 
         //普通方块会被推走逻辑

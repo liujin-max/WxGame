@@ -20,7 +20,7 @@ public class State_Chain<T> : State<Field>
                 foreach (_C.DIRECTION dir in Field.Instance.Directions) {
                     Card card = Field.Instance.GetCardByDirection(c.Grid, dir);
                     if (card != null) {
-                        card.OnChain(dir);
+                        card.OnChain(c, dir);
                     }
                 }
             }
