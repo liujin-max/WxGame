@@ -217,10 +217,14 @@ public class Card
             if (Field.Instance.Stage.NeedCheckStep()) {
                 Field.Instance.Stage.UpdateMoveStep(1);
                 EventManager.SendEvent(new GameEvent(EVENT.UI_UPDATESTEP, true));
+
+                GameFacade.Instance.EffectManager.Load(EFFECT.FLYSTEP, m_Entity.transform.position);
             } 
             else if (Field.Instance.Stage.NeedCheckTimer()) {
                 Field.Instance.Stage.UpdateCountDown(5);
                 EventManager.SendEvent(new GameEvent(EVENT.UI_UPDATETIME, true));
+
+                GameFacade.Instance.EffectManager.Load(EFFECT.FLYTIME, m_Entity.transform.position);
             } 
             else {
                 //收集
