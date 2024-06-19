@@ -12,7 +12,7 @@ public static class _C
     public static string JSON_PATH = Application.dataPath + "/Resources/Json";
 
     public static float DEFAULT_GRID_WEIGHT = 1.25f;
-    public static float DEFAULT_GRID_HEIGHT = 1.26f;
+    public static float DEFAULT_GRID_HEIGHT = 1.25f;
 
     
     public static int BOMB_UNLOCK_LEVEL     = 11;       //开放合成炸弹

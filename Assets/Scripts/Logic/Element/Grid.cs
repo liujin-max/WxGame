@@ -81,6 +81,7 @@ public class Grid
         DrawLines();
 
 
+
         //
         m_Ban   = Frame.Find("Ban").gameObject;
         m_Ban.SetActive(m_Data.IsBan);
@@ -341,6 +342,8 @@ public class Grid
         if (this.BeltDirection == _C.DIRECTION.NONE) {
             return;
         }
+
+        Frame.gameObject.SetActive(false);
 
         var entity  = GameFacade.Instance.UIManager.LoadPrefab("Prefab/Element/BeltArrow", Vector3.zero, Field.Instance.Land.ELEMENT_ROOT);
         entity.transform.localPosition      = this.Position;
