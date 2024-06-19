@@ -69,7 +69,8 @@ public class History
 
         //加载方块
         m_CardRecords.ForEach(c => {
-            Field.Instance.PutCard(c.STATE, c.Data, c.Grid);
+            var card = Field.Instance.PutCard(c.STATE, c.Data, c.Grid);
+            card.StateFlag = c.StateFlag;
         });
 
         //加载步数、倒计时

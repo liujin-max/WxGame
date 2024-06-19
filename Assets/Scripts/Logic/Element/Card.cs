@@ -186,7 +186,7 @@ public class Card
         }
 
         //传染源
-        if (broken_card.m_StateFlag.InfectionFlag == true)
+        if (broken_card.m_StateFlag.InfectionFlag == true && TYPE == _C.CARD_TYPE.JELLY)
         {
             m_Data = broken_card.Data;
             
@@ -243,6 +243,9 @@ public class Card
             }
         }
     }
+
+    //回合开始时
+
 
     public void Dispose()
     {

@@ -425,6 +425,53 @@ public class Matrix_20 : Matrix
 
 
 
+#region 第30关
+public class Matrix_30 : Matrix
+{
+    public override List<Card> AddCards()
+    {
+        //将虚化方块实体化
+        Field.Instance.CorporealCards();
+
+
+        //添加虚化方块
+        int min = 3;
+        int max = 6;
+
+        if (Field.Instance.GetDragableJellys().Count <= 5) {
+            min++;
+            max++;
+        }
+
+        int count   = RandomUtility.Random(min, max);
+
+        List<Card> cards = Field.Instance.InitGhostCards(count);
+
+        cards.ForEach(c => {
+            if (c.ID == 10004) c.StateFlag.InfectionFlag = true;
+        });
+
+        return cards;
+    }
+}
+#endregion
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 #region 无尽模式
 public class Matrix_10000 : Matrix
 {

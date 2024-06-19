@@ -27,7 +27,6 @@ public class State_Idle<T> : State<Field>
             Field.Instance.Transist(_C.FSMSTATE.CHECK);
             return;
         }
-            
 
         //记录当前布局
         Field.Instance.Turn++;
