@@ -144,7 +144,7 @@ public class Jelly : MonoBehaviour
 
         m_Emoji.gameObject.SetActive(true);
 
-        if (m_Card.IsEliminating) {
+        if (m_Card.StateFlag.IsEliminating) {
             m_Emoji.SetSprite("UI/Emoji/99", true);
             return;
         }

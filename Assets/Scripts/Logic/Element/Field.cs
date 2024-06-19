@@ -25,8 +25,6 @@ public class Field : MonoBehaviour
     private int m_Height = 6;
 
     public _C.GAME_STATE STATE = _C.GAME_STATE.NONE;
-    
-    public bool IsMoved = false;
 
     private Grid[,] m_Grids;
     public Grid[,] Grids {get{ return m_Grids;}}
@@ -39,6 +37,9 @@ public class Field : MonoBehaviour
 
     public _C.DIRECTION[] Directions = {_C.DIRECTION.UP, _C.DIRECTION.DOWN, _C.DIRECTION.LEFT, _C.DIRECTION.RIGHT};
 
+
+    public bool IsMoved = false;
+    public int Combo = 0;
 
     //记录每回合的状态
     private int m_Turn = 0;
@@ -123,6 +124,7 @@ public class Field : MonoBehaviour
     {
         STATE   = _C.GAME_STATE.NONE;
         IsMoved = false;
+        Combo   = 0;
         m_Turn  = 0;
 
         m_Stage.Dispose();
@@ -748,11 +750,11 @@ public class Field : MonoBehaviour
             {   
                 List<Card> nears = this.GetSameCardNear(card.Grid, card.ID);
                 if (nears.Count > 0) {
-                    card.IsReady2Eliminate = true;  
+                    card.StateFlag.IsReady2Eliminate = true;  
                 }
             }
 
-            if (card.IsReady2Eliminate)
+            if (card.StateFlag.IsReady2Eliminate)
             {
                 _Removes.Add(card); 
             }
@@ -768,16 +770,18 @@ public class Field : MonoBehaviour
     //计算消除是否生成飞弹、炸弹
     void CheckLink(List<Card> remove_cards)
     {
-        if (m_Stage.ID < _C.BOMB_UNLOCK_LEVEL) return;
-
-
         for (int i = remove_cards.Count - 1; i >= 0; i--)
         {
             Card card   = remove_cards[i];
 
             if (card.IsBomb() || card.TYPE == _C.CARD_TYPE.FRAME) continue;
 
+            //生成消除方块所属的link
             List<Card> links = this.GenerateLinkCards(card);
+
+            //计算消除是否生成飞弹、炸弹
+            if (m_Stage.ID < _C.BOMB_UNLOCK_LEVEL) continue;
+
             if (links.Count > 1)
             {
                 int near_count  = 1;
@@ -798,11 +802,11 @@ public class Field : MonoBehaviour
                     //消除3个同色方块，产生一枚飞弹
                     //消除4个同色方块，产生一枚炸弹
                     if (links.Count == 3) {
-                        cs_card.DerivedID = (int)_C.CARD.MISSILE;
+                        cs_card.StateFlag.DerivedID = (int)_C.CARD.MISSILE;
                     }
 
                     if (links.Count > 3) {
-                        cs_card.DerivedID = (int)_C.CARD.BOMB;
+                        cs_card.StateFlag.DerivedID = (int)_C.CARD.BOMB;
                     }
                 }
             }
@@ -814,11 +818,11 @@ public class Field : MonoBehaviour
     {
         List<Card> link_cards = new List<Card>();
 
-        if (card.Link != null) {
+        if (card.StateFlag.Link != null) {
             return link_cards;
         }
 
-        card.Link = card;
+        card.StateFlag.Link = card;
         link_cards.Add(card);
 
         var near_cards = this.GetSameCardNear(card.Grid, card.ID);
@@ -826,8 +830,8 @@ public class Field : MonoBehaviour
         while (near_cards.Count > 0) {
             var c = near_cards[0];
             //未访问过 且 能被消除的(并不一定相邻就一定会消除，石块木块这类特殊方块)
-            if (c.Link == null && c.IsReady2Eliminate == true) {
-                c.Link = card;
+            if (c.StateFlag.Link == null && c.StateFlag.IsReady2Eliminate == true) {
+                c.StateFlag.Link = card;
                 link_cards.Add(c);
                 near_cards.AddRange(this.GetSameCardNear(c.Grid, c.ID));
             }

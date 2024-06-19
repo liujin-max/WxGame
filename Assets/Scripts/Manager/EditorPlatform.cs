@@ -82,4 +82,10 @@ public class EditorPlatform : Platform
     {
 
     }
+
+    //游戏圈
+    public override void SHOWCLUBBUTTON(bool flag)
+    {
+
+    }
 }

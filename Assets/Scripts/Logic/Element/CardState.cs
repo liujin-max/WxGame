@@ -1,0 +1,28 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+
+//负责存储方块的各种状态
+public class CardState
+{
+    
+    public _C.DEAD_TYPE DeadType = _C.DEAD_TYPE.NORMAL;
+
+    //准备分解
+    public bool IsReady2Eliminate = false;
+    //死亡分解中
+    public bool IsEliminating = false;
+    //衍生物ID
+    public int DerivedID = -1;
+    //消除所处的方块link
+    public Card Link;
+    //当前消除属于第几次Combo
+    public int Combo;
+
+
+    public CardState(Card card)
+    {
+        
+    }
+}

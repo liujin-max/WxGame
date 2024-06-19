@@ -10,7 +10,7 @@ public class State_Check<T> : State<Field>
 
     public override void Enter(params object[] values)
     {
-        Field.Instance.IsMoved = false;
+        Field.Instance.IsMoved  = false;
 
         Field.Instance.Stage.AddCards(); 
 

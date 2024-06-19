@@ -92,6 +92,7 @@
     <Compile Include="Assets\AllIn1SpriteShader\Scripts\AllIn1Shader.cs" />
     <Compile Include="Assets\Scripts\Struct\CDTimer.cs" />
     <Compile Include="Assets\Scripts\Manager\EditorPlatform.cs" />
+    <Compile Include="Assets\Scripts\UI\Window\DailyWindow.cs" />
     <Compile Include="Assets\Scripts\Manager\OBJManager.cs" />
     <Compile Include="Assets\Scripts\Logic\Element\Matrix.cs" />
     <Compile Include="Assets\Scripts\EVENT.cs" />
@@ -106,7 +107,9 @@
     <Compile Include="Assets\Scripts\UI\Window\VictoryWindow.cs" />
     <Compile Include="Assets\DOTween\Modules\DOTweenModulePhysics.cs" />
     <Compile Include="Assets\AllIn1SpriteShader\Demo\Scripts\DemoCamera.cs" />
+    <Compile Include="Assets\Scripts\UI\Item\DailyItem.cs" />
     <Compile Include="Assets\Scripts\Effect\RateNumber.cs" />
+    <Compile Include="Assets\Scripts\Logic\Element\Task.cs" />
     <Compile Include="Assets\Scripts\SOUND.cs" />
     <Compile Include="Assets\Scripts\Effect\ButtonScale.cs" />
     <Compile Include="Assets\Scripts\Utility\ImageGray.cs" />
@@ -126,6 +129,7 @@
     <Compile Include="Assets\Scripts\Effect\Fly.cs" />
     <Compile Include="Assets\Scripts\MapEditor\MapEditor.cs" />
     <Compile Include="Assets\Scripts\UI\Window\GameWindow.cs" />
+    <Compile Include="Assets\Scripts\Logic\Element\Daily.cs" />
     <Compile Include="Assets\Scripts\Logic\NavigationController.cs" />
     <Compile Include="Assets\AllIn1SpriteShader\Scripts\SetAtlasUvs.cs" />
     <Compile Include="Assets\Scripts\Logic\Element\Grid.cs" />
@@ -141,6 +145,7 @@
     <Compile Include="Assets\Scripts\Manager\EffectManager.cs" />
     <Compile Include="Assets\Scripts\Struct\AttributeValue.cs" />
     <Compile Include="Assets\Scripts\Display\DisplayEvent.cs" />
+    <Compile Include="Assets\Scripts\UI\Window\FoodWindow.cs" />
     <Compile Include="Assets\Scripts\Effect\FlyFood.cs" />
     <Compile Include="Assets\Scripts\Manager\TimeManager.cs" />
     <Compile Include="Assets\Scripts\GameFacade.cs" />
@@ -172,11 +177,7 @@
     <Compile Include="Assets\Scripts\Effect\Shine.cs" />
     <Compile Include="Assets\DOTween\Modules\DOTweenModuleUnityVersion.cs" />
     <Compile Include="Assets\Scripts\UI\Window\TipWindow.cs" />
-    <Compile Include="Assets\Scripts\UI\Window\FoodWindow.cs" />
-    <Compile Include="Assets\Scripts\Logic\Element\Task.cs" />
-    <Compile Include="Assets\Scripts\Logic\Element\Daily.cs" />
-    <Compile Include="Assets\Scripts\UI\Window\DailyWindow.cs" />
-    <Compile Include="Assets\Scripts\UI\Item\DailyItem.cs" />
+    <Compile Include="Assets\Scripts\Logic\Element\CardState.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Resources\Shader\SpriteGray.shader" />
@@ -493,7 +494,7 @@
       <Private>False</Private>
     </Reference>
     <Reference Include="Unity.FontABTool">
-      <HintPath>Library\PackageCache\com.qq.weixin.minigame@2c8fc737b7\Runtime\Plugins\Unity.FontABTool.dll</HintPath>
+      <HintPath>Library\PackageCache\com.qq.weixin.minigame@9ce19adac1\Runtime\Plugins\Unity.FontABTool.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="Newtonsoft.Json">
@@ -501,7 +502,7 @@
       <Private>False</Private>
     </Reference>
     <Reference Include="wx-runtime-editor">
-      <HintPath>Library\PackageCache\com.qq.weixin.minigame@2c8fc737b7\Runtime\Plugins\wx-runtime-editor.dll</HintPath>
+      <HintPath>Library\PackageCache\com.qq.weixin.minigame@9ce19adac1\Runtime\Plugins\wx-runtime-editor.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="Unity.Burst.Unsafe">
@@ -517,7 +518,7 @@
       <Private>False</Private>
     </Reference>
     <Reference Include="LitJson">
-      <HintPath>Library\PackageCache\com.qq.weixin.minigame@2c8fc737b7\Runtime\Plugins\LitJson.dll</HintPath>
+      <HintPath>Library\PackageCache\com.qq.weixin.minigame@9ce19adac1\Runtime\Plugins\LitJson.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="Unity.VisualScripting.Antlr3.Runtime">

@@ -336,13 +336,13 @@ public class DisplayEvent_BrokenCard : DisplayEvent
 
         var card = m_Params[0] as Card;
 
-        if (card.IsEliminating) {
+        if (card.StateFlag.IsEliminating) {
             m_State = _C.DISPLAY_STATE.END;
             return;
         }
 
         // Debug.Log("消除方块：" + card.Name + " => " + card.Grid.X + ", " + card.Grid.Y);
-        card.IsEliminating = true;
+        card.StateFlag.IsEliminating = true;
         
     }
 
@@ -350,14 +350,14 @@ public class DisplayEvent_BrokenCard : DisplayEvent
     {
         var card = m_Params[0] as Card;
 
-        if (card.DeadType == _C.DEAD_TYPE.BOMB) {
+        if (card.StateFlag.DeadType == _C.DEAD_TYPE.BOMB) {
             m_State = _C.DISPLAY_STATE.END;
             Field.Instance.Land.DoSmallShake();
             GameFacade.Instance.EffectManager.Load(EFFECT.BOMB, card.Entity.transform.position);
             return;
         }
 
-        if (card.DeadType == _C.DEAD_TYPE.DIGESTE) {
+        if (card.StateFlag.DeadType == _C.DEAD_TYPE.DIGESTE) {
             m_State = _C.DISPLAY_STATE.END;
             return;
         }

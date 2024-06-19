@@ -22,12 +22,16 @@ public class LoginWindow : MonoBehaviour
     
     void Awake()
     {
+        Platform.Instance.SHOWCLUBBUTTON(true);
+
         EventManager.AddHandler(EVENT.UI_UPDATECOIN,    OnFlushUI);
         EventManager.AddHandler(EVENT.UI_UPDATEFOOD,    OnFlushUI);
     }
 
     void OnDestroy()
     {
+        Platform.Instance.SHOWCLUBBUTTON(false);
+
         EventManager.DelHandler(EVENT.UI_UPDATECOIN,    OnFlushUI);
         EventManager.DelHandler(EVENT.UI_UPDATEFOOD,    OnFlushUI);
     }
@@ -165,6 +169,8 @@ public class LoginWindow : MonoBehaviour
     void FixedUpdate()
     {
         FlushElements();
+
+        Platform.Instance.SHOWCLUBBUTTON(!GameFacade.Instance.UIManager.HasBoard());
     }
 
     IEnumerator Entry()

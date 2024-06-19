@@ -12,6 +12,7 @@ public class WXPlatform : Platform
 {
     private Dictionary<string, WXBannerAd> m_BannerADPairs = new Dictionary<string, WXBannerAd>();
     private Dictionary<string, WXCustomAd> m_CustomADPairs = new Dictionary<string, WXCustomAd>();
+    private WXGameClubButton m_BtnClub;
 
     public override void INIT(Action callback)
     {
@@ -384,12 +385,6 @@ public class WXPlatform : Platform
     //打开其他小游戏
     public override void OPENMINIGAME(string appid)
     {
-        // WXCreateGameClubButtonParam param = new WXCreateGameClubButtonParam();
-        // param.type = GameClubButtonType.text;
-        // param.icon = GameClubButtonIcon.green;
-        // WX.CreateGameClubButton(param);
-
-
         //
         NavigateToMiniProgramOption option = new NavigateToMiniProgramOption();
         option.appId    = appid;
@@ -399,6 +394,35 @@ public class WXPlatform : Platform
 
 
         WX.NavigateToMiniProgram(option);
+    }
+
+    //游戏圈
+    public override void SHOWCLUBBUTTON(bool flag)
+    {
+        if (flag == true)
+        {
+            if (m_BtnClub == null)
+            {
+                var info = WX.GetSystemInfoSync();
+
+                WXCreateGameClubButtonParam param = new WXCreateGameClubButtonParam();
+                param.type = GameClubButtonType.image;
+                param.icon = GameClubButtonIcon.green;
+                param.style.left    = 30;//(int)info.screenWidth / 2 - 144; //60;
+                param.style.top     = (int)info.screenHeight / 2 + 30;
+                param.style.width   = 35;
+                param.style.height  = 35;
+                m_BtnClub = WX.CreateGameClubButton(param);
+            }
+            
+            m_BtnClub.Show();
+        }
+        else
+        {
+            if (m_BtnClub != null) m_BtnClub.Hide();
+        }
+        
+
     }
 }
 

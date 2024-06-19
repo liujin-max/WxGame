@@ -82,4 +82,9 @@ public class UIManager : MonoBehaviour
 
         return obj;
     }
+
+    public bool HasBoard()
+    {
+        return BOARD.childCount > 0;
+    }
 }

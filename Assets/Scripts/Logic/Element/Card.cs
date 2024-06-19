@@ -13,11 +13,22 @@ public class Card
     public string Name {get {return m_Data.Name;}}
     public _C.CARD_TYPE TYPE {get {return m_Data.Type;}}
 
+    //状态
+    public _C.CARD_STATE STATE;
+
+
     //当前格子
     private Grid m_Grid;
     public Grid Grid {
         get {return m_Grid;} 
         set {m_Grid = value;}
+    }
+
+    //存储各种临时状态
+    private CardState m_StateFlag;
+    public CardState StateFlag {
+        get {return m_StateFlag;} 
+        set {m_StateFlag = value;}
     }
 
     //实体
@@ -26,11 +37,8 @@ public class Card
         get {return m_Entity;}
     }
 
-    //状态
-    public _C.CARD_STATE STATE;
+   
 
-    private _C.DEAD_TYPE m_DeadType = _C.DEAD_TYPE.NORMAL;
-    public _C.DEAD_TYPE DeadType {get {return m_DeadType;}}
 
     //可拖动(不可拖动)
     private bool m_Dragable = true;
@@ -38,7 +46,7 @@ public class Card
         get {
             if (TYPE == _C.CARD_TYPE.FRAME) return false;
             if (STATE == _C.CARD_STATE.GHOST) return false;
-            if (IsEliminating || IsFixed) return false;
+            if (m_StateFlag.IsEliminating || IsFixed) return false;
 
             return m_Dragable;
         }
@@ -63,27 +71,15 @@ public class Card
         }
     }
     
-
     //可击破的
     //石块只可被炸弹之类的击破
     public bool Breakable {get {return m_Data.Breakable;}}
 
+
     //本次移动所经过的格子
     public List<Grid> CrossGrids = new List<Grid>();
    
-   //准备分解
-    public bool IsReady2Eliminate = false;
-    //死亡分解中
-    public bool IsEliminating = false;
 
-
-    //衍生物ID
-    public int DerivedID = -1;
-    
-
-
-    //消除所处的方块link
-    public Card Link;
 
 
 
@@ -95,7 +91,9 @@ public class Card
 
     public Card(CardData cardData)
     {
-        m_Data = cardData;
+        m_Data  = cardData;
+
+        m_StateFlag = new CardState(this);
     }
 
     public void Display()
@@ -125,8 +123,8 @@ public class Card
 
     public void DoBomb()
     {
-        m_DeadType = _C.DEAD_TYPE.BOMB;
-        IsReady2Eliminate = true;
+        m_StateFlag.DeadType = _C.DEAD_TYPE.BOMB;
+        m_StateFlag.IsReady2Eliminate = true;
     }
 
     //移动中处理
@@ -178,8 +176,8 @@ public class Card
         //爆炸且在原地生成新的方块
         if (this.ID == (int)_C.CARD.WOOD)   
         {
-            m_DeadType = _C.DEAD_TYPE.DIGESTE;
-            IsReady2Eliminate = true;
+            m_StateFlag.DeadType = _C.DEAD_TYPE.DIGESTE;
+            m_StateFlag.IsReady2Eliminate = true;
 
             Field.Instance.RemoveCard(this);
             GameFacade.Instance.DisplayEngine.Put(DisplayEngine.Track.Common, new DisplayEvent_BrokenCard(this));
@@ -195,8 +193,8 @@ public class Card
     public void OnAfterChain()
     {
         //衍生物
-        if (this.DerivedID > 0) {
-            Field.Instance.PutCard(_C.CARD_STATE.NORMAL, GameFacade.Instance.DataCenter.GetCardData(DerivedID), m_Grid);   
+        if (m_StateFlag.DerivedID > 0) {
+            Field.Instance.PutCard(_C.CARD_STATE.NORMAL, GameFacade.Instance.DataCenter.GetCardData(m_StateFlag.DerivedID), m_Grid);   
         }
 
 
@@ -211,6 +209,24 @@ public class Card
         {
             int rand    = RandomUtility.Random(0, Field.Instance.Stage.Cards.Count);
             Field.Instance.PutCard(_C.CARD_STATE.NORMAL, Field.Instance.Stage.Cards[rand], m_Grid, true);
+        }
+
+        //连击奖励
+        if (m_StateFlag.Combo >= 3)
+        {
+            if (Field.Instance.Stage.NeedCheckStep()) {
+                Field.Instance.Stage.UpdateMoveStep(1);
+                EventManager.SendEvent(new GameEvent(EVENT.UI_UPDATESTEP, true));
+            } 
+            else if (Field.Instance.Stage.NeedCheckTimer()) {
+                Field.Instance.Stage.UpdateCountDown(5);
+                EventManager.SendEvent(new GameEvent(EVENT.UI_UPDATETIME, true));
+            } 
+            else {
+                //收集
+                Field.Instance.Stage.Collect(this.ID, 1);
+                EventManager.SendEvent(new GameEvent(EVENT.UI_UPDATESCORE));
+            }
         }
     }
 

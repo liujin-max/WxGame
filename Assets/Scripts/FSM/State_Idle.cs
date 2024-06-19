@@ -13,6 +13,8 @@ public class State_Idle<T> : State<Field>
     {
         EventManager.AddHandler(EVENT.ONCARDMOVED,      OnCardMoved);
 
+        Field.Instance.Combo    = 0;
+
         _C.RESULT result = Field.Instance.CheckResult();
         if (result != _C.RESULT.NONE)
         {

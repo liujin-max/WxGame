@@ -13,10 +13,18 @@ public class State_Eliminate<T> : State<Field>
     public override void Enter(params object[] values)
     {
         _Removes = Field.Instance.CheckEliminate();
-
+        
+        HashSet<Card> links = new HashSet<Card>();
         //有宝石要消除，则消除并进入连锁反应
         if (_Removes.Count > 0) {
             _Removes.ForEach(card => {
+                if (!links.Contains(card.StateFlag.Link)) {
+                    links.Add(card.StateFlag.Link);
+
+                    Field.Instance.Combo++;
+                    card.StateFlag.Link.StateFlag.Combo = Field.Instance.Combo;
+                }
+
                 Field.Instance.RemoveCard(card);
                 GameFacade.Instance.DisplayEngine.Put(DisplayEngine.Track.Common, new DisplayEvent_BrokenCard(card));
             });

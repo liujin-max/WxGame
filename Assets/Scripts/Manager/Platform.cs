@@ -42,5 +42,6 @@ public abstract class Platform
     public abstract void ADAPTATION(RectTransform rectTransform);
     //打开其他小游戏
     public abstract void OPENMINIGAME(string appid);
-
+    //游戏圈
+    public abstract void SHOWCLUBBUTTON(bool flag);
 }
