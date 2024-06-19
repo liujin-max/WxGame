@@ -29,4 +29,11 @@ public class CardState
     {
         
     }
+
+    public void Copy(CardState card_state)
+    {
+        DerivedID       = card_state.DerivedID;
+        InfectionFlag   = card_state.InfectionFlag;
+        
+    }
 }

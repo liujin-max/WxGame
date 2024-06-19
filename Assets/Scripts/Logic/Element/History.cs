@@ -33,6 +33,7 @@ public class History
             Card card = new Card(GameFacade.Instance.DataCenter.GetCardData(c.ID));
             card.Grid = c.Grid;
             card.STATE= c.STATE;
+            card.StateFlag.Copy(c.StateFlag);
 
             m_CardRecords.Add(card);
         });
@@ -41,6 +42,7 @@ public class History
             Card card = new Card(GameFacade.Instance.DataCenter.GetCardData(c.ID));
             card.Grid = c.Grid;
             card.STATE= c.STATE;
+            card.StateFlag.Copy(c.StateFlag);
 
             m_CardRecords.Add(card);
         });
@@ -70,7 +72,7 @@ public class History
         //加载方块
         m_CardRecords.ForEach(c => {
             var card = Field.Instance.PutCard(c.STATE, c.Data, c.Grid);
-            card.StateFlag = c.StateFlag;
+            card.StateFlag.Copy(c.StateFlag);
         });
 
         //加载步数、倒计时
