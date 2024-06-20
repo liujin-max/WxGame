@@ -88,6 +88,7 @@
     <Compile Include="Assets\Scripts\Manager\WXPlatform.cs" />
     <Compile Include="Assets\AllIn1SpriteShader\Demo\Scripts\All1ShaderDemoController.cs" />
     <Compile Include="Assets\Scripts\Logic\Element\Card.cs" />
+    <Compile Include="Assets\Scripts\Logic\Element\CardState.cs" />
     <Compile Include="Assets\Scripts\Effect\Rotate.cs" />
     <Compile Include="Assets\AllIn1SpriteShader\Scripts\AllIn1Shader.cs" />
     <Compile Include="Assets\Scripts\Struct\CDTimer.cs" />
@@ -98,6 +99,7 @@
     <Compile Include="Assets\Scripts\EVENT.cs" />
     <Compile Include="Assets\Scripts\Utility\UIMaskUtility.cs" />
     <Compile Include="Assets\Scripts\Manager\SceneManager.cs" />
+    <Compile Include="Assets\Scripts\UI\Window\LevelTipsWindow.cs" />
     <Compile Include="Assets\DOTween\Modules\DOTweenModuleUtils.cs" />
     <Compile Include="Assets\Scripts\Utility\CSVUtility.cs" />
     <Compile Include="Assets\AllIn1SpriteShader\Demo\Scripts\DemoItem.cs" />
@@ -177,8 +179,6 @@
     <Compile Include="Assets\Scripts\Effect\Shine.cs" />
     <Compile Include="Assets\DOTween\Modules\DOTweenModuleUnityVersion.cs" />
     <Compile Include="Assets\Scripts\UI\Window\TipWindow.cs" />
-    <Compile Include="Assets\Scripts\Logic\Element\CardState.cs" />
-    <Compile Include="Assets\Scripts\UI\Window\LevelTipsWindow.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Resources\Shader\SpriteGray.shader" />
