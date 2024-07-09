@@ -17,6 +17,7 @@ namespace CB
         [SerializeField] private Button BtnRank;
         [SerializeField] private Button BtnAchievement;
         [SerializeField] private Button BtnShare;
+        [SerializeField] private Button BtnMore;
         [SerializeField] private TextMeshProUGUI c_Version;
 
 
@@ -70,6 +71,10 @@ namespace CB
 
             BtnShare.onClick.AddListener(()=>{
                 Platform.Instance.SHARE("来帮帮我！");
+            });
+
+            BtnMore.onClick.AddListener(()=>{
+                GameFacade.Instance.UIManager.LoadWindow("Prefab/UI/MoreGameWindow", GameFacade.Instance.UIManager.BOARD);
             });
 
 

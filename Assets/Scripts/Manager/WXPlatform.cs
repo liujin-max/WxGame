@@ -402,6 +402,14 @@ public class WXPlatform : Platform
         rectTransform.offsetMin = Vector2.zero;
         rectTransform.offsetMax = Vector2.zero;
     }
+
+     public override void OPENMINIGAME(string appid)
+    {
+        NavigateToMiniProgramOption option= new NavigateToMiniProgramOption();
+        option.appId = appid;
+
+        WX.NavigateToMiniProgram(option);
+    }
 }
 
 #endif

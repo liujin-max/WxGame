@@ -46,4 +46,7 @@ public abstract class Platform
     //适配UI
     public abstract void ADAPTATION(RectTransform rectTransform);
 
+    //
+    public abstract void OPENMINIGAME(string appid);
+
 }

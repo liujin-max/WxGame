@@ -105,4 +105,9 @@ public class EditorPlatform : Platform
     {
 
     }
+
+    public override void OPENMINIGAME(string appid)
+    {
+
+    }
 }
